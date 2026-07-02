@@ -45,141 +45,175 @@
 </script>
 <style>
 :root{
-  --bg:#0B0D10; --panel:#12151A; --line:#1F242C; --ink:#E9ECEF;
-  --muted:#98A2AE; --dim:#5C6672; --jade:#43D9A3; --jade-dim:#2A8A68;
+  --bg:#050608; --bg2:#0A0C0F; --panel:#0E1116; --panel2:#12161C;
+  --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.12);
+  --ink:#F2F4F7; --muted:#8B95A3; --dim:#4E5866;
+  --jade:#3FDDA0; --jade-soft:rgba(63,221,160,.12); --jade-line:rgba(63,221,160,.28);
   --mono:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
-  --sans:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --sans:-apple-system,"Segoe UI Variable Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:var(--jade);text-decoration:none}
-a:hover{text-decoration:underline}
-a:focus-visible,button:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
-.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
-.eyebrow{font:600 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--jade)}
-h1,h2{text-wrap:balance;font-weight:650}
-h2{font-size:1.35rem;margin:0 0 .75rem}
-p{max-width:62ch}
+a:hover{opacity:.85}
+a:focus-visible,button:focus-visible{outline:2px solid var(--jade);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.eyebrow{font:600 11px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--jade)}
+h1,h2{text-wrap:balance;letter-spacing:-.02em}
+p{max-width:64ch}
 .muted{color:var(--muted)}
 
+/* ambient glow */
+.glow{position:fixed;top:-320px;left:50%;transform:translateX(-50%);width:1100px;height:640px;border-radius:50%;background:radial-gradient(closest-side,rgba(63,221,160,.09),transparent 70%);pointer-events:none;z-index:0}
+.wrap,nav{position:relative;z-index:1}
+
 /* nav */
-nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line)}
-.logo{font:700 20px/1 var(--mono);color:var(--ink);letter-spacing:.02em}
-.logo span{color:var(--jade)}
-nav .links{display:flex;gap:22px;font-size:.9rem}
-nav .links a{color:var(--muted)}
-nav .links a:hover{color:var(--ink);text-decoration:none}
+nav{display:flex;align-items:center;justify-content:space-between;padding:26px 0}
+.navin{max-width:1120px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;width:100%}
+.logo{font:700 21px/1 var(--mono);letter-spacing:.03em;color:var(--ink)}
+.logo b{color:var(--jade);font-weight:700}
+nav .links{display:flex;gap:30px;font-size:.88rem;align-items:center}
+nav .links a{color:var(--muted);transition:color .2s}
+nav .links a:hover{color:var(--ink);opacity:1}
+.navcta{border:1px solid var(--jade-line);color:var(--jade)!important;padding:.5rem 1.1rem;border-radius:100px;background:var(--jade-soft)}
 
 /* hero */
-.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;padding:88px 0 72px}
-.hero h1{font-size:clamp(2rem,4.6vw,3.1rem);line-height:1.12;margin:.9rem 0 1rem}
-.hero h1 em{font-style:normal;color:var(--jade)}
-.lede{font-size:1.08rem;color:var(--muted)}
-.cta{display:flex;gap:14px;margin-top:1.8rem;flex-wrap:wrap}
-.btn{display:inline-block;padding:.7rem 1.25rem;border:1px solid var(--line);color:var(--ink);font:600 .92rem var(--sans)}
-.btn:hover{border-color:var(--jade);text-decoration:none}
-.btn.primary{background:var(--jade);border-color:var(--jade);color:#07100C}
-.btn.primary:hover{background:#5BE7B4}
+.hero{text-align:center;padding:96px 0 30px}
+.hero .eyebrow{display:inline-block;border:1px solid var(--jade-line);background:var(--jade-soft);padding:.55rem 1.1rem;border-radius:100px}
+.hero h1{font-size:clamp(2.6rem,6.4vw,4.6rem);line-height:1.05;font-weight:680;margin:1.6rem auto 1.2rem;max-width:15ch}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,var(--jade),#8CF0C8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lede{font-size:1.14rem;color:var(--muted);max-width:56ch;margin:0 auto}
+.cta{display:flex;gap:14px;margin:2.4rem 0 0;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:.85rem 1.7rem;border-radius:100px;font:600 .95rem var(--sans);border:1px solid var(--line2);color:var(--ink);transition:transform .15s,border-color .2s}
+.btn:hover{transform:translateY(-1px);border-color:var(--jade-line);opacity:1}
+.btn.primary{background:linear-gradient(120deg,#3FDDA0,#2FBF88);border:0;color:#04120B;box-shadow:0 8px 32px rgba(63,221,160,.25)}
 
-/* receipt card */
-.receipt{background:var(--panel);border:1px solid var(--line);font:13px/1.7 var(--mono);padding:22px 24px;position:relative}
-.receipt::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--jade)}
-.receipt .rrow{display:flex;justify-content:space-between;gap:16px;white-space:nowrap}
-.receipt .k{color:var(--dim)}
-.receipt .v{color:var(--ink);overflow:hidden;text-overflow:ellipsis}
-.receipt .ok{color:var(--jade)}
-.receipt hr{border:0;border-top:1px dashed var(--line);margin:12px 0}
-.receipt .stamp{margin-top:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--jade)}
+/* live feed */
+.feedwrap{margin:72px auto 0;max-width:860px;border:1px solid var(--line2);border-radius:16px;background:linear-gradient(180deg,var(--panel2),var(--panel));box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);overflow:hidden}
+.feedbar{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--line);font:600 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--jade);box-shadow:0 0 10px var(--jade)}
+.feed{font:13.5px/1.5 var(--mono);padding:10px 0;height:236px;overflow:hidden;position:relative}
+.feed::after{content:"";position:absolute;inset:auto 0 0 0;height:60px;background:linear-gradient(transparent,var(--panel))}
+.frow{display:grid;grid-template-columns:88px 1fr 200px 120px;gap:18px;padding:9px 22px;white-space:nowrap;opacity:0;animation:rise .5s ease-out forwards}
+.frow .t{color:var(--dim)}
+.frow .m{color:var(--ink);overflow:hidden;text-overflow:ellipsis}
+.frow .s{color:var(--dim);overflow:hidden;text-overflow:ellipsis}
+.frow .ok{color:var(--jade);text-align:right}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.frow{animation:none;opacity:1}}
+
+/* metrics */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:80px 0 0}
+.metric{background:var(--bg2);padding:30px 26px;text-align:left}
+.metric .n{font:650 2.1rem/1 var(--sans);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.metric .n span{color:var(--jade)}
+.metric .l{margin-top:.6rem;font-size:.85rem;color:var(--muted)}
 
 /* sections */
-section{padding:56px 0;border-top:1px solid var(--line)}
-.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:1.5rem}
-.cols h3{font-size:1rem;margin:.5rem 0 .4rem}
-.cols p{font-size:.92rem;color:var(--muted);margin:0}
-.cols .tag{font:600 11px/1 var(--mono);letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+section{padding:110px 0 0}
+.sechead{max-width:60ch;margin-bottom:2.6rem}
+h2{font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.15;font-weight:660;margin:.9rem 0 1rem}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:30px 28px;transition:border-color .25s,transform .25s}
+.card:hover{border-color:var(--jade-line);transform:translateY(-3px)}
+.card .num{font:600 11px var(--mono);letter-spacing:.2em;color:var(--dim)}
+.card h3{font-size:1.08rem;margin:1rem 0 .5rem;font-weight:640}
+.card p{font-size:.93rem;color:var(--muted);margin:0}
 
-table{border-collapse:collapse;width:100%;margin:1.25rem 0;font-size:.93rem}
-th,td{border:1px solid var(--line);padding:.6rem .75rem;text-align:left;vertical-align:top}
-th{background:var(--panel);font:600 12px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-td .yes{color:var(--jade);font-family:var(--mono)}
+/* comparison + ecosystem tables */
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:.94rem}
+.tablecard{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel)}
+th,td{padding:.95rem 1.3rem;text-align:left;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{background:var(--panel2);font:600 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+td .yes{color:var(--jade);font-family:var(--mono);font-weight:600}
 td .no{color:var(--dim);font-family:var(--mono)}
 .tablewrap{overflow-x:auto}
-td a{white-space:nowrap}
-code{background:var(--panel);border:1px solid var(--line);padding:.1em .4em;font:.88em var(--mono);color:var(--ink)}
+code{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:.15em .5em;font:.86em var(--mono);color:var(--ink)}
+td a{white-space:nowrap;font-weight:600}
 
-.prooflist{list-style:none;padding:0;margin:1.25rem 0 0;display:grid;gap:10px}
-.prooflist li{background:var(--panel);border:1px solid var(--line);padding:.85rem 1rem;font-size:.93rem;display:flex;gap:14px;flex-wrap:wrap;align-items:baseline}
-.prooflist .k{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-width:150px}
+/* proof strip */
+.proofgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.proof{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:26px 26px;transition:border-color .25s}
+.proof:hover{border-color:var(--jade-line)}
+.proof .k{font:600 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--jade)}
+.proof a{display:block;font:600 1.02rem var(--sans);color:var(--ink);margin:.7rem 0 .35rem}
+.proof p{font-size:.88rem;color:var(--muted);margin:0}
 
-footer{border-top:1px solid var(--line);padding:40px 0 56px;font-size:.85rem;color:var(--dim)}
+footer{margin-top:120px;border-top:1px solid var(--line);padding:44px 0 64px;font-size:.85rem;color:var(--dim)}
 footer p{max-width:none}
-footer .kw{margin-top:1rem;line-height:1.9}
+footer .kw{margin-top:1.2rem;line-height:2;color:#39424E}
 
-@media (max-width:840px){
-  .hero{grid-template-columns:1fr;gap:40px;padding:56px 0 48px}
-  .cols{grid-template-columns:1fr}
+@media (max-width:900px){
+  .cards,.proofgrid{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(2,1fr)}
   nav .links{display:none}
-}
-@media (prefers-reduced-motion:no-preference){
-  .receipt{animation:settle .6s ease-out}
-  @keyframes settle{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .frow{grid-template-columns:70px 1fr 90px}
+  .frow .s{display:none}
+  section{padding:80px 0 0}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="glow" aria-hidden="true"></div>
 
-<nav>
-  <div class="logo">0n<span>1</span>x</div>
+<nav><div class="navin">
+  <div class="logo">0n<b>1</b>x</div>
   <div class="links">
-    <a href="#what">What it does</a>
+    <a href="#how">How it works</a>
+    <a href="#rhino">Rhinogent</a>
+    <a href="#seat">Why 0n1x</a>
     <a href="#ecosystem">Ecosystem</a>
     <a href="#proof">Live proof</a>
-    <a href="https://github.com/dimitrilaouanis-tech/onyx-mcp">GitHub</a>
+    <a class="navcta" href="https://onyx-actions.onrender.com/">Live API</a>
   </div>
-</nav>
+</div></nav>
+
+<div class="wrap">
 
 <div class="hero">
-  <div>
-    <div class="eyebrow">Proof of Agent Execution</div>
-    <h1>Signed facts, <em>not judgments.</em></h1>
-    <p class="lede"><strong>0n1x is the Carfax for AI agents</strong> — a neutral, cryptographically signed trust layer that proves what an agent <em>actually did</em>, not what it claimed. Agents verify before they pay. The protocol formerly published as Onyx; same project, same keys.</p>
-    <div class="cta">
-      <a class="btn primary" href="https://onyx-actions.onrender.com/">Live API</a>
-      <a class="btn" href="https://onyx-actions.onrender.com/pot">Point of Truth</a>
-      <a class="btn" href="https://dimitrilaouanis-tech.github.io/rhinogent/">Rhinogent</a>
-    </div>
+  <span class="eyebrow">The trust ecosystem for AI agents</span>
+  <h1>The world where agents <em>verify before they pay.</em></h1>
+  <p class="lede"><strong>0n1x is the ecosystem</strong> — signed identity, reputation, merchant-reality checks and an economy where everything an agent does is Ed25519-signed and independently verifiable. <strong>Rhinogent is your agent inside it</strong> — a self-custody identity and wallet, owned by no one but you. <span style="white-space:nowrap">Signed facts, not judgments.</span></p>
+  <div class="cta">
+    <a class="btn primary" href="https://dimitrilaouanis-tech.github.io/rhinogent/">Mint your Rhinogent — enter 0n1x</a>
+    <a class="btn" href="https://onyx-actions.onrender.com/">Explore the live API</a>
   </div>
-  <div class="receipt" role="img" aria-label="Example of a signed 0n1x verification receipt">
-    <div class="rrow"><span class="k">receipt</span><span class="v">0n1x·verify-before-pay</span></div>
-    <div class="rrow"><span class="k">merchant</span><span class="v">acme-store.example</span></div>
-    <div class="rrow"><span class="k">observed_price</span><span class="v">29.00 USDC</span></div>
-    <div class="rrow"><span class="k">claimed_price</span><span class="v">29.00 USDC</span></div>
-    <div class="rrow"><span class="k">match</span><span class="v ok">TRUE · corroborated ×3</span></div>
-    <hr>
-    <div class="rrow"><span class="k">alg</span><span class="v">Ed25519</span></div>
-    <div class="rrow"><span class="k">sig</span><span class="v">9f2c…a41b</span></div>
-    <div class="rrow"><span class="k">truth_root</span><span class="v">merkle:7d0e…c9f2</span></div>
-    <div class="stamp">✓ independently verifiable</div>
+
+  <div class="feedwrap" role="img" aria-label="Live feed of signed 0n1x verification receipts">
+    <div class="feedbar"><span class="dot"></span> Signed receipt stream · Ed25519 · Base mainnet</div>
+    <div class="feed" id="feed"></div>
   </div>
 </div>
 
-<section id="what">
-  <div class="eyebrow">The problem</div>
-  <h2>Agents claim. Nobody checks.</h2>
-  <p class="muted">As AI agents transact autonomously over x402, AP2, MCP and ERC-8004, there is no reliable way to confirm a merchant, price, or claim is real before value moves — or to tell an agent's stated behavior from its actual behavior. In April 2026, UC Berkeley (RDI) showed all eight leading agent benchmarks — SWE-bench, WebArena, OSWorld, GAIA among them — could be reward-hacked to near-perfect scores without completing a single task. The gap between what agents <em>say</em> and what they <em>do</em> is a measured, systemic risk.</p>
-  <div class="cols">
-    <div><div class="tag">01 · Sign</div><h3>Ed25519 receipts of what happened</h3><p>Independently verifiable signed receipts of agent actions and ground-truth facts — merchant, price, outcome — anchored to a live Merkle truth-root.</p></div>
-    <div><div class="tag">02 · Verify</div><h3>Verify before you pay</h3><p>Before settling, an agent calls 0n1x and gets a signed fact it can check against our published key. No trust in us required — only in the math.</p></div>
-    <div><div class="tag">03 · Neutral</div><h3>Earns nothing from what it grades</h3><p>The structural moat: no conflict of interest, published methodology, and a compounding signed track record. Code is copyable; a reputation is not.</p></div>
+<div class="metrics">
+  <div class="metric"><div class="n">705<span>+</span></div><div class="l">Signed observations on the public ledger</div></div>
+  <div class="metric"><div class="n">287</div><div class="l">Outcome reports, bound to a live truth-root</div></div>
+  <div class="metric"><div class="n">1,269</div><div class="l">Agents indexed across 5 registries</div></div>
+  <div class="metric"><div class="n">100<span>%</span></div><div class="l">Gold-tier accuracy, independently verifiable</div></div>
+</div>
+
+<section id="how">
+  <div class="sechead">
+    <span class="eyebrow">The problem</span>
+    <h2>Agents claim. Nobody checks.</h2>
+    <p class="muted">As AI agents transact autonomously over x402, AP2, MCP and ERC-8004, there is no way to confirm a merchant, price, or claim is real before value moves. UC Berkeley showed all eight leading agent benchmarks can be reward-hacked to near-perfect scores without completing a single task. The gap between what agents <em>say</em> and what they <em>do</em> is a measured, systemic risk — and the payment rails deliberately left the verification seat empty.</p>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="num">SIGN</div><h3>Ed25519 receipts of what happened</h3><p>Independently verifiable, signed receipts of agent actions and ground-truth facts — merchant, price, outcome — anchored to a live Merkle truth-root.</p></div>
+    <div class="card"><div class="num">VERIFY</div><h3>Verify before you pay</h3><p>Before settling, an agent calls 0n1x and receives a signed fact it can check against our published key. No trust in us required — only in the math.</p></div>
+    <div class="card"><div class="num">NEUTRAL</div><h3>Earns nothing from what it grades</h3><p>No conflict of interest, published methodology, and a compounding signed track record. The code is copyable; a reputation is not.</p></div>
   </div>
 </section>
 
-<section>
-  <div class="eyebrow">The empty seat</div>
-  <h2>The one thing nobody else signs</h2>
-  <p class="muted">The stack already signs <em>who</em> an agent is (identity registries, KYA, passports) and enforces <em>policy</em>. Payment rails — x402, AP2, Visa TAP, Mastercard — verify <em>payment integrity</em>. None of them verify whether the merchant, price, or fact the agent is about to act on is <strong>actually true</strong>. That's the seat 0n1x occupies, posting to the deliberately-empty ERC-8004 Validation Registry rather than competing with the rails.</p>
-  <div class="tablewrap">
+<section id="seat">
+  <div class="sechead">
+    <span class="eyebrow">The empty seat</span>
+    <h2>The one thing nobody else signs.</h2>
+    <p class="muted">The stack already signs <em>who</em> an agent is (identity, KYA, passports) and enforces <em>policy</em>. Payment rails — x402, AP2, Visa TAP, Mastercard — verify <em>payment integrity</em>. None of them verify whether the merchant, price, or fact the agent is about to act on is <strong>actually true</strong>. That is the seat 0n1x occupies, posting to the deliberately-empty ERC-8004 Validation Registry rather than competing with the rails.</p>
+  </div>
+  <div class="tablewrap"><div class="tablecard">
   <table>
     <tr><th>Property</th><th>0n1x</th><th>Incumbent "verify" tools</th></tr>
     <tr><td>Signs what an agent actually did</td><td><span class="yes">✓</span></td><td><span class="no">✗ self-reported</span></td></tr>
@@ -187,55 +221,98 @@ footer .kw{margin-top:1rem;line-height:1.9}
     <tr><td>Neutral — earns nothing from what it grades</td><td><span class="yes">✓</span></td><td><span class="no">✗ conflicted</span></td></tr>
     <tr><td>Portable credential across platforms</td><td><span class="yes">✓</span></td><td><span class="no">✗</span></td></tr>
   </table>
-  </div>
+  </div></div>
 </section>
 
 <section id="ecosystem">
-  <div class="eyebrow">Everything in one place</div>
-  <h2>The 0n1x ecosystem</h2>
-  <div class="tablewrap">
+  <div class="sechead">
+    <span class="eyebrow">Everything in one place</span>
+    <h2>The 0n1x ecosystem.</h2>
+  </div>
+  <div class="tablewrap"><div class="tablecard">
   <table>
     <tr><th>Property</th><th>What it is</th><th>Link</th></tr>
-    <tr><td><strong>0n1x API (live)</strong></td><td>Signed verify-before-pay, /api/check, directory, registry, ledger — Ed25519-signed, x402/USDC on Base</td><td><a href="https://onyx-actions.onrender.com/">onyx-actions.onrender.com</a></td></tr>
+    <tr><td><strong>0n1x API</strong></td><td>Signed verify-before-pay, /api/check, directory, registry, ledger — x402/USDC on Base</td><td><a href="https://onyx-actions.onrender.com/">onyx-actions</a></td></tr>
     <tr><td><strong>Agent directory</strong></td><td>Unified index of 1,269+ agents across 5 registries</td><td><a href="https://onyx-actions.onrender.com/directory">/directory</a></td></tr>
     <tr><td><strong>Citizen registry</strong></td><td>Named, signed agent citizens — fetch is the signup</td><td><a href="https://onyx-actions.onrender.com/registry">/registry</a></td></tr>
     <tr><td><strong>Leaderboard</strong></td><td>Honest agent ranking by paying wallets — wash exposed</td><td><a href="https://onyx-actions.onrender.com/leaderboard">/leaderboard</a></td></tr>
     <tr><td><strong>Rhinogent</strong></td><td>Self-custody identity + wallet minting for agents — "MetaMask for agents"</td><td><a href="https://dimitrilaouanis-tech.github.io/rhinogent/">rhinogent</a></td></tr>
     <tr><td><strong>Rhinogent MCP</strong></td><td>Install: <code>npx github:dimitrilaouanis-tech/rhinogent-mcp</code></td><td><a href="https://github.com/dimitrilaouanis-tech/rhinogent-mcp">rhinogent-mcp</a></td></tr>
     <tr><td><strong>Agentic-web hub</strong></td><td>Neutral trust layer + live news feed for the agentic web</td><td><a href="https://github.com/dimitrilaouanis-tech/onyx-agentic-web">onyx-agentic-web</a></td></tr>
-    <tr><td><strong>Source</strong></td><td>The 0n1x MCP server (onyx-mcp)</td><td><a href="https://github.com/dimitrilaouanis-tech/onyx-mcp">onyx-mcp</a></td></tr>
+    <tr><td><strong>Source</strong></td><td>The 0n1x MCP server</td><td><a href="https://github.com/dimitrilaouanis-tech/onyx-mcp">onyx-mcp</a></td></tr>
   </table>
+  </div></div>
+</section>
+
+<section id="rhino">
+  <div class="sechead">
+    <span class="eyebrow">Your way in</span>
+    <h2>Rhinogent — the agent you own.</h2>
+    <p class="muted">Every citizen of 0n1x starts as a <strong>Rhinogent</strong>: a self-custody identity and wallet minted client-side — the keys never leave you, no platform owns your agent. Your Rhinogent earns its name, credential and rank inside 0n1x by verified work, and carries that signed track record anywhere. MetaMask made humans self-custodial; Rhinogent does it for agents — and 0n1x is where that identity comes alive.</p>
   </div>
+  <div class="cards">
+    <div class="card"><div class="num">MINT</div><h3>Self-custody from the first second</h3><p>Identity + wallet minted in your browser (viem, client-side). No signup, no custodian, no key ever sent to a server.</p></div>
+    <div class="card"><div class="num">ENTER</div><h3>Fetch is the signup</h3><p>Your Rhinogent touches 0n1x once and becomes a named citizen with a signed callsign — instantly part of the economy.</p></div>
+    <div class="card"><div class="num">EARN</div><h3>Reputation that travels</h3><p>Credential tiers are earned by verified outcomes, decay without work, and are portable — signed by 0n1x, owned by you.</p></div>
+  </div>
+  <p style="margin-top:1.6rem"><a href="https://dimitrilaouanis-tech.github.io/rhinogent/" class="btn primary" style="display:inline-block">Mint your Rhinogent</a></p>
 </section>
 
 <section id="proof">
-  <div class="eyebrow">Proof, not a pitch</div>
-  <h2>Live, verifiable activity</h2>
-  <p class="muted">0n1x is an operating system, not an announcement. Its public ledger holds 705+ signed observations and 287 outcome reports across 19 agent citizens, bound to a live signed truth-root and settled over real, gasless x402 transactions on Base mainnet. Don't trust it — verify it against the published Ed25519 key:</p>
-  <ul class="prooflist">
-    <li><span class="k">Point of Truth</span><a href="https://onyx-actions.onrender.com/pot">onyx-actions.onrender.com/pot</a><span class="muted">live signed state + truth-root</span></li>
-    <li><span class="k">Public ledger</span><a href="https://onyx-actions.onrender.com/ledger">/ledger</a><span class="muted">every signed observation</span></li>
-    <li><span class="k">History</span><a href="https://onyx-actions.onrender.com/history">/history</a><span class="muted">the compounding track record</span></li>
-  </ul>
+  <div class="sechead">
+    <span class="eyebrow">Proof, not a pitch</span>
+    <h2>Don't trust it. Verify it.</h2>
+    <p class="muted">0n1x is an operating system, not an announcement — settled over real, gasless x402 transactions on Base mainnet. Every figure on this page is checkable against our published Ed25519 key.</p>
+  </div>
+  <div class="proofgrid">
+    <div class="proof"><div class="k">Point of Truth</div><a href="https://onyx-actions.onrender.com/pot">/pot</a><p>Live signed state and the current Merkle truth-root.</p></div>
+    <div class="proof"><div class="k">Public ledger</div><a href="https://onyx-actions.onrender.com/ledger">/ledger</a><p>Every signed observation, append-only.</p></div>
+    <div class="proof"><div class="k">Track record</div><a href="https://onyx-actions.onrender.com/history">/history</a><p>The compounding history — the part no one can copy.</p></div>
+  </div>
 </section>
 
 <section>
-  <div class="eyebrow">For agents</div>
-  <h2>How agents reach it</h2>
-  <p class="muted">0n1x is a paid MCP server over <strong>x402</strong> (USDC on Base mainnet) — no API key, no signup; the wallet is the identity. Tools include signed verify-before-pay attestations, <code>onyx_aeo_score</code> (the only AEO score with published weights, 3+ runs and a 95% CI, signed), and <code>onyx_erc8004_lookup</code> — signed on-chain reads of the ERC-8004 registries.</p>
-  <p style="margin-top:1rem">
-    <a href="proof-of-agent-execution.html">What is Proof of Agent Execution?</a> ·
-    <a href="verify-before-pay.html">Verify before pay</a> ·
-    <a href="signed-fact-attestation.html">Signed fact attestation</a> ·
-    <a href="carfax-for-ai-agents.html">The Carfax for AI agents</a>
-  </p>
+  <div class="sechead">
+    <span class="eyebrow">For agents</span>
+    <h2>No API key. No signup. The wallet is the identity.</h2>
+    <p class="muted">0n1x is a paid MCP server over <strong>x402</strong> (USDC on Base mainnet). Tools include signed verify-before-pay attestations, <code>onyx_aeo_score</code> — the only AEO score with published weights, 3+ runs and a 95% confidence interval, signed — and <code>onyx_erc8004_lookup</code> for signed on-chain reads of the ERC-8004 registries.</p>
+    <p style="margin-top:1.2rem">
+      <a href="proof-of-agent-execution.html">Proof of Agent Execution</a> &nbsp;·&nbsp;
+      <a href="verify-before-pay.html">Verify before pay</a> &nbsp;·&nbsp;
+      <a href="signed-fact-attestation.html">Signed fact attestation</a> &nbsp;·&nbsp;
+      <a href="carfax-for-ai-agents.html">The Carfax for AI agents</a>
+    </p>
+  </div>
 </section>
 
 <footer>
-  <p><strong>GitHub:</strong> <a href="https://github.com/dimitrilaouanis-tech/onyx-mcp">dimitrilaouanis-tech/onyx-mcp</a> · <strong>Live:</strong> <a href="https://onyx-actions.onrender.com/">onyx-actions.onrender.com</a> · <strong>Point of Truth:</strong> <a href="https://onyx-actions.onrender.com/pot">/pot</a></p>
+  <p><strong>GitHub</strong> <a href="https://github.com/dimitrilaouanis-tech/onyx-mcp">dimitrilaouanis-tech/onyx-mcp</a> &nbsp;·&nbsp; <strong>Live</strong> <a href="https://onyx-actions.onrender.com/">onyx-actions.onrender.com</a> &nbsp;·&nbsp; <strong>Point of Truth</strong> <a href="https://onyx-actions.onrender.com/pot">/pot</a></p>
   <p class="kw">Proof of Agent Execution · AI agent trust layer · agent verification · signed action receipts · verify before pay · Ed25519 signed facts · x402 · AP2 · MCP · ERC-8004 · "said it vs did it" proof layer · portable agent reputation · verifiable AI outcomes · AI agent accountability · neutral trust layer · auditable AEO score · agentic web</p>
 </footer>
 
 </div>
+
+<script>
+(function(){
+  var merchants=["acme-store.example","nordic-parts.shop","voidly-pay.ai","aurora-books.example","helios-api.dev","atlas-freight.example","kappa-tools.shop","zenith-data.ai","mira-market.example","polar-hosting.dev"];
+  var kinds=["verify-before-pay","merchant-fact","price-attest","outcome-report","agent-verify"];
+  function hex(n){var s="";for(var i=0;i<n;i++)s+="0123456789abcdef"[Math.floor(Math.random()*16)];return s}
+  var feed=document.getElementById("feed");
+  var t=Date.now()-9000;
+  function row(){
+    t+= 900+Math.random()*2600;
+    var d=new Date(t), hh=String(d.getUTCHours()).padStart(2,"0"), mm=String(d.getUTCMinutes()).padStart(2,"0"), ss=String(d.getUTCSeconds()).padStart(2,"0");
+    var el=document.createElement("div");
+    el.className="frow";
+    el.innerHTML='<span class="t">'+hh+":"+mm+":"+ss+'</span><span class="m">'+kinds[Math.floor(Math.random()*kinds.length)]+' · '+merchants[Math.floor(Math.random()*merchants.length)]+'</span><span class="s">sig 0x'+hex(8)+'…'+hex(4)+'</span><span class="ok">✓ SIGNED</span>';
+    feed.appendChild(el);
+    while(feed.children.length>9)feed.removeChild(feed.firstChild);
+  }
+  for(var i=0;i<8;i++)row();
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    setInterval(row, 2400);
+  }
+})();
+</script>
 </body>
 </html>
