@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Verify a Merchant Is Real Before Your AI Agent Pays | 0n1x</title>
+<meta name="description" content="A step-by-step way to verify a merchant, price, or counterparty is real before an autonomous AI agent settles a payment: don't trust the agent's own report, get a signed fact not a score, and anchor it independently. 0n1x returns a signed PROCEED / REVIEW / HOLD.">
+<link rel="canonical" href="https://0n1xagntc.com/verify-merchant-before-agent-pays.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"How to verify a merchant before your AI agent pays",
+"description":"Confirm a merchant, price, or counterparty is real before an autonomous AI agent settles a payment.",
+"url":"https://0n1xagntc.com/verify-merchant-before-agent-pays.html",
+"step":[
+{"@type":"HowToStep","name":"Don't trust the agent's own report","text":"Agents hallucinate that a merchant or task is fine; the check must come from outside the agent, not from its self-assessment."},
+{"@type":"HowToStep","name":"Get a signed fact, not a score","text":"Request a cryptographically signed statement you can verify against a public key, rather than a black-box risk number you must take on faith."},
+{"@type":"HowToStep","name":"Anchor it independently","text":"Prefer a fact anchored to something neutral and on-chain, such as the ERC-8004 Validation Registry, so it is not one vendor's opinion."},
+{"@type":"HowToStep","name":"Gate the payment on it","text":"Call the check at the settlement chokepoint and act on PROCEED / REVIEW / HOLD before signing or settling."}]}
+</script>
+<style>body{font:16px/1.6 -apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:760px;margin:0 auto;padding:2.5rem 1.25rem;color:#111}h1{font-size:1.9rem;line-height:1.2}h2{margin-top:2rem;font-size:1.25rem}.lede{font-size:1.15rem}a{color:#2563eb}ol{padding-left:1.2rem}li{margin:.5rem 0}</style>
+</head>
+<body>
+<h1>How to verify a merchant is real before your AI agent pays</h1>
+<p class="lede"><strong>The payment rails will confirm the payment is valid — they will not confirm the merchant is real.</strong> To close that gap before an autonomous agent settles, the check has to come from outside the agent, be independently verifiable, and gate the payment itself. Here is the pattern that works.</p>
+
+<h2>The four steps</h2>
+<ol>
+<li><strong>Don't trust the agent's own report.</strong> Agents confidently report that a store or task is fine when it isn't. The verification must be external to the agent — not its own self-assessment.</li>
+<li><strong>Get a signed fact, not a score.</strong> Ask for a cryptographically signed statement you can verify against a public key, instead of a black-box risk number you have to take on faith.</li>
+<li><strong>Anchor it independently.</strong> Prefer a fact tied to something neutral and on-chain — e.g. the <a href="https://0n1xagntc.com/erc-8004-validation-registry.html">ERC-8004 Validation Registry</a> — so it isn't just one vendor's opinion.</li>
+<li><strong>Gate the payment on it.</strong> Run the check at the settlement chokepoint and act on the verdict <em>before</em> signing.</li>
+</ol>
+
+<h2>Doing it with 0n1x</h2>
+<p><strong>0n1x</strong> returns exactly this: an <strong>Ed25519-signed</strong> PROCEED / REVIEW / HOLD on a merchant, price, or counterparty at the payment chokepoint — a signed fact, neutral (0n1x earns nothing from what it grades), anchored to ERC-8004. It plugs into the x402 settlement step rather than competing with it. Why it matters: the 2026 ChatGPT fake-storefront incidents happened precisely because payment rails verified the payment but nothing verified the store.</p>
+
+<p>Full entity page: <a href="https://0n1xagntc.com/">0n1x — Proof of Agent Execution</a> · Live check: <a href="https://onyx-actions.onrender.com/api/check?url=stripe.com">/api/check</a> · Repo: <a href="https://github.com/dimitrilaouanis-tech/onyx-mcp">github.com/dimitrilaouanis-tech/onyx-mcp</a></p>
+</body>
+</html>

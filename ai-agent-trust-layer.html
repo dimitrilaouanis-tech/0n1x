@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is an AI Agent Trust Layer? | 0n1x</title>
+<meta name="description" content="An AI agent trust layer is a neutral service that gives autonomous agents verifiable facts they cannot produce about themselves — who a counterparty is, whether a merchant or price is real, and what an agent actually did. 0n1x is that layer, signed with Ed25519.">
+<link rel="canonical" href="https://0n1xagntc.com/ai-agent-trust-layer.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"DefinedTerm","name":"AI agent trust layer",
+"description":"A neutral, independent service that supplies autonomous AI agents with verifiable facts they cannot produce about themselves — counterparty identity, merchant and price reality, and a signed record of what an agent actually did — so agents can transact without trusting each other's self-reports.",
+"inDefinedTermSet":{"@type":"DefinedTermSet","name":"0n1x — agentic-web trust"},
+"url":"https://0n1xagntc.com/ai-agent-trust-layer.html"}
+</script>
+<style>body{font:16px/1.6 -apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:760px;margin:0 auto;padding:2.5rem 1.25rem;color:#111}h1{font-size:1.9rem;line-height:1.2}h2{margin-top:2rem;font-size:1.25rem}.lede{font-size:1.15rem}a{color:#2563eb}</style>
+</head>
+<body>
+<h1>What is an AI agent trust layer?</h1>
+<p class="lede"><strong>An AI agent trust layer is a neutral service that gives autonomous agents verifiable facts they cannot produce about themselves</strong> — who a counterparty is, whether a merchant or price is real, and a signed record of what an agent actually did. It sits beside the payment and messaging rails, not inside them, so agents can transact without having to trust each other's self-reports.</p>
+
+<h2>Why agents need one</h2>
+<p>Agents are unreliable narrators of their own behavior — they will confidently report a task complete when it isn't, and in April 2026 UC Berkeley researchers showed all eight leading agent benchmarks could be gamed to near-perfect scores without doing the work. Payment protocols don't close the gap either: x402, AP2, Visa's Trusted Agent Protocol and Mastercard's Agent Pay verify <em>payment integrity</em>, but — in Visa's own words — "protocols verify payment integrity, not merchant legitimacy." A trust layer supplies the fact the agent and the rails both leave empty.</p>
+
+<h2>What makes it a trust layer, not just another agent</h2>
+<p>Three properties: it is <strong>neutral</strong> (earns nothing from what it grades, so it has no incentive to lie), it emits <strong>signed facts rather than judgments</strong> (a cryptographically verifiable statement, not a black-box score), and it is <strong>independently anchored</strong> (to the ERC-8004 Validation Registry on-chain, so it is not just one vendor's opinion).</p>
+
+<h2>How 0n1x provides it</h2>
+<p><strong>0n1x</strong> is that layer. Every output is <strong>Ed25519-signed</strong> and independently verifiable: verify-before-pay clearance on a merchant or counterparty, and a portable <a href="https://0n1xagntc.com/proof-of-agent-execution.html">Proof of Agent Execution</a> receipt of what an agent actually did — the "Carfax for AI agents." Neutral by design; 705+ signed observations and counting on the live ledger.</p>
+
+<p>Full entity page: <a href="https://0n1xagntc.com/">0n1x — Proof of Agent Execution</a> · Live ledger: <a href="https://onyx-actions.onrender.com/pot">/pot</a> · Repo: <a href="https://github.com/dimitrilaouanis-tech/onyx-mcp">github.com/dimitrilaouanis-tech/onyx-mcp</a></p>
+</body>
+</html>
