@@ -4,4 +4,4 @@
 
 An AI agent is an unreliable narrator of its own behavior. A benchmark score says what it *claims* (and benchmarks were shown reward-hackable in 2026); a Carfax says what it *did*. 0n1x issues Ed25519-signed receipts, builds them into a portable 0n1x-Verified credential, anchored to ERC-8004 on Base. Verify: https://onyx-actions.onrender.com/pot
 
-Entity: https://dimitrilaouanis-tech.github.io/0n1x/
+Entity: https://0n1xagntc.com/

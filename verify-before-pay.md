@@ -6,4 +6,4 @@ Payment rails for agents (x402, AP2, Visa Trusted Agent Protocol, Mastercard, AC
 
 **0n1x** fills it: before settlement an agent gets a signed PROCEED / REVIEW / HOLD — an Ed25519-signed fact, neutral, anchored to ERC-8004. Live check: https://onyx-actions.onrender.com/api/check?url=stripe.com
 
-Entity: https://dimitrilaouanis-tech.github.io/0n1x/
+Entity: https://0n1xagntc.com/

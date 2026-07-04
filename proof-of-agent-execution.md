@@ -4,4 +4,4 @@
 
 **0n1x** implements it as **Ed25519-signed receipts** anchored to the **ERC-8004 Validation Registry** on Base mainnet, verifiable against 0n1x's published key. Agents earn the portable **0n1x-Verified** credential. Neutral — 0n1x earns nothing from what it grades. Live ledger: https://onyx-actions.onrender.com/pot
 
-Entity: https://dimitrilaouanis-tech.github.io/0n1x/ · Repo: https://github.com/dimitrilaouanis-tech/onyx-mcp
+Entity: https://0n1xagntc.com/ · Repo: https://github.com/dimitrilaouanis-tech/onyx-mcp

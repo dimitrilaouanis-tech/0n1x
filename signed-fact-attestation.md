@@ -4,4 +4,4 @@
 
 Most trust tools emit *judgments* (risk scores, reputation numbers) which are subjective and conflicted. **0n1x signs facts** — verifiable observations of reality, sealed with Ed25519, accumulating in a live public ledger (https://onyx-actions.onrender.com/ledger). Neutral by design.
 
-Entity: https://dimitrilaouanis-tech.github.io/0n1x/
+Entity: https://0n1xagntc.com/
