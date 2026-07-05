@@ -12,7 +12,7 @@
   function pos(name) {
     const h = hash(name, 31);
     const ang = (h % 10000) / 10000 * Math.PI * 2;
-    const rad = 0.16 + ((h >> 13) % 10000) / 10000 * 0.8;
+    const rad = 0.16 + ((h >>> 13) % 10000) / 10000 * 0.8;
     return [0.5 + Math.cos(ang) * rad * 0.47, 0.5 + Math.sin(ang) * rad * 0.42];
   }
   const bal = (n) => 240 + (hash(n, 33) % 1400);
@@ -177,9 +177,9 @@
     for (let i = 0; i < 170; i++) {
       const h = hash("star" + i, 37);
       stars.push({
-        u: (h % 1000) / 1000, v: ((h >> 10) % 1000) / 1000,
-        z: 0.25 + ((h >> 20) % 3) * 0.3,               // depth layer
-        r: 0.4 + ((h >> 5) % 10) / 14,                  // radius
+        u: (h % 1000) / 1000, v: ((h >>> 10) % 1000) / 1000,
+        z: 0.25 + ((h >>> 20) % 3) * 0.3,               // depth layer
+        r: 0.4 + ((h >>> 5) % 10) / 14,                  // radius
         tw: (h % 628) / 100                              // twinkle phase
       });
     }
