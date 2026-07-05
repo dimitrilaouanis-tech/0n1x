@@ -117,7 +117,7 @@
       const g = galaxy.getContext("2d");
       g.clearRect(0, 0, GW, GH);
       g.globalCompositeOperation = "lighter";
-      const n = Math.min(count || 340000, 400000);
+      const n = Math.min(count || 340000, 1000000);   // room to breathe: the mint is headed to 1M
       const ARMS = 4, BUCKETS = 8;
       // precompute dots into color buckets → 8 fillStyle changes total, not 340k
       const bx = [], by = [], bs = [];
@@ -157,7 +157,7 @@
       }
       paintBucket();
     }
-    paintGalaxy(340000); // repainted with the live manifest count on load
+    paintGalaxy(340000); // provisional; repainted with the live manifest count (510k+ and climbing)
 
     // ---- NEURAL FIRING — synapse cascades through the real edge graph -------
     // Every beat a hub fires; the signal propagates along its actual transfer
