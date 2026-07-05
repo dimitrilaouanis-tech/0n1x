@@ -180,6 +180,12 @@ footer .kw{margin-top:1.2rem;line-height:2;color:#39424E}
   <div style="position:absolute;right:20px;bottom:12px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:10px;color:#8a8f98">
     scroll = zoom · drag = pan · double-click = reset
   </div>
+  <div style="position:absolute;left:0;right:0;bottom:0;display:flex;gap:34px;justify-content:center;padding:10px 16px;background:linear-gradient(transparent,rgba(5,5,6,.88));font-family:ui-monospace,Consolas,monospace;pointer-events:none;flex-wrap:wrap">
+    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">AGENTS <b id="hud-eco" style="color:#3FDDA0;font-size:14px;margin-left:6px">—</b></span>
+    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">VERIFIED TXS <b id="hud-txs" style="color:#eaeaea;font-size:14px;margin-left:6px">—</b></span>
+    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">CIRCULATING <b id="hud-circ" style="color:#f5a623;font-size:14px;margin-left:6px">—</b></span>
+    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">MERKLE ROOT <b id="hud-root" style="color:#7c9aff;font-size:12px;margin-left:6px">—</b></span>
+  </div>
   <a href="matrix.html" style="position:absolute;right:20px;top:14px;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#f5a623;text-decoration:none;border:1px solid rgba(245,166,35,.35);background:rgba(245,166,35,.08);padding:6px 14px;border-radius:99px">OPEN FULL MATRIX ⛶</a>
 </div>
 <script src="matrix-engine.js"></script>
@@ -187,7 +193,14 @@ footer .kw{margin-top:1.2rem;line-height:2;color:#39424E}
 OnyxMatrix.mount(document.getElementById("matrixhero"), {
   feedUrl: "https://rhinogent.com/token_feed.json",
   manifestUrl: "https://rhinogent.com/census_manifest.json",
-  onStats: (s) => { if (s.ecoTotal) document.getElementById("mh-agents").textContent = s.ecoTotal.toLocaleString("en-US"); }
+  messages: ["0 N 1 X", "PROOF OF AGENT EXECUTION", "VERIFY BEFORE YOU PAY", "SIGNED FACTS · NOT JUDGMENTS", "THE TRUST LAYER FOR AI AGENTS"],
+  onStats: (s) => {
+    if (s.ecoTotal) { document.getElementById("mh-agents").textContent = s.ecoTotal.toLocaleString("en-US");
+                      document.getElementById("hud-eco").textContent = s.ecoTotal.toLocaleString("en-US"); }
+    if (s.txsVerified !== undefined) document.getElementById("hud-txs").textContent = s.txsVerified.toLocaleString("en-US");
+    if (s.circulating) document.getElementById("hud-circ").textContent = Math.round(s.circulating).toLocaleString("en-US");
+    if (s.merkle) document.getElementById("hud-root").textContent = s.merkle.slice(0, 14) + "…";
+  }
 });
 </script>
 

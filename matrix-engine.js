@@ -297,6 +297,28 @@
       }
       particles = particles.filter(p => p.t < 1.15);
 
+      // 3D FLYING LETTERS — depth-projected words that fly in, hold, fly through.
+      // Explains what 0n1x is, cinematically, over the living network.
+      if (opts.messages && opts.messages.length) {
+        const CYC = 6.5;                                  // seconds per message
+        const mi = Math.floor(t / CYC) % opts.messages.length;
+        const mt = (t % CYC) / CYC;                       // 0..1 within cycle
+        let scale, alpha;
+        if (mt < 0.18) { const u = mt / 0.18; scale = 0.25 + 0.75 * (1 - Math.pow(1 - u, 3)); alpha = u; }          // fly in from depth
+        else if (mt < 0.72) { scale = 1 + (mt - 0.18) * 0.06; alpha = 1; }                                          // hold, slow drift closer
+        else { const u = (mt - 0.72) / 0.28; scale = 1.03 + u * u * 2.6; alpha = 1 - u; }                           // fly THROUGH camera
+        const msg = opts.messages[mi];
+        const fs = Math.min(W / 14, 64) * scale;
+        ctx.font = `700 ${fs}px ui-monospace,Consolas,monospace`;
+        ctx.textAlign = "center";
+        // glow pass (additive) + crisp pass
+        ctx.fillStyle = `rgba(140,240,200,${(alpha * 0.35).toFixed(3)})`;
+        ctx.fillText(msg, W / 2, H / 2 + fs * 0.35);
+        ctx.fillStyle = `rgba(235,255,246,${(alpha * 0.9).toFixed(3)})`;
+        ctx.fillText(msg, W / 2, H / 2 + fs * 0.35);
+        ctx.textAlign = "start";
+      }
+
       // labels + tooltip render normally (crisp, not additive)
       ctx.globalCompositeOperation = "source-over";
       agents.forEach((a, i) => {
