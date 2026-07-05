@@ -108,31 +108,44 @@
       g.clearRect(0, 0, GW, GH);
       g.globalCompositeOperation = "lighter";
       const n = Math.min(count || 340000, 400000);
-      const ARMS = 4;
+      const ARMS = 4, BUCKETS = 8;
+      // precompute dots into color buckets → 8 fillStyle changes total, not 340k
+      const bx = [], by = [], bs = [];
+      for (let b = 0; b < BUCKETS; b++) { bx.push([]); by.push([]); bs.push([]); }
       for (let i = 0; i < n; i++) {
-        // deterministic spiral galaxy: arm + radial falloff + scatter
-        const h1 = (i * 2654435761) >>> 0;             // Knuth hash
+        const h1 = (i * 2654435761) >>> 0;
         const h2 = (i * 40503 + 2699) >>> 0 & 0xffff;
         const arm = i % ARMS;
-        const rr = Math.pow((h1 % 100000) / 100000, 0.62);          // density toward core
-        const baseAng = arm * (Math.PI * 2 / ARMS) + rr * 4.4;      // spiral twist
-        const scat = ((h2 / 0xffff) - 0.5) * (0.95 - rr * 0.35);     // tighter arms outward
+        const rr = Math.pow((h1 % 100000) / 100000, 0.62);
+        const baseAng = arm * (Math.PI * 2 / ARMS) + rr * 4.4;
+        const scat = ((h2 / 0xffff) - 0.5) * (0.95 - rr * 0.35);
         const ang = baseAng + scat * 2.2;
         const R = rr * GW * 0.46;
-        const x = GW / 2 + Math.cos(ang) * R;
-        const y = GH / 2 + Math.sin(ang) * R * 0.62;                // elliptic disc
-        // color: warm core → cool arms
-        const warm = 1 - rr;
+        const b = Math.min(BUCKETS - 1, (rr * BUCKETS) | 0);   // bucket by radius (=color band)
+        bx[b].push(GW / 2 + Math.cos(ang) * R);
+        by[b].push(GH / 2 + Math.sin(ang) * R * 0.62);
+        bs[b].push(rr < 0.25 ? 1.6 : 1.2);
+      }
+      // paint one bucket per timeslice — never blocks the frame loop
+      let bkt = 0;
+      function paintBucket() {
+        if (bkt >= BUCKETS) {
+          const core = g.createRadialGradient(GW / 2, GH / 2, 0, GW / 2, GH / 2, GW * 0.09);
+          core.addColorStop(0, "rgba(255,214,150,0.45)");
+          core.addColorStop(1, "rgba(255,214,150,0)");
+          g.fillStyle = core;
+          g.beginPath(); g.arc(GW / 2, GH / 2, GW * 0.09, 0, Math.PI * 2); g.fill();
+          return;
+        }
+        const warm = 1 - (bkt + 0.5) / BUCKETS;
         const a = 0.085 + warm * 0.11;
         g.fillStyle = `rgba(${170 + warm * 70 | 0},${180 + warm * 25 | 0},${235 - warm * 45 | 0},${a.toFixed(3)})`;
-        g.fillRect(x, y, rr < 0.25 ? 1.6 : 1.2, rr < 0.25 ? 1.6 : 1.2);
+        const X = bx[bkt], Y = by[bkt], S = bs[bkt];
+        for (let i = 0; i < X.length; i++) g.fillRect(X[i], Y[i], S[i], S[i]);
+        bkt++;
+        setTimeout(paintBucket, 0);
       }
-      // luminous core
-      const core = g.createRadialGradient(GW / 2, GH / 2, 0, GW / 2, GH / 2, GW * 0.09);
-      core.addColorStop(0, "rgba(255,214,150,0.45)");
-      core.addColorStop(1, "rgba(255,214,150,0)");
-      g.fillStyle = core;
-      g.beginPath(); g.arc(GW / 2, GH / 2, GW * 0.09, 0, Math.PI * 2); g.fill();
+      paintBucket();
     }
     paintGalaxy(340000); // repainted with the live manifest count on load
 
@@ -178,6 +191,10 @@
 
     // ---- render loop -------------------------------------------------------
     function draw(nowMs) {
+      requestAnimationFrame(draw);            // rebook FIRST — an error costs one frame, never the loop
+      try { drawFrame(nowMs); } catch (e) { window.__matrixErr = e.message; }
+    }
+    function drawFrame(nowMs) {
       const t = nowMs / 1000;
       // deep-space base (normal blending)
       ctx.globalCompositeOperation = "source-over";
@@ -391,7 +408,6 @@
           ctx.fillStyle = "rgba(238,238,240,0.96)"; ctx.fillText(label, bx + 5, by + 14);
         }
       }
-      requestAnimationFrame(draw);
     }
     requestAnimationFrame(draw);
 
