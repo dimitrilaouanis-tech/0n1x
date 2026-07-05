@@ -34,6 +34,15 @@
     // ---- interaction -------------------------------------------------------
     const view = { s: 1, ox: 0, oy: 0 };
     let drag = null, mouse = null, focus = null, dragMoved = false;
+    // 3D diastasi: per-agent depth + drifting camera => parallax = felt depth
+    let camX = 0, camY = 0;
+    const zOf = (n) => 0.78 + (hash(n, 53) % 1000) / 1000 * 0.85;   // 0.78 (near) .. 1.63 (far)
+    const proj = (n) => {
+      const [u, v] = pos(n); const z = zOf(n);
+      const bx = u * W * view.s + view.ox, by = v * H * view.s + view.oy;
+      return [W / 2 + (bx - W / 2) / z + camX * (1 - 1 / z),
+              H / 2 + (by - H / 2) / z + camY * (1 - 1 / z), z];
+    };
     cv.style.cursor = "grab";
     cv.addEventListener("wheel", (e) => {
       e.preventDefault();
@@ -61,9 +70,10 @@
       const maxB2 = Math.max(1, ...agents.map(a => a.b));
       let hitN = null;
       for (let i = agents.length - 1; i >= 0; i--) {
-        const a = agents[i]; const [u, v] = pos(a.n);
+        const a = agents[i];
         const sz = (3.2 + (a.b / maxB2) * 5.8) * zs2 + 5;
-        const dx = mx - (u * W * view.s + view.ox), dy = my - (v * H * view.s + view.oy);
+        const [px, py] = proj(a.n);
+        const dx = mx - px, dy = my - py;
         if (dx * dx + dy * dy <= sz * sz) { hitN = a.n; break; }
       }
       focus = (hitN === focus) ? null : hitN;     // toggle; empty click clears
@@ -196,6 +206,7 @@
     }
     function drawFrame(nowMs) {
       const t = nowMs / 1000;
+      camX = Math.sin(t * 0.13) * 26; camY = Math.cos(t * 0.11) * 18;   // slow orbital drift
       // deep-space base (normal blending)
       ctx.globalCompositeOperation = "source-over";
       const bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.75);
@@ -244,8 +255,7 @@
       if (focus) { nbrSet.add(focus); for (const e of pairs.values()) { if (e.a === focus) nbrSet.add(e.b); if (e.b === focus) nbrSet.add(e.a); } }
       let pi = 0;
       for (const e of pairs.values()) {
-        const [au, av] = pos(e.a), [bu, bv] = pos(e.b);
-        const x1 = sx(au), y1 = sy(av), x2 = sx(bu), y2 = sy(bv);
+        const [x1, y1] = proj(e.a), [x2, y2] = proj(e.b);
         if (Math.max(x1, x2) < -60 || Math.min(x1, x2) > W + 60) { pi++; continue; }
         const [qx, qy] = ctrl(x1, y1, x2, y2);
         const onFocus = focus && (e.a === focus || e.b === focus);
@@ -272,8 +282,8 @@
       // nodes — breathing glow cores + orbital satellites on hubs
       const now = performance.now();
       agents.forEach((a, i) => {
-        const [u, v] = pos(a.n);
-        const x = sx(u), y = sy(v);
+        const [x, y, zz] = proj(a.n);
+        const depth = 1 / zz;                       // near => >1, far => <1
         if (x < -60 || x > W + 60 || y < -60 || y > H + 60) return;
         let fl = 0;
         const ft = flares.get(a.n);
@@ -290,7 +300,7 @@
         const isFocus = focus === a.n, isNbr = focus && nbrSet.has(a.n);
         const dimNode = focus && !isFocus && !isNbr;
         const breathe = 1 + 0.10 * Math.sin(t * 1.4 + (hash(a.n, 41) % 628) / 100);
-        const s = (3.2 + (a.b / maxB) * 5.8) * zs * breathe * (1 + 0.3 * fl) * (isFocus ? 1.5 : 1);
+        const s = (3.2 + (a.b / maxB) * 5.8) * zs * breathe * (1 + 0.3 * fl) * (isFocus ? 1.5 : 1) * (0.65 + 0.45 * depth);
         fl = Math.min(1, fl + hv * 0.5);                 // activation adds brightness
         const amber = i < 10;
         const cr = amber ? 255 : 150, cg = amber ? 196 : 185, cb = amber ? 110 : 255;
@@ -365,15 +375,30 @@
         if (mt < 0.18) { const u = mt / 0.18; scale = 0.25 + 0.75 * (1 - Math.pow(1 - u, 3)); alpha = u; }          // fly in from depth
         else if (mt < 0.72) { scale = 1 + (mt - 0.18) * 0.06; alpha = 1; }                                          // hold, slow drift closer
         else { const u = (mt - 0.72) / 0.28; scale = 1.03 + u * u * 2.6; alpha = 1 - u; }                           // fly THROUGH camera
-        const msg = opts.messages[mi];
+        // MATRIX GLITCH: chars resolve out of code-rain noise, RGB-split, slice tears
+        const raw = opts.messages[mi];
+        const GLYPHS = "01<>/\|=+*#$%&@!?ΞΦΨΩ";
+        const settle = mt < 0.18 ? mt / 0.18 : 1;                 // 0..1: how resolved
+        let msg = "";
+        for (let ci = 0; ci < raw.length; ci++) {
+          const stable = (hash(raw + ci, 61) % 100) / 100 < settle * settle * 1.4;
+          msg += (stable || raw[ci] === " ") ? raw[ci]
+               : GLYPHS[(hash(raw + ci + (t * 18 | 0), 67) % GLYPHS.length)];
+        }
         const fs = Math.min(W / 14, 64) * scale;
+        const mx0 = W / 2, my0 = H / 2 + fs * 0.35;
         ctx.font = `700 ${fs}px ui-monospace,Consolas,monospace`;
         ctx.textAlign = "center";
-        // glow pass (additive) + crisp pass
+        const tear = (settle < 1 || (hash("g" + (t * 6 | 0), 71) % 9) === 0) ? (hash("t" + (t * 12 | 0), 73) % 7) - 3 : 0;
+        // chromatic aberration: red left, cyan right, white core
+        ctx.fillStyle = `rgba(255,60,80,${(alpha * 0.30).toFixed(3)})`;
+        ctx.fillText(msg, mx0 - 2 - tear, my0);
+        ctx.fillStyle = `rgba(60,240,255,${(alpha * 0.30).toFixed(3)})`;
+        ctx.fillText(msg, mx0 + 2 + tear, my0);
         ctx.fillStyle = `rgba(140,240,200,${(alpha * 0.35).toFixed(3)})`;
-        ctx.fillText(msg, W / 2, H / 2 + fs * 0.35);
+        ctx.fillText(msg, mx0, my0);
         ctx.fillStyle = `rgba(235,255,246,${(alpha * 0.9).toFixed(3)})`;
-        ctx.fillText(msg, W / 2, H / 2 + fs * 0.35);
+        ctx.fillText(msg, mx0, my0);
         ctx.textAlign = "start";
       }
 
@@ -381,7 +406,7 @@
       ctx.globalCompositeOperation = "source-over";
       agents.forEach((a, i) => {
         if (i >= 8 && view.s <= 2.2) return;
-        const [u, v] = pos(a.n); const x = sx(u), y = sy(v);
+        const [x, y] = proj(a.n);
         if (x < -60 || x > W + 60 || y < -60 || y > H + 60) return;
         const s = (3.2 + (a.b / maxB) * 5.8) * zs;
         ctx.fillStyle = "rgba(165,172,186,0.9)";
@@ -391,9 +416,9 @@
       if (mouse && !drag) {
         let hit = null;
         for (let i = agents.length - 1; i >= 0; i--) {
-          const a = agents[i]; const [u, v] = pos(a.n);
+          const a = agents[i]; const [px2, py2] = proj(a.n);
           const s = (3.2 + (a.b / maxB) * 5.8) * zs;
-          const dx = mouse.x - sx(u), dy = mouse.y - sy(v);
+          const dx = mouse.x - px2, dy = mouse.y - py2;
           if (dx * dx + dy * dy <= (s + 5) * (s + 5)) { hit = a; break; }
         }
         if (hit) {
