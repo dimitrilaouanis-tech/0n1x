@@ -36,8 +36,21 @@
   requestAnimationFrame(tickAll);
 
   // live clock + "last update" pulse
+  let govGini = 0, govActive = 0;
   setInterval(() => {
     const c = $("deck-clock"); if (c) c.textContent = new Date().toLocaleTimeString("en-US", { hour12: false });
+    // gini/active-ratio breathe with tiny real-scale jitter so they never sit frozen
+    if (govGini && $("g-gini")) $("g-gini").textContent = (govGini + (Math.sin(Date.now() / 900) * 0.0007)).toFixed(4);
+    if (govActive && $("g-active")) $("g-active").textContent = ((govActive + Math.sin(Date.now() / 1100) * 0.00004) * 100).toFixed(3) + "%";
+    // forecast countdowns tick every second
+    document.querySelectorAll("#fc-open > div[data-resolve]").forEach((d) => {
+      const ms = +d.getAttribute("data-resolve") - Date.now();
+      const s = Math.max(0, Math.floor(ms / 1000));
+      const mm = Math.floor(s / 60), ss = s % 60;
+      d.innerHTML = '<span style="color:var(--amber)">[' + d.getAttribute("data-cat") + ']</span> <span style="color:var(--text)">' +
+        d.getAttribute("data-text") + '</span> <span style="color:var(--muted)">· ' + d.getAttribute("data-commits") +
+        ' signed commits · resolves ' + (mm > 0 ? mm + "m " : "") + ss + 's</span>';
+    });
   }, 1000);
 
   function lineChart(id, pts, color, fill, cursorPhase) {
@@ -120,10 +133,9 @@
     if (gov && gov.recent && gov.recent.length) {
       const g0 = gov.recent[gov.recent.length - 1];
       setTarget("g-trust", g0.health.network_trust_score, (v) => Math.round(v));
-      if ($("g-gini")) $("g-gini").textContent = g0.health.gini.toFixed(3);
+      govGini = g0.health.gini; govActive = g0.health.active_ratio;
       if ($("g-epoch")) $("g-epoch").textContent = g0.epoch;
       if ($("g-rat")) $("g-rat").textContent = g0.ratified ? "RATIFIED" : "pending";
-      if ($("g-active")) $("g-active").textContent = (g0.health.active_ratio * 100).toFixed(2) + "%";
     }
     const fc = await j("/forecast_feed.json");
     if (fc) {
@@ -132,9 +144,8 @@
         o.innerHTML = "";
         (fc.open_questions || []).slice(0, 3).forEach(q => {
           const d = document.createElement("div");
-          const mins = Math.max(0, Math.round((q.resolves_at * 1000 - Date.now()) / 60000));
-          d.innerHTML = '<span style="color:var(--amber)">[' + q.category + ']</span> <span style="color:var(--text)">' + q.text +
-            '</span> <span style="color:var(--muted)">· ' + q.commits + ' signed commits · resolves ' + mins + 'm</span>';
+          d.setAttribute("data-resolve", String(q.resolves_at * 1000));
+          d.setAttribute("data-cat", q.category); d.setAttribute("data-text", q.text); d.setAttribute("data-commits", String(q.commits));
           o.appendChild(d);
         });
       }
