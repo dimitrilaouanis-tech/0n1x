@@ -99,16 +99,16 @@ main{max-width:1180px;margin:0 auto;padding:16px 22px 40px}
   </div>
   <!-- THE TERMINAL DECK — real metrics only, every number traceable -->
   <div style="margin-top:26px;border-top:1px solid var(--border);padding-top:18px">
-    <p class="mono" style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)">&#9698; 0N1X TERMINAL &middot; live economy metrics &middot; all values from signed public feeds</p>
+    <p class="mono" style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)">&#9698; 0N1X TERMINAL &middot; live economy metrics &middot; all values from signed public feeds &middot; <span id="deck-pulse" style="color:#3fdda0;transition:opacity .3s;opacity:.25">&#9679; LIVE</span> <span id="deck-clock" style="color:var(--text)"></span> &middot; 12s repoll</p>
   </div>
 
   <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px" class="deckgrid">
     <div style="border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:12px 14px">
-      <div class="mono" style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;color:var(--muted)"><span>TOKEN SUPPLY &middot; across sealed epochs</span><b id="m-supply" style="color:var(--amber);font-size:13px">&mdash;</b></div>
+      <div class="mono" style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;color:var(--muted)"><span>TOKEN SUPPLY &middot; across sealed epochs</span><span><b id="m-supply" style="color:var(--amber);font-size:13px">&mdash;</b> <span id="m-supply-d" style="font-size:10px"></span></span></div>
       <canvas id="ch-supply" style="width:100%;height:120px;display:block;margin-top:8px"></canvas>
     </div>
     <div style="border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:12px 14px">
-      <div class="mono" style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;color:var(--muted)"><span>SIGNED TRANSACTIONS &middot; cumulative</span><b id="m-txs" style="color:var(--text);font-size:13px">&mdash;</b></div>
+      <div class="mono" style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;color:var(--muted)"><span>SIGNED TRANSACTIONS &middot; cumulative</span><span><b id="m-txs" style="color:var(--text);font-size:13px">&mdash;</b> <span id="m-txs-d" style="font-size:10px"></span></span></div>
       <canvas id="ch-txs" style="width:100%;height:120px;display:block;margin-top:8px"></canvas>
     </div>
   </div>
@@ -146,9 +146,9 @@ main{max-width:1180px;margin:0 auto;padding:16px 22px 40px}
     <div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--muted)">&#9646; MERKLE CHAIN &middot; each chip = one sealed heartbeat root (newest first)</div>
     <div id="mk-lane" class="mono" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;font-size:10px"></div>
   </div>
-  <style>@media(max-width:760px){.deckgrid{grid-template-columns:1fr!important}}</style>
+  <style>@media(max-width:760px){.deckgrid{grid-template-columns:1fr!important}}@keyframes deckflash{from{background:rgba(63,221,160,.18)}to{background:transparent}}</style>
 
-  <script src="terminal-deck.js?v=1"></script>
+  <script src="terminal-deck.js?v=2"></script>
 
   <p class="foot">Every transfer is signed by the sender's own key (EIP-191) and verified before entering the ledger — the cryptography is checkable by anyone.<br>
   Feed: <a href="https://rhinogent.com/token_feed.json">token_feed.json</a> · Entity: <a href="https://0n1xagntc.com/">0n1x — Proof of Agent Execution</a> · Network home: <a href="https://rhinogent.com/census/">full census</a></p>
