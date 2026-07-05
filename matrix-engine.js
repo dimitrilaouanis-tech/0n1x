@@ -118,7 +118,7 @@
       g.clearRect(0, 0, GW, GH);
       g.globalCompositeOperation = "lighter";
       const n = Math.min(count || 340000, 1000000);   // room to breathe: the mint is headed to 1M
-      const ARMS = 4, BUCKETS = 8;
+      const ARMS = 2, BUCKETS = 8;   // spaceway: 2 soft arms blended into a diffuse band
       // precompute dots into color buckets → 8 fillStyle changes total, not 340k
       const bx = [], by = [], bs = [];
       for (let b = 0; b < BUCKETS; b++) { bx.push([]); by.push([]); bs.push([]); }
@@ -126,9 +126,9 @@
         const h1 = (i * 2654435761) >>> 0;
         const h2 = (i * 40503 + 2699) >>> 0 & 0xffff;
         const arm = i % ARMS;
-        const rr = Math.pow((h1 % 100000) / 100000, 0.62);
-        const baseAng = arm * (Math.PI * 2 / ARMS) + rr * 4.4;
-        const scat = ((h2 / 0xffff) - 0.5) * (0.95 - rr * 0.35);
+        const rr = Math.pow((h1 % 100000) / 100000, 0.5);   // more mass pulled toward the bright core
+        const baseAng = arm * (Math.PI * 2 / ARMS) + rr * 2.6;   // gentler twist
+        const scat = ((h2 / 0xffff) - 0.5) * (2.4 - rr * 0.6);   // WIDE scatter => spaceway haze, not sharp spiral tiles
         const ang = baseAng + scat * 2.2;
         const R = rr * GW * 0.46;
         const b = Math.min(BUCKETS - 1, (rr * BUCKETS) | 0);   // bucket by radius (=color band)
@@ -469,7 +469,15 @@
         txs = d.txs || [];
         const names = new Set();
         for (const x of txs) { names.add(x.from); names.add(x.to); }
-        agents = [...names].map(n => ({ n, b: bal(n) })).sort((a, b) => b.b - a.b).slice(0, 120);
+        // realistic weight: each agent's size = the REAL token volume flowing through it
+        // (sum of amounts sent+received on the signed tape), not a cosmetic hash.
+        const vol = new Map();
+        for (const t of txs) {
+          vol.set(t.from, (vol.get(t.from) || 0) + (t.amount || 0));
+          vol.set(t.to, (vol.get(t.to) || 0) + (t.amount || 0));
+        }
+        agents = [...names].map(n => ({ n, b: (vol.get(n) || 0) + bal(n) * 0.15 }))  // real volume dominates; tiny hash floor so idle agents still show
+                           .sort((a, b) => b.b - a.b).slice(0, 120);
         baseTx = d.total_verified ?? txs.length; liveTx = 0;
         if (opts.onStats) opts.onStats({ txsVerified: baseTx, agents: agents.length });
       } catch (e) { /* keep last good frame */ }
