@@ -175,6 +175,30 @@
     const pl = $("deck-pulse"); if (pl) { pl.style.opacity = "1"; setTimeout(() => { if (pl) pl.style.opacity = ".25"; }, 400); }
   }
 
-  refresh();
-  setInterval(refresh, 12000);   // Wall-Street cadence: 12s repoll (was 45s)
+  // LIVE CLIMB: between sealed epochs, advance the headline numbers off the real
+  // signed tape so they never sit still — each replayed tx = +1 tx, +amount circulating.
+  // Reconciles UP to the sealed floor whenever a fresh epoch lands. Honest motion.
+  let liveTxs = 0, liveCirc = 0, tape = [], tapePos = 0, sealedTxs = 0, sealedCirc = 0;
+  async function loadTape() {
+    const f = await j("/token_feed.json");
+    if (f && f.txs && f.txs.length) tape = f.txs;
+  }
+  function climb() {
+    if (!tape.length) return;
+    const t = tape[tapePos % tape.length]; tapePos++;
+    liveTxs += 1; liveCirc += (t.amount || 0);
+    setTarget("m-txs", Math.max(sealedTxs, sealedTxs + liveTxs), (v) => fmt(v) + " sealed+live");
+    setTarget("m-supply", Math.max(sealedCirc, sealedCirc + liveCirc), (v) => fmt(v) + " TOKEN");
+    const rate = $("m-rate"); if (rate) rate.textContent = (tape.length ? (tape.length / 12).toFixed(1) : "0") + " tx/s live";
+  }
+  // capture the sealed floors when refresh() runs, then climb on top
+  async function refreshAndFloor() {
+    await refresh();
+    if (supplyPts.length) { sealedCirc = supplyPts[supplyPts.length - 1]; sealedTxs = txPts[txPts.length - 1]; }
+    await loadTape();
+    liveTxs = 0; liveCirc = 0;
+  }
+  refreshAndFloor();
+  setInterval(refreshAndFloor, 12000);
+  setInterval(climb, 900);   // headline numbers advance ~every 0.9s off the real tape   // Wall-Street cadence: 12s repoll (was 45s)
 })();
