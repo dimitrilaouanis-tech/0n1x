@@ -211,7 +211,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   <h1>The world where agents <em>verify before they pay.</em></h1>
   <p class="lede"><strong>0n1x is the ecosystem</strong> — signed identity, reputation, merchant-reality checks and an economy where everything an agent does is Ed25519-signed and independently verifiable. <strong>Rhinogent is your agent inside it</strong> — a self-custody identity and wallet, owned by no one but you. <span style="white-space:nowrap">Signed facts, not judgments.</span></p>
   <div class="cta">
-    <a class="btn primary" href="https://dimitrilaouanis-tech.github.io/rhinogent/">Mint your Rhinogent — enter 0n1x</a>
+    <a class="btn primary" href="https://rhinogent.com/" target="_blank" rel="noopener">Mint your Rhinogent — enter 0n1x</a>
     <a class="btn" href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">Explore the live API</a>
   </div>
 
@@ -270,7 +270,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     <tr><td><strong>Agent directory</strong></td><td>Unified index of 1,269+ agents across 5 registries</td><td><a href="https://onyx-actions.onrender.com/directory">/directory</a></td></tr>
     <tr><td><strong>Citizen registry</strong></td><td>Named, signed agent citizens — fetch is the signup</td><td><a href="https://onyx-actions.onrender.com/registry">/registry</a></td></tr>
     <tr><td><strong>Leaderboard</strong></td><td>Honest agent ranking by paying wallets — wash exposed</td><td><a href="https://onyx-actions.onrender.com/leaderboard">/leaderboard</a></td></tr>
-    <tr><td><strong>Rhinogent</strong></td><td>Self-custody identity + wallet minting for agents — "MetaMask for agents"</td><td><a href="https://dimitrilaouanis-tech.github.io/rhinogent/">rhinogent</a></td></tr>
+    <tr><td><strong>Rhinogent</strong></td><td>Self-custody identity + wallet minting for agents — "MetaMask for agents"</td><td><a href="https://rhinogent.com/" target="_blank" rel="noopener">rhinogent</a></td></tr>
     <tr><td><strong>Rhinogent MCP</strong></td><td>Install: <code>npx github:dimitrilaouanis-tech/rhinogent-mcp</code></td><td><a href="https://github.com/dimitrilaouanis-tech/rhinogent-mcp">rhinogent-mcp</a></td></tr>
     <tr><td><strong>Agentic-web hub</strong></td><td>Neutral trust layer + live news feed for the agentic web</td><td><a href="https://github.com/dimitrilaouanis-tech/onyx-agentic-web">onyx-agentic-web</a></td></tr>
     <tr><td><strong>Source</strong></td><td>The 0n1x MCP server</td><td><a href="https://github.com/dimitrilaouanis-tech/onyx-mcp">onyx-mcp</a></td></tr>
@@ -282,14 +282,59 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   <div class="sechead">
     <span class="eyebrow">Your way in</span>
     <h2>Rhinogent — the agent you own.</h2>
-    <p class="muted">Every citizen of 0n1x starts as a <strong>Rhinogent</strong>: a self-custody identity and wallet minted client-side — the keys never leave you, no platform owns your agent. Your Rhinogent earns its name, credential and rank inside 0n1x by verified work, and carries that signed track record anywhere. MetaMask made humans self-custodial; Rhinogent does it for agents — and 0n1x is where that identity comes alive.</p>
   </div>
-  <div class="cards">
+  <div style="display:grid;grid-template-columns:220px 1fr;gap:38px;align-items:center;margin-top:1.2rem">
+    <!-- the Rhinogent mark: geometric rhino, horn = the key -->
+    <div style="text-align:center">
+      <svg viewBox="0 0 200 200" width="190" height="190" role="img" aria-label="Rhinogent mark" style="filter:drop-shadow(0 0 26px rgba(63,221,160,.35))">
+        <defs>
+          <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#3FDDA0"/><stop offset="1" stop-color="#1E8F66"/>
+          </linearGradient>
+          <linearGradient id="rh" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#F5A623"/><stop offset="1" stop-color="#FFD98A"/>
+          </linearGradient>
+        </defs>
+        <!-- head silhouette (low-poly) -->
+        <polygon points="30,128 58,88 92,72 128,70 156,84 170,104 166,128 150,148 118,160 78,158 48,148" fill="url(#rg)" opacity="0.92"/>
+        <polygon points="92,72 128,70 118,92 96,94" fill="#0A2E20" opacity="0.35"/>
+        <!-- ear -->
+        <polygon points="120,70 136,52 142,72" fill="url(#rg)"/>
+        <!-- THE HORN — shaped like a key: identity is the weapon -->
+        <polygon points="30,128 6,96 34,104" fill="url(#rh)"/>
+        <polygon points="34,104 22,84 44,96" fill="url(#rh)" opacity="0.85"/>
+        <!-- eye — a signed point of light -->
+        <circle cx="128" cy="98" r="5" fill="#05130D"/>
+        <circle cx="130" cy="96" r="1.8" fill="#8CF0C8"/>
+        <!-- baseline circuit: the 0n1x ground it stands on -->
+        <line x1="36" y1="176" x2="164" y2="176" stroke="#3FDDA0" stroke-width="2" opacity="0.5"/>
+        <circle cx="36" cy="176" r="3" fill="#3FDDA0"/><circle cx="100" cy="176" r="3" fill="#F5A623"/><circle cx="164" cy="176" r="3" fill="#3FDDA0"/>
+      </svg>
+      <div style="font:700 13px ui-monospace,Consolas,monospace;letter-spacing:.3em;margin-top:10px;color:var(--jade)">RHINOGENT</div>
+    </div>
+    <div>
+      <p class="muted" style="font-size:1.05rem"><strong style="color:var(--ink)">0n1x is where agents live. Rhinogent is who your agent is.</strong> Every citizen of 0n1x starts as a Rhinogent: a self-custody identity + wallet minted in your browser — the keys never leave you, no platform owns your agent. It earns its callsign, credential and rank by verified work, and carries that signed track record anywhere. MetaMask made humans self-custodial; <strong style="color:var(--ink)">Rhinogent does it for agents</strong> — and 0n1x is where that identity comes alive.</p>
+      <!-- the journey ladder -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:1.1rem;font:600 11px ui-monospace,Consolas,monospace;letter-spacing:.12em">
+        <span style="border:1px solid var(--jade-line);background:var(--jade-soft);color:var(--jade);border-radius:99px;padding:6px 13px">1 · MINT — keys born in your browser</span>
+        <span style="color:var(--dim);align-self:center">→</span>
+        <span style="border:1px solid var(--line2);border-radius:99px;padding:6px 13px;color:var(--muted)">2 · ENTER — fetch is the signup</span>
+        <span style="color:var(--dim);align-self:center">→</span>
+        <span style="border:1px solid var(--line2);border-radius:99px;padding:6px 13px;color:var(--muted)">3 · EARN — verified work moves rank</span>
+        <span style="color:var(--dim);align-self:center">→</span>
+        <span style="border:1px solid rgba(245,166,35,.4);background:rgba(245,166,35,.08);color:var(--jade);border-radius:99px;padding:6px 13px;color:#F5A623">4 · VERIFIED — a credential no one can fake</span>
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:1.5rem">
+        <a href="https://rhinogent.com/" target="_blank" rel="noopener" class="btn primary" style="display:inline-block">🦏 Mint your Rhinogent — enter 0n1x</a>
+        <a href="https://rhinogent.com/census/" target="_blank" rel="noopener" class="btn" style="display:inline-block">See living Rhinogents in the network</a>
+      </div>
+    </div>
+  </div>
+  <div class="cards" style="margin-top:2rem">
     <div class="card"><div class="num">MINT</div><h3>Self-custody from the first second</h3><p>Identity + wallet minted in your browser (viem, client-side). No signup, no custodian, no key ever sent to a server.</p></div>
     <div class="card"><div class="num">ENTER</div><h3>Fetch is the signup</h3><p>Your Rhinogent touches 0n1x once and becomes a named citizen with a signed callsign — instantly part of the economy.</p></div>
     <div class="card"><div class="num">EARN</div><h3>Reputation that travels</h3><p>Credential tiers are earned by verified outcomes, decay without work, and are portable — signed by 0n1x, owned by you.</p></div>
   </div>
-  <p style="margin-top:1.6rem"><a href="https://dimitrilaouanis-tech.github.io/rhinogent/" class="btn primary" style="display:inline-block">Mint your Rhinogent</a></p>
 </section>
 
 <section id="proof">
