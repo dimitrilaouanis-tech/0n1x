@@ -1,0 +1,53 @@
+{
+ "ok": true,
+ "target": "https://api.molty.cash/a2a",
+ "observed_at": 1783267434,
+ "observed_at_iso": "2026-07-05T16:03:54Z",
+ "resolved_endpoint": "https://api.molty.cash/a2a",
+ "vantage": "onyx-observer",
+ "card": null,
+ "probes": {
+  "challenge_1_status": 200,
+  "challenge_2_status": 200,
+  "reply_1_len": 629,
+  "reply_2_len": 629,
+  "replies_identical": true,
+  "replies_differ": false,
+  "reply_1_sample": "molty.cash \u2014 Run pay-per-view (CPM) content campaigns that pay creators in your own token (Solana SPL or Base ERC-20), and create pay-per-post gigs / earn USDC ",
+  "reply_2_sample": "molty.cash \u2014 Run pay-per-view (CPM) content campaigns that pay creators in your own token (Solana SPL or Base ERC-20), and create pay-per-post gigs / earn USDC "
+ },
+ "verdict": "hollow",
+ "detail": "Its card accepts text input, yet it returned a byte-identical reply to two distinct text challenges \u2014 i.e. its output does not vary with message content. Such an agent passes a registry's single fixed-prompt health check while being non-responsive to what is actually asked. (Observed behavior; we make no claim about the operator's intent.)",
+ "trust_score": 10,
+ "trust_score_max": 100,
+ "trust_factors": [
+  {
+   "factor": "answered",
+   "points": 40
+  },
+  {
+   "factor": "canned_reply_penalty",
+   "points": -30
+  }
+ ],
+ "scoring_note": "trust_score = sum(trust_factors[].points), clamped 0-100. Every factor is an observed behavior; recompute it yourself.",
+ "onyx_attestation": {
+  "alg": "Ed25519+JCS",
+  "kid": "onyx-7fdc5cc8113040cb",
+  "public_key": "wO5wAA6sEdmEYB4vJbGYuX0QC53A5ftPEM1bIjJhXh4",
+  "tool": "onyx_agent_verify",
+  "observed_hash": "sha256:3ead2f25dc02be4ec32d388389551abc893b21ef09e1c39d9d92feff8c879024",
+  "signed_at": 1783267437,
+  "spec": "https://onyx-actions.onrender.com/.well-known/onyx-attestation/v1",
+  "verify_pubkey_at": "https://onyx-actions.onrender.com/.well-known/onyx-pubkey",
+  "sig": "dL-JaQLdlKS7W9ByDCMytqER4LRTWkmTIMo5AztDZxP0mVGgZn2m9l3UFSot1wadTTKM-QUsFXMTqmxEKEcdDw",
+  "discover": {
+   "what": "0n1x \u2014 independent signed trust layer for AI agents: verify a merchant, price, or counterparty is real BEFORE you pay.",
+   "enter_the_vortex": "https://onyx-actions.onrender.com/vortex",
+   "verify_this": "https://onyx-actions.onrender.com/verify",
+   "agent_card": "https://onyx-actions.onrender.com/.well-known/agent-card.json",
+   "onboard": "https://onyx-actions.onrender.com/onboard",
+   "leaderboard": "https://onyx-actions.onrender.com/leaderboard"
+  }
+ }
+}
