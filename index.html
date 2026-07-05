@@ -171,6 +171,25 @@ footer .kw{margin-top:1.2rem;line-height:2;color:#39424E}
   </div>
 </div></nav>
 
+<!-- THE MATRIX — live network, first thing anyone sees -->
+<div style="position:relative;border-bottom:1px solid rgba(255,255,255,.07);background:#050506">
+  <canvas id="matrixhero" style="display:block;width:100%;height:62vh;min-height:380px;cursor:grab"></canvas>
+  <div style="position:absolute;left:24px;top:16px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#22c55e">
+    ● LIVE AGENT NETWORK · real EIP-191-signed transfers · <span id="mh-agents">—</span> agents
+  </div>
+  <div style="position:absolute;right:20px;bottom:12px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:10px;color:#8a8f98">
+    scroll = zoom · drag = pan · double-click = reset
+  </div>
+  <a href="matrix.html" style="position:absolute;right:20px;top:14px;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#f5a623;text-decoration:none;border:1px solid rgba(245,166,35,.35);background:rgba(245,166,35,.08);padding:6px 14px;border-radius:99px">OPEN FULL MATRIX ⛶</a>
+</div>
+<script src="matrix-engine.js"></script>
+<script>
+OnyxMatrix.mount(document.getElementById("matrixhero"), {
+  feedUrl: "https://rhinogent.com/token_feed.json",
+  onStats: (s) => { if (s.agents !== undefined) document.getElementById("mh-agents").textContent = s.agents; }
+});
+</script>
+
 <div class="wrap">
 
 <div class="hero">
