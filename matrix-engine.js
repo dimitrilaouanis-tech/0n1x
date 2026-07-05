@@ -33,7 +33,7 @@
 
     // ---- interaction -------------------------------------------------------
     const view = { s: 1, ox: 0, oy: 0 };
-    let drag = null, mouse = null;
+    let drag = null, mouse = null, focus = null, dragMoved = false;
     cv.style.cursor = "grab";
     cv.addEventListener("wheel", (e) => {
       e.preventDefault();
@@ -43,15 +43,31 @@
       view.oy = my - (my - view.oy) * (s2 / view.s);
       view.s = s2;
     }, { passive: false });
-    cv.addEventListener("mousedown", (e) => { drag = { x: e.clientX, y: e.clientY, ox: view.ox, oy: view.oy }; cv.style.cursor = "grabbing"; });
+    cv.addEventListener("mousedown", (e) => { drag = { x: e.clientX, y: e.clientY, ox: view.ox, oy: view.oy }; dragMoved = false; cv.style.cursor = "grabbing"; });
     addEventListener("mouseup", () => { drag = null; cv.style.cursor = "grab"; });
     cv.addEventListener("mousemove", (e) => {
       const r = cv.getBoundingClientRect();
       mouse = { x: e.clientX - r.left, y: e.clientY - r.top };
-      if (drag) { view.ox = drag.ox + (e.clientX - drag.x); view.oy = drag.oy + (e.clientY - drag.y); }
+      if (drag) { view.ox = drag.ox + (e.clientX - drag.x); view.oy = drag.oy + (e.clientY - drag.y);
+        if (Math.abs(e.clientX - drag.x) + Math.abs(e.clientY - drag.y) > 4) dragMoved = true; }
     });
     cv.addEventListener("mouseleave", () => { mouse = null; drag = null; cv.style.cursor = "grab"; });
-    cv.addEventListener("dblclick", () => { view.s = 1; view.ox = 0; view.oy = 0; });
+    cv.addEventListener("dblclick", () => { view.s = 1; view.ox = 0; view.oy = 0; focus = null; });
+    cv.addEventListener("click", (e) => {
+      if (dragMoved) return;                      // real drag, not a click
+      const r = cv.getBoundingClientRect();
+      const mx = e.clientX - r.left, my = e.clientY - r.top;
+      const zs2 = Math.sqrt(view.s);
+      const maxB2 = Math.max(1, ...agents.map(a => a.b));
+      let hitN = null;
+      for (let i = agents.length - 1; i >= 0; i--) {
+        const a = agents[i]; const [u, v] = pos(a.n);
+        const sz = (3.2 + (a.b / maxB2) * 5.8) * zs2 + 5;
+        const dx = mx - (u * W * view.s + view.ox), dy = my - (v * H * view.s + view.oy);
+        if (dx * dx + dy * dy <= sz * sz) { hitN = a.n; break; }
+      }
+      focus = (hitN === focus) ? null : hitN;     // toggle; empty click clears
+    });
     // touch: 1-finger pan, 2-finger pinch zoom
     let touch = null;
     cv.addEventListener("touchstart", (e) => {
@@ -76,6 +92,7 @@
 
     // ---- state -------------------------------------------------------------
     let agents = [], txs = [], particles = [], flow = 0, tick = 0;
+    const heat = new Map();   // callsign -> activity heat (decays; brightness = activation)
     const flares = new Map();
     let ecoTotal = 0, merkle = "";
 
@@ -206,14 +223,22 @@
         const k = x.from < x.to ? x.from + "|" + x.to : x.to + "|" + x.from;
         const e = pairs.get(k); if (e) e.n++; else pairs.set(k, { a: x.from, b: x.to, n: 1 });
       }
+      const nbrSet = new Set();
+      if (focus) { nbrSet.add(focus); for (const e of pairs.values()) { if (e.a === focus) nbrSet.add(e.b); if (e.b === focus) nbrSet.add(e.a); } }
       let pi = 0;
       for (const e of pairs.values()) {
         const [au, av] = pos(e.a), [bu, bv] = pos(e.b);
         const x1 = sx(au), y1 = sy(av), x2 = sx(bu), y2 = sy(bv);
         if (Math.max(x1, x2) < -60 || Math.min(x1, x2) > W + 60) { pi++; continue; }
         const [qx, qy] = ctrl(x1, y1, x2, y2);
-        ctx.strokeStyle = `rgba(120,140,220,${Math.min(0.22, 0.06 + e.n * 0.035)})`;
-        ctx.lineWidth = Math.min(1.6, 0.55 + (e.n - 1) * 0.25);
+        const onFocus = focus && (e.a === focus || e.b === focus);
+        const dimmed = focus && !onFocus;
+        const eg = ctx.createLinearGradient(x1, y1, x2, y2);   // gradient: cool → warm
+        const ea = dimmed ? 0.02 : (onFocus ? 0.55 : Math.min(0.22, 0.06 + e.n * 0.035));
+        eg.addColorStop(0, `rgba(110,150,255,${ea})`);
+        eg.addColorStop(1, `rgba(255,190,120,${ea})`);
+        ctx.strokeStyle = eg;
+        ctx.lineWidth = onFocus ? 1.8 : Math.min(1.6, 0.55 + (e.n - 1) * 0.25);
         ctx.beginPath(); ctx.moveTo(x1, y1); ctx.quadraticCurveTo(qx, qy, x2, y2); ctx.stroke();
         // stream: 1-3 photons flowing along the edge, phase-offset per edge
         const nStream = Math.min(3, e.n);
@@ -243,11 +268,17 @@
           if (fage > 650) firing.delete(a.n);
           else if (fage >= 0) fl = Math.max(fl, (1 - fage / 650) * (1 - fr.hop * 0.28));
         }
+        const hv = heat.get(a.n) || 0;
+        if (hv > 0) heat.set(a.n, hv * 0.995);          // slow decay of activation
+        const isFocus = focus === a.n, isNbr = focus && nbrSet.has(a.n);
+        const dimNode = focus && !isFocus && !isNbr;
         const breathe = 1 + 0.10 * Math.sin(t * 1.4 + (hash(a.n, 41) % 628) / 100);
-        const s = (3.2 + (a.b / maxB) * 5.8) * zs * breathe * (1 + 0.3 * fl);
+        const s = (3.2 + (a.b / maxB) * 5.8) * zs * breathe * (1 + 0.3 * fl) * (isFocus ? 1.5 : 1);
+        fl = Math.min(1, fl + hv * 0.5);                 // activation adds brightness
         const amber = i < 10;
         const cr = amber ? 255 : 150, cg = amber ? 196 : 185, cb = amber ? 110 : 255;
 
+        if (dimNode) ctx.globalAlpha = 0.16;             // focus mode: the rest recedes
         // aura (additive => real bloom)
         const hr = s * 4;
         const halo = ctx.createRadialGradient(x, y, 0, x, y, hr);
@@ -262,8 +293,14 @@
         core.addColorStop(1, `rgba(${cr},${cg},${cb},0.12)`);
         ctx.fillStyle = core; ctx.beginPath(); ctx.arc(x, y, s, 0, Math.PI * 2); ctx.fill();
 
+        ctx.globalAlpha = 1;
+        // focus ring — a bright halo ring around the selected neuron
+        if (isFocus) {
+          ctx.strokeStyle = "rgba(140,240,200,0.85)"; ctx.lineWidth = 1.6;
+          ctx.beginPath(); ctx.arc(x, y, s * 2.4 + 3 * Math.sin(t * 3), 0, Math.PI * 2); ctx.stroke();
+        }
         // THE LIL ORBITS — satellites around the top hubs
-        if (i < 14) {
+        if (i < 14 || isFocus) {
           const nSat = i < 4 ? 3 : (i < 8 ? 2 : 1);
           for (let k = 0; k < nSat; k++) {
             const orbR = s * (2.1 + k * 0.85);
@@ -363,6 +400,8 @@
       if (!txs.length) return;
       const x = txs[tick % txs.length]; tick++;
       flares.set(x.from, performance.now()); flares.set(x.to, performance.now());
+      heat.set(x.from, Math.min(1, (heat.get(x.from) || 0) + 0.25));
+      heat.set(x.to, Math.min(1, (heat.get(x.to) || 0) + 0.25));
       const [fu, fv] = pos(x.from), [tu, tv] = pos(x.to);
       particles.push({ fu, fv, tu, tv, t: 0, amt: x.amount || 10 });
       if (particles.length > 60) particles.shift();
