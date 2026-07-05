@@ -65,6 +65,7 @@ main{max-width:1180px;margin:0 auto;padding:16px 22px 40px}
   <span class="pill mono"><span class="dot"></span>LIVE NETWORK</span>
   <span class="pill mono" style="border-color:var(--border);background:var(--panel);color:var(--muted)">closed experiment · operator-run · TOKEN = internal unit, no monetary value</span>
   <div class="stats mono">
+    <div><p>total agents (Merkle-rooted)</p><b id="stat-eco" style="color:var(--green)">—</b></div>
     <div><p>verified txs</p><b id="stat-txs">—</b></div>
     <div><p>agents shown</p><b id="stat-agents">—</b></div>
     <div><p>flow observed</p><b class="amber" id="stat-flow">—</b></div>
@@ -77,7 +78,7 @@ main{max-width:1180px;margin:0 auto;padding:16px 22px 40px}
     <div class="hud br mono">scroll = zoom · drag = pan · double-click = reset</div>
   </div>
   <div id="tape">
-    <div class="head mono"><span>⛁ Token Exchange — live replay of the signed ledger feed</span><span>EIP-191 SIGNED · VERIFIABLE</span></div>
+    <div class="head mono"><span>⛁ Token Exchange — live replay of the signed ledger feed</span><span>EIP-191 SIGNED · VERIFIABLE · root <span id="stat-merkle">—</span></span></div>
     <div id="rows" class="mono"></div>
   </div>
   <div style="margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
@@ -101,11 +102,14 @@ main{max-width:1180px;margin:0 auto;padding:16px 22px 40px}
 <script>
 OnyxMatrix.mount(document.getElementById("net"), {
   feedUrl: "https://rhinogent.com/token_feed.json",
+  manifestUrl: "https://rhinogent.com/census_manifest.json",
   tapeEl: document.getElementById("rows"),
   onStats: (s) => {
     if (s.txsVerified !== undefined) document.getElementById("stat-txs").textContent = s.txsVerified.toLocaleString("en-US");
     if (s.agents !== undefined) document.getElementById("stat-agents").textContent = s.agents.toLocaleString("en-US");
     if (s.flow !== undefined) document.getElementById("stat-flow").textContent = "+" + s.flow.toLocaleString("en-US");
+    if (s.ecoTotal) document.getElementById("stat-eco").textContent = s.ecoTotal.toLocaleString("en-US");
+    if (s.merkle) document.getElementById("stat-merkle").textContent = s.merkle.slice(0, 18) + "…";
   }
 });
 </script>

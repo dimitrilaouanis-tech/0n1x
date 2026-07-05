@@ -77,6 +77,71 @@
     // ---- state -------------------------------------------------------------
     let agents = [], txs = [], particles = [], flow = 0, tick = 0;
     const flares = new Map();
+    let ecoTotal = 0, merkle = "";
+
+    // ---- THE GALAXY — every agent in the ecosystem as a real dot ------------
+    // Painted ONCE to an offscreen canvas (spiral-galaxy distribution, fully
+    // deterministic), then blitted under the live graph each frame with the
+    // pan/zoom transform. 340k dots at 60fps because we never redraw them.
+    const galaxy = document.createElement("canvas");
+    const GW = 2048, GH = 2048;
+    galaxy.width = GW; galaxy.height = GH;
+    function paintGalaxy(count) {
+      const g = galaxy.getContext("2d");
+      g.clearRect(0, 0, GW, GH);
+      g.globalCompositeOperation = "lighter";
+      const n = Math.min(count || 340000, 400000);
+      const ARMS = 4;
+      for (let i = 0; i < n; i++) {
+        // deterministic spiral galaxy: arm + radial falloff + scatter
+        const h1 = (i * 2654435761) >>> 0;             // Knuth hash
+        const h2 = (i * 40503 + 2699) >>> 0 & 0xffff;
+        const arm = i % ARMS;
+        const rr = Math.pow((h1 % 100000) / 100000, 0.62);          // density toward core
+        const baseAng = arm * (Math.PI * 2 / ARMS) + rr * 4.4;      // spiral twist
+        const scat = ((h2 / 0xffff) - 0.5) * (0.5 - rr * 0.28);     // tighter arms outward
+        const ang = baseAng + scat * 2.2;
+        const R = rr * GW * 0.46;
+        const x = GW / 2 + Math.cos(ang) * R;
+        const y = GH / 2 + Math.sin(ang) * R * 0.62;                // elliptic disc
+        // color: warm core → cool arms
+        const warm = 1 - rr;
+        const a = 0.055 + warm * 0.075;
+        g.fillStyle = `rgba(${170 + warm * 70 | 0},${180 + warm * 25 | 0},${235 - warm * 45 | 0},${a.toFixed(3)})`;
+        g.fillRect(x, y, rr < 0.25 ? 1.4 : 1, rr < 0.25 ? 1.4 : 1);
+      }
+      // luminous core
+      const core = g.createRadialGradient(GW / 2, GH / 2, 0, GW / 2, GH / 2, GW * 0.09);
+      core.addColorStop(0, "rgba(255,214,150,0.20)");
+      core.addColorStop(1, "rgba(255,214,150,0)");
+      g.fillStyle = core;
+      g.beginPath(); g.arc(GW / 2, GH / 2, GW * 0.09, 0, Math.PI * 2); g.fill();
+    }
+    paintGalaxy(340000); // repainted with the live manifest count on load
+
+    // ---- NEURAL FIRING — synapse cascades through the real edge graph -------
+    // Every beat a hub fires; the signal propagates along its actual transfer
+    // edges to neighbors (hop 1), then theirs (hop 2) — a living neural net.
+    const firing = new Map();   // name -> {start, hop}
+    let fireSeed = 7;
+    function fireCascade() {
+      if (!agents.length) return;
+      fireSeed = (fireSeed * 1103515245 + 12345) >>> 0;
+      const origin = agents[fireSeed % Math.min(20, agents.length)].n;
+      const nbr = new Map();    // adjacency from real txs
+      for (const x of txs) {
+        if (!nbr.has(x.from)) nbr.set(x.from, []);
+        if (!nbr.has(x.to)) nbr.set(x.to, []);
+        nbr.get(x.from).push(x.to); nbr.get(x.to).push(x.from);
+      }
+      const now = performance.now();
+      firing.set(origin, { start: now, hop: 0 });
+      const h1 = nbr.get(origin) || [];
+      for (const a of h1) if (!firing.has(a)) firing.set(a, { start: now + 220, hop: 1 });
+      for (const a of h1) for (const b of (nbr.get(a) || []))
+        if (!firing.has(b)) firing.set(b, { start: now + 440, hop: 2 });
+    }
+    setInterval(fireCascade, 1700);
     // parallax starfield — 3 depth layers, deterministic
     const stars = [];
     for (let i = 0; i < 170; i++) {
@@ -105,6 +170,18 @@
 
       // EVERYTHING luminous below renders additively — the glow secret
       ctx.globalCompositeOperation = "lighter";
+
+      // THE WHOLE ECOSYSTEM — the galaxy of every agent, under the live graph.
+      // Blitted with the same pan/zoom transform (slightly damped = deep layer).
+      {
+        const gs = view.s * 0.85 + 0.15;                 // zooms a touch slower (depth)
+        const gw = Math.max(W, H) * 1.25 * gs;
+        const gx = W / 2 + (view.ox - (1 - view.s) * W / 2) * 0.85 - gw / 2;
+        const gy = H / 2 + (view.oy - (1 - view.s) * H / 2) * 0.85 - gw / 2;
+        ctx.globalAlpha = 0.9;
+        ctx.drawImage(galaxy, gx, gy, gw, gw);
+        ctx.globalAlpha = 1;
+      }
 
       // parallax starfield (drifts slower than the graph = depth)
       for (const s of stars) {
@@ -155,6 +232,13 @@
         let fl = 0;
         const ft = flares.get(a.n);
         if (ft !== undefined) { const age = (now - ft) / 1000; if (age >= 1) flares.delete(a.n); else fl = age < 0.15 ? age / 0.15 : 1 - (age - 0.15) / 0.85; }
+        // synapse fire: sharp white flash that decays ~600ms, hop-delayed
+        const fr = firing.get(a.n);
+        if (fr !== undefined) {
+          const fage = now - fr.start;
+          if (fage > 650) firing.delete(a.n);
+          else if (fage >= 0) fl = Math.max(fl, (1 - fage / 650) * (1 - fr.hop * 0.28));
+        }
         const breathe = 1 + 0.10 * Math.sin(t * 1.4 + (hash(a.n, 41) % 628) / 100);
         const s = (3.2 + (a.b / maxB) * 5.8) * zs * breathe * (1 + 0.3 * fl);
         const amber = i < 10;
@@ -281,6 +365,16 @@
         agents = [...names].map(n => ({ n, b: bal(n) })).sort((a, b) => b.b - a.b).slice(0, 120);
         if (opts.onStats) opts.onStats({ txsVerified: d.total_verified ?? txs.length, agents: agents.length });
       } catch (e) { /* keep last good frame */ }
+      // the EXTENT: live Merkle-rooted manifest → real ecosystem total for the galaxy
+      if (opts.manifestUrl) {
+        try {
+          const m = await (await fetch(opts.manifestUrl, { cache: "no-store" })).json();
+          const c = m.count || m.total || 0;
+          if (c && c !== ecoTotal) { ecoTotal = c; paintGalaxy(c); }
+          merkle = m.merkle_root || "";
+          if (opts.onStats) opts.onStats({ ecoTotal, merkle, circulating: m.circulating });
+        } catch (e) { /* manifest optional */ }
+      }
     }
     load(); setInterval(load, 60000);
 
