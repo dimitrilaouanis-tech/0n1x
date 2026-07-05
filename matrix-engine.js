@@ -176,10 +176,14 @@
       {
         const gs = view.s * 0.85 + 0.15;                 // zooms a touch slower (depth)
         const gw = Math.max(W, H) * 1.6 * gs;
-        const gx = W / 2 + (view.ox - (1 - view.s) * W / 2) * 0.85 - gw / 2;
-        const gy = H / 2 + (view.oy - (1 - view.s) * H / 2) * 0.85 - gw / 2;
-        ctx.globalAlpha = 0.8;
-        ctx.drawImage(galaxy, gx, gy, gw, gw);
+        const cx2 = W / 2 + (view.ox - (1 - view.s) * W / 2) * 0.85;
+        const cy2 = H / 2 + (view.oy - (1 - view.s) * H / 2) * 0.85;
+        ctx.save();
+        ctx.translate(cx2, cy2);
+        ctx.rotate(t * 0.011);                           // the galaxy TURNS — slow, alive
+        ctx.globalAlpha = 0.72 + 0.10 * Math.sin(t * 0.35);  // breathing luminosity
+        ctx.drawImage(galaxy, -gw / 2, -gw / 2, gw, gw);
+        ctx.restore();
         ctx.globalAlpha = 1;
       }
 
