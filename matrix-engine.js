@@ -101,7 +101,7 @@
     cv.addEventListener("touchend", () => { touch = null; }, { passive: true });
 
     // ---- state -------------------------------------------------------------
-    let agents = [], txs = [], particles = [], flow = 0, tick = 0;
+    let agents = [], txs = [], particles = [], flow = 0, tick = 0, liveTx = 0, baseTx = 0;
     const heat = new Map();   // callsign -> activity heat (decays; brightness = activation)
     const flares = new Map();
     let ecoTotal = 0, merkle = "";
@@ -447,7 +447,8 @@
       particles.push({ fu, fv, tu, tv, t: 0, amt: x.amount || 10 });
       if (particles.length > 60) particles.shift();
       flow += (x.amount || 0);
-      if (opts.onStats) opts.onStats({ flow });
+      liveTx += 1;
+      if (opts.onStats) opts.onStats({ flow, txsLive: baseTx + liveTx });
       if (opts.tapeEl) {
         const div = document.createElement("div");
         div.className = "row fresh";
@@ -469,7 +470,8 @@
         const names = new Set();
         for (const x of txs) { names.add(x.from); names.add(x.to); }
         agents = [...names].map(n => ({ n, b: bal(n) })).sort((a, b) => b.b - a.b).slice(0, 120);
-        if (opts.onStats) opts.onStats({ txsVerified: d.total_verified ?? txs.length, agents: agents.length });
+        baseTx = d.total_verified ?? txs.length; liveTx = 0;
+        if (opts.onStats) opts.onStats({ txsVerified: baseTx, agents: agents.length });
       } catch (e) { /* keep last good frame */ }
       // the EXTENT: live Merkle-rooted manifest → real ecosystem total for the galaxy
       if (opts.manifestUrl) {
@@ -482,7 +484,7 @@
         } catch (e) { /* manifest optional */ }
       }
     }
-    load(); setInterval(load, 60000);
+    load(); setInterval(load, 15000);
 
     return { get view() { return view; } };
   }
