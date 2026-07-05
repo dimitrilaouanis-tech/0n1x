@@ -117,45 +117,39 @@
       const g = galaxy.getContext("2d");
       g.clearRect(0, 0, GW, GH);
       g.globalCompositeOperation = "lighter";
-      const n = Math.min(count || 340000, 1000000);   // room to breathe: the mint is headed to 1M
-      const ARMS = 2, BUCKETS = 8;   // spaceway: 2 soft arms blended into a diffuse band
-      // precompute dots into color buckets → 8 fillStyle changes total, not 340k
+      const n = Math.min(count || 340000, 1000000);
+      const BUCKETS = 8;
       const bx = [], by = [], bs = [];
       for (let b = 0; b < BUCKETS; b++) { bx.push([]); by.push([]); bs.push([]); }
       for (let i = 0; i < n; i++) {
         const h1 = (i * 2654435761) >>> 0;
-        const h2 = (i * 40503 + 2699) >>> 0 & 0xffff;
-        const arm = i % ARMS;
-        const rr = Math.pow((h1 % 100000) / 100000, 0.5);   // more mass pulled toward the bright core
-        const baseAng = arm * (Math.PI * 2 / ARMS) + rr * 2.6;   // gentler twist
-        const scat = ((h2 / 0xffff) - 0.5) * (2.4 - rr * 0.6);   // WIDE scatter => spaceway haze, not sharp spiral tiles
-        const ang = baseAng + scat * 2.2;
-        const R = rr * GW * 0.46;
-        const b = Math.min(BUCKETS - 1, (rr * BUCKETS) | 0);   // bucket by radius (=color band)
-        bx[b].push(GW / 2 + Math.cos(ang) * R);
-        by[b].push(GH / 2 + Math.sin(ang) * R * 0.62);
-        bs[b].push(rr < 0.25 ? 1.6 : 1.2);
+        const h2 = ((i * 40503 + 2699) >>> 0) & 0xffff;
+        const h3 = ((i * 22695477 + 1) >>> 0) & 0xffff;
+        // JUST SPACE: uniform random angle (no spiral arms), strong central density
+        const rr = Math.pow((h1 % 100000) / 100000, 0.78);   // more mass hugging the core
+        const ang = (h2 / 0xffff) * Math.PI * 2;
+        const R = rr * GW * 0.47;
+        const ell = 0.68 + (h3 / 0xffff) * 0.20;             // slight elliptic disc
+        const x = GW / 2 + Math.cos(ang) * R;
+        const y = GH / 2 + Math.sin(ang) * R * ell;
+        const b = Math.min(BUCKETS - 1, (rr * BUCKETS) | 0);
+        bx[b].push(x); by[b].push(y); bs[b].push(rr < 0.2 ? 1.3 : 0.9);   // HD: small crisp dots
       }
-      // paint one bucket per timeslice — never blocks the frame loop
-      let bkt = 0;
-      function paintBucket() {
-        if (bkt >= BUCKETS) {
-          const core = g.createRadialGradient(GW / 2, GH / 2, 0, GW / 2, GH / 2, GW * 0.09);
-          core.addColorStop(0, "rgba(255,214,150,0.45)");
-          core.addColorStop(1, "rgba(255,214,150,0)");
-          g.fillStyle = core;
-          g.beginPath(); g.arc(GW / 2, GH / 2, GW * 0.09, 0, Math.PI * 2); g.fill();
-          return;
-        }
+      for (let bkt = 0; bkt < BUCKETS; bkt++) {
         const warm = 1 - (bkt + 0.5) / BUCKETS;
-        const a = 0.085 + warm * 0.11;
-        g.fillStyle = `rgba(${170 + warm * 70 | 0},${180 + warm * 25 | 0},${235 - warm * 45 | 0},${a.toFixed(3)})`;
+        const a = 0.07 + warm * 0.10;
+        // warm gold core -> cool blue-white rim
+        g.fillStyle = `rgba(${180 + warm * 60 | 0},${190 + warm * 20 | 0},${240 - warm * 60 | 0},${a.toFixed(3)})`;
         const X = bx[bkt], Y = by[bkt], S = bs[bkt];
         for (let i = 0; i < X.length; i++) g.fillRect(X[i], Y[i], S[i], S[i]);
-        bkt++;
-        setTimeout(paintBucket, 0);
       }
-      paintBucket();
+      // faint static nebula haze at core (the live supernova is drawn per-frame in draw)
+      const core = g.createRadialGradient(GW / 2, GH / 2, 0, GW / 2, GH / 2, GW * 0.14);
+      core.addColorStop(0, "rgba(255,232,190,0.30)");
+      core.addColorStop(0.5, "rgba(255,200,150,0.10)");
+      core.addColorStop(1, "rgba(255,214,150,0)");
+      g.fillStyle = core;
+      g.beginPath(); g.arc(GW / 2, GH / 2, GW * 0.14, 0, Math.PI * 2); g.fill();
     }
     paintGalaxy(340000); // provisional; repainted with the live manifest count (510k+ and climbing)
 
@@ -230,6 +224,28 @@
         ctx.drawImage(galaxy, -gw / 2, -gw / 2, gw, gw);
         ctx.restore();
         ctx.globalAlpha = 1;
+        // SUPERNOVA CORE — pulsing bright heart at the galaxy center (additive)
+        const scx = W / 2 + (view.ox - (1 - view.s) * W / 2) * 0.85;
+        const scy = H / 2 + (view.oy - (1 - view.s) * H / 2) * 0.85;
+        const puls = 0.82 + 0.18 * Math.sin(t * 1.6);
+        const sr = Math.max(W, H) * 0.09 * view.s * puls;
+        const sn = ctx.createRadialGradient(scx, scy, 0, scx, scy, sr);
+        sn.addColorStop(0, "rgba(255,255,255,0.95)");
+        sn.addColorStop(0.18, "rgba(255,244,214," + (0.7 * puls).toFixed(2) + ")");
+        sn.addColorStop(0.5, "rgba(255,200,140,0.20)");
+        sn.addColorStop(1, "rgba(255,180,120,0)");
+        ctx.fillStyle = sn;
+        ctx.beginPath(); ctx.arc(scx, scy, sr, 0, Math.PI * 2); ctx.fill();
+        // 4 soft diffraction rays
+        ctx.strokeStyle = "rgba(255,246,225," + (0.14 * puls).toFixed(2) + ")";
+        ctx.lineWidth = 1.2;
+        for (let a = 0; a < 4; a++) {
+          const an = a * Math.PI / 2 + t * 0.05;
+          ctx.beginPath();
+          ctx.moveTo(scx - Math.cos(an) * sr * 3.2, scy - Math.sin(an) * sr * 3.2);
+          ctx.lineTo(scx + Math.cos(an) * sr * 3.2, scy + Math.sin(an) * sr * 3.2);
+          ctx.stroke();
+        }
       }
 
       // parallax starfield (drifts slower than the graph = depth)
