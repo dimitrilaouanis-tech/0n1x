@@ -118,38 +118,60 @@
       g.clearRect(0, 0, GW, GH);
       g.globalCompositeOperation = "lighter";
       const n = Math.min(count || 340000, 1000000);
-      const BUCKETS = 8;
-      const bx = [], by = [], bs = [];
-      for (let b = 0; b < BUCKETS; b++) { bx.push([]); by.push([]); bs.push([]); }
+      const CX = GW / 2, CY = GH / 2;
+      const BUCKETS = 10;
+      const bx=[],by=[],bs=[],ba=[];
+      for (let b=0;b<BUCKETS;b++){bx.push([]);by.push([]);bs.push([]);ba.push([]);}
       for (let i = 0; i < n; i++) {
         const h1 = (i * 2654435761) >>> 0;
         const h2 = ((i * 40503 + 2699) >>> 0) & 0xffff;
         const h3 = ((i * 22695477 + 1) >>> 0) & 0xffff;
-        // JUST SPACE: uniform random angle (no spiral arms), strong central density
-        const rr = Math.pow((h1 % 100000) / 100000, 0.78);   // more mass hugging the core
-        const ang = (h2 / 0xffff) * Math.PI * 2;
-        const R = rr * GW * 0.47;
-        const ell = 0.68 + (h3 / 0xffff) * 0.20;             // slight elliptic disc
-        const x = GW / 2 + Math.cos(ang) * R;
-        const y = GH / 2 + Math.sin(ang) * R * ell;
+        const h4 = ((i * 3266489917 + 5) >>> 0) & 0xffff;
+        // radial: strong central mass + an EVENT-HORIZON void (few stars very near core)
+        let rr = Math.pow((h1 % 100000) / 100000, 0.72);
+        const horizon = 0.055;                         // black-hole shadow radius
+        rr = horizon + rr * (1 - horizon);
+        // gravitational swirl: angle winds MORE the closer to the core (frame-drag look)
+        const swirl = 3.1 * Math.pow(1 - rr, 1.6);
+        const ang = (h2 / 0xffff) * Math.PI * 2 + swirl;
+        // 3 depth strata (near/mid/far) => parallax reads as real 3D volume
+        const stratum = h4 % 3;
+        const depthScale = [1.0, 0.82, 0.66][stratum];
+        const R = rr * GW * 0.47 * depthScale;
+        const ell = 0.60 + (h3 / 0xffff) * 0.24;
+        const x = CX + Math.cos(ang) * R;
+        const y = CY + Math.sin(ang) * R * ell;
         const b = Math.min(BUCKETS - 1, (rr * BUCKETS) | 0);
-        bx[b].push(x); by[b].push(y); bs[b].push(rr < 0.2 ? 1.3 : 0.9);   // HD: small crisp dots
+        bx[b].push(x); by[b].push(y);
+        // HD: sub-pixel varied star sizes + per-star brightness jitter
+        bs[b].push((rr < 0.18 ? 1.4 : 0.75) * depthScale + (h3 % 5) * 0.12);
+        ba[b].push(0.45 + (h4 % 100) / 100 * 0.55);    // brightness variety = detail, not flat
       }
       for (let bkt = 0; bkt < BUCKETS; bkt++) {
         const warm = 1 - (bkt + 0.5) / BUCKETS;
-        const a = 0.07 + warm * 0.10;
-        // warm gold core -> cool blue-white rim
-        g.fillStyle = `rgba(${180 + warm * 60 | 0},${190 + warm * 20 | 0},${240 - warm * 60 | 0},${a.toFixed(3)})`;
-        const X = bx[bkt], Y = by[bkt], S = bs[bkt];
-        for (let i = 0; i < X.length; i++) g.fillRect(X[i], Y[i], S[i], S[i]);
+        // accretion-disc palette: white-gold hot inner -> cyan-violet cool outer
+        const cr = (200 + warm * 55) | 0, cg = (180 + warm * 40) | 0, cb = (230 - warm * 30) | 0;
+        const X=bx[bkt],Y=by[bkt],S=bs[bkt],A=ba[bkt];
+        const baseA = 0.06 + warm * 0.07;
+        for (let i=0;i<X.length;i++){
+          g.fillStyle = `rgba(${cr},${cg},${cb},${(baseA*A[i]).toFixed(3)})`;
+          g.fillRect(X[i], Y[i], S[i], S[i]);
+        }
       }
-      // faint static nebula haze at core (the live supernova is drawn per-frame in draw)
-      const core = g.createRadialGradient(GW / 2, GH / 2, 0, GW / 2, GH / 2, GW * 0.14);
-      core.addColorStop(0, "rgba(255,232,190,0.30)");
-      core.addColorStop(0.5, "rgba(255,200,150,0.10)");
-      core.addColorStop(1, "rgba(255,214,150,0)");
-      g.fillStyle = core;
-      g.beginPath(); g.arc(GW / 2, GH / 2, GW * 0.14, 0, Math.PI * 2); g.fill();
+      // ACCRETION RING — bright hot ring at the event horizon
+      const ring = g.createRadialGradient(CX, CY, GW*0.045, CX, CY, GW*0.11);
+      ring.addColorStop(0, "rgba(255,240,205,0)");
+      ring.addColorStop(0.35, "rgba(255,225,170,0.42)");
+      ring.addColorStop(0.7, "rgba(255,180,120,0.14)");
+      ring.addColorStop(1, "rgba(180,150,255,0)");
+      g.fillStyle = ring; g.beginPath(); g.arc(CX, CY, GW*0.11, 0, Math.PI*2); g.fill();
+      // EVENT HORIZON — true black core (drawn normal, punches a void)
+      g.globalCompositeOperation = "source-over";
+      const void_ = g.createRadialGradient(CX, CY, 0, CX, CY, GW*0.05);
+      void_.addColorStop(0, "rgba(0,0,0,1)");
+      void_.addColorStop(0.8, "rgba(2,2,6,0.95)");
+      void_.addColorStop(1, "rgba(6,6,12,0)");
+      g.fillStyle = void_; g.beginPath(); g.arc(CX, CY, GW*0.05, 0, Math.PI*2); g.fill();
     }
     paintGalaxy(340000); // provisional; repainted with the live manifest count (510k+ and climbing)
 
@@ -200,7 +222,7 @@
     }
     function drawFrame(nowMs) {
       const t = nowMs / 1000;
-      camX = Math.sin(t * 0.13) * 26; camY = Math.cos(t * 0.11) * 18;   // slow orbital drift
+      camX = Math.sin(t * 0.20) * 30; camY = Math.cos(t * 0.17) * 22;   // livelier orbital drift
       // deep-space base (normal blending)
       ctx.globalCompositeOperation = "source-over";
       const bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.75);
@@ -219,7 +241,7 @@
         const cy2 = H / 2 + (view.oy - (1 - view.s) * H / 2) * 0.85;
         ctx.save();
         ctx.translate(cx2, cy2);
-        ctx.rotate(t * 0.011);                           // the galaxy TURNS — slow, alive
+        ctx.rotate(t * 0.020);                           // the galaxy TURNS (faster — frame-drag)
         ctx.globalAlpha = 0.72 + 0.10 * Math.sin(t * 0.35);  // breathing luminosity
         ctx.drawImage(galaxy, -gw / 2, -gw / 2, gw, gw);
         ctx.restore();
@@ -384,37 +406,57 @@
       // 3D FLYING LETTERS — depth-projected words that fly in, hold, fly through.
       // Explains what 0n1x is, cinematically, over the living network.
       if (opts.messages && opts.messages.length) {
-        const CYC = 6.5;                                  // seconds per message
+        const CYC = 5.0;                                  // faster cadence per message
         const mi = Math.floor(t / CYC) % opts.messages.length;
         const mt = (t % CYC) / CYC;                       // 0..1 within cycle
         let scale, alpha;
-        if (mt < 0.18) { const u = mt / 0.18; scale = 0.25 + 0.75 * (1 - Math.pow(1 - u, 3)); alpha = u; }          // fly in from depth
-        else if (mt < 0.72) { scale = 1 + (mt - 0.18) * 0.06; alpha = 1; }                                          // hold, slow drift closer
-        else { const u = (mt - 0.72) / 0.28; scale = 1.03 + u * u * 2.6; alpha = 1 - u; }                           // fly THROUGH camera
-        // MATRIX GLITCH: chars resolve out of code-rain noise, RGB-split, slice tears
+        if (mt < 0.16) { const u = mt / 0.16; scale = 0.25 + 0.75 * (1 - Math.pow(1 - u, 3)); alpha = u; }           // snappier fly-in
+        else if (mt < 0.70) { scale = 1 + (mt - 0.16) * 0.06; alpha = 1; }                                          // hold
+        else { const u = (mt - 0.70) / 0.30; scale = 1.03 + u * u * 2.8; alpha = 1 - u; }                           // fly THROUGH camera
+        // MATRIX GLITCH: chars resolve out of code-rain, RGB-split, slice tears + micro flicker
         const raw = opts.messages[mi];
-        const GLYPHS = "01<>/\|=+*#$%&@!?ΞΦΨΩ";
-        const settle = mt < 0.18 ? mt / 0.18 : 1;                 // 0..1: how resolved
+        const GLYPHS = "01<>/\\|=+*#$%&@!?ΞΦΨΩ░▒▓";
+        const settle = mt < 0.16 ? mt / 0.16 : 1;
         let msg = "";
         for (let ci = 0; ci < raw.length; ci++) {
-          const stable = (hash(raw + ci, 61) % 100) / 100 < settle * settle * 1.4;
+          // occasional mid-hold glitch flicker on a random char (more alive)
+          const flick = settle >= 1 && (hash("f" + ci + (t * 9 | 0), 79) % 40) === 0;
+          const stable = !flick && (hash(raw + ci, 61) % 100) / 100 < settle * settle * 1.4;
           msg += (stable || raw[ci] === " ") ? raw[ci]
-               : GLYPHS[(hash(raw + ci + (t * 18 | 0), 67) % GLYPHS.length)];
+               : GLYPHS[(hash(raw + ci + (t * 26 | 0), 67) % GLYPHS.length)];   // faster scramble
         }
         const fs = Math.min(W / 14, 64) * scale;
         const mx0 = W / 2, my0 = H / 2 + fs * 0.35;
         ctx.font = `700 ${fs}px ui-monospace,Consolas,monospace`;
         ctx.textAlign = "center";
-        const tear = (settle < 1 || (hash("g" + (t * 6 | 0), 71) % 9) === 0) ? (hash("t" + (t * 12 | 0), 73) % 7) - 3 : 0;
-        // chromatic aberration: red left, cyan right, white core
+        const tear = (settle < 1 || (hash("g" + (t * 8 | 0), 71) % 7) === 0) ? (hash("t" + (t * 16 | 0), 73) % 9) - 4 : 0;
+        // FROST: soft icy-white bloom halo behind the glyphs + crystalline blue rim
+        ctx.save();
+        ctx.shadowColor = "rgba(190,225,255,0.55)";
+        ctx.shadowBlur = fs * 0.28;                       // frosty glow
+        ctx.fillStyle = `rgba(205,230,255,${(alpha * 0.25).toFixed(3)})`;
+        ctx.fillText(msg, mx0, my0);
+        ctx.restore();
+        // chromatic aberration: red left, cyan right
         ctx.fillStyle = `rgba(255,60,80,${(alpha * 0.30).toFixed(3)})`;
         ctx.fillText(msg, mx0 - 2 - tear, my0);
-        ctx.fillStyle = `rgba(60,240,255,${(alpha * 0.30).toFixed(3)})`;
+        ctx.fillStyle = `rgba(80,220,255,${(alpha * 0.32).toFixed(3)})`;   // icy cyan
         ctx.fillText(msg, mx0 + 2 + tear, my0);
-        ctx.fillStyle = `rgba(140,240,200,${(alpha * 0.35).toFixed(3)})`;
+        // frost core: cool white with a faint blue tint
+        ctx.fillStyle = `rgba(180,235,255,${(alpha * 0.35).toFixed(3)})`;
         ctx.fillText(msg, mx0, my0);
-        ctx.fillStyle = `rgba(235,255,246,${(alpha * 0.9).toFixed(3)})`;
+        ctx.fillStyle = `rgba(240,252,255,${(alpha * 0.92).toFixed(3)})`;
         ctx.fillText(msg, mx0, my0);
+        // tiny frost specks around the text (sparse, icy)
+        if (settle >= 1) {
+          for (let fp = 0; fp < 5; fp++) {
+            const fh = hash("frost" + fp + (t * 2 | 0), 83);
+            const fx = mx0 + ((fh % 1000) / 1000 - 0.5) * fs * raw.length * 0.6;
+            const fy = my0 + (((fh >> 10) % 1000) / 1000 - 0.7) * fs * 0.9;
+            ctx.fillStyle = `rgba(220,240,255,${(alpha * 0.5 * ((fh % 10) / 10)).toFixed(3)})`;
+            ctx.fillRect(fx, fy, 1.4, 1.4);
+          }
+        }
         ctx.textAlign = "start";
       }
 
