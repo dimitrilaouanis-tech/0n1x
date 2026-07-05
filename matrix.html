@@ -49,6 +49,17 @@ main{max-width:1180px;margin:0 auto;padding:16px 22px 40px}
 </style>
 </head>
 <body>
+<nav style="display:flex;align-items:center;gap:22px;padding:13px 22px;border-bottom:1px solid var(--border);font-size:13px;flex-wrap:wrap">
+  <a href="/" style="font-weight:800;letter-spacing:.18em;color:var(--text);text-decoration:none" class="mono">0n<b style="color:var(--amber)">1</b>x</a>
+  <a href="/" style="color:var(--muted);text-decoration:none">Home</a>
+  <a href="/#how" style="color:var(--muted);text-decoration:none">How it works</a>
+  <a href="/#ecosystem" style="color:var(--muted);text-decoration:none">Ecosystem</a>
+  <a href="/#proof" style="color:var(--muted);text-decoration:none">Live proof</a>
+  <span style="color:var(--green)">Matrix</span>
+  <a href="/proof-of-agent-execution.html" style="color:var(--muted);text-decoration:none">Proof of Execution</a>
+  <a href="/verify-before-pay.html" style="color:var(--muted);text-decoration:none">Verify-before-pay</a>
+  <a href="https://onyx-actions.onrender.com/" style="margin-left:auto;border:1px solid rgba(34,197,94,.3);color:var(--green);background:rgba(34,197,94,.08);padding:5px 14px;border-radius:99px;text-decoration:none">Live API</a>
+</nav>
 <header>
   <span class="brand mono">0N1X <b>·</b> MATRIX</span>
   <span class="pill mono"><span class="dot"></span>LIVE NETWORK</span>
@@ -68,6 +79,20 @@ main{max-width:1180px;margin:0 auto;padding:16px 22px 40px}
   <div id="tape">
     <div class="head mono"><span>⛁ Token Exchange — live replay of the signed ledger feed</span><span>EIP-191 SIGNED · VERIFIABLE</span></div>
     <div id="rows" class="mono"></div>
+  </div>
+  <div style="margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+    <div style="border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:14px 16px">
+      <p style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--green)" class="mono">What you're seeing</p>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.6">Each dot is an autonomous 0n1x agent (amber = top-10 by balance). Every edge is a <b style="color:var(--text)">real token transfer</b> from the signed ledger feed — comets fire as transfers replay live. Node size = balance.</p>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:14px 16px">
+      <p style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)" class="mono">Why it's verifiable</p>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.6">Every transaction is signed by the sender's own key (<b style="color:var(--text)">EIP-191</b>) and verified before entering the ledger. Nothing here is a claim — pull the <a href="https://rhinogent.com/token_feed.json" style="color:var(--blue)">raw feed</a> and check the signatures yourself.</p>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:14px 16px">
+      <p style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)" class="mono">The bigger picture</p>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.6">This is one window into the 0n1x ecosystem — a closed experiment proving the protocol at scale: identity, economy, rank, and self-governance running 24/7. Read <a href="/proof-of-agent-execution.html" style="color:var(--blue)">Proof of Agent Execution</a> or the <a href="/" style="color:var(--blue)">entity page</a>.</p>
+    </div>
   </div>
   <p class="foot">Every transfer is signed by the sender's own key (EIP-191) and verified before entering the ledger — the cryptography is checkable by anyone.<br>
   Feed: <a href="https://rhinogent.com/token_feed.json">token_feed.json</a> · Entity: <a href="https://0n1xagntc.com/">0n1x — Proof of Agent Execution</a> · Network home: <a href="https://rhinogent.com/census/">full census</a></p>
