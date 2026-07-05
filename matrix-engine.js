@@ -99,16 +99,16 @@
         const arm = i % ARMS;
         const rr = Math.pow((h1 % 100000) / 100000, 0.62);          // density toward core
         const baseAng = arm * (Math.PI * 2 / ARMS) + rr * 4.4;      // spiral twist
-        const scat = ((h2 / 0xffff) - 0.5) * (0.5 - rr * 0.28);     // tighter arms outward
+        const scat = ((h2 / 0xffff) - 0.5) * (0.95 - rr * 0.35);     // tighter arms outward
         const ang = baseAng + scat * 2.2;
         const R = rr * GW * 0.46;
         const x = GW / 2 + Math.cos(ang) * R;
         const y = GH / 2 + Math.sin(ang) * R * 0.62;                // elliptic disc
         // color: warm core → cool arms
         const warm = 1 - rr;
-        const a = 0.20 + warm * 0.25;
+        const a = 0.085 + warm * 0.11;
         g.fillStyle = `rgba(${170 + warm * 70 | 0},${180 + warm * 25 | 0},${235 - warm * 45 | 0},${a.toFixed(3)})`;
-        g.fillRect(x, y, rr < 0.25 ? 2.4 : 1.8, rr < 0.25 ? 2.4 : 1.8);
+        g.fillRect(x, y, rr < 0.25 ? 1.6 : 1.2, rr < 0.25 ? 1.6 : 1.2);
       }
       // luminous core
       const core = g.createRadialGradient(GW / 2, GH / 2, 0, GW / 2, GH / 2, GW * 0.09);
@@ -178,7 +178,7 @@
         const gw = Math.max(W, H) * 1.6 * gs;
         const gx = W / 2 + (view.ox - (1 - view.s) * W / 2) * 0.85 - gw / 2;
         const gy = H / 2 + (view.oy - (1 - view.s) * H / 2) * 0.85 - gw / 2;
-        ctx.globalAlpha = 1;
+        ctx.globalAlpha = 0.8;
         ctx.drawImage(galaxy, gx, gy, gw, gw);
         ctx.globalAlpha = 1;
       }
