@@ -106,13 +106,13 @@
         const y = GH / 2 + Math.sin(ang) * R * 0.62;                // elliptic disc
         // color: warm core → cool arms
         const warm = 1 - rr;
-        const a = 0.055 + warm * 0.075;
+        const a = 0.20 + warm * 0.25;
         g.fillStyle = `rgba(${170 + warm * 70 | 0},${180 + warm * 25 | 0},${235 - warm * 45 | 0},${a.toFixed(3)})`;
-        g.fillRect(x, y, rr < 0.25 ? 1.4 : 1, rr < 0.25 ? 1.4 : 1);
+        g.fillRect(x, y, rr < 0.25 ? 2.4 : 1.8, rr < 0.25 ? 2.4 : 1.8);
       }
       // luminous core
       const core = g.createRadialGradient(GW / 2, GH / 2, 0, GW / 2, GH / 2, GW * 0.09);
-      core.addColorStop(0, "rgba(255,214,150,0.20)");
+      core.addColorStop(0, "rgba(255,214,150,0.45)");
       core.addColorStop(1, "rgba(255,214,150,0)");
       g.fillStyle = core;
       g.beginPath(); g.arc(GW / 2, GH / 2, GW * 0.09, 0, Math.PI * 2); g.fill();
@@ -175,10 +175,10 @@
       // Blitted with the same pan/zoom transform (slightly damped = deep layer).
       {
         const gs = view.s * 0.85 + 0.15;                 // zooms a touch slower (depth)
-        const gw = Math.max(W, H) * 1.25 * gs;
+        const gw = Math.max(W, H) * 1.6 * gs;
         const gx = W / 2 + (view.ox - (1 - view.s) * W / 2) * 0.85 - gw / 2;
         const gy = H / 2 + (view.oy - (1 - view.s) * H / 2) * 0.85 - gw / 2;
-        ctx.globalAlpha = 0.9;
+        ctx.globalAlpha = 1;
         ctx.drawImage(galaxy, gx, gy, gw, gw);
         ctx.globalAlpha = 1;
       }
