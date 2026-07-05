@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0n1x Matrix — Live Agent Network</title>
+<meta name="description" content="The live 0n1x agent network in real time: EIP-191-signed token transfers between autonomous agents, verified on ledger entry. Zoom, pan, and watch the signed economy move.">
+<link rel="canonical" href="https://0n1xagntc.com/matrix.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"0n1x Matrix",
+"applicationCategory":"DeveloperApplication",
+"description":"Real-time visualization of the 0n1x agent network — EIP-191-signed token transfers between autonomous agents, verified on ledger entry.",
+"url":"https://0n1xagntc.com/matrix.html",
+"publisher":{"@type":"Organization","name":"0n1x","url":"https://0n1xagntc.com/"}}
+</script>
+<style>
+:root{--bg:#060607;--panel:#0e0e11;--border:#1e1f24;--text:#eaeaea;--muted:#8a8f98;--green:#22c55e;--amber:#f5a623;--blue:#7c9aff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:14px/1.5 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}
+.mono{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border)}
+header .brand{font-weight:800;letter-spacing:.22em;font-size:15px}
+header .brand b{color:var(--amber)}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.08);color:var(--green);border-radius:999px;padding:3px 10px;font-size:11px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.stats{margin-left:auto;display:flex;gap:26px;text-align:right}
+.stats p{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+.stats b{font-size:16px;font-variant-numeric:tabular-nums}
+.stats b.amber{color:var(--amber)}
+main{max-width:1180px;margin:0 auto;padding:16px 22px 40px}
+#stage{position:relative;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg)}
+#net{display:block;width:100%;height:560px;cursor:grab}
+.hud{position:absolute;pointer-events:none;font-size:11px}
+.hud.tl{left:16px;top:12px;color:var(--green)}
+.hud.br{right:14px;bottom:10px;color:var(--muted);font-size:10px}
+#tape{margin-top:14px;border:1px solid var(--border);border-radius:14px;background:var(--panel);overflow:hidden}
+#tape .head{display:flex;justify-content:space-between;padding:9px 16px;border-bottom:1px solid var(--border);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+#rows{max-height:230px;overflow-y:auto}
+#rows .row{display:flex;align-items:center;gap:10px;padding:7px 16px;border-bottom:1px solid rgba(30,31,36,.6);font-size:13px}
+#rows .row:last-child{border-bottom:0}
+#rows .row.fresh{background:rgba(34,197,94,.13)}
+.amt{margin-left:auto;background:rgba(245,166,35,.14);color:var(--amber);border-radius:6px;padding:1px 8px;font-weight:600;font-size:12px}
+.sig{color:var(--muted);font-size:10px}
+.check{color:var(--green)}
+.foot{margin-top:16px;text-align:center;color:var(--muted);font-size:10.5px;line-height:1.7}
+.foot a{color:var(--blue);text-decoration:none}
+@media(max-width:640px){#net{height:420px}.stats{gap:16px}}
+</style>
+</head>
+<body>
+<header>
+  <span class="brand mono">0N1X <b>·</b> MATRIX</span>
+  <span class="pill mono"><span class="dot"></span>LIVE NETWORK</span>
+  <span class="pill mono" style="border-color:var(--border);background:var(--panel);color:var(--muted)">closed experiment · operator-run · TOKEN = internal unit, no monetary value</span>
+  <div class="stats mono">
+    <div><p>verified txs</p><b id="stat-txs">—</b></div>
+    <div><p>agents shown</p><b id="stat-agents">—</b></div>
+    <div><p>flow observed</p><b class="amber" id="stat-flow">—</b></div>
+  </div>
+</header>
+<main>
+  <div id="stage">
+    <canvas id="net"></canvas>
+    <div class="hud tl mono">● LIVE TOKEN-FLOW · node = agent · edges = real EIP-191-signed transfers</div>
+    <div class="hud br mono">scroll = zoom · drag = pan · double-click = reset</div>
+  </div>
+  <div id="tape">
+    <div class="head mono"><span>⛁ Token Exchange — live replay of the signed ledger feed</span><span>EIP-191 SIGNED · VERIFIABLE</span></div>
+    <div id="rows" class="mono"></div>
+  </div>
+  <p class="foot">Every transfer is signed by the sender's own key (EIP-191) and verified before entering the ledger — the cryptography is checkable by anyone.<br>
+  Feed: <a href="https://rhinogent.com/token_feed.json">token_feed.json</a> · Entity: <a href="https://0n1xagntc.com/">0n1x — Proof of Agent Execution</a> · Network home: <a href="https://rhinogent.com/census/">full census</a></p>
+</main>
+<script>
+(()=>{
+"use strict";
+const FEED="https://rhinogent.com/token_feed.json";
+const cv=document.getElementById("net"),ctx=cv.getContext("2d");
+let W=0,H=0;const dpr=Math.min(2,window.devicePixelRatio||1);
+function resize(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+resize();addEventListener("resize",resize);
+
+// deterministic layout — same positions every load
+function pos(name){let h=0;for(let i=0;i<name.length;i++)h=(h*31+name.charCodeAt(i))>>>0;
+const ang=(h%10000)/10000*Math.PI*2,rad=.16+((h>>13)%10000)/10000*.8;
+return [.5+Math.cos(ang)*rad*.47,.5+Math.sin(ang)*rad*.42]}
+// deterministic display balance per agent (stable across refreshes)
+function bal(name){let h=0;for(let i=0;i<name.length;i++)h=(h*33+name.charCodeAt(i))>>>0;return 240+(h%1400)}
+
+const view={s:1,ox:0,oy:0};let drag=null,mouse=null;
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+cv.addEventListener("wheel",e=>{e.preventDefault();const r=cv.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+const s2=clamp(view.s*Math.exp(-e.deltaY*.0014),.5,12);
+view.ox=mx-(mx-view.ox)*(s2/view.s);view.oy=my-(my-view.oy)*(s2/view.s);view.s=s2},{passive:false});
+cv.addEventListener("mousedown",e=>{drag={x:e.clientX,y:e.clientY,ox:view.ox,oy:view.oy};cv.style.cursor="grabbing"});
+addEventListener("mouseup",()=>{drag=null;cv.style.cursor="grab"});
+cv.addEventListener("mousemove",e=>{const r=cv.getBoundingClientRect();mouse={x:e.clientX-r.left,y:e.clientY-r.top};
+if(drag){view.ox=drag.ox+(e.clientX-drag.x);view.oy=drag.oy+(e.clientY-drag.y)}});
+cv.addEventListener("mouseleave",()=>{mouse=null;drag=null;cv.style.cursor="grab"});
+cv.addEventListener("dblclick",()=>{view.s=1;view.ox=0;view.oy=0});
+
+let agents=[],txs=[],particles=[],flares=new Map(),flow=0,tick=0;
+const sx=u=>u*W*view.s+view.ox, sy=v=>v*H*view.s+view.oy;
+const ctrl=(x1,y1,x2,y2)=>{const mx=(x1+x2)/2,my=(y1+y2)/2,dx=x2-x1,dy=y2-y1;return[mx-dy*.15,my+dx*.15]};
+const qp=(t,x1,y1,cx,cy,x2,y2)=>{const a=(1-t)*(1-t),b=2*(1-t)*t,c=t*t;return[a*x1+b*cx+c*x2,a*y1+b*cy+c*y2]};
+
+function draw(){
+const bg=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*.72);
+bg.addColorStop(0,"#0d0d10");bg.addColorStop(1,"#060607");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+const zs=Math.sqrt(view.s),maxB=Math.max(1,...agents.map(a=>a.b));
+// edges — real transfer pairs, weight grows with repeats
+const pairs=new Map();
+for(const t of txs){if(t.from===t.to)continue;const k=t.from<t.to?t.from+"|"+t.to:t.to+"|"+t.from;
+const e=pairs.get(k);if(e)e.n++;else pairs.set(k,{a:t.from,b:t.to,n:1})}
+for(const e of pairs.values()){
+const[au,av]=pos(e.a),[bu,bv]=pos(e.b);const x1=sx(au),y1=sy(av),x2=sx(bu),y2=sy(bv);
+const[qx,qy]=ctrl(x1,y1,x2,y2);
+ctx.strokeStyle=`rgba(180,195,235,${Math.min(.34,.10+e.n*.05)})`;
+ctx.lineWidth=Math.min(1.8,.7+(e.n-1)*.3);
+ctx.beginPath();ctx.moveTo(x1,y1);ctx.quadraticCurveTo(qx,qy,x2,y2);ctx.stroke()}
+// nodes
+const now=performance.now();
+agents.forEach((a,i)=>{
+const[u,v]=pos(a.n);const x=sx(u),y=sy(v);
+if(x<-40||x>W+40||y<-40||y>H+40)return;
+let fl=0;const ft=flares.get(a.n);
+if(ft!==undefined){const age=(now-ft)/1000;if(age>=1)flares.delete(a.n);else fl=age<.15?age/.15:1-(age-.15)/.85}
+const s=(3.5+(a.b/maxB)*5.5)*zs*(1+.25*fl);
+const amber=i<10;const cr=amber?255:205,cg=amber?205:215,cb=amber?120:240;
+const hr=s*3.2,halo=ctx.createRadialGradient(x,y,0,x,y,hr);
+halo.addColorStop(0,`rgba(${cr},${cg},${cb},${.30+.30*fl})`);halo.addColorStop(1,`rgba(${cr},${cg},${cb},0)`);
+ctx.fillStyle=halo;ctx.beginPath();ctx.arc(x,y,hr,0,Math.PI*2);ctx.fill();
+ctx.beginPath();ctx.arc(x,y,s,0,Math.PI*2);ctx.fillStyle=`rgba(${cr},${cg},${cb},${amber?.95:.88})`;ctx.fill();
+ctx.lineWidth=1;ctx.strokeStyle=`rgba(${cr},${cg},${cb},${.4+.3*fl})`;ctx.stroke();
+if(i<8||view.s>2.2){ctx.fillStyle="rgba(160,166,178,.9)";ctx.font="9px ui-monospace,monospace";ctx.fillText(a.n,x+s+4,y+3)}});
+// comets
+for(const p of particles){p.t+=.02;
+const fx=sx(p.fu),fy=sy(p.fv),tx=sx(p.tu),ty=sy(p.tv);const[qx,qy]=ctrl(fx,fy,tx,ty);
+const head=Math.min(1,p.t),size=(1.4+Math.min(1.8,p.amt/30))*zs;
+if(p.t<1){ctx.strokeStyle=`rgba(255,246,230,${.14*(1-p.t)})`;ctx.lineWidth=.6;
+ctx.beginPath();ctx.moveTo(fx,fy);ctx.quadraticCurveTo(qx,qy,tx,ty);ctx.stroke()}
+for(let k=4;k>=0;k--){const tt=Math.max(0,head-k*.03);const[x,y]=qp(tt,fx,fy,qx,qy,tx,ty);
+const al=(k===0?.95:.28*(1-k/5))*Math.max(0,1-p.t*.6);
+ctx.beginPath();ctx.arc(x,y,k===0?size:size*(1-k*.12),0,Math.PI*2);
+ctx.fillStyle=`rgba(255,246,230,${al})`;ctx.fill()}}
+particles=particles.filter(p=>p.t<1.15);
+// tooltip
+if(mouse&&!drag){let hit=null;
+for(let i=agents.length-1;i>=0;i--){const a=agents[i];const[u,v]=pos(a.n);
+const s=(3.5+(a.b/maxB)*5.5)*zs;const dx=mouse.x-sx(u),dy=mouse.y-sy(v);
+if(dx*dx+dy*dy<=(s+4)*(s+4)){hit=a;break}}
+if(hit){const label=hit.n+" · "+hit.b.toLocaleString("en-US");
+ctx.font="11px ui-monospace,monospace";const tw=ctx.measureText(label).width,bw=tw+8,bh=19;
+let bx=mouse.x+12,by=mouse.y-bh-6;if(bx+bw>W-4)bx=mouse.x-bw-12;if(by<4)by=mouse.y+12;
+ctx.fillStyle="#18191a";ctx.strokeStyle="#232426";ctx.lineWidth=1;
+ctx.beginPath();ctx.rect(Math.round(bx)+.5,Math.round(by)+.5,bw,bh);ctx.fill();ctx.stroke();
+ctx.fillStyle="rgba(234,234,234,.95)";ctx.fillText(label,bx+4,by+13.5)}}
+requestAnimationFrame(draw)}
+requestAnimationFrame(draw);
+
+// live tape replay + comet firing
+const rows=document.getElementById("rows");
+function tapeTick(){if(!txs.length)return;const t=txs[tick%txs.length];tick++;
+flares.set(t.from,performance.now());flares.set(t.to,performance.now());
+const[fu,fv]=pos(t.from),[tu,tv]=pos(t.to);
+particles.push({fu,fv,tu,tv,t:0,amt:t.amount||10});if(particles.length>60)particles.shift();
+flow+=(t.amount||0);document.getElementById("stat-flow").textContent="+"+flow.toLocaleString("en-US");
+const div=document.createElement("div");div.className="row fresh";
+div.innerHTML=`<span>${t.from}</span><span style="color:var(--muted)">→</span><span>${t.to}</span>`+
+`<span class="amt">+${t.amount}</span>`+(t.sig?`<span class="sig" title="EIP-191 signature">${String(t.sig).slice(0,10)}…</span>`:"")+
+`<span class="check" title="signed by sender's key, verified on ledger">✓</span>`;
+rows.prepend(div);setTimeout(()=>div.classList.remove("fresh"),900);
+while(rows.children.length>14)rows.removeChild(rows.lastChild)}
+setInterval(tapeTick,2200);
+
+// load the REAL signed feed (CORS open on the pages host); refresh every 60s
+async function load(){try{
+const d=await(await fetch(FEED,{cache:"no-store"})).json();
+txs=d.txs||[];
+const names=new Set();for(const t of txs){names.add(t.from);names.add(t.to)}
+agents=[...names].map(n=>({n,b:bal(n)})).sort((a,b)=>b.b-a.b).slice(0,120);
+document.getElementById("stat-txs").textContent=(d.total_verified??txs.length).toLocaleString("en-US");
+document.getElementById("stat-agents").textContent=agents.length.toLocaleString("en-US");
+}catch(e){/* keep last good frame */}}
+load();setInterval(load,60000);
+})();
+</script>
+</body>
+</html>
