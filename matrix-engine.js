@@ -20,6 +20,9 @@
 
   function mount(cv, opts) {
     opts = opts || {};
+    const THEME = opts.theme === "rhino"
+      ? { hot: [255, 150, 235], base: [150, 170, 255], ring: "255,150,225", core: "230,180,255" }   // Rhino: violet/magenta
+      : { hot: [255, 196, 110], base: [150, 185, 255], ring: "255,225,170", core: "255,214,150" };  // 0n1x: gold/jade
     const ctx = cv.getContext("2d");
     let W = 0, H = 0;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -161,7 +164,7 @@
       // ACCRETION RING — bright hot ring at the event horizon
       const ring = g.createRadialGradient(CX, CY, GW*0.045, CX, CY, GW*0.11);
       ring.addColorStop(0, "rgba(255,240,205,0)");
-      ring.addColorStop(0.35, "rgba(255,225,170,0.42)");
+      ring.addColorStop(0.35, `rgba(${THEME.ring},0.42)`);
       ring.addColorStop(0.7, "rgba(255,180,120,0.14)");
       ring.addColorStop(1, "rgba(180,150,255,0)");
       g.fillStyle = ring; g.beginPath(); g.arc(CX, CY, GW*0.11, 0, Math.PI*2); g.fill();
@@ -341,7 +344,7 @@
         const s = (3.2 + (a.b / maxB) * 5.8) * zs * breathe * (1 + 0.3 * fl) * (isFocus ? 1.5 : 1) * (0.65 + 0.45 * depth);
         fl = Math.min(1, fl + hv * 0.5);                 // activation adds brightness
         const amber = i < 10;
-        const cr = amber ? 255 : 150, cg = amber ? 196 : 185, cb = amber ? 110 : 255;
+        const cr = amber ? THEME.hot[0] : THEME.base[0], cg = amber ? THEME.hot[1] : THEME.base[1], cb = amber ? THEME.hot[2] : THEME.base[2];
 
         if (dimNode) ctx.globalAlpha = 0.16;             // focus mode: the rest recedes
         // aura (additive => real bloom)
