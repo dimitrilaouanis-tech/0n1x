@@ -46,6 +46,11 @@ main{max-width:1180px;margin:0 auto;padding:16px 22px 40px}
 .foot{margin-top:16px;text-align:center;color:var(--muted);font-size:10.5px;line-height:1.7}
 .foot a{color:var(--blue);text-decoration:none}
 @media(max-width:640px){#net{height:56dvh;min-height:340px}.stats{margin-left:0;width:100%;flex-wrap:wrap;justify-content:flex-start;text-align:left;gap:10px 18px;font-size:11px}.stats>div{min-width:calc(50% - 18px)}.stats b{font-size:14px}header{padding:10px 14px;gap:8px}main{padding:12px 12px 32px}nav{gap:10px 12px;padding:10px 14px;font-size:12px}nav a[href="https://0n1xagntc.com/"]{margin-left:0}}
+
+/* odometer roll — HUD numbers roll up when they refresh */
+@keyframes numroll { 0% { transform: translateY(-38%); opacity: .25; filter: blur(.4px); } 100% { transform: translateY(0); opacity: 1; filter: blur(0); } }
+.roll-num { display: inline-block; font-variant-numeric: tabular-nums; will-change: transform; }
+.roll-num.rolling { animation: numroll .28s cubic-bezier(.2,.7,.3,1); }
 </style>
 </head>
 <body>
@@ -169,6 +174,23 @@ OnyxMatrix.mount(document.getElementById("net"), {
     if (s.merkle) document.getElementById("stat-merkle").textContent = s.merkle.slice(0, 18) + "…";
   }
 });
+</script>
+
+<script>
+(function(){
+  // attach an odometer roll to any element whose number changes
+  function watch(ids){
+    ids.forEach(function(id){
+      var el = document.getElementById(id); if(!el) return;
+      el.classList.add('roll-num'); var last = el.textContent;
+      new MutationObserver(function(){
+        if(el.textContent===last) return; last = el.textContent;
+        el.classList.remove('rolling'); void el.offsetWidth; el.classList.add('rolling');
+      }).observe(el,{childList:true,characterData:true,subtree:true});
+    });
+  }
+  watch(['hud-eco','hud-txs','hud-circ','stat-eco','stat-txs','stat-flow','mh-agents']);
+})();
 </script>
 </body>
 </html>

@@ -163,6 +163,11 @@ footer .kw{margin-top:1.2rem;line-height:2;color:#39424E}
   .frow .s{display:none}
   section{padding:80px 0 0}
 }
+
+/* odometer roll — HUD numbers roll up when they refresh */
+@keyframes numroll { 0% { transform: translateY(-38%); opacity: .25; filter: blur(.4px); } 100% { transform: translateY(0); opacity: 1; filter: blur(0); } }
+.roll-num { display: inline-block; font-variant-numeric: tabular-nums; will-change: transform; }
+.roll-num.rolling { animation: numroll .28s cubic-bezier(.2,.7,.3,1); }
 </style>
 </head>
 <body>
@@ -424,6 +429,23 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
     setInterval(row, 2400);
   }
+})();
+</script>
+
+<script>
+(function(){
+  // attach an odometer roll to any element whose number changes
+  function watch(ids){
+    ids.forEach(function(id){
+      var el = document.getElementById(id); if(!el) return;
+      el.classList.add('roll-num'); var last = el.textContent;
+      new MutationObserver(function(){
+        if(el.textContent===last) return; last = el.textContent;
+        el.classList.remove('rolling'); void el.offsetWidth; el.classList.add('rolling');
+      }).observe(el,{childList:true,characterData:true,subtree:true});
+    });
+  }
+  watch(['hud-eco','hud-txs','hud-circ','stat-eco','stat-txs','stat-flow','mh-agents']);
 })();
 </script>
 </body>
