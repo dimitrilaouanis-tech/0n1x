@@ -564,7 +564,15 @@
         while (opts.tapeEl.children.length > 14) opts.tapeEl.removeChild(opts.tapeEl.lastChild);
       }
     }
-    setInterval(tapeTick, 550);
+    // RHYTHM — not a metronome. Mostly a steady pulse, then occasional "bang-bang-bang"
+    // bursts: a rapid volley of signed transfers (the economy spiking), then calm again.
+    let burstLeft = 0;
+    (function pulse() {
+      tapeTick();
+      if (burstLeft > 0) { burstLeft--; setTimeout(pulse, 95 + Math.random() * 45); return; }   // volley
+      if (Math.random() < 0.16) { burstLeft = 4 + Math.floor(Math.random() * 6); setTimeout(pulse, 120); return; } // fire a burst
+      setTimeout(pulse, 500 + Math.random() * 460);                                              // varied calm beat
+    })();
 
     async function load() {
       try {
