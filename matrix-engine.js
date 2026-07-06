@@ -150,16 +150,24 @@
         const h3 = ((i * 22695477 + 1) >>> 0) & 0xffff;
         const h4 = ((i * 3266489917 + 5) >>> 0) & 0xffff;
         const rr = Math.pow((h1 % 100000) / 100000, 0.80);
-        const ang = (h2 / 0xffff) * Math.PI * 2;
-        const R = rr * GW * 0.47;
-        const ell = 0.66 + (h3 / 0xffff) * 0.22;
+        // 3D SWIRL: 2 gentle spiral arms winding toward the core (frame-drag) + scatter,
+        // and a depth stratum so arms sit at different "heights" = the universe swirls in 3D.
+        const arm = (h4 & 1);
+        const swirl = 2.2 * Math.pow(1 - rr, 1.3);                    // winds more near the core
+        const scatter = ((h2 / 0xffff) - 0.5) * (1.7 - rr * 0.5);     // arms stay loose/spacey
+        const ang = arm * Math.PI + swirl + scatter + (h3 / 0xffff) * 0.5;
+        const stratum = h3 % 3;                                       // 3 depth planes
+        const depth = [1.0, 0.86, 0.72][stratum];
+        const R = rr * GW * 0.47 * depth;
+        const ell = 0.60 + (h3 >>> 2 & 0xff) / 0xff * 0.26;
         const x = CX + Math.cos(ang) * R, y = CY + Math.sin(ang) * R * ell;
         const b = Math.min(BUCKETS - 1, (rr * BUCKETS) | 0);
-        // HD: mostly fine 1px dust + a sparse set of brighter, larger "resolved" stars
+        // HD: mostly fine 1px dust + a sparse set of brighter, larger "resolved" stars.
+        // near stratum = bigger/brighter (3D pop), far = fainter.
         const isBright = (h4 % 22) === 0;
         bx[b].push(x); by[b].push(y);
-        bs[b].push(isBright ? 2.0 + (h4 % 5) * 0.4 : (rr < 0.2 ? 1.1 : 0.8));
-        ba[b].push(isBright ? 0.9 : 0.4 + (h4 % 100) / 100 * 0.4);   // brightness variety = detail
+        bs[b].push((isBright ? 2.0 + (h4 % 5) * 0.4 : (rr < 0.2 ? 1.1 : 0.8)) * depth);
+        ba[b].push((isBright ? 0.9 : 0.4 + (h4 % 100) / 100 * 0.4) * (0.7 + 0.3 * depth));
         if (isBright) bright++;
       }
       for (let bkt = 0; bkt < BUCKETS; bkt++) {
@@ -233,7 +241,7 @@
     }
     function drawFrame(nowMs) {
       const t = nowMs / 1000;
-      camX = Math.sin(t * 0.20) * 30; camY = Math.cos(t * 0.17) * 22;   // livelier orbital drift
+      const drift = Math.min(W, H) * 0.035; camX = Math.sin(t * 0.20) * drift; camY = Math.cos(t * 0.17) * drift * 0.7;  // drift scales to screen — stays centered on mobile
       // deep-space base (normal blending)
       ctx.globalCompositeOperation = "source-over";
       const bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.75);
@@ -445,7 +453,7 @@
         let scale, alpha;
         if (mt < 0.16) { const u = mt / 0.16; scale = 0.25 + 0.75 * (1 - Math.pow(1 - u, 3)); alpha = u; }           // snappier fly-in
         else if (mt < 0.70) { scale = 1 + (mt - 0.16) * 0.06; alpha = 1; }                                          // hold
-        else { const u = (mt - 0.70) / 0.30; scale = 1.03 + u * u * 2.8; alpha = 1 - u; }                           // fly THROUGH camera
+        else { const u = (mt - 0.70) / 0.30; scale = 1.03 + u * u * (W < 600 ? 1.5 : 2.8); alpha = 1 - u; }          // fly THROUGH camera (gentler on mobile)
         // MATRIX GLITCH: chars resolve out of code-rain, RGB-split, slice tears + micro flicker
         const raw = opts.messages[mi];
         const GLYPHS = "01<>/\\|=+*#$%&@!?ΞΦΨΩ░▒▓";
@@ -458,7 +466,7 @@
           msg += (stable || raw[ci] === " ") ? raw[ci]
                : GLYPHS[(hash(raw + ci + (t * 26 | 0), 67) % GLYPHS.length)];   // faster scramble
         }
-        const fs = Math.min(W / 14, 64) * scale;
+        const fs = Math.min(W / 16, W < 600 ? 34 : 60) * scale;
         const mx0 = W / 2, my0 = H / 2 + fs * 0.35;
         ctx.font = `700 ${fs}px ui-monospace,Consolas,monospace`;
         ctx.textAlign = "center";
