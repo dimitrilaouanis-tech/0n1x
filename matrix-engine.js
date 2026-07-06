@@ -391,9 +391,18 @@
       // 3D FLYING LETTERS — depth-projected words that fly in, hold, fly through.
       // Explains what 0n1x is, cinematically, over the living network.
       if (opts.messages && opts.messages.length) {
-        const CYC = 5.0;                                  // faster cadence per message
-        const mi = Math.floor(t / CYC) % opts.messages.length;
-        const mt = (t % CYC) / CYC;                       // 0..1 within cycle
+        const CYC = 5.0;                                  // seconds per message
+        // RHYTHM: play a few messages, then PAUSE (let the galaxy breathe), then resume.
+        // A "super-cycle" = N messages of screen time + a quiet gap.
+        const RUN = opts.messages.length;                 // one full round = every message once
+        const PAUSE = 7.0;                                // quiet seconds between rounds
+        const SUPER = RUN * CYC + PAUSE;
+        const st = t % SUPER;                             // time within the super-cycle
+        if (st >= RUN * CYC) {
+          // in the pause window — draw nothing (galaxy alone), skip the whole letter block
+        } else {
+        const mi = Math.floor(st / CYC) % RUN;
+        const mt = (st % CYC) / CYC;                      // 0..1 within cycle
         let scale, alpha;
         if (mt < 0.16) { const u = mt / 0.16; scale = 0.25 + 0.75 * (1 - Math.pow(1 - u, 3)); alpha = u; }           // snappier fly-in
         else if (mt < 0.70) { scale = 1 + (mt - 0.16) * 0.06; alpha = 1; }                                          // hold
@@ -443,6 +452,7 @@
           }
         }
         ctx.textAlign = "start";
+        } // end active-message branch
       }
 
       // labels + tooltip render normally (crisp, not additive)
@@ -521,9 +531,18 @@
         }
         agents = [...names].map(n => ({ n, b: (vol.get(n) || 0) + bal(n) * 0.15 }))  // real volume dominates; tiny hash floor so idle agents still show
                            .sort((a, b) => b.b - a.b).slice(0, 120);
-        baseTx = d.total_verified ?? txs.length; liveTx = 0;
-        if (opts.onStats) opts.onStats({ txsVerified: baseTx, agents: agents.length });
+        if (opts.onStats) opts.onStats({ agents: agents.length });
       } catch (e) { /* keep last good frame */ }
+      // REAL cumulative tx count — from census_history (the SAME source the terminal
+      // deck uses) so the HUD and deck show the IDENTICAL number. total_verified is
+      // only the current feed window (~700) and would misalign badly (~127k real).
+      try {
+        const h = await (await fetch("https://rhinogent.com/census_history.json", { cache: "no-store" })).json();
+        if (h && h.length) {
+          baseTx = h[h.length - 1].txs; liveTx = 0;
+          if (opts.onStats) opts.onStats({ txsVerified: baseTx, circulating: h[h.length - 1].circulating });
+        }
+      } catch (e) { /* history optional */ }
       // the EXTENT: live Merkle-rooted manifest → real ecosystem total for the galaxy
       if (opts.manifestUrl) {
         try {
