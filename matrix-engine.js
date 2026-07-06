@@ -21,8 +21,10 @@
   function mount(cv, opts) {
     opts = opts || {};
     const THEME = opts.theme === "rhino"
-      ? { hot: [255, 150, 235], base: [150, 170, 255], ring: "255,150,225", core: "230,180,255" }   // Rhino: violet/magenta
-      : { hot: [255, 196, 110], base: [150, 185, 255], ring: "255,225,170", core: "255,214,150" };  // 0n1x: gold/jade
+      ? { hot: [255, 150, 235], base: [160, 175, 255], ring: "255,150,225", core: "235,190,255",
+          bg: ["#141026", "#0d0a1c", "#0a0716"] }                                                   // Rhino: deep indigo/violet
+      : { hot: [255, 196, 110], base: [150, 185, 255], ring: "255,225,170", core: "255,214,150",
+          bg: ["#0b0b10", "#07070a", "#050506"] };                                                  // 0n1x: neutral space
     const ctx = cv.getContext("2d");
     let W = 0, H = 0;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -229,7 +231,7 @@
       // deep-space base (normal blending)
       ctx.globalCompositeOperation = "source-over";
       const bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.75);
-      bg.addColorStop(0, "#0b0b10"); bg.addColorStop(0.6, "#07070a"); bg.addColorStop(1, "#050506");
+      bg.addColorStop(0, THEME.bg[0]); bg.addColorStop(0.6, THEME.bg[1]); bg.addColorStop(1, THEME.bg[2]);
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
       // EVERYTHING luminous below renders additively — the glow secret
@@ -252,23 +254,33 @@
         // SUPERNOVA CORE — pulsing bright heart at the galaxy center (additive)
         const scx = W / 2 + (view.ox - (1 - view.s) * W / 2) * 0.85;
         const scy = H / 2 + (view.oy - (1 - view.s) * H / 2) * 0.85;
-        const puls = 0.82 + 0.18 * Math.sin(t * 1.6);
-        const sr = Math.max(W, H) * 0.09 * view.s * puls;
+        const puls = 0.80 + 0.20 * Math.sin(t * 1.8) + 0.05 * Math.sin(t * 5.3);   // layered flicker
+        const sr = Math.max(W, H) * 0.13 * view.s * puls;                          // bigger
+        const CR = THEME.core;
         const sn = ctx.createRadialGradient(scx, scy, 0, scx, scy, sr);
-        sn.addColorStop(0, "rgba(255,255,255,0.95)");
-        sn.addColorStop(0.18, "rgba(255,244,214," + (0.7 * puls).toFixed(2) + ")");
-        sn.addColorStop(0.5, "rgba(255,200,140,0.20)");
-        sn.addColorStop(1, "rgba(255,180,120,0)");
+        sn.addColorStop(0, "rgba(255,255,255,1)");
+        sn.addColorStop(0.12, "rgba(255,250,235," + (0.85 * puls).toFixed(2) + ")");
+        sn.addColorStop(0.32, `rgba(${CR},${(0.35 * puls).toFixed(2)})`);
+        sn.addColorStop(0.6, `rgba(${CR},0.10)`);
+        sn.addColorStop(1, `rgba(${CR},0)`);
         ctx.fillStyle = sn;
         ctx.beginPath(); ctx.arc(scx, scy, sr, 0, Math.PI * 2); ctx.fill();
-        // 4 soft diffraction rays
-        ctx.strokeStyle = "rgba(255,246,225," + (0.14 * puls).toFixed(2) + ")";
-        ctx.lineWidth = 1.2;
-        for (let a = 0; a < 4; a++) {
-          const an = a * Math.PI / 2 + t * 0.05;
+        // bright hot pinpoint
+        ctx.fillStyle = "rgba(255,255,255," + (0.9 * puls).toFixed(2) + ")";
+        ctx.beginPath(); ctx.arc(scx, scy, sr * 0.09, 0, Math.PI * 2); ctx.fill();
+        // 6 diffraction rays (brighter, a starburst)
+        ctx.lineWidth = 1.4;
+        for (let a = 0; a < 6; a++) {
+          const an = a * Math.PI / 3 + t * 0.04;
+          const rl = sr * (a % 2 ? 4.2 : 2.8);
+          const rg = ctx.createLinearGradient(scx - Math.cos(an) * rl, scy - Math.sin(an) * rl, scx + Math.cos(an) * rl, scy + Math.sin(an) * rl);
+          rg.addColorStop(0, "rgba(255,246,225,0)");
+          rg.addColorStop(0.5, "rgba(255,248,230," + (0.22 * puls).toFixed(2) + ")");
+          rg.addColorStop(1, "rgba(255,246,225,0)");
+          ctx.strokeStyle = rg;
           ctx.beginPath();
-          ctx.moveTo(scx - Math.cos(an) * sr * 3.2, scy - Math.sin(an) * sr * 3.2);
-          ctx.lineTo(scx + Math.cos(an) * sr * 3.2, scy + Math.sin(an) * sr * 3.2);
+          ctx.moveTo(scx - Math.cos(an) * rl, scy - Math.sin(an) * rl);
+          ctx.lineTo(scx + Math.cos(an) * rl, scy + Math.sin(an) * rl);
           ctx.stroke();
         }
       }
@@ -367,23 +379,15 @@
           ctx.strokeStyle = "rgba(140,240,200,0.85)"; ctx.lineWidth = 1.6;
           ctx.beginPath(); ctx.arc(x, y, s * 2.4 + 3 * Math.sin(t * 3), 0, Math.PI * 2); ctx.stroke();
         }
-        // THE LIL ORBITS — satellites around the top hubs
-        if (i < 14 || isFocus) {
-          const nSat = i < 4 ? 3 : (i < 8 ? 2 : 1);
-          for (let k = 0; k < nSat; k++) {
-            const orbR = s * (2.1 + k * 0.85);
-            const speed = (0.7 - k * 0.15) * (i % 2 ? 1 : -1);
-            const ph = t * speed + (hash(a.n + k, 43) % 628) / 100;
-            const ox = x + Math.cos(ph) * orbR, oy = y + Math.sin(ph) * orbR * 0.55; // elliptic
-            // faint orbit ring
-            ctx.strokeStyle = `rgba(${cr},${cg},${cb},0.06)`;
-            ctx.lineWidth = 0.6;
-            ctx.beginPath(); ctx.ellipse(x, y, orbR, orbR * 0.55, 0, 0, Math.PI * 2); ctx.stroke();
-            // satellite + glow
-            const sg = ctx.createRadialGradient(ox, oy, 0, ox, oy, 2.6 * zs);
-            sg.addColorStop(0, `rgba(${cr},${cg},${cb},0.9)`); sg.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
-            ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(ox, oy, 2.6 * zs, 0, Math.PI * 2); ctx.fill();
-          }
+        // (orbits removed — replaced by supernova spark bursts on the biggest hubs)
+        // top hubs occasionally emit a tiny supernova spark (star being born/burning)
+        if ((i < 6 || isFocus) && ((hash(a.n + (t * 1.5 | 0), 47) % 30) === 0)) {
+          const spk = s * (2.2 + (hash(a.n, 51) % 10) / 10);
+          const sparkG = ctx.createRadialGradient(x, y, 0, x, y, spk);
+          sparkG.addColorStop(0, `rgba(255,255,255,0.5)`);
+          sparkG.addColorStop(0.4, `rgba(${cr},${cg},${cb},0.25)`);
+          sparkG.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+          ctx.fillStyle = sparkG; ctx.beginPath(); ctx.arc(x, y, spk, 0, Math.PI * 2); ctx.fill();
         }
       });
 
