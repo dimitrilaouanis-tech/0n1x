@@ -123,60 +123,38 @@
       g.clearRect(0, 0, GW, GH);
       g.globalCompositeOperation = "lighter";
       const n = Math.min(count || 340000, 1000000);
-      const CX = GW / 2, CY = GH / 2;
-      const BUCKETS = 10;
-      const bx=[],by=[],bs=[],ba=[];
-      for (let b=0;b<BUCKETS;b++){bx.push([]);by.push([]);bs.push([]);ba.push([]);}
+      const BUCKETS = 8;
+      const bx = [], by = [], bs = [];
+      for (let b = 0; b < BUCKETS; b++) { bx.push([]); by.push([]); bs.push([]); }
       for (let i = 0; i < n; i++) {
         const h1 = (i * 2654435761) >>> 0;
         const h2 = ((i * 40503 + 2699) >>> 0) & 0xffff;
         const h3 = ((i * 22695477 + 1) >>> 0) & 0xffff;
-        const h4 = ((i * 3266489917 + 5) >>> 0) & 0xffff;
-        // radial: strong central mass + an EVENT-HORIZON void (few stars very near core)
-        let rr = Math.pow((h1 % 100000) / 100000, 0.72);
-        const horizon = 0.055;                         // black-hole shadow radius
-        rr = horizon + rr * (1 - horizon);
-        // gravitational swirl: angle winds MORE the closer to the core (frame-drag look)
-        const swirl = 3.1 * Math.pow(1 - rr, 1.6);
-        const ang = (h2 / 0xffff) * Math.PI * 2 + swirl;
-        // 3 depth strata (near/mid/far) => parallax reads as real 3D volume
-        const stratum = h4 % 3;
-        const depthScale = [1.0, 0.82, 0.66][stratum];
-        const R = rr * GW * 0.47 * depthScale;
-        const ell = 0.60 + (h3 / 0xffff) * 0.24;
-        const x = CX + Math.cos(ang) * R;
-        const y = CY + Math.sin(ang) * R * ell;
+        // JUST SPACE: uniform random angle (no spiral arms), strong central density
+        const rr = Math.pow((h1 % 100000) / 100000, 0.78);   // more mass hugging the core
+        const ang = (h2 / 0xffff) * Math.PI * 2;
+        const R = rr * GW * 0.47;
+        const ell = 0.68 + (h3 / 0xffff) * 0.20;             // slight elliptic disc
+        const x = GW / 2 + Math.cos(ang) * R;
+        const y = GH / 2 + Math.sin(ang) * R * ell;
         const b = Math.min(BUCKETS - 1, (rr * BUCKETS) | 0);
-        bx[b].push(x); by[b].push(y);
-        // HD: sub-pixel varied star sizes + per-star brightness jitter
-        bs[b].push((rr < 0.18 ? 1.4 : 0.75) * depthScale + (h3 % 5) * 0.12);
-        ba[b].push(0.45 + (h4 % 100) / 100 * 0.55);    // brightness variety = detail, not flat
+        bx[b].push(x); by[b].push(y); bs[b].push(rr < 0.2 ? 1.3 : 0.9);   // HD: small crisp dots
       }
       for (let bkt = 0; bkt < BUCKETS; bkt++) {
         const warm = 1 - (bkt + 0.5) / BUCKETS;
-        // accretion-disc palette: white-gold hot inner -> cyan-violet cool outer
-        const cr = (200 + warm * 55) | 0, cg = (180 + warm * 40) | 0, cb = (230 - warm * 30) | 0;
-        const X=bx[bkt],Y=by[bkt],S=bs[bkt],A=ba[bkt];
-        const baseA = 0.06 + warm * 0.07;
-        for (let i=0;i<X.length;i++){
-          g.fillStyle = `rgba(${cr},${cg},${cb},${(baseA*A[i]).toFixed(3)})`;
-          g.fillRect(X[i], Y[i], S[i], S[i]);
-        }
+        const a = 0.07 + warm * 0.10;
+        // warm gold core -> cool blue-white rim
+        g.fillStyle = `rgba(${180 + warm * 60 | 0},${190 + warm * 20 | 0},${240 - warm * 60 | 0},${a.toFixed(3)})`;
+        const X = bx[bkt], Y = by[bkt], S = bs[bkt];
+        for (let i = 0; i < X.length; i++) g.fillRect(X[i], Y[i], S[i], S[i]);
       }
-      // ACCRETION RING — bright hot ring at the event horizon
-      const ring = g.createRadialGradient(CX, CY, GW*0.045, CX, CY, GW*0.11);
-      ring.addColorStop(0, "rgba(255,240,205,0)");
-      ring.addColorStop(0.35, `rgba(${THEME.ring},0.42)`);
-      ring.addColorStop(0.7, "rgba(255,180,120,0.14)");
-      ring.addColorStop(1, "rgba(180,150,255,0)");
-      g.fillStyle = ring; g.beginPath(); g.arc(CX, CY, GW*0.11, 0, Math.PI*2); g.fill();
-      // EVENT HORIZON — true black core (drawn normal, punches a void)
-      g.globalCompositeOperation = "source-over";
-      const void_ = g.createRadialGradient(CX, CY, 0, CX, CY, GW*0.05);
-      void_.addColorStop(0, "rgba(0,0,0,1)");
-      void_.addColorStop(0.8, "rgba(2,2,6,0.95)");
-      void_.addColorStop(1, "rgba(6,6,12,0)");
-      g.fillStyle = void_; g.beginPath(); g.arc(CX, CY, GW*0.05, 0, Math.PI*2); g.fill();
+      // faint static nebula haze at core (the live supernova is drawn per-frame in draw)
+      const core = g.createRadialGradient(GW / 2, GH / 2, 0, GW / 2, GH / 2, GW * 0.14);
+      core.addColorStop(0, "rgba(255,232,190,0.30)");
+      core.addColorStop(0.5, "rgba(255,200,150,0.10)");
+      core.addColorStop(1, "rgba(255,214,150,0)");
+      g.fillStyle = core;
+      g.beginPath(); g.arc(GW / 2, GH / 2, GW * 0.14, 0, Math.PI * 2); g.fill();
     }
     paintGalaxy(340000); // provisional; repainted with the live manifest count (510k+ and climbing)
 
