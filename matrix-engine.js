@@ -190,7 +190,9 @@
     function fireCascade() {
       if (!agents.length) return;
       fireSeed = (fireSeed * 1103515245 + 12345) >>> 0;
-      const origin = agents[fireSeed % Math.min(20, agents.length)].n;
+      const origins = [];
+      for (let o = 0; o < 3; o++) { fireSeed = (fireSeed * 1103515245 + 12345) >>> 0; origins.push(agents[fireSeed % Math.min(60, agents.length)].n); }
+      const origin = origins[0];
       const nbr = new Map();    // adjacency from real txs
       for (const x of txs) {
         if (!nbr.has(x.from)) nbr.set(x.from, []);
@@ -198,13 +200,15 @@
         nbr.get(x.from).push(x.to); nbr.get(x.to).push(x.from);
       }
       const now = performance.now();
-      firing.set(origin, { start: now, hop: 0 });
-      const h1 = nbr.get(origin) || [];
-      for (const a of h1) if (!firing.has(a)) firing.set(a, { start: now + 220, hop: 1 });
-      for (const a of h1) for (const b of (nbr.get(a) || []))
-        if (!firing.has(b)) firing.set(b, { start: now + 440, hop: 2 });
+      for (const orig of origins) {
+        firing.set(orig, { start: now, hop: 0 });
+        const h1 = nbr.get(orig) || [];
+        for (const a of h1) if (!firing.has(a)) firing.set(a, { start: now + 160, hop: 1 });
+        for (const a of h1) for (const b of (nbr.get(a) || []))
+          if (!firing.has(b)) firing.set(b, { start: now + 320, hop: 2 });
+      }
     }
-    setInterval(fireCascade, 1700);
+    setInterval(fireCascade, 650);
     // parallax starfield — 3 depth layers, deterministic
     const stars = [];
     for (let i = 0; i < 170; i++) {
@@ -253,6 +257,17 @@
         ctx.drawImage(galaxy, -gw / 2, -gw / 2, gw, gw);
         ctx.restore();
         ctx.globalAlpha = 1;
+        // AMBIENT ARRAY LIFE — random faint sparks across the whole ecosystem field
+        for (let sp = 0; sp < 14; sp++) {
+          const sh = hash("spark" + sp + (t * 3 | 0), 89);
+          const sa = (sh % 1000) / 1000 * Math.PI * 2;
+          const srr = Math.pow(((sh >>> 10) % 1000) / 1000, 0.7);
+          const sx2 = W / 2 + Math.cos(sa) * srr * Math.max(W, H) * 0.42 * view.s + (view.ox - (1 - view.s) * W / 2);
+          const sy2 = H / 2 + Math.sin(sa) * srr * Math.max(W, H) * 0.30 * view.s + (view.oy - (1 - view.s) * H / 2);
+          const twk = 0.5 + 0.5 * Math.sin(t * 8 + sp);
+          ctx.fillStyle = `rgba(200,225,255,${(0.25 * twk).toFixed(3)})`;
+          ctx.fillRect(sx2, sy2, 1.6, 1.6);
+        }
         // SUPERNOVA CORE — pulsing bright heart at the galaxy center (additive)
         const scx = W / 2 + (view.ox - (1 - view.s) * W / 2) * 0.85;
         const scy = H / 2 + (view.oy - (1 - view.s) * H / 2) * 0.85;
@@ -522,7 +537,7 @@
       heat.set(x.to, Math.min(1, (heat.get(x.to) || 0) + 0.25));
       const [fu, fv] = pos(x.from), [tu, tv] = pos(x.to);
       particles.push({ fu, fv, tu, tv, t: 0, amt: x.amount || 10 });
-      if (particles.length > 60) particles.shift();
+      if (particles.length > 140) particles.shift();
       flow += (x.amount || 0);
       liveTx += 1;
       if (opts.onStats) opts.onStats({ flow, txsLive: baseTx + liveTx });
@@ -538,7 +553,7 @@
         while (opts.tapeEl.children.length > 14) opts.tapeEl.removeChild(opts.tapeEl.lastChild);
       }
     }
-    setInterval(tapeTick, 2200);
+    setInterval(tapeTick, 1000);
 
     async function load() {
       try {
@@ -554,7 +569,7 @@
           vol.set(t.to, (vol.get(t.to) || 0) + (t.amount || 0));
         }
         agents = [...names].map(n => ({ n, b: (vol.get(n) || 0) + bal(n) * 0.15 }))  // real volume dominates; tiny hash floor so idle agents still show
-                           .sort((a, b) => b.b - a.b).slice(0, 120);
+                           .sort((a, b) => b.b - a.b).slice(0, 300);
         if (opts.onStats) opts.onStats({ agents: agents.length });
       } catch (e) { /* keep last good frame */ }
       // REAL cumulative tx count — from census_history (the SAME source the terminal
