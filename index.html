@@ -191,12 +191,12 @@ footer .kw{margin-top:1.2rem;line-height:2;color:#39424E}
   </div>
   <a href="matrix.html" style="position:absolute;right:20px;top:14px;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#f5a623;text-decoration:none;border:1px solid rgba(245,166,35,.35);background:rgba(245,166,35,.08);padding:6px 14px;border-radius:99px">OPEN FULL MATRIX ⛶</a>
 </div>
-<script src="matrix-engine.js?v=27"></script>
+<script src="matrix-engine.js?v=28"></script>
 <script>
 OnyxMatrix.mount(document.getElementById("matrixhero"), {
   feedUrl: "https://rhinogent.com/token_feed.json",
   manifestUrl: "https://rhinogent.com/census_manifest.json",
-  messages: ["0 N 1 X", "PROOF OF AGENT EXECUTION", "VERIFY BEFORE YOU PAY", "SIGNED FACTS · NOT JUDGMENTS", "THE TRUST LAYER FOR AI AGENTS"],
+  messages: ["0 N 1 X", "PROOF OF AGENT EXECUTION", "VERIFY BEFORE YOU PAY", "SIGNED FACTS · NOT JUDGMENTS", "THE TRUST LAYER FOR AI AGENTS", "THE FUTURE IS NOW"],
   onStats: (s) => {
     if (s.ecoTotal) { document.getElementById("mh-agents").textContent = s.ecoTotal.toLocaleString("en-US");
                       document.getElementById("hud-eco").textContent = s.ecoTotal.toLocaleString("en-US"); }
