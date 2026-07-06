@@ -145,10 +145,20 @@ footer{margin-top:120px;border-top:1px solid var(--line);padding:44px 0 64px;fon
 footer p{max-width:none}
 footer .kw{margin-top:1.2rem;line-height:2;color:#39424E}
 
+.burger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:6px}
+.burger span{width:22px;height:2px;background:var(--ink,#F2F4F7);border-radius:2px}
+#navtog{display:none}
+@media (max-width:560px){
+  #matrixhero{height:52dvh !important;min-height:300px}
+  .hero-cta{top:auto !important;bottom:44px !important;right:12px !important;font-size:10px !important;padding:5px 10px !important}
+}
 @media (max-width:900px){
   .cards,.proofgrid{grid-template-columns:1fr}
   .metrics{grid-template-columns:repeat(2,1fr)}
-  nav .links{display:none}
+  nav .links{display:none;position:absolute;top:60px;right:14px;left:14px;flex-direction:column;gap:16px;
+    background:var(--bg2,#0A0C0F);border:1px solid var(--line,rgba(255,255,255,.1));border-radius:14px;padding:16px 18px;z-index:60}
+  #navtog:checked ~ .links{display:flex}
+  .burger{display:flex}
   .frow{grid-template-columns:70px 1fr 90px}
   .frow .s{display:none}
   section{padding:80px 0 0}
@@ -160,6 +170,8 @@ footer .kw{margin-top:1.2rem;line-height:2;color:#39424E}
 
 <nav><div class="navin">
   <div class="logo">0n<b>1</b>x</div>
+  <input type="checkbox" id="navtog">
+  <label class="burger" for="navtog" aria-label="Menu"><span></span><span></span><span></span></label>
   <div class="links">
     <a href="#how">How it works</a>
     <a href="#rhino">Rhinogent</a>
@@ -189,9 +201,9 @@ footer .kw{margin-top:1.2rem;line-height:2;color:#39424E}
     <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">CIRCULATING <b id="hud-circ" style="color:#f5a623;font-size:14px;margin-left:6px">—</b></span>
     <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">MERKLE ROOT <b id="hud-root" style="color:#7c9aff;font-size:12px;margin-left:6px">—</b></span>
   </div>
-  <a href="matrix.html" style="position:absolute;right:20px;top:14px;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#f5a623;text-decoration:none;border:1px solid rgba(245,166,35,.35);background:rgba(245,166,35,.08);padding:6px 14px;border-radius:99px">OPEN FULL MATRIX ⛶</a>
+  <a class="hero-cta" href="matrix.html" style="position:absolute;right:20px;top:14px;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#f5a623;text-decoration:none;border:1px solid rgba(245,166,35,.35);background:rgba(245,166,35,.08);padding:6px 14px;border-radius:99px">OPEN FULL MATRIX ⛶</a>
 </div>
-<script src="matrix-engine.js?v=29"></script>
+<script src="matrix-engine.js?v=30"></script>
 <script>
 OnyxMatrix.mount(document.getElementById("matrixhero"), {
   feedUrl: "https://rhinogent.com/token_feed.json",

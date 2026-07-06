@@ -589,11 +589,24 @@
           const c = m.count || m.total || 0;
           if (c && c !== ecoTotal) { ecoTotal = c; paintGalaxy(c); }
           merkle = m.merkle_root || "";
-          if (opts.onStats) opts.onStats({ ecoTotal, merkle, circulating: m.circulating });
+          if (opts.onStats) opts.onStats({ merkle, circulating: m.circulating });  // eco owned by the climb ticker
         } catch (e) { /* manifest optional */ }
       }
     }
-    load(); setInterval(load, 15000);
+    load(); setInterval(load, 10000);
+    // LIVE agent count — ease the displayed number UP toward the real Merkle-rooted
+    // manifest count, so it visibly CLIMBS as the fleet mints. Honest: only rises to
+    // the real target, never past it.
+    let ecoShown = 0;
+    setInterval(() => {
+      if (!ecoTotal) return;
+      if (ecoShown === 0) ecoShown = ecoTotal;
+      else if (ecoShown < ecoTotal) {
+        ecoShown += Math.max(1, Math.ceil((ecoTotal - ecoShown) * 0.05));
+        if (ecoShown > ecoTotal) ecoShown = ecoTotal;
+      }
+      if (opts.onStats) opts.onStats({ ecoTotal: Math.round(ecoShown) });
+    }, 320);
 
     return { get view() { return view; } };
   }
