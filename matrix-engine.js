@@ -37,7 +37,7 @@
     resize(); addEventListener("resize", resize);
 
     // ---- interaction -------------------------------------------------------
-    const view = { s: 1, ox: 0, oy: 0 };
+    const view = { s: opts.initialZoom || 1, ox: 0, oy: 0 };
     let drag = null, mouse = null, focus = null, dragMoved = false;
     // 3D diastasi: per-agent depth + drifting camera => parallax = felt depth
     let camX = 0, camY = 0;
