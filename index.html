@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>0n1x — Proof of Agent Execution | The Carfax for AI Agents</title>
 <meta name="description" content="0n1x is Proof of Agent Execution — the Carfax for AI agents. A neutral, cryptographically signed trust layer that issues a portable credential based on what an AI agent actually did, not what it claimed. Verify before you pay. Built on x402, AP2, MCP, ERC-8004.">
 <link rel="canonical" href="https://0n1xagntc.com/">
@@ -54,7 +54,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html,body{overflow-x:hidden;max-width:100%}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 var(--sans);-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
 a{color:var(--jade);text-decoration:none}
 a:hover{opacity:.85}
 a:focus-visible,button:focus-visible{outline:2px solid var(--jade);outline-offset:3px}
@@ -176,7 +176,7 @@ footer .kw{margin-top:1.2rem;line-height:2;color:#39424E}
 
 <!-- THE MATRIX — live network, first thing anyone sees -->
 <div style="position:relative;border-bottom:1px solid rgba(255,255,255,.07);background:#050506">
-  <canvas id="matrixhero" style="display:block;width:100%;height:62vh;min-height:380px;cursor:grab"></canvas>
+  <canvas id="matrixhero" style="display:block;width:100%;height:62vh;height:62dvh;min-height:360px;cursor:grab;touch-action:none"></canvas>
   <div style="position:absolute;left:24px;top:16px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#22c55e">
     ● LIVE AGENT NETWORK · real EIP-191-signed transfers · <span id="mh-agents">—</span> agents in the ecosystem
   </div>
