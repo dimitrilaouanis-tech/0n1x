@@ -37,7 +37,10 @@
     resize(); addEventListener("resize", resize);
 
     // ---- interaction -------------------------------------------------------
-    const view = { s: opts.initialZoom || 1, ox: 0, oy: 0 };
+    // initialZoom scales around the CENTER (ox/oy compensate) — otherwise the
+    // galaxy slides toward the top-left when opening zoomed out.
+    const _s0 = opts.initialZoom || 1;
+    const view = { s: _s0, ox: W / 2 * (1 - _s0), oy: H / 2 * (1 - _s0) };
     let drag = null, mouse = null, focus = null, dragMoved = false;
     // 3D diastasi: per-agent depth + drifting camera => parallax = felt depth
     let camX = 0, camY = 0;
