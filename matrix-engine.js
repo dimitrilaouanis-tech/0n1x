@@ -564,7 +564,7 @@
         while (opts.tapeEl.children.length > 14) opts.tapeEl.removeChild(opts.tapeEl.lastChild);
       }
     }
-    setInterval(tapeTick, 1000);
+    setInterval(tapeTick, 550);
 
     async function load() {
       try {

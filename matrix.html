@@ -56,19 +56,39 @@ html,body{overflow-x:hidden;overscroll-behavior-x:none;max-width:100vw;-webkit-t
 </style>
 </head>
 <body>
-<nav style="display:flex;align-items:center;gap:22px;padding:13px 22px;border-bottom:1px solid var(--border);font-size:13px;flex-wrap:wrap">
-  <a href="/" style="font-weight:800;letter-spacing:.18em;color:var(--text);text-decoration:none" class="mono">0n<b style="color:var(--amber)">1</b>x</a>
-  <a href="/" style="color:var(--muted);text-decoration:none">Home</a>
-  <a href="/#how" style="color:var(--muted);text-decoration:none">How it works</a>
-  <a href="/#ecosystem" style="color:var(--muted);text-decoration:none">Ecosystem</a>
-  <a href="/#proof" style="color:var(--muted);text-decoration:none">Live proof</a>
-  <span style="color:var(--green)">Matrix</span>
-  <a href="/proof-of-agent-execution.html" style="color:var(--muted);text-decoration:none">Proof of Execution</a>
-  <a href="/verify-before-pay.html" style="color:var(--muted);text-decoration:none">Verify-before-pay</a>
-  <a href="/is-0n1x-legit.html" style="color:var(--muted);text-decoration:none">Is 0n1x legit?</a>
-  <a href="/erc-8004-validation-registry.html" style="color:var(--muted);text-decoration:none">ERC-8004</a>
-  <a href="https://0n1xagntc.com/" style="margin-left:auto;color:var(--muted);text-decoration:none">Connect with 0n1x</a>
-  <a href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener" style="border:1px solid rgba(34,197,94,.3);color:var(--green);background:rgba(34,197,94,.08);padding:5px 14px;border-radius:99px;text-decoration:none">Live API</a>
+<style>
+  nav.m2{display:flex;align-items:center;gap:22px;padding:13px 22px;border-bottom:1px solid var(--border);font-size:13px}
+  nav.m2 a,nav.m2 span{color:var(--muted);text-decoration:none}
+  nav.m2 .brand{font-weight:800;letter-spacing:.18em;color:var(--text)}
+  nav.m2 .m2burger{display:none}
+  nav.m2 .m2links{display:flex;align-items:center;gap:22px;margin-left:6px}
+  nav.m2 .m2links .cur{color:var(--green)}
+  nav.m2 .m2api{margin-left:auto;border:1px solid rgba(34,197,94,.3);color:var(--green);background:rgba(34,197,94,.08);padding:5px 14px;border-radius:99px}
+  @media(max-width:760px){
+    nav.m2 .m2burger{display:flex;flex-direction:column;gap:4px;margin-left:auto;cursor:pointer;padding:6px}
+    nav.m2 .m2burger span{width:22px;height:2px;background:var(--text);border-radius:2px}
+    #m2tog{display:none}
+    nav.m2 .m2links{display:none;position:absolute;top:52px;right:14px;left:14px;flex-direction:column;align-items:flex-start;gap:16px;background:var(--bg2,#0a0c0f);border:1px solid var(--border);border-radius:14px;padding:18px;z-index:70}
+    #m2tog:checked ~ .m2links{display:flex}
+    nav.m2 .m2api{position:static;margin:0}
+  }
+</style>
+<nav class="m2" style="position:relative;flex-wrap:nowrap">
+  <a href="/" class="brand mono">0n<b style="color:var(--amber)">1</b>x</a>
+  <input type="checkbox" id="m2tog">
+  <label class="m2burger" for="m2tog" aria-label="Menu"><span></span><span></span><span></span></label>
+  <div class="m2links">
+    <a href="/">Home</a>
+    <a href="/#how">How it works</a>
+    <a href="/#ecosystem">Ecosystem</a>
+    <a href="/#proof">Live proof</a>
+    <span class="cur">Matrix</span>
+    <a href="/proof-of-agent-execution.html">Proof of Execution</a>
+    <a href="/verify-before-pay.html">Verify-before-pay</a>
+    <a href="/is-0n1x-legit.html">Is 0n1x legit?</a>
+    <a href="/erc-8004-validation-registry.html">ERC-8004</a>
+    <a href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener" class="m2api">Live API</a>
+  </div>
 </nav>
 <header>
   <span class="brand mono">0N1X <b>·</b> MATRIX</span>
