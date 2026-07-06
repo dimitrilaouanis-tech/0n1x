@@ -496,7 +496,7 @@
           for (let fp = 0; fp < 5; fp++) {
             const fh = hash("frost" + fp + (t * 2 | 0), 83);
             const fx = mx0 + ((fh % 1000) / 1000 - 0.5) * fs * raw.length * 0.6;
-            const fy = my0 + (((fh >> 10) % 1000) / 1000 - 0.7) * fs * 0.9;
+            const fy = my0 + (((fh >>> 10) % 1000) / 1000 - 0.7) * fs * 0.9;
             ctx.fillStyle = `rgba(220,240,255,${(alpha * 0.5 * ((fh % 10) / 10)).toFixed(3)})`;
             ctx.fillRect(fx, fy, 1.4, 1.4);
           }
