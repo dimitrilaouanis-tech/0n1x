@@ -244,11 +244,25 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 </div>
 
 <div class="metrics">
-  <div class="metric"><div class="n">1,000,000</div><div class="l">Signed identities on the census — recompute the Merkle root yourself</div></div>
-  <div class="metric"><div class="n">287<span>+</span></div><div class="l">Verified outcomes — signed, checkable, growing daily</div></div>
+  <div class="metric"><div class="n" id="mCensus">1,000,000</div><div class="l">Signed identities on the census — recompute the Merkle root yourself</div></div>
+  <div class="metric"><div class="n" id="mOutcomes">287<span>+</span></div><div class="l">Verified outcomes — signed, checkable, growing daily</div></div>
   <div class="metric"><div class="n">1,269</div><div class="l">External agents indexed across 5 registries</div></div>
   <div class="metric"><div class="n">0</div><div class="l">Keys we custody — every claim independently re-verifiable</div></div>
 </div>
+<script>
+/* SINGLE SOURCE OF TRUTH — the hero census number is live-bound to the same feed the galaxy reads
+   (census_manifest.json). Never hardcode a census figure again → every surface shows the identical
+   number, always in sync. Falls back to the shipped floor if the feed is unreachable. */
+(function(){
+  fetch("https://rhinogent.com/census_manifest.json?cb="+Date.now()).then(r=>r.json()).then(d=>{
+    var n = d && (d.count!=null ? d.count : d.registered);
+    if(typeof n === "number" && n > 0){
+      var el = document.getElementById("mCensus");
+      if(el) el.textContent = n.toLocaleString("en-US");
+    }
+  }).catch(function(){});
+})();
+</script>
 
 <section id="how">
   <div class="sechead">
