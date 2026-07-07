@@ -210,13 +210,13 @@ html,body{overflow-x:hidden;overscroll-behavior-x:none;max-width:100vw;-webkit-t
   </div>
   <div style="position:absolute;left:0;right:0;bottom:0;display:flex;gap:14px 30px;justify-content:center;align-items:center;padding:14px 16px;background:rgba(6,7,10,.74);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);border-top:1px solid rgba(255,255,255,.07);font-family:ui-monospace,Consolas,monospace;pointer-events:none;flex-wrap:wrap">
     <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">AGENTS <b id="hud-eco" style="color:#3FDDA0;font-size:14px;margin-left:6px;font-variant-numeric:tabular-nums">1,700,000</b></span>
-    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">VERIFIED TXS <b id="hud-txs" style="color:#eaeaea;font-size:14px;margin-left:6px;font-variant-numeric:tabular-nums">150,000</b></span>
-    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">CIRCULATING <b id="hud-circ" style="color:#f5a623;font-size:14px;margin-left:6px;font-variant-numeric:tabular-nums">681,000,000</b></span>
+    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">VERIFIED TXS <b id="hud-txs" style="color:#eaeaea;font-size:14px;margin-left:6px;font-variant-numeric:tabular-nums">76,000</b></span>
+    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">CIRCULATING <b id="hud-circ" style="color:#f5a623;font-size:14px;margin-left:6px;font-variant-numeric:tabular-nums">681,642,669</b></span>
     <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">MERKLE <b id="hud-root" style="color:#7c9aff;font-size:12px;margin-left:6px">b3903445bc77a4…</b></span>
   </div>
   <a class="hero-cta" href="matrix.html" style="position:absolute;right:20px;top:14px;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#f5a623;text-decoration:none;border:1px solid rgba(245,166,35,.35);background:rgba(245,166,35,.08);padding:6px 14px;border-radius:99px">OPEN FULL MATRIX ⛶</a>
 </div>
-<script src="matrix-engine.js?v=34"></script>
+<script src="matrix-engine.js?v=35"></script>
 <script>
 OnyxMatrix.mount(document.getElementById("matrixhero"), {
   feedUrl: "https://rhinogent.com/token_feed.json",
@@ -286,7 +286,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     <p class="muted">0n1x is an operating system, not an announcement — settled over real, gasless x402 transactions on Base mainnet. Every figure on this page is checkable against our published Ed25519 key.</p>
   </div>
   <div class="feedwrap rv" style="--d:80ms;margin:0 auto" role="img" aria-label="Live feed of signed 0n1x verification receipts">
-    <div class="feedbar"><span class="dot"></span> Signed receipt stream · Ed25519 · Base mainnet</div>
+    <div class="feedbar"><span class="dot"></span> Signed transfer stream · EIP-191 · live ledger</div>
     <div class="feed" id="feed"></div>
   </div>
   <div class="proofgrid rv" style="--d:160ms;margin-top:24px">
@@ -456,23 +456,36 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 
 <script>
 (function(){
-  var merchants=["acme-store.example","nordic-parts.shop","voidly-pay.ai","aurora-books.example","helios-api.dev","atlas-freight.example","kappa-tools.shop","zenith-data.ai","mira-market.example","polar-hosting.dev"];
-  var kinds=["verify-before-pay","merchant-fact","price-attest","outcome-report","agent-verify"];
-  function hex(n){var s="";for(var i=0;i<n;i++)s+="0123456789abcdef"[Math.floor(Math.random()*16)];return s}
+  // REAL signed-transfer feed — every row is an actual EIP-191-signed transfer
+  // from the live token ledger (from/to callsign, amount, real sig + tx hash).
+  // If data is missing we show fewer rows — nothing is ever invented.
   var feed=document.getElementById("feed");
-  var t=Date.now()-9000;
-  function row(){
-    t+= 900+Math.random()*2600;
-    var d=new Date(t), hh=String(d.getUTCHours()).padStart(2,"0"), mm=String(d.getUTCMinutes()).padStart(2,"0"), ss=String(d.getUTCSeconds()).padStart(2,"0");
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  function rowEl(tx){
+    var d=new Date(tx.ts*1000), hh=String(d.getUTCHours()).padStart(2,"0"), mm=String(d.getUTCMinutes()).padStart(2,"0"), ss=String(d.getUTCSeconds()).padStart(2,"0");
     var el=document.createElement("div");
     el.className="frow";
-    el.innerHTML='<span class="t">'+hh+":"+mm+":"+ss+'</span><span class="m">'+kinds[Math.floor(Math.random()*kinds.length)]+' · '+merchants[Math.floor(Math.random()*merchants.length)]+'</span><span class="s">sig 0x'+hex(8)+'…'+hex(4)+'</span><span class="ok">✓ SIGNED</span>';
-    feed.appendChild(el);
-    while(feed.children.length>9)feed.removeChild(feed.firstChild);
+    el.innerHTML='<span class="t">'+hh+":"+mm+":"+ss+'</span><span class="m">'+esc(tx.from)+' → '+esc(tx.to)+' · '+esc(tx.amount)+' 0NX</span><span class="s">sig '+esc(String(tx.sig).slice(0,10))+'…'+esc(String(tx.sig).slice(-4))+' · tx '+esc(String(tx.hash).slice(0,8))+'</span><span class="ok">✓ SIGNED</span>';
+    return el;
   }
-  for(var i=0;i<8;i++)row();
+  var cache=[], idx=0;
+  function paint(){
+    feed.innerHTML="";
+    cache.slice(idx,idx+9).forEach(function(tx){feed.appendChild(rowEl(tx))});
+  }
+  function step(){
+    if(cache.length>9){ idx=(idx+1)%(cache.length-8); paint(); }
+  }
+  function load(){
+    fetch("https://rhinogent.com/token_feed.json",{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
+      var txs=(j&&j.txs)?j.txs.filter(function(tx){return tx&&tx.from&&tx.to&&tx.sig&&tx.hash&&tx.amount!==undefined&&tx.ts}):[];
+      if(txs.length){ cache=txs; idx=Math.max(0,cache.length-9); paint(); }
+    }).catch(function(){/* no data → feed stays empty; never invent rows */});
+  }
+  load();
   if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-    setInterval(row, 2400);
+    setInterval(step, 2400);
+    setInterval(load, 60000);
   }
 })();
 </script>

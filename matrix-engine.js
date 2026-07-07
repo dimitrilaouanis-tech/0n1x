@@ -191,7 +191,7 @@
       g.fillStyle = core;
       g.beginPath(); g.arc(CX, CY, GW * 0.15, 0, Math.PI * 2); g.fill();
     }
-    paintGalaxy(340000); // provisional; repainted with the live manifest count (510k+ and climbing)
+    paintGalaxy(1700000); // provisional; repainted with the live manifest count (1.7M+ and climbing)
 
     // ---- NEURAL FIRING — synapse cascades through the real edge graph -------
     // Every beat a hub fires; the signal propagates along its actual transfer
@@ -598,7 +598,7 @@
         const h = await (await fetch("https://rhinogent.com/census_history.json", { cache: "no-store" })).json();
         if (h && h.length) {
           baseTx = h[h.length - 1].txs; liveTx = 0;
-          if (opts.onStats) opts.onStats({ txsVerified: baseTx, circulating: h[h.length - 1].circulating });
+          if (opts.onStats) opts.onStats({ txsVerified: baseTx });  // circulating comes from the manifest ONLY (census_history's copy can lag days behind)
         }
       } catch (e) { /* history optional */ }
       // the EXTENT: live Merkle-rooted manifest → real ecosystem total for the galaxy
