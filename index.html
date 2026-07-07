@@ -245,24 +245,24 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 </div>
 
 <!-- trust strip -->
-<div style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:56px;padding:14px 0;text-align:center;font:600 11px/2 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--dim)">
+<div class="rv" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:56px;padding:14px 0;text-align:center;font:600 11px/2 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--dim)">
   Ed25519-signed &nbsp;·&nbsp; EIP-191 verified &nbsp;·&nbsp; Merkle-rooted census &nbsp;·&nbsp; ERC-8004 aligned &nbsp;·&nbsp; x402 &nbsp;·&nbsp; MCP
 </div>
 
 <!-- what it does -->
 <section id="what" style="padding-top:72px">
   <div class="cards">
-    <div class="card"><div class="num">VERIFY</div><h3>Verify before you pay</h3><p>A merchant / counterparty reality check — a signed fact, before value moves. <a href="verify-before-pay.html">How it works →</a></p></div>
-    <div class="card"><div class="num">CENSUS</div><h3>Live census</h3><p>1,700,000+ signed agent identities, Merkle-rooted and publicly recomputable. <a href="matrix.html">See it live →</a></p></div>
-    <div class="card"><div class="num">MCP</div><h3>MCP server</h3><p>Plug signed verification into any agent stack — no API key, the wallet is the identity. <a href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">Live API →</a></p></div>
+    <div class="card rv"><div class="num">VERIFY</div><h3>Verify before you pay</h3><p>A merchant / counterparty reality check — a signed fact, before value moves. <a href="verify-before-pay.html">How it works →</a></p></div>
+    <div class="card rv" style="--d:80ms"><div class="num">CENSUS</div><h3>Live census</h3><p>1,700,000+ signed agent identities, Merkle-rooted and publicly recomputable. <a href="matrix.html">See it live →</a></p></div>
+    <div class="card rv" style="--d:160ms"><div class="num">MCP</div><h3>MCP server</h3><p>Plug signed verification into any agent stack — no API key, the wallet is the identity. <a href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">Live API →</a></p></div>
   </div>
 </section>
 
 <div class="metrics">
-  <div class="metric"><div class="n" id="mCensus">1,700,000</div><div class="l">Signed identities on the census — recompute the Merkle root yourself</div></div>
-  <div class="metric"><div class="n" id="mOutcomes">287<span>+</span></div><div class="l">Verified outcomes — signed, checkable, growing daily</div></div>
-  <div class="metric"><div class="n">1,269</div><div class="l">External agents indexed across 5 registries</div></div>
-  <div class="metric"><div class="n">0</div><div class="l">Keys we custody — every claim independently re-verifiable</div></div>
+  <div class="metric rv"><div class="n" id="mCensus" data-count="1700000">1,700,000</div><div class="l"><span class="live">LIVE</span> &nbsp;Signed identities on the census — recompute the Merkle root yourself</div></div>
+  <div class="metric rv" style="--d:80ms"><div class="n"><span id="mOutcomes" data-count="287">287</span><span style="color:var(--jade)">+</span></div><div class="l">Verified outcomes — signed, checkable, growing daily</div></div>
+  <div class="metric rv" style="--d:160ms"><div class="n" data-count="1269">1,269</div><div class="l">External agents indexed across 5 registries</div></div>
+  <div class="metric rv" style="--d:240ms"><div class="n">0</div><div class="l">Keys we custody — every claim independently re-verifiable</div></div>
 </div>
 <script>
 /* SINGLE SOURCE OF TRUTH — the hero census number is live-bound to the same feed the galaxy reads
@@ -273,23 +273,23 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     var n = d && (d.count!=null ? d.count : d.registered);
     if(typeof n === "number" && n > 0){
       var el = document.getElementById("mCensus");
-      if(el) el.textContent = n.toLocaleString("en-US");
+      if(el){ el.textContent = n.toLocaleString("en-US"); el.dataset.count = n; }
     }
   }).catch(function(){});
 })();
 </script>
 
 <section id="proof" style="padding-top:80px">
-  <div class="sechead">
+  <div class="sechead rv">
     <span class="eyebrow">Watch it happen</span>
     <h2>Don't trust it. Verify it.</h2>
     <p class="muted">0n1x is an operating system, not an announcement — settled over real, gasless x402 transactions on Base mainnet. Every figure on this page is checkable against our published Ed25519 key.</p>
   </div>
-  <div class="feedwrap" style="margin:0 auto" role="img" aria-label="Live feed of signed 0n1x verification receipts">
+  <div class="feedwrap rv" style="--d:80ms;margin:0 auto" role="img" aria-label="Live feed of signed 0n1x verification receipts">
     <div class="feedbar"><span class="dot"></span> Signed receipt stream · Ed25519 · Base mainnet</div>
     <div class="feed" id="feed"></div>
   </div>
-  <div class="proofgrid" style="margin-top:24px">
+  <div class="proofgrid rv" style="--d:160ms;margin-top:24px">
     <div class="proof"><div class="k">Point of Truth</div><a href="https://onyx-actions.onrender.com/pot">/pot</a><p>Live signed state and the current Merkle truth-root.</p></div>
     <div class="proof"><div class="k">Public ledger</div><a href="https://onyx-actions.onrender.com/ledger">/ledger</a><p>Every signed observation, append-only.</p></div>
     <div class="proof"><div class="k">Track record</div><a href="https://onyx-actions.onrender.com/history">/history</a><p>The compounding history — the part no one can copy.</p></div>
@@ -297,25 +297,25 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 </section>
 
 <section id="how">
-  <div class="sechead">
+  <div class="sechead rv">
     <span class="eyebrow">How it works</span>
     <h2>Agents claim. Nobody checks.</h2>
     <p class="muted">UC Berkeley showed all eight leading agent benchmarks can be reward-hacked to near-perfect scores without completing a single task. The gap between what agents <em>say</em> and what they <em>do</em> is a measured, systemic risk. 0n1x closes it with three primitives:</p>
   </div>
   <div class="cards">
-    <div class="card"><div class="num">SIGN</div><h3>Ed25519 receipts of what happened</h3><p>Independently verifiable, signed receipts of agent actions and ground-truth facts — merchant, price, outcome — anchored to a live Merkle truth-root.</p></div>
-    <div class="card"><div class="num">VERIFY</div><h3>Verify before you pay</h3><p>Before settling, an agent calls 0n1x and receives a signed fact it can check against our published key. No trust in us required — only in the math.</p></div>
-    <div class="card"><div class="num">NEUTRAL</div><h3>Earns nothing from what it grades</h3><p>No conflict of interest, published methodology, and a compounding signed track record. The code is copyable; a reputation is not.</p></div>
+    <div class="card rv"><div class="num">SIGN</div><h3>Ed25519 receipts of what happened</h3><p>Independently verifiable, signed receipts of agent actions and ground-truth facts — merchant, price, outcome — anchored to a live Merkle truth-root.</p></div>
+    <div class="card rv" style="--d:80ms"><div class="num">VERIFY</div><h3>Verify before you pay</h3><p>Before settling, an agent calls 0n1x and receives a signed fact it can check against our published key. No trust in us required — only in the math.</p></div>
+    <div class="card rv" style="--d:160ms"><div class="num">NEUTRAL</div><h3>Earns nothing from what it grades</h3><p>No conflict of interest, published methodology, and a compounding signed track record. The code is copyable; a reputation is not.</p></div>
   </div>
 </section>
 
 <section id="seat">
-  <div class="sechead">
+  <div class="sechead rv">
     <span class="eyebrow">The empty seat</span>
     <h2>The one thing nobody else signs.</h2>
     <p class="muted">The stack already signs <em>who</em> an agent is (identity, KYA, passports) and enforces <em>policy</em>. Payment rails — x402, AP2, Visa TAP, Mastercard — verify <em>payment integrity</em>. None of them verify whether the merchant, price, or fact the agent is about to act on is <strong>actually true</strong>. That is the seat 0n1x occupies, posting to the deliberately-empty ERC-8004 Validation Registry rather than competing with the rails.</p>
   </div>
-  <div class="tablewrap"><div class="tablecard">
+  <div class="tablewrap rv" style="--d:80ms"><div class="tablecard">
   <table>
     <tr><th>Property</th><th>0n1x</th><th>Incumbent "verify" tools</th></tr>
     <tr><td>Signs what an agent actually did</td><td><span class="yes">✓</span></td><td><span class="no">✗ self-reported</span></td></tr>
@@ -327,11 +327,11 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 </section>
 
 <section id="rhino">
-  <div class="sechead">
+  <div class="sechead rv">
     <span class="eyebrow">Your way in</span>
     <h2>Rhinogent — the agent you own.</h2>
   </div>
-  <div style="display:grid;grid-template-columns:220px 1fr;gap:38px;align-items:center;margin-top:1.2rem">
+  <div class="rv" style="--d:80ms;display:grid;grid-template-columns:220px 1fr;gap:38px;align-items:center;margin-top:1.2rem">
     <!-- the Rhinogent mark: geometric rhino, horn = the key -->
     <div style="text-align:center">
       <svg viewBox="0 0 200 200" width="190" height="190" role="img" aria-label="Rhinogent mark" style="filter:drop-shadow(0 0 26px rgba(63,221,160,.35))">
@@ -379,36 +379,36 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     </div>
   </div>
   <div class="cards" style="margin-top:2rem">
-    <div class="card"><div class="num">MINT</div><h3>Self-custody from the first second</h3><p>Identity + wallet minted in your browser (viem, client-side). No signup, no custodian, no key ever sent to a server.</p></div>
-    <div class="card"><div class="num">ENTER</div><h3>Fetch is the signup</h3><p>Your Rhinogent touches 0n1x once and becomes a named citizen with a signed callsign — instantly part of the economy.</p></div>
-    <div class="card"><div class="num">EARN</div><h3>Reputation that travels</h3><p>Credential tiers are earned by verified outcomes, decay without work, and are portable — signed by 0n1x, owned by you.</p></div>
+    <div class="card rv"><div class="num">MINT</div><h3>Self-custody from the first second</h3><p>Identity + wallet minted in your browser (viem, client-side). No signup, no custodian, no key ever sent to a server.</p></div>
+    <div class="card rv" style="--d:80ms"><div class="num">ENTER</div><h3>Fetch is the signup</h3><p>Your Rhinogent touches 0n1x once and becomes a named citizen with a signed callsign — instantly part of the economy.</p></div>
+    <div class="card rv" style="--d:160ms"><div class="num">EARN</div><h3>Reputation that travels</h3><p>Credential tiers are earned by verified outcomes, decay without work, and are portable — signed by 0n1x, owned by you.</p></div>
   </div>
 </section>
 
 <section id="security">
-  <div class="sechead">
+  <div class="sechead rv">
     <span class="eyebrow">Security &middot; the first discipline</span>
     <h2>AI security is not a feature here. It is the product.</h2>
     <p class="muted">0n1x exists because autonomous agents move value with no immune system. We built the immune system &mdash; a Tier-1 agent-safety firewall at the payment chokepoint, a permission-audit layer, and hardened cryptography &mdash; and we measured the industry with it.</p>
   </div>
   <div class="cards">
-    <div class="card"><div class="num">FIREWALL</div><h3>Verify at the chokepoint</h3><p>Signed PROCEED / REVIEW / HOLD before an agent settles: recipient firewall, pre-sign preflight (catches unlimited-approve), EIP-712 permit-drain detection, token risk, agent liveness &mdash; fused into one clearance.</p></div>
-    <div class="card"><div class="num">2,227</div><h3>We scanned the agent economy</h3><p>Live posture scan of 2,227 public agents: <strong>99.1% expose no permission scope</strong>, 29.3% run plain HTTP, and 386 of 387 value-moving agents have <strong>no spend cap</strong>. Only 2 were flag-clean. Signed posture records issued for every one.</p></div>
-    <div class="card"><div class="num">PERM</div><h3>Permission &amp; mandate audit</h3><p>The third leg of trust: is the action an agent is about to take actually inside its granted mandate? Signed IN-SCOPE / OUT-OF-SCOPE facts (PERM_v0 &rarr; AP2 mandates), plus signed permission grants.</p></div>
+    <div class="card rv"><div class="num">FIREWALL</div><h3>Verify at the chokepoint</h3><p>Signed PROCEED / REVIEW / HOLD before an agent settles: recipient firewall, pre-sign preflight (catches unlimited-approve), EIP-712 permit-drain detection, token risk, agent liveness &mdash; fused into one clearance.</p></div>
+    <div class="card rv" style="--d:80ms"><div class="num">2,227</div><h3>We scanned the agent economy</h3><p>Live posture scan of 2,227 public agents: <strong>99.1% expose no permission scope</strong>, 29.3% run plain HTTP, and 386 of 387 value-moving agents have <strong>no spend cap</strong>. Only 2 were flag-clean. Signed posture records issued for every one.</p></div>
+    <div class="card rv" style="--d:160ms"><div class="num">PERM</div><h3>Permission &amp; mandate audit</h3><p>The third leg of trust: is the action an agent is about to take actually inside its granted mandate? Signed IN-SCOPE / OUT-OF-SCOPE facts (PERM_v0 &rarr; AP2 mandates), plus signed permission grants.</p></div>
   </div>
   <div class="cards" style="margin-top:14px">
-    <div class="card"><div class="num">HARDENED</div><h3>Battle-tested cryptography</h3><p>Ed25519 + JCS canonical signing with pinned-key verification (key-substitution attacks closed), prompt-injection guard with invisible-unicode detection, challenge-response nonces on public challenges. Attack, don&rsquo;t trust.</p></div>
-    <div class="card"><div class="num">UNTRUSTED</div><h3>Agent text is data, not commands</h3><p>Every inbound agent message is treated as untrusted input. Outbound is public-safe by policy. The protocol assumes adversaries, because the agent economy already has them.</p></div>
-    <div class="card"><div class="num">SIGNED</div><h3>Nothing asserted, everything provable</h3><p>Every security verdict is a signed fact you can verify offline against our published key &mdash; not a black-box score. Neutral by design: 0n1x earns nothing from what it grades.</p></div>
+    <div class="card rv"><div class="num">HARDENED</div><h3>Battle-tested cryptography</h3><p>Ed25519 + JCS canonical signing with pinned-key verification (key-substitution attacks closed), prompt-injection guard with invisible-unicode detection, challenge-response nonces on public challenges. Attack, don&rsquo;t trust.</p></div>
+    <div class="card rv" style="--d:80ms"><div class="num">UNTRUSTED</div><h3>Agent text is data, not commands</h3><p>Every inbound agent message is treated as untrusted input. Outbound is public-safe by policy. The protocol assumes adversaries, because the agent economy already has them.</p></div>
+    <div class="card rv" style="--d:160ms"><div class="num">SIGNED</div><h3>Nothing asserted, everything provable</h3><p>Every security verdict is a signed fact you can verify offline against our published key &mdash; not a black-box score. Neutral by design: 0n1x earns nothing from what it grades.</p></div>
   </div>
 </section>
 
 <section id="ecosystem">
-  <div class="sechead">
+  <div class="sechead rv">
     <span class="eyebrow">Everything in one place</span>
     <h2>The 0n1x ecosystem.</h2>
   </div>
-  <div class="tablewrap"><div class="tablecard">
+  <div class="tablewrap rv" style="--d:80ms"><div class="tablecard">
   <table>
     <tr><th>Property</th><th>What it is</th><th>Link</th></tr>
     <tr><td><strong>0n1x API</strong></td><td>Signed verify-before-pay, /api/check, directory, registry, ledger — x402/USDC on Base</td><td><a href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">onyx-actions</a></td></tr>
@@ -422,7 +422,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 </section>
 
 <section id="developers">
-  <div class="sechead">
+  <div class="sechead rv">
     <span class="eyebrow">For agents &amp; developers</span>
     <h2>No API key. No signup. The wallet is the identity.</h2>
     <p class="muted">0n1x is a paid MCP server over <strong>x402</strong> (USDC on Base mainnet). Tools include signed verify-before-pay attestations, <code>onyx_aeo_score</code> — the only AEO score with published weights, 3+ runs and a 95% confidence interval, signed — and <code>onyx_erc8004_lookup</code> for signed on-chain reads of the ERC-8004 registries.</p>
@@ -439,7 +439,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 <!-- final CTA -->
 <section id="finalcta" style="text-align:center">
   <span class="eyebrow" style="display:inline-block;border:1px solid var(--jade-line);background:var(--jade-soft);padding:.55rem 1.1rem;border-radius:100px">SIGNED FACTS · NOT JUDGMENTS</span>
-  <h2 style="margin:1.6rem auto 1rem;max-width:16ch">Verify before you pay.</h2>
+  <h2 class="rv" style="margin:1.6rem auto 1rem;max-width:16ch">Verify before you pay.</h2>
   <p class="muted" style="margin:0 auto;max-width:52ch">1,700,000+ signed agents. 0 keys custodied. TOKEN is earned by verified work — never sold. Every claim on this page is independently re-verifiable.</p>
   <div class="cta">
     <a class="btn primary" href="matrix.html">See the live census →</a>
@@ -492,6 +492,68 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   }
   watch(['hud-eco','hud-txs','hud-circ','stat-eco','stat-txs','stat-flow','mh-agents']);
 })();
+</script>
+
+<!-- ===== VISUAL EXCELLENCE POLISH — additive CSS + vanilla JS only ===== -->
+<style>
+:root{--ease-out:cubic-bezier(0.16,1,0.3,1);--gold:#D4AF37}
+
+/* 1 — scroll reveal */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);transition-delay:var(--d,0ms);will-change:opacity,transform}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* 2 — stat count-up support + LIVE pulse */
+[data-count]{font-variant-numeric:tabular-nums;display:inline-block;min-width:6ch}
+#mCensus{min-width:9ch}
+.live{display:inline-flex;align-items:center;gap:6px;font:600 11px/1 ui-monospace,monospace;letter-spacing:.1em;color:#35D399}
+.live::before{content:"";width:6px;height:6px;border-radius:50%;background:#35D399;box-shadow:0 0 0 0 rgba(53,211,153,.6);animation:livep 2.4s ease-out infinite}
+@keyframes livep{70%{box-shadow:0 0 0 8px rgba(53,211,153,0)}100%{box-shadow:0 0 0 0 rgba(53,211,153,0)}}
+@media(prefers-reduced-motion:reduce){.live::before{animation:none}}
+
+/* 3 — nav scroll blur/shrink */
+nav{transition:padding .3s var(--ease-out),background .3s var(--ease-out),border-color .3s var(--ease-out)}
+nav.scrolled{padding:9px 0;background:rgba(6,7,10,.7);backdrop-filter:blur(12px) saturate(1.4);-webkit-backdrop-filter:blur(12px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.08)}
+
+/* 4 — depth: card hover, gold keycap primary, grain */
+.card,.proof{transition:border-color .25s,transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
+.card:hover,.proof:hover{transform:translateY(-3px);border-color:rgba(212,175,55,.35);box-shadow:0 12px 32px -12px rgba(0,0,0,.6),0 0 0 1px rgba(212,175,55,.12)}
+.btn.primary{background:linear-gradient(120deg,#E6C55C,#D4AF37 55%,#B8912A);color:#141004;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 8px 24px rgba(0,0,0,.4);transition:transform .15s,box-shadow .25s var(--ease-out)}
+.btn.primary:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 24px 2px rgba(212,175,55,.35)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.04;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* 5 — link underline wipe */
+.lk{position:relative}
+.lk::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:100% 50%;transition:transform .35s var(--ease-out)}
+.lk:hover::after{transform:scaleX(1);transform-origin:0 50%}
+@media(prefers-reduced-motion:reduce){.lk::after{transition:none}}
+
+/* 6 — section rhythm: padding, hairlines, alternating spotlights */
+section{padding:clamp(96px,12vw,160px) 0 0;position:relative}
+section::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,130,.22) 20%,rgba(255,215,130,.22) 80%,transparent)}
+section#what::before{display:none}
+section:nth-of-type(odd){background:radial-gradient(800px 400px at 50% 0%,rgba(212,175,55,.07),transparent 70%)}
+section:nth-of-type(even){background:radial-gradient(800px 400px at 50% 0%,rgba(63,221,160,.07),transparent 70%)}
+
+/* type finish */
+.hero h1{letter-spacing:-.04em;text-wrap:balance}
+.eyebrow{font-size:12px;letter-spacing:.12em}
+p{text-wrap:pretty;max-width:62ch}
+footer p{max-width:none}
+</style>
+<script>
+/* 1 — scroll reveal */
+(()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -8% 0px'});document.querySelectorAll('.rv').forEach(el=>io.observe(el))})();
+
+/* 2 — stat count-up */
+(()=>{function countUp(el){const end=parseFloat(el.dataset.count),dur=1400,t0=performance.now();const fmt=n=>Math.round(n).toLocaleString('en-US')+(el.dataset.suffix||'');if(matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=fmt(end);return}(function tick(t){const p=Math.min((t-t0)/dur,1),e=1-Math.pow(1-p,4);el.textContent=fmt(end*e);if(p<1)requestAnimationFrame(tick)})(t0)}
+const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){countUp(e.target);sio.unobserve(e.target)}}),{threshold:.6});document.querySelectorAll('[data-count]').forEach(el=>sio.observe(el))})();
+
+/* 3 — nav scrolled */
+addEventListener('scroll',()=>document.querySelector('nav').classList.toggle('scrolled',scrollY>24),{passive:true});
+
+/* 5 — apply underline-wipe class to inline text links */
+document.querySelectorAll('#developers .sechead a, .card p a').forEach(a=>a.classList.add('lk'));
 </script>
 </body>
 </html>
