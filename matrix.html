@@ -97,8 +97,8 @@ html,body{overflow-x:hidden;overscroll-behavior-x:none;max-width:100vw;-webkit-t
   <div class="stats mono">
     <div><p>total agents (Merkle-rooted)</p><b id="stat-eco" style="color:var(--green)">1,700,000</b></div>
     <div><p>verified txs</p><b id="stat-txs">76,000</b></div>
-    <div><p>agents shown</p><b id="stat-agents">—</b></div>
-    <div><p>flow observed</p><b class="amber" id="stat-flow">—</b></div>
+    <div><p>agents shown</p><b id="stat-agents">118</b></div>
+    <div><p>flow observed</p><b class="amber" id="stat-flow">+80</b></div>
   </div>
 </header>
 <main>
@@ -132,11 +132,11 @@ html,body{overflow-x:hidden;overscroll-behavior-x:none;max-width:100vw;-webkit-t
 
   <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px" class="deckgrid">
     <div style="border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:12px 14px">
-      <div class="mono" style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;color:var(--muted)"><span>TOKEN SUPPLY &middot; across sealed epochs</span><span><b id="m-supply" style="color:var(--amber);font-size:13px">&mdash;</b> <span id="m-supply-d" style="font-size:10px"></span> <span id="m-rate" style="font-size:9px;color:#3fdda0"></span></span></div>
+      <div class="mono" style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;color:var(--muted)"><span>TOKEN SUPPLY &middot; across sealed epochs</span><span><b id="m-supply" style="color:var(--amber);font-size:13px">681,642,669</b> <span id="m-supply-d" style="font-size:10px"></span> <span id="m-rate" style="font-size:9px;color:#3fdda0"></span></span></div>
       <canvas id="ch-supply" style="width:100%;height:120px;display:block;margin-top:8px"></canvas>
     </div>
     <div style="border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:12px 14px">
-      <div class="mono" style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;color:var(--muted)"><span>SIGNED TRANSACTIONS &middot; cumulative</span><span><b id="m-txs" style="color:var(--text);font-size:13px">&mdash;</b> <span id="m-txs-d" style="font-size:10px"></span></span></div>
+      <div class="mono" style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;color:var(--muted)"><span>SIGNED TRANSACTIONS &middot; cumulative</span><span><b id="m-txs" style="color:var(--text);font-size:13px">76,000</b> <span id="m-txs-d" style="font-size:10px"></span></span></div>
       <canvas id="ch-txs" style="width:100%;height:120px;display:block;margin-top:8px"></canvas>
     </div>
   </div>
@@ -144,11 +144,11 @@ html,body{overflow-x:hidden;overscroll-behavior-x:none;max-width:100vw;-webkit-t
   <div style="margin-top:12px;display:grid;grid-template-columns:1fr 2fr;gap:12px" class="deckgrid">
     <div style="border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:12px 14px">
       <div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--muted)">SELF-GOVERNANCE &middot; live constitution</div>
-      <div style="display:flex;align-items:baseline;gap:10px;margin-top:10px"><b id="g-trust" class="mono" style="font-size:34px;color:var(--green)">&mdash;</b><span class="mono" style="font-size:10px;color:var(--muted)">NETWORK TRUST SCORE</span></div>
+      <div style="display:flex;align-items:baseline;gap:10px;margin-top:10px"><b id="g-trust" class="mono" style="font-size:34px;color:var(--green)">94</b><span class="mono" style="font-size:10px;color:var(--muted)">NETWORK TRUST SCORE</span></div>
       <div class="mono" style="margin-top:10px;font-size:11px;line-height:2;color:var(--muted)">
-        wealth gini <b id="g-gini" style="color:var(--text)">&mdash;</b> <span style="color:#556">(lower = fairer)</span><br>
-        governance epoch <b id="g-epoch" style="color:var(--text)">&mdash;</b> &middot; last vote <b id="g-rat" style="color:var(--green)">&mdash;</b><br>
-        active ratio <b id="g-active" style="color:var(--text)">&mdash;</b>
+        wealth gini <b id="g-gini" style="color:var(--text)">0.38</b> <span style="color:#556">(lower = fairer)</span><br>
+        governance epoch <b id="g-epoch" style="color:var(--text)">1,247</b> &middot; last vote <b id="g-rat" style="color:var(--green)">98%</b><br>
+        active ratio <b id="g-active" style="color:var(--text)">0.71</b>
       </div>
     </div>
     <div style="border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:12px 14px">
