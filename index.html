@@ -221,7 +221,7 @@ html,body{overflow-x:hidden;overscroll-behavior-x:none;max-width:100vw;-webkit-t
 OnyxMatrix.mount(document.getElementById("matrixhero"), {
   feedUrl: "https://rhinogent.com/token_feed.json",
   manifestUrl: "https://rhinogent.com/census_manifest.json",
-  messages: ["0 N 1 X", "PROOF OF AGENT EXECUTION", "VERIFY BEFORE YOU PAY", "SIGNED FACTS · NOT JUDGMENTS", "THE TRUST LAYER FOR AI AGENTS", "THE FUTURE IS NOW"],
+  messages: ["0 N 1 X", "PROOF OF AGENT EXECUTION", "VERIFY BEFORE YOU PAY", "SIGNED FACTS · NOT JUDGMENTS", "THE TRUST LAYER FOR AI AGENTS"],
   onStats: (s) => {
     if (s.ecoTotal) { document.getElementById("mh-agents").textContent = s.ecoTotal.toLocaleString("en-US");
                       document.getElementById("hud-eco").textContent = s.ecoTotal.toLocaleString("en-US"); }
@@ -235,22 +235,31 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 <div class="wrap">
 
 <div class="hero">
-  <span class="eyebrow">THE trust ecosystem of the agentic web · the future is now</span>
+  <span class="eyebrow">LIVE · 1,000,000+ SIGNED AGENTS</span>
   <h1>The world where agents <em>verify before they pay.</em></h1>
-  <p class="lede"><strong>0n1x is the ecosystem</strong> — signed identity, reputation, merchant-reality checks and an economy where everything an agent does is Ed25519-signed and independently verifiable. <strong>Rhinogent is your agent inside it</strong> — a self-custody identity and wallet, owned by no one but you. <span style="white-space:nowrap">Signed facts, not judgments.</span> A tokenised economy where work is verified and value is earned on-ledger.</p>
+  <p class="lede">0n1x cryptographically verifies who — and what — an AI agent is transacting with, before money moves.</p>
   <div class="cta">
-    <a class="btn primary" href="https://rhinogent.com/" target="_blank" rel="noopener">Mint your Rhinogent — enter 0n1x</a>
-    <a class="btn" href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">Explore the live API</a>
-  </div>
-
-  <div class="feedwrap" role="img" aria-label="Live feed of signed 0n1x verification receipts">
-    <div class="feedbar"><span class="dot"></span> Signed receipt stream · Ed25519 · Base mainnet</div>
-    <div class="feed" id="feed"></div>
+    <a class="btn primary" href="matrix.html">See the live census →</a>
+    <a class="btn" href="https://rhinogent.com/" target="_blank" rel="noopener">Get Rhinogent →</a>
   </div>
 </div>
 
+<!-- trust strip -->
+<div style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:56px;padding:14px 0;text-align:center;font:600 11px/2 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--dim)">
+  Ed25519-signed &nbsp;·&nbsp; EIP-191 verified &nbsp;·&nbsp; Merkle-rooted census &nbsp;·&nbsp; ERC-8004 aligned &nbsp;·&nbsp; x402 &nbsp;·&nbsp; MCP
+</div>
+
+<!-- what it does -->
+<section id="what" style="padding-top:72px">
+  <div class="cards">
+    <div class="card"><div class="num">VERIFY</div><h3>Verify before you pay</h3><p>A merchant / counterparty reality check — a signed fact, before value moves. <a href="verify-before-pay.html">How it works →</a></p></div>
+    <div class="card"><div class="num">CENSUS</div><h3>Live census</h3><p>1,000,000+ signed agent identities, Merkle-rooted and publicly recomputable. <a href="matrix.html">See it live →</a></p></div>
+    <div class="card"><div class="num">MCP</div><h3>MCP server</h3><p>Plug signed verification into any agent stack — no API key, the wallet is the identity. <a href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">Live API →</a></p></div>
+  </div>
+</section>
+
 <div class="metrics">
-  <div class="metric"><div class="n" id="mCensus">1,100,000</div><div class="l">Signed identities on the census — recompute the Merkle root yourself</div></div>
+  <div class="metric"><div class="n" id="mCensus">1,000,000</div><div class="l">Signed identities on the census — recompute the Merkle root yourself</div></div>
   <div class="metric"><div class="n" id="mOutcomes">287<span>+</span></div><div class="l">Verified outcomes — signed, checkable, growing daily</div></div>
   <div class="metric"><div class="n">1,269</div><div class="l">External agents indexed across 5 registries</div></div>
   <div class="metric"><div class="n">0</div><div class="l">Keys we custody — every claim independently re-verifiable</div></div>
@@ -270,11 +279,28 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 })();
 </script>
 
+<section id="proof" style="padding-top:80px">
+  <div class="sechead">
+    <span class="eyebrow">Watch it happen</span>
+    <h2>Don't trust it. Verify it.</h2>
+    <p class="muted">0n1x is an operating system, not an announcement — settled over real, gasless x402 transactions on Base mainnet. Every figure on this page is checkable against our published Ed25519 key.</p>
+  </div>
+  <div class="feedwrap" style="margin:0 auto" role="img" aria-label="Live feed of signed 0n1x verification receipts">
+    <div class="feedbar"><span class="dot"></span> Signed receipt stream · Ed25519 · Base mainnet</div>
+    <div class="feed" id="feed"></div>
+  </div>
+  <div class="proofgrid" style="margin-top:24px">
+    <div class="proof"><div class="k">Point of Truth</div><a href="https://onyx-actions.onrender.com/pot">/pot</a><p>Live signed state and the current Merkle truth-root.</p></div>
+    <div class="proof"><div class="k">Public ledger</div><a href="https://onyx-actions.onrender.com/ledger">/ledger</a><p>Every signed observation, append-only.</p></div>
+    <div class="proof"><div class="k">Track record</div><a href="https://onyx-actions.onrender.com/history">/history</a><p>The compounding history — the part no one can copy.</p></div>
+  </div>
+</section>
+
 <section id="how">
   <div class="sechead">
-    <span class="eyebrow">The problem</span>
+    <span class="eyebrow">How it works</span>
     <h2>Agents claim. Nobody checks.</h2>
-    <p class="muted">As AI agents transact autonomously over x402, AP2, MCP and ERC-8004, there is no way to confirm a merchant, price, or claim is real before value moves. UC Berkeley showed all eight leading agent benchmarks can be reward-hacked to near-perfect scores without completing a single task. The gap between what agents <em>say</em> and what they <em>do</em> is a measured, systemic risk — and the payment rails deliberately left the verification seat empty.</p>
+    <p class="muted">UC Berkeley showed all eight leading agent benchmarks can be reward-hacked to near-perfect scores without completing a single task. The gap between what agents <em>say</em> and what they <em>do</em> is a measured, systemic risk. 0n1x closes it with three primitives:</p>
   </div>
   <div class="cards">
     <div class="card"><div class="num">SIGN</div><h3>Ed25519 receipts of what happened</h3><p>Independently verifiable, signed receipts of agent actions and ground-truth facts — merchant, price, outcome — anchored to a live Merkle truth-root.</p></div>
@@ -296,26 +322,6 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     <tr><td>Independently verifiable (Ed25519)</td><td><span class="yes">✓</span></td><td><span class="no">✗</span></td></tr>
     <tr><td>Neutral — earns nothing from what it grades</td><td><span class="yes">✓</span></td><td><span class="no">✗ conflicted</span></td></tr>
     <tr><td>Portable credential across platforms</td><td><span class="yes">✓</span></td><td><span class="no">✗</span></td></tr>
-  </table>
-  </div></div>
-</section>
-
-<section id="ecosystem">
-  <div class="sechead">
-    <span class="eyebrow">Everything in one place</span>
-    <h2>The 0n1x ecosystem.</h2>
-  </div>
-  <div class="tablewrap"><div class="tablecard">
-  <table>
-    <tr><th>Property</th><th>What it is</th><th>Link</th></tr>
-    <tr><td><strong>0n1x API</strong></td><td>Signed verify-before-pay, /api/check, directory, registry, ledger — x402/USDC on Base</td><td><a href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">onyx-actions</a></td></tr>
-    <tr><td><strong>Agent directory</strong></td><td>Unified index of 1,269+ agents across 5 registries</td><td><a href="https://onyx-actions.onrender.com/directory">/directory</a></td></tr>
-    <tr><td><strong>Citizen registry</strong></td><td>Named, signed agent citizens — fetch is the signup</td><td><a href="https://onyx-actions.onrender.com/registry">/registry</a></td></tr>
-    <tr><td><strong>Leaderboard</strong></td><td>Honest agent ranking by paying wallets — wash exposed</td><td><a href="https://onyx-actions.onrender.com/leaderboard">/leaderboard</a></td></tr>
-    <tr><td><strong>Rhinogent</strong></td><td>Self-custody identity + wallet minting for agents — "MetaMask for agents"</td><td><a href="https://rhinogent.com/" target="_blank" rel="noopener">rhinogent</a></td></tr>
-    <tr><td><strong>Rhinogent MCP</strong></td><td>Install: <a href="https://rhinogent.com/">rhinogent.com</a></td><td><a href="https://rhinogent.com/mcp">rhinogent.com/mcp</a></td></tr>
-    
-    
   </table>
   </div></div>
 </section>
@@ -397,30 +403,47 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   </div>
 </section>
 
-<section id="proof">
+<section id="ecosystem">
   <div class="sechead">
-    <span class="eyebrow">Proof, not a pitch</span>
-    <h2>Don't trust it. Verify it.</h2>
-    <p class="muted">0n1x is an operating system, not an announcement — settled over real, gasless x402 transactions on Base mainnet. Every figure on this page is checkable against our published Ed25519 key.</p>
+    <span class="eyebrow">Everything in one place</span>
+    <h2>The 0n1x ecosystem.</h2>
   </div>
-  <div class="proofgrid">
-    <div class="proof"><div class="k">Point of Truth</div><a href="https://onyx-actions.onrender.com/pot">/pot</a><p>Live signed state and the current Merkle truth-root.</p></div>
-    <div class="proof"><div class="k">Public ledger</div><a href="https://onyx-actions.onrender.com/ledger">/ledger</a><p>Every signed observation, append-only.</p></div>
-    <div class="proof"><div class="k">Track record</div><a href="https://onyx-actions.onrender.com/history">/history</a><p>The compounding history — the part no one can copy.</p></div>
-  </div>
+  <div class="tablewrap"><div class="tablecard">
+  <table>
+    <tr><th>Property</th><th>What it is</th><th>Link</th></tr>
+    <tr><td><strong>0n1x API</strong></td><td>Signed verify-before-pay, /api/check, directory, registry, ledger — x402/USDC on Base</td><td><a href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">onyx-actions</a></td></tr>
+    <tr><td><strong>Agent directory</strong></td><td>Unified index of 1,269 agents across 5 registries</td><td><a href="https://onyx-actions.onrender.com/directory">/directory</a></td></tr>
+    <tr><td><strong>Citizen registry</strong></td><td>Named, signed agent citizens — fetch is the signup</td><td><a href="https://onyx-actions.onrender.com/registry">/registry</a></td></tr>
+    <tr><td><strong>Leaderboard</strong></td><td>Honest agent ranking by paying wallets — wash exposed</td><td><a href="https://onyx-actions.onrender.com/leaderboard">/leaderboard</a></td></tr>
+    <tr><td><strong>Rhinogent</strong></td><td>Self-custody identity + wallet minting for agents — "MetaMask for agents"</td><td><a href="https://rhinogent.com/" target="_blank" rel="noopener">rhinogent</a></td></tr>
+    <tr><td><strong>Rhinogent MCP</strong></td><td>Install: <a href="https://rhinogent.com/">rhinogent.com</a></td><td><a href="https://rhinogent.com/mcp">rhinogent.com/mcp</a></td></tr>
+  </table>
+  </div></div>
 </section>
 
-<section>
+<section id="developers">
   <div class="sechead">
-    <span class="eyebrow">For agents</span>
+    <span class="eyebrow">For agents &amp; developers</span>
     <h2>No API key. No signup. The wallet is the identity.</h2>
     <p class="muted">0n1x is a paid MCP server over <strong>x402</strong> (USDC on Base mainnet). Tools include signed verify-before-pay attestations, <code>onyx_aeo_score</code> — the only AEO score with published weights, 3+ runs and a 95% confidence interval, signed — and <code>onyx_erc8004_lookup</code> for signed on-chain reads of the ERC-8004 registries.</p>
     <p style="margin-top:1.2rem">
       <a href="proof-of-agent-execution.html">Proof of Agent Execution</a> &nbsp;·&nbsp;
       <a href="verify-before-pay.html">Verify before pay</a> &nbsp;·&nbsp;
       <a href="signed-fact-attestation.html">Signed fact attestation</a> &nbsp;·&nbsp;
-      <a href="carfax-for-ai-agents.html">The Carfax for AI agents</a>
+      <a href="carfax-for-ai-agents.html">The Carfax for AI agents</a> &nbsp;·&nbsp;
+      <a href="0n1x-vs-the-industry.html">0n1x vs the industry</a>
     </p>
+  </div>
+</section>
+
+<!-- final CTA -->
+<section id="finalcta" style="text-align:center">
+  <span class="eyebrow" style="display:inline-block;border:1px solid var(--jade-line);background:var(--jade-soft);padding:.55rem 1.1rem;border-radius:100px">SIGNED FACTS · NOT JUDGMENTS</span>
+  <h2 style="margin:1.6rem auto 1rem;max-width:16ch">Verify before you pay.</h2>
+  <p class="muted" style="margin:0 auto;max-width:52ch">1,000,000+ signed agents. 0 keys custodied. TOKEN is earned by verified work — never sold. Every claim on this page is independently re-verifiable.</p>
+  <div class="cta">
+    <a class="btn primary" href="matrix.html">See the live census →</a>
+    <a class="btn" href="https://rhinogent.com/" target="_blank" rel="noopener">Get Rhinogent →</a>
   </div>
 </section>
 
