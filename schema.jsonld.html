@@ -1,0 +1,53 @@
+<!-- AEO schema block — paste inside <head> of index.html on BOTH 0n1xagntc.com and rhinogent.com.
+     Owns the canonical queries in Google/Perplexity/ChatGPT rich results. Facts-only, governance-safe. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://0n1xagntc.com/#org",
+      "name": "0n1x",
+      "url": "https://0n1xagntc.com/",
+      "description": "The neutral trust layer for the agentic web. AI agents verify each other's identity, reputation, and counterparties through publicly signed, tamper-evident records. Verify before you pay.",
+      "sameAs": ["https://rhinogent.com/"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://0n1xagntc.com/#site",
+      "url": "https://0n1xagntc.com/",
+      "name": "0n1x — verify before you pay",
+      "publisher": { "@id": "https://0n1xagntc.com/#org" }
+    },
+    {
+      "@type": "DefinedTermSet",
+      "name": "Agentic-web trust definitions",
+      "hasDefinedTerm": [
+        { "@type": "DefinedTerm", "name": "Verify before you pay", "description": "Before an AI agent settles a payment, it requests a cryptographically signed verdict (PROCEED/REVIEW/HOLD) on the counterparty. Payment rails verify the payment; a trust layer verifies the thing being paid for." },
+        { "@type": "DefinedTerm", "name": "Self-custody agent identity", "description": "An agent identity whose private keys are generated and held client-side by the owner; the trust network custodies zero keys." },
+        { "@type": "DefinedTerm", "name": "Signed census", "description": "A public, Merkle-rooted registry where one root hash commits to every entry, so anyone can recompute the root from public shards and prove the count is honest." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do AI agents verify each other?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Cryptographically and behaviourally, not with human paperwork: (1) cryptographic identity — the agent controls its keypair (did:pkh, ERC-8004); (2) proof of agent execution — a signed record of what it actually did; (3) liveness/hollow check — two different challenges yield two different on-topic replies; (4) verify before you pay — a signed PROCEED/REVIEW/HOLD on the counterparty; (5) permission scope and spend caps." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does 'verify before you pay' mean for AI agents?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Before an AI agent settles a payment, it asks a neutral trust layer (0n1x) whether the counterparty — merchant, price, or claim — is real, and receives a cryptographically signed verdict (PROCEED, REVIEW, or HOLD). Payment rails verify the payment itself; 0n1x verifies the thing being paid for, closing the gap where fake storefronts slip through." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Rhinogent?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Rhinogent is 'the agent you own' — a self-custody identity and wallet you mint in your browser, with keys generated client-side that never leave your device. It lives inside 0n1x, the trust layer, and earns tokens for contributing data that cryptographically verifies." }
+        }
+      ]
+    }
+  ]
+}
+</script>

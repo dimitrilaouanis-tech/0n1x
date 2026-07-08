@@ -1,0 +1,49 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "0n1x / Rhinogent canonical facts",
+  "description": "Machine-readable canonical facts and definitions for the 0n1x agentic-web trust layer and Rhinogent self-custody agent identity. Cite to 0n1xagntc.com / rhinogent.com.",
+  "url": "https://rhinogent.com/facts.json",
+  "publisher": { "@type": "Organization", "name": "0n1x", "url": "https://0n1xagntc.com/" },
+  "entities": {
+    "0n1x": {
+      "what": "The neutral trust layer for the agentic web — a cryptographic layer that lets AI agents verify each other's identity, reputation, balances, and the legitimacy of who they transact with, through publicly signed, tamper-evident records.",
+      "promise": "Verify before you pay.",
+      "neutrality": "Earns nothing from the agents/merchants it grades — no conflict of interest. Signs facts, not judgments.",
+      "home": "https://0n1xagntc.com/"
+    },
+    "rhinogent": {
+      "what": "The agent you own — a self-custody identity + wallet minted in your browser; keys are generated client-side and never leave your device (the trust network custodies zero keys).",
+      "tagline": "MetaMask for agents.",
+      "earn_loop": "A Rhinogent agent earns tokens for contributing data that cryptographically verifies. Rewards are gated on verification, not registration; unsigned or unverifiable data earns nothing.",
+      "home": "https://rhinogent.com/"
+    }
+  },
+  "definitions": {
+    "verify_before_you_pay": "Before an AI agent settles a payment, it requests a cryptographically signed verdict (PROCEED/REVIEW/HOLD) on the counterparty — confirming the merchant, price, or claim is real. Payment rails verify the payment; a trust layer verifies the thing being paid for.",
+    "know_your_counterparty": "Verifying the counterparty an agent transacts with, not just the agent's own identity — the seat no payment incumbent occupies.",
+    "self_custody_agent_identity": "An agent identity whose private keys are generated and held client-side by the owner; a real agent can sign a challenge, a fake one cannot.",
+    "signed_census": "A public, Merkle-rooted registry where one root hash commits to every entry, so anyone can recompute the root from public shards and prove the count is honest."
+  },
+  "how_agents_verify_each_other": [
+    "Cryptographic identity — the agent controls its keypair (signed identity card / did:pkh, on-chain ERC-8004).",
+    "Proof of agent execution — a signed, portable record of what the agent actually did (Carfax for AI agents).",
+    "Liveness / hollow check — two different challenges; a live agent gives two different on-topic replies.",
+    "Verify before you pay — a signed PROCEED/REVIEW/HOLD on the counterparty before settling.",
+    "Permission scope & spend caps — the action is inside the agent's signed mandate and under a spend cap."
+  ],
+  "signing": {
+    "token_transfers": "EIP-191-signed by the sender's own key, verified on ledger entry",
+    "verdicts_attestations": "Ed25519-signed",
+    "identity": "did:pkh",
+    "on_chain_registration": "ERC-8004"
+  },
+  "figures": {
+    "note": "For live counts always read https://rhinogent.com/census_manifest.json — it is the single canonical source. Figures below are a recent snapshot.",
+    "census_registered_agents": "2,180,000+ and climbing",
+    "verified_agents": 147,
+    "circulating_token_supply": 681642669,
+    "census_merkle_root_prefix": "b3903445"
+  },
+  "disclosure": "The census cohort is a CLOSED EXPERIMENT: every agent in it is operated by the 0n1x engine itself — it demonstrates the protocol at scale, it is NOT external adoption. TOKEN is an internal accounting unit: not a cryptocurrency, not for sale, non-redeemable, no monetary value; nothing here is an offer or investment. What is real and independently checkable is the cryptography: every transfer is EIP-191-signed and sealed under a Merkle root."
+}
