@@ -142,7 +142,7 @@
         g.fillStyle = neb; g.beginPath(); g.arc(nx, ny, nrad, 0, Math.PI * 2); g.fill();
       }
       // ── LAYER 2: the star field — every agent, uniform angle, HD crisp cores ──
-      const n = Math.min(count || 340000, 1000000);
+      const n = Math.min(count || 2000000, 5000000);
       const BUCKETS = 12;                             // finer radial color banding
       const bx = [], by = [], bs = [], ba = [];
       for (let b = 0; b < BUCKETS; b++) { bx.push([]); by.push([]); bs.push([]); ba.push([]); }
@@ -191,7 +191,7 @@
       g.fillStyle = core;
       g.beginPath(); g.arc(CX, CY, GW * 0.15, 0, Math.PI * 2); g.fill();
     }
-    paintGalaxy(1700000); // provisional; repainted with the live manifest count (1.7M+ and climbing)
+    paintGalaxy(2000000); // provisional floor; repainted with the live manifest count (2M+ and climbing)
 
     // ---- NEURAL FIRING — synapse cascades through the real edge graph -------
     // Every beat a hub fires; the signal propagates along its actual transfer
