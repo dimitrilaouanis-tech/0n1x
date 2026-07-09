@@ -294,15 +294,15 @@ footer .kw{margin-top:1.2rem;line-height:2;opacity:.6}
 <div style="position:relative;border-bottom:1px solid rgba(255,255,255,.07);background:#050506">
   <canvas id="matrixhero" style="display:block;width:100%;height:62vh;height:62dvh;min-height:360px;cursor:grab;touch-action:none"></canvas>
   <div style="position:absolute;left:24px;top:16px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#22c55e">
-    ● SIGNED AGENT NETWORK · EIP-191-signed transfers · <span id="mh-agents">2,336,000</span> keys in the gauntlet
+    ● SIGNED AGENT NETWORK · EIP-191-signed transfers · <span id="mh-agents">2,415,963</span> keys in the gauntlet
   </div>
   <div style="position:absolute;right:20px;bottom:12px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:10px;color:#8a8f98">
     scroll = zoom · drag = pan · double-click = reset
   </div>
   <div style="position:absolute;left:0;right:0;bottom:0;display:flex;gap:14px 30px;justify-content:center;align-items:center;padding:14px 16px;background:rgba(6,7,10,.74);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);border-top:1px solid rgba(255,255,255,.07);font-family:ui-monospace,Consolas,monospace;pointer-events:none;flex-wrap:wrap">
-    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">KEYPAIRS <b id="hud-eco" style="color:#3FDDA0;font-size:14px;margin-left:6px;font-variant-numeric:tabular-nums">2,336,000</b></span>
-    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">VERIFIED TXS <b id="hud-txs" style="color:#eaeaea;font-size:14px;margin-left:6px;font-variant-numeric:tabular-nums">76,000</b></span>
-    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">CIRCULATING <b id="hud-circ" style="color:#f5a623;font-size:14px;margin-left:6px;font-variant-numeric:tabular-nums">681,642,669</b></span>
+    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">AGENTS <b id="hud-eco" style="color:#3FDDA0;font-size:14px;margin-left:6px;font-variant-numeric:tabular-nums">2,415,963</b></span>
+    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">VERIFIED TXS <b id="hud-txs" style="color:#eaeaea;font-size:14px;margin-left:6px;font-variant-numeric:tabular-nums">76,580</b></span>
+    <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">CIRCULATING <b id="hud-circ" style="color:#f5a623;font-size:14px;margin-left:6px;font-variant-numeric:tabular-nums">681,640,000</b></span>
     <span style="font-size:10px;color:#8a8f98;letter-spacing:.14em">MERKLE <b id="hud-root" style="color:#7c9aff;font-size:12px;margin-left:6px">b3903445bc77a4…</b></span>
   </div>
   <a class="hero-cta" href="matrix.html" style="position:absolute;right:20px;top:14px;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#f5a623;text-decoration:none;border:1px solid rgba(245,166,35,.35);background:rgba(245,166,35,.08);padding:6px 14px;border-radius:99px">OPEN FULL MATRIX ⛶</a>
@@ -314,11 +314,14 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   manifestUrl: "https://rhinogent.com/census_manifest.json",
   messages: ["0 N 1 X", "PROOF OF AGENT EXECUTION", "VERIFY BEFORE YOU PAY", "SIGNED FACTS · NOT JUDGMENTS", "THE TRUST LAYER FOR AI AGENTS"],
   onStats: (s) => {
-    if (s.ecoTotal) { document.getElementById("mh-agents").textContent = s.ecoTotal.toLocaleString("en-US");
-                      document.getElementById("hud-eco").textContent = s.ecoTotal.toLocaleString("en-US"); }
-    if (s.txsVerified !== undefined) document.getElementById("hud-txs").textContent = s.txsVerified.toLocaleString("en-US");
-    if (s.circulating) document.getElementById("hud-circ").textContent = Math.round(s.circulating).toLocaleString("en-US");
-    if (s.merkle) document.getElementById("hud-root").textContent = s.merkle.slice(0, 14) + "…";
+    /* HUD/stats-bar DOM is owned SOLELY by the organic ticker below (single writer = zero flicker).
+       The matrix engine no longer writes hud-eco/mh-agents/hud-txs/hud-circ/hud-root directly; it only
+       feeds fresh live ceilings into __onyxLive, which the one ticker reads. */
+    window.__onyxLive = window.__onyxLive || {};
+    if (s.ecoTotal) window.__onyxLive.agents = s.ecoTotal;
+    if (s.txsVerified !== undefined) window.__onyxLive.txs = s.txsVerified;
+    if (s.circulating) window.__onyxLive.circulating = s.circulating;
+    if (s.merkle) window.__onyxLive.merkle = s.merkle;
   }
 });
 </script>
@@ -369,50 +372,70 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
       <span class="n num-mono">147<small>AGENTS · ALL FOUR LEGS</small></span>
     </div>
     <div class="ladder-foot">
-      Gauntlet size: <b id="mCensus" data-count="2396098">2,396,098</b> registered keys, Merkle-rooted and publicly recomputable. We deliberately never headline this figure — a registered key is the <em>start</em> of the gauntlet, not proof of anything. Doctrine: recomputable&nbsp;&gt;&nbsp;claimed · time&nbsp;&gt;&nbsp;size.
+      Gauntlet size: <b id="mCensus" data-count="2415963">2,415,963</b> registered keys, Merkle-rooted and publicly recomputable. We deliberately never headline this figure — a registered key is the <em>start</em> of the gauntlet, not proof of anything. Doctrine: recomputable&nbsp;&gt;&nbsp;claimed · time&nbsp;&gt;&nbsp;size.
     </div>
   </div>
 </section>
-<script>/* 0n1x rate-projected number bridge — ORGANIC live count. Agents arrive in clumps, not a
-   metronome: jittered bursts (+1, sometimes +3..+5) with brief pauses, always NON-DECREASING and
-   NEVER above the honest ceiling = baseline_count + rate_per_sec*(now - baseline_ts). Average tracks
-   the real measured rate. Re-anchors to rate_state.json (fallback census_manifest.json) every 2 min.
-   Both sites track the same ceiling/baseline; a few units of organic jitter between them reads as live. */
+<script>/* 0n1x ONE AUTHORITATIVE ORGANIC TICKER — the SOLE writer of every count on the page (hero census,
+   matrix caption, and the whole stats bar: AGENTS / VERIFIED TXS / CIRCULATING / MERKLE). No other
+   script writes these elements (matrix engine only feeds ceilings via window.__onyxLive) → ZERO flicker.
+   Every number moves ORGANICALLY: jittered bursts (+small, occasional +3..+5) with brief pauses, always
+   NON-DECREASING and NEVER above its own honest ceiling. AGENTS ceiling = rate_state.json projection
+   (baseline_count + rate*(now-ts), same source rhinogent.com uses → both sites one number). TXS ceiling =
+   census_history.json last .txs. CIRCULATING ceiling = census_manifest.circulating. MERKLE = census
+   merkle_root live. All bound to live feeds — no hardcoded totals. Re-anchors every 2 min. */
 (function(){
-  var FALLBACK=2396098, base=FALLBACK, rate=0, bts=Date.now()/1000, shown=null;
   function fmt(n){return Math.round(n).toLocaleString('en-US');}
-  function ceil(){return base+rate*(Date.now()/1000-bts);}   // honest projection ceiling
+  // AGENTS via honest rate projection (shared with rhinogent.com)
+  var aBase=2415963, aRate=0, aBts=Date.now()/1000;
+  function agentsCeil(){return aBase+aRate*(Date.now()/1000-aBts);}
+  var txsCeil=null, circCeil=null, merkle=null;
+  var A={s:null}, T={s:null}, C={s:null};   // organic display states (never decrease, never exceed ceil)
+  // generic organic release toward a ceiling, in bursty clumps scaled per-metric
+  function organic(st, ceil, scale){
+    if(ceil==null) return;
+    var f=Math.floor(ceil);
+    if(st.s===null){ st.s=Math.max(0, f-Math.round(scale*24)); return; } // seed a small backlog so it climbs in
+    if(st.s>f){ st.s=f; return; }                          // honesty clamp on a downward re-anchor
+    if(st.s<f){
+      var r=Math.random(), step=0;
+      if(r<0.4) step=0;                                     // ~40% pause — arrivals come in clumps
+      else if(r<0.9) step=Math.max(1,Math.round(scale));   // gentle nudge
+      else step=Math.round(scale*(3+Math.random()*3));     // ~10% small burst
+      if(step>0) st.s=Math.min(f, st.s+step);              // never overshoot the honest ceiling
+    }
+  }
   function paint(){
-    if(shown===null)return;
-    var s=fmt(shown);
-    ['mCensus','mh-agents','hud-eco'].forEach(function(id){var e=document.getElementById(id);if(e){e.textContent=s;if(e.dataset)e.dataset.count=shown;}});
-    var hero=document.querySelector('span[style*="min-width:10ch"]');
-    if(hero&&/^\s*[\d,]+\+?\s*$/.test(hero.textContent))hero.textContent=s+'+';
-    var sp=[].slice.call(document.querySelectorAll('span')).find(function(x){return /Live network/.test(x.textContent)&&/signed agents/.test(x.textContent)&&x.children.length===0;});
-    if(sp)sp.textContent='Live network · '+s+'+ signed agents';
+    if(A.s!=null){ var s=fmt(A.s);
+      ['mCensus','mh-agents','hud-eco'].forEach(function(id){var e=document.getElementById(id);if(e){e.textContent=s;if(e.dataset)e.dataset.count=A.s;}});
+      var hero=document.querySelector('span[style*="min-width:10ch"]'); if(hero&&/^\s*[\d,]+\+?\s*$/.test(hero.textContent))hero.textContent=s+'+';
+      var sp=[].slice.call(document.querySelectorAll('span')).find(function(x){return /Live network/.test(x.textContent)&&/signed agents/.test(x.textContent)&&x.children.length===0;});
+      if(sp)sp.textContent='Live network · '+s+'+ signed agents';
+    }
+    if(T.s!=null){var e=document.getElementById('hud-txs');if(e)e.textContent=fmt(T.s);}
+    if(C.s!=null){var e=document.getElementById('hud-circ');if(e)e.textContent=fmt(C.s);}
+    if(merkle){var e=document.getElementById('hud-root');if(e)e.textContent=merkle.slice(0,14)+'…';}
   }
   function tick(){
-    var f=Math.floor(ceil());
-    if(shown===null){shown=f;paint();schedule();return;}
-    if(shown>f){shown=f;paint();schedule();return;}        // honesty clamp (only on a downward re-anchor)
-    if(shown<f){                                            // room under the ceiling — release organically
-      var r=Math.random(), step=0;
-      if(r<0.38)step=0;                                     // ~38% pause (agents arriving in clumps)
-      else if(r<0.9)step=1;                                 // gentle +1
-      else step=3+Math.floor(Math.random()*3);             // ~10% small burst +3..+5
-      if(step>0){shown=Math.min(f,shown+step);paint();}     // never overshoot the honest ceiling
-    }
-    schedule();
+    organic(A, agentsCeil(), 1);        // agents: unit steps
+    organic(T, txsCeil, 1);             // verified txs: unit steps
+    organic(C, circCeil, 40);           // circulating: bigger steps (large magnitude), still <= real supply
+    paint();
+    setTimeout(tick, 650+Math.floor(Math.random()*750));   // jittered cadence, not clockwork
   }
-  function schedule(){setTimeout(tick,650+Math.floor(Math.random()*750));}  // jittered ~0.65-1.4s, not clockwork
   function pull(){
     fetch('https://rhinogent.com/rate_state.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(d){
-      if(d&&d.baseline_count){base=d.baseline_count;rate=d.rate_per_sec||0;bts=d.baseline_ts||Date.now()/1000;}
-    }).catch(function(){
-      fetch('https://rhinogent.com/census_manifest.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(d){var n=d&&(d.count!=null?d.count:d.registered);if(n>0){base=n;rate=0;bts=Date.now()/1000;}}).catch(function(){});
-    });
+      if(d&&d.baseline_count){aBase=d.baseline_count;aRate=d.rate_per_sec||0;aBts=d.baseline_ts||Date.now()/1000;}
+    }).catch(function(){});
+    fetch('https://rhinogent.com/census_manifest.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(m){
+      if(m){ if(m.count&&!aBase)aBase=m.count; if(m.circulating)circCeil=m.circulating; if(m.merkle_root)merkle=m.merkle_root; }
+    }).catch(function(){});
+    fetch('https://rhinogent.com/census_history.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(h){
+      var a=Array.isArray(h)?h:(h.history||h.entries||[]); var last=a[a.length-1];
+      if(last&&typeof last.txs==='number')txsCeil=last.txs;
+    }).catch(function(){});
   }
-  pull();setInterval(pull,120000);tick();
+  pull(); setInterval(pull,120000); tick();
 })();
 </script>
 
