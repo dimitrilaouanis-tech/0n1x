@@ -233,12 +233,22 @@ footer .kw{margin-top:1.2rem;line-height:2;opacity:.6}
 .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--jade);box-shadow:0 0 0 0 rgba(63,221,160,.6);animation:livep 2.4s ease-out infinite}
 @keyframes livep{70%{box-shadow:0 0 0 8px rgba(63,221,160,0)}100%{box-shadow:0 0 0 0 rgba(63,221,160,0)}}
 @media(prefers-reduced-motion:reduce){.live::before{animation:none}}
+/* clean bar: 3 primary links inline; a tidy dropdown holds everything (burger on all sizes) */
+.navin{position:relative}
+.logo{order:0}
+.links{order:1;margin-left:auto}
+.rhino-cta{order:2;margin-left:0!important}
+.navcta{order:3}
+.burger{display:flex;order:4}
+.menu{display:none;position:absolute;top:56px;right:0;min-width:230px;flex-direction:column;gap:2px;background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:12px;z-index:60;box-shadow:0 18px 44px -14px rgba(0,0,0,.55)}
+.menu a{padding:10px 12px;border-radius:10px;color:var(--muted);font:500 .92rem var(--sans)}
+.menu a:hover{background:var(--jade-soft);color:var(--ink)}
+#navtog:checked ~ .menu{display:flex}
 
 /* mobile */
 @media (max-width:900px){
   .cards,.proofgrid,.reg2{grid-template-columns:1fr}
-  nav .links{display:none;position:absolute;top:60px;right:14px;left:14px;flex-direction:column;gap:16px;background:var(--bg2);border:1px solid var(--line2);border-radius:14px;padding:16px 18px;z-index:60}
-  #navtog:checked ~ .links{display:flex}
+  nav .links{display:none}
   .burger{display:flex;margin-left:14px}
   .frow{grid-template-columns:70px 1fr 90px}
   .frow .s{display:none}
@@ -262,15 +272,21 @@ footer .kw{margin-top:1.2rem;line-height:2;opacity:.6}
   <label class="burger" for="navtog" aria-label="Menu"><span></span><span></span><span></span></label>
   <div class="links">
     <a href="#ladder">The ladder</a>
+    <a href="matrix.html">Matrix</a>
+    <a href="#proof">Verify</a>
+  </div>
+  <a class="navcta" href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">Live API</a>
+  <div class="menu">
+    <a href="#ladder">The ladder</a>
+    <a href="matrix.html">Matrix</a>
+    <a href="#proof">Verify it</a>
     <a href="#anchor">Anchored history</a>
     <a href="#registries">Registries</a>
-    <a href="#rhino">Rhinogent</a>
-    <a href="matrix.html">Matrix</a>
+    <a href="#security">Security</a>
     <a href="dossier-molty.html">Live dossier</a>
     <a href="0n1x-vs-the-industry.html">vs Industry</a>
-    <a href="#security">Security</a>
-    <a href="#proof">Verify it</a>
-    <a class="navcta" href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">Live API</a>
+    <a href="#rhino">Rhinogent</a>
+    <a href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">Live API &rarr;</a>
   </div>
 </div></nav>
 
