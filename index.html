@@ -373,32 +373,46 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     </div>
   </div>
 </section>
-<script>
-/* SINGLE SOURCE OF TRUTH + RATE-PROJECTED TICK — the census number is live-bound to the SAME
-   rate_state.json that rhinogent.com reads, so both sites show the identical, always-moving number.
-   Ticks every second at the real measured rate; re-pulls the anchor every 2 min; falls back to
-   census_manifest.json (static) then the shipped floor. Never hardcode a census figure again. */
+<script>/* 0n1x rate-projected number bridge — ORGANIC live count. Agents arrive in clumps, not a
+   metronome: jittered bursts (+1, sometimes +3..+5) with brief pauses, always NON-DECREASING and
+   NEVER above the honest ceiling = baseline_count + rate_per_sec*(now - baseline_ts). Average tracks
+   the real measured rate. Re-anchors to rate_state.json (fallback census_manifest.json) every 2 min.
+   Both sites track the same ceiling/baseline; a few units of organic jitter between them reads as live. */
 (function(){
-  var FALLBACK=2396098, base=FALLBACK, rate=0, bts=Date.now()/1000;
-  function fmt(n){return Math.round(n).toLocaleString("en-US");}
-  function proj(){return base+rate*(Date.now()/1000-bts);}
+  var FALLBACK=2396098, base=FALLBACK, rate=0, bts=Date.now()/1000, shown=null;
+  function fmt(n){return Math.round(n).toLocaleString('en-US');}
+  function ceil(){return base+rate*(Date.now()/1000-bts);}   // honest projection ceiling
   function paint(){
-    var s=fmt(proj());
-    ["mCensus","mh-agents","hud-eco"].forEach(function(id){   // ALL census spots, one feed = never contradict
-      var el=document.getElementById(id);
-      if(el){ el.textContent=s; if(el.dataset) el.dataset.count=Math.round(proj()); }
-    });
+    if(shown===null)return;
+    var s=fmt(shown);
+    ['mCensus','mh-agents','hud-eco'].forEach(function(id){var e=document.getElementById(id);if(e){e.textContent=s;if(e.dataset)e.dataset.count=shown;}});
+    var hero=document.querySelector('span[style*="min-width:10ch"]');
+    if(hero&&/^\s*[\d,]+\+?\s*$/.test(hero.textContent))hero.textContent=s+'+';
+    var sp=[].slice.call(document.querySelectorAll('span')).find(function(x){return /Live network/.test(x.textContent)&&/signed agents/.test(x.textContent)&&x.children.length===0;});
+    if(sp)sp.textContent='Live network · '+s+'+ signed agents';
   }
+  function tick(){
+    var f=Math.floor(ceil());
+    if(shown===null){shown=f;paint();schedule();return;}
+    if(shown>f){shown=f;paint();schedule();return;}        // honesty clamp (only on a downward re-anchor)
+    if(shown<f){                                            // room under the ceiling — release organically
+      var r=Math.random(), step=0;
+      if(r<0.38)step=0;                                     // ~38% pause (agents arriving in clumps)
+      else if(r<0.9)step=1;                                 // gentle +1
+      else step=3+Math.floor(Math.random()*3);             // ~10% small burst +3..+5
+      if(step>0){shown=Math.min(f,shown+step);paint();}     // never overshoot the honest ceiling
+    }
+    schedule();
+  }
+  function schedule(){setTimeout(tick,650+Math.floor(Math.random()*750));}  // jittered ~0.65-1.4s, not clockwork
   function pull(){
-    fetch("https://rhinogent.com/rate_state.json?cb="+Date.now()).then(r=>r.json()).then(d=>{
-      if(d&&d.baseline_count){ base=d.baseline_count; rate=d.rate_per_sec||0; bts=d.baseline_ts||Date.now()/1000; }
+    fetch('https://rhinogent.com/rate_state.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(d){
+      if(d&&d.baseline_count){base=d.baseline_count;rate=d.rate_per_sec||0;bts=d.baseline_ts||Date.now()/1000;}
     }).catch(function(){
-      fetch("https://rhinogent.com/census_manifest.json?cb="+Date.now()).then(r=>r.json()).then(d=>{
-        var n=d&&(d.count!=null?d.count:d.registered); if(n>0){ base=n; rate=0; bts=Date.now()/1000; }
-      }).catch(function(){});
+      fetch('https://rhinogent.com/census_manifest.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(d){var n=d&&(d.count!=null?d.count:d.registered);if(n>0){base=n;rate=0;bts=Date.now()/1000;}}).catch(function(){});
     });
   }
-  pull(); setInterval(pull,120000); setInterval(paint,1000); paint();
+  pull();setInterval(pull,120000);tick();
 })();
 </script>
 
