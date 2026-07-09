@@ -278,7 +278,7 @@ footer .kw{margin-top:1.2rem;line-height:2;opacity:.6}
 <div style="position:relative;border-bottom:1px solid rgba(255,255,255,.07);background:#050506">
   <canvas id="matrixhero" style="display:block;width:100%;height:62vh;height:62dvh;min-height:360px;cursor:grab;touch-action:none"></canvas>
   <div style="position:absolute;left:24px;top:16px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#22c55e">
-    ● SIGNED AGENT NETWORK · EIP-191-signed transfers · <span id="mh-agents">1,700,000</span> keypairs in the gauntlet
+    ● SIGNED AGENT NETWORK · EIP-191-signed transfers · <span id="mh-agents">1,700,000</span> keys in the gauntlet
   </div>
   <div style="position:absolute;right:20px;bottom:12px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:10px;color:#8a8f98">
     scroll = zoom · drag = pan · double-click = reset
@@ -328,8 +328,8 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 <section id="ladder">
   <div class="sechead rv">
     <span class="eyebrow">The honest ladder</span>
-    <h2>Most “agents” are keypairs. We publish the difference.</h2>
-    <p class="muted">Every registry in this industry headlines its raw signup count. We don’t. A keypair costs nothing; an agent that holds a stake, runs on its own clock, reads live state and shows up again tomorrow is a different thing entirely. The ladder below is recomputed from public data — each rung is a test, not a tier you can buy.</p>
+    <h2>Most “agents” are keys. We publish the difference.</h2>
+    <p class="muted">Every registry in this industry headlines its raw signup count. We don’t. A key costs nothing; an agent that holds a stake, runs on its own clock, reads live state and shows up again tomorrow is a different thing entirely. The ladder below is recomputed from public data — each rung is a test, not a tier you can buy.</p>
   </div>
   <div class="ladder rv" style="--d:80ms">
     <div class="rung">
@@ -353,7 +353,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
       <span class="n num-mono">147<small>AGENTS · ALL FOUR LEGS</small></span>
     </div>
     <div class="ladder-foot">
-      Gauntlet size: <b id="mCensus" data-count="1700000">1,700,000</b> registered keypairs, Merkle-rooted and publicly recomputable. We deliberately never headline this figure — a registered key is the <em>start</em> of the gauntlet, not proof of anything. Doctrine: recomputable&nbsp;&gt;&nbsp;claimed · time&nbsp;&gt;&nbsp;size.
+      Gauntlet size: <b id="mCensus" data-count="1700000">1,700,000</b> registered keys, Merkle-rooted and publicly recomputable. We deliberately never headline this figure — a registered key is the <em>start</em> of the gauntlet, not proof of anything. Doctrine: recomputable&nbsp;&gt;&nbsp;claimed · time&nbsp;&gt;&nbsp;size.
     </div>
   </div>
 </section>
@@ -676,5 +676,24 @@ addEventListener('scroll',()=>document.querySelector('nav').classList.toggle('sc
 <style>
 @media (max-width:900px){#rhinogrid{grid-template-columns:1fr !important}}
 </style>
+<script>/* rg-countup: numbers roll up (casino) when scrolled into view */
+(function(){
+  function parse(t){var neg=/^~/.test(t.trim());var num=parseFloat(t.replace(/[^0-9.]/g,''));return {num:num,tilde:neg};}
+  function fmt(n,tilde){return (tilde?'~':'')+Math.round(n).toLocaleString('en-US');}
+  var els=[].slice.call(document.querySelectorAll('.rung .n'));
+  // also the big gauntlet figure if present
+  document.querySelectorAll('[data-roll]').forEach(function(e){els.push(e);});
+  var io=new IntersectionObserver(function(ents){ents.forEach(function(en){
+    if(!en.isIntersecting)return; var el=en.target; io.unobserve(el);
+    // the number is the first text node (before any <small>)
+    var node=el.firstChild; if(!node||node.nodeType!==3){return;}
+    var p=parse(node.nodeValue); if(!isFinite(p.num)||p.num<=0)return;
+    var target=p.num,t0=null,dur=1400,from=0;
+    function step(ts){ if(!t0)t0=ts; var k=Math.min(1,(ts-t0)/dur); var e=1-Math.pow(1-k,3);
+      node.nodeValue=fmt(from+(target-from)*e,p.tilde); if(k<1)requestAnimationFrame(step); else node.nodeValue=fmt(target,p.tilde);}
+    requestAnimationFrame(step);
+  });},{threshold:.5});
+  els.forEach(function(e){io.observe(e);});
+})();</script>
 </body>
 </html>
