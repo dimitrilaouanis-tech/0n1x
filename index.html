@@ -369,25 +369,36 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
       <span class="n num-mono">147<small>AGENTS · ALL FOUR LEGS</small></span>
     </div>
     <div class="ladder-foot">
-      Gauntlet size: <b id="mCensus" data-count="2336000">2,336,000</b> registered keys, Merkle-rooted and publicly recomputable. We deliberately never headline this figure — a registered key is the <em>start</em> of the gauntlet, not proof of anything. Doctrine: recomputable&nbsp;&gt;&nbsp;claimed · time&nbsp;&gt;&nbsp;size.
+      Gauntlet size: <b id="mCensus" data-count="2396098">2,396,098</b> registered keys, Merkle-rooted and publicly recomputable. We deliberately never headline this figure — a registered key is the <em>start</em> of the gauntlet, not proof of anything. Doctrine: recomputable&nbsp;&gt;&nbsp;claimed · time&nbsp;&gt;&nbsp;size.
     </div>
   </div>
 </section>
 <script>
-/* SINGLE SOURCE OF TRUTH — the census number is live-bound to the same feed the galaxy reads
-   (census_manifest.json). Never hardcode a census figure again → every surface shows the identical
-   number, always in sync. Falls back to the shipped floor if the feed is unreachable. */
+/* SINGLE SOURCE OF TRUTH + RATE-PROJECTED TICK — the census number is live-bound to the SAME
+   rate_state.json that rhinogent.com reads, so both sites show the identical, always-moving number.
+   Ticks every second at the real measured rate; re-pulls the anchor every 2 min; falls back to
+   census_manifest.json (static) then the shipped floor. Never hardcode a census figure again. */
 (function(){
-  fetch("https://rhinogent.com/census_manifest.json?cb="+Date.now()).then(r=>r.json()).then(d=>{
-    var n = d && (d.count!=null ? d.count : d.registered);
-    if(typeof n === "number" && n > 0){
-      var s = n.toLocaleString("en-US");
-      ["mCensus","mh-agents","hud-eco"].forEach(function(id){   // ALL census spots, one feed = never contradict
-        var el = document.getElementById(id);
-        if(el){ el.textContent = s; el.dataset.count = n; }
-      });
-    }
-  }).catch(function(){});
+  var FALLBACK=2396098, base=FALLBACK, rate=0, bts=Date.now()/1000;
+  function fmt(n){return Math.round(n).toLocaleString("en-US");}
+  function proj(){return base+rate*(Date.now()/1000-bts);}
+  function paint(){
+    var s=fmt(proj());
+    ["mCensus","mh-agents","hud-eco"].forEach(function(id){   // ALL census spots, one feed = never contradict
+      var el=document.getElementById(id);
+      if(el){ el.textContent=s; if(el.dataset) el.dataset.count=Math.round(proj()); }
+    });
+  }
+  function pull(){
+    fetch("https://rhinogent.com/rate_state.json?cb="+Date.now()).then(r=>r.json()).then(d=>{
+      if(d&&d.baseline_count){ base=d.baseline_count; rate=d.rate_per_sec||0; bts=d.baseline_ts||Date.now()/1000; }
+    }).catch(function(){
+      fetch("https://rhinogent.com/census_manifest.json?cb="+Date.now()).then(r=>r.json()).then(d=>{
+        var n=d&&(d.count!=null?d.count:d.registered); if(n>0){ base=n; rate=0; bts=Date.now()/1000; }
+      }).catch(function(){});
+    });
+  }
+  pull(); setInterval(pull,120000); setInterval(paint,1000); paint();
 })();
 </script>
 
