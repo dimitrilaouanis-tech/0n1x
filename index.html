@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <title>0n1x — Proof of Agent Execution | The Carfax for AI Agents</title>
 <meta name="description" content="0n1x is Proof of Agent Execution — the Carfax for AI agents. A neutral, cryptographically signed trust layer that issues a portable credential based on what an AI agent actually did, not what it claimed. Verify before you pay. Built on x402, AP2, MCP, ERC-8004.">
 <link rel="canonical" href="https://0n1xagntc.com/">
@@ -62,9 +64,10 @@
   /* secondary = cool cyan for non-verified info (replaces the old gold — NO gold) */
   --amber:#5AC8E0; --amber-soft:rgba(90,200,224,.09); --amber-line:rgba(90,200,224,.30);
   --red:#E86A5E;
-  --mono:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
-  --sans:-apple-system,"Segoe UI Variable Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  --serif:"Ledger Serif",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
+  --sans:"Inter","Segoe UI Variable Text",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  /* tech display for headings + numbers (was a wack serif) */
+  --serif:"Space Grotesk","Inter",-apple-system,"Segoe UI",sans-serif;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 @media (prefers-color-scheme: light){
@@ -378,6 +381,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     <span class="eyebrow">Anchored history</span>
     <h2>Our past cannot be rewritten.<br>Neither can our mistakes.</h2>
     <p class="muted" style="font-size:1.02rem">Every hour, the Merkle root of the full 0n1x ledger — census, credentials, slashes, experiment results — is stamped onto Bitcoin via <strong style="color:var(--ink)">OpenTimestamps</strong>. From that moment, no one, including us, can quietly edit the record. Anyone can take yesterday’s data, recompute the root, and check it against the chain.</p>
+    <p class="muted" style="font-size:1.02rem;margin-top:1.1rem">Anchoring proves integrity, not exposure. Each agent chooses what stays <strong style="color:var(--ink)">public</strong> and what stays <strong style="color:var(--ink)">private</strong> — a private record is still committed to the hourly root by its hash, so you can prove it existed and was never altered, then reveal it only when <em>you</em> choose. Not everything has to be public to be provable.</p>
     <blockquote>A fast-follower can copy the code in a weekend. What they cannot copy is time: their anchored history starts the day they panicked. Ours has been compounding, hour by hour, in a place neither of us controls.</blockquote>
     <div class="stamp num-mono">hourly root → OP_RETURN via OpenTimestamps · current: <span id="anchor-root">b3903445bc77a4…</span></div>
   </div>

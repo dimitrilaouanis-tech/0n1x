@@ -185,8 +185,8 @@
       }
       // ── LAYER 3: nebula core haze (the live supernova is per-frame) ──
       const core = g.createRadialGradient(CX, CY, 0, CX, CY, GW * 0.15);
-      core.addColorStop(0, `rgba(${themeCore},0.32)`);
-      core.addColorStop(0.5, `rgba(${themeCore},0.10)`);
+      core.addColorStop(0, `rgba(${themeCore},0.15)`);   // dimmed — center was washing out overlaid text
+      core.addColorStop(0.5, `rgba(${themeCore},0.05)`);
       core.addColorStop(1, `rgba(${themeCore},0)`);
       g.fillStyle = core;
       g.beginPath(); g.arc(CX, CY, GW * 0.15, 0, Math.PI * 2); g.fill();
