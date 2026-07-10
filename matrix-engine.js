@@ -27,7 +27,8 @@
           bg: ["#080a0f", "#06070b", "#040509"] };                                                  // 0n1x: neutral deep-space; green only on active nodes (no gold)
     const ctx = cv.getContext("2d");
     let W = 0, H = 0;
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    // cap DPR (lower on small screens) — fewer pixels to push = smoother, cooler on mobile
+    const dpr = Math.min(Math.min(window.innerWidth, window.innerHeight) < 760 ? 1.4 : 1.75, window.devicePixelRatio || 1);
     function resize() {
       const r = cv.getBoundingClientRect();
       W = r.width; H = r.height;
@@ -142,7 +143,9 @@
         g.fillStyle = neb; g.beginPath(); g.arc(nx, ny, nrad, 0, Math.PI * 2); g.fill();
       }
       // ── LAYER 2: the star field — every agent, uniform angle, HD crisp cores ──
-      const n = Math.min(count || 2000000, 5000000);
+      // cap the dot loop: 1.0M dots already reads as a dense galaxy; iterating the full 2.5M+ census
+      // each repaint just froze the main thread. Same look, far cheaper (perf/mobile).
+      const n = Math.min(count || 2000000, 1000000);
       const BUCKETS = 12;                             // finer radial color banding
       const bx = [], by = [], bs = [], ba = [];
       for (let b = 0; b < BUCKETS; b++) { bx.push([]); by.push([]); bs.push([]); ba.push([]); }
@@ -192,7 +195,9 @@
       g.beginPath(); g.arc(CX, CY, GW * 0.15, 0, Math.PI * 2); g.fill();
     }
     let lastPaintedCount = 2000000;
-    paintGalaxy(lastPaintedCount); // provisional floor; repainted with the live manifest count (2M+ and climbing)
+    // defer the heavy initial galaxy paint OFF the first-paint critical path — no load jank; the live
+    // nodes/particles render immediately and the star field fades in a beat later.
+    (window.requestIdleCallback || function(f){ return setTimeout(f, 60); })(function(){ paintGalaxy(lastPaintedCount); });
     // PERF: the galaxy is painted ONCE to an offscreen canvas via a ~count-iteration loop. Repainting on
     // every tiny manifest tick would freeze the main thread for a second each poll. 2.50M vs 2.55M dots is
     // visually identical, so only repaint on a meaningful delta (>1.2%) — same look, no periodic stutter.
