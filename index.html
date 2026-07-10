@@ -582,6 +582,13 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   // AGENTS via honest rate projection. aRate defaults to the published mint rate so the number keeps a
   // gentle live climb even if rate_state.json is briefly unreachable; rate_state overwrites it when it loads.
   var aBase=2546085, aRate=0.2938, aBts=Date.now()/1000;
+  // SOLID one-source bind 2026-07-10: seed AGENTS from the CANONICAL manifest count on load,
+  // never a stale literal and not dependent on the rate_state relay. census_manifest.json = the source of truth.
+  fetch("https://rhinogent.com/census_manifest.json").then(function(r){return r.json();}).then(function(d){
+    if(d&&d.count){ aBase=d.count; aBts=Date.now()/1000; var f=Number(d.count).toLocaleString('en-US');
+      ["mh-agents","hud-eco","mCensus"].forEach(function(id){var e=document.getElementById(id); if(e){e.textContent=f;}});
+    }
+  }).catch(function(){});
   function agentsCeil(){return aBase+aRate*(Date.now()/1000-aBts);}
   var txsCeil=null, circCeil=null, merkle=null;
   var A={s:null}, T={s:null}, C={s:null};   // display states (non-decreasing, never exceed ceil)
