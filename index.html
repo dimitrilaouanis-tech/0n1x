@@ -643,7 +643,10 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
       if(last&&typeof last.txs==='number')txsCeil=last.txs;
     }).catch(function(){});
   }
-  pull(); setInterval(pull,120000); frame();
+  pull(); setInterval(pull,120000);
+  // startup warm-retry: populate txs/circ/rate fast even if the first fetch hiccups (else 120s wait)
+  var warm=0, wi=setInterval(function(){ warm++; if(warm>6 || (txsCeil!=null && circCeil!=null)){ clearInterval(wi); return; } pull(); }, 3000);
+  flow(); agentTick();
 })();
 </script>
 

@@ -191,7 +191,15 @@
       g.fillStyle = core;
       g.beginPath(); g.arc(CX, CY, GW * 0.15, 0, Math.PI * 2); g.fill();
     }
-    paintGalaxy(2000000); // provisional floor; repainted with the live manifest count (2M+ and climbing)
+    let lastPaintedCount = 2000000;
+    paintGalaxy(lastPaintedCount); // provisional floor; repainted with the live manifest count (2M+ and climbing)
+    // PERF: the galaxy is painted ONCE to an offscreen canvas via a ~count-iteration loop. Repainting on
+    // every tiny manifest tick would freeze the main thread for a second each poll. 2.50M vs 2.55M dots is
+    // visually identical, so only repaint on a meaningful delta (>1.2%) — same look, no periodic stutter.
+    function repaintIfMoved(c){
+      if(!c) return;
+      if(Math.abs(c - lastPaintedCount) > Math.max(9000, lastPaintedCount * 0.012)){ lastPaintedCount = c; paintGalaxy(c); }
+    }
 
     // ---- NEURAL FIRING — synapse cascades through the real edge graph -------
     // Every beat a hub fires; the signal propagates along its actual transfer
@@ -606,7 +614,8 @@
         try {
           const m = await (await fetch(opts.manifestUrl, { cache: "no-store" })).json();
           const c = m.count || m.total || 0;
-          if (c && c !== ecoTotal) { ecoTotal = c; paintGalaxy(c); }
+          if (c && c !== ecoTotal) { ecoTotal = c; }   // keep count current for onStats/climb
+          repaintIfMoved(c);                            // but only repaint the galaxy on a meaningful delta
           merkle = m.merkle_root || "";
           if (opts.onStats) opts.onStats({ merkle, circulating: m.circulating });  // eco owned by the climb ticker
         } catch (e) { /* manifest optional */ }
