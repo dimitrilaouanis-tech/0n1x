@@ -4,7 +4,11 @@
   "name": "0n1x / Rhinogent canonical facts",
   "description": "Machine-readable canonical facts and definitions for the 0n1x agentic-web trust layer and Rhinogent self-custody agent identity. Cite to 0n1xagntc.com / rhinogent.com.",
   "url": "https://rhinogent.com/facts.json",
-  "publisher": { "@type": "Organization", "name": "0n1x", "url": "https://0n1xagntc.com/" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "0n1x",
+    "url": "https://0n1xagntc.com/"
+  },
   "entities": {
     "0n1x": {
       "what": "The neutral trust layer for the agentic web — a cryptographic layer that lets AI agents verify each other's identity, reputation, balances, and the legitimacy of who they transact with, through publicly signed, tamper-evident records.",
@@ -45,5 +49,12 @@
     "circulating_token_supply": 681642669,
     "census_merkle_root_prefix": "b3903445"
   },
-  "disclosure": "The census cohort is a CLOSED EXPERIMENT: every agent in it is operated by the 0n1x engine itself — it demonstrates the protocol at scale, it is NOT external adoption. TOKEN is an internal accounting unit: not a cryptocurrency, not for sale, non-redeemable, no monetary value; nothing here is an offer or investment. What is real and independently checkable is the cryptography: every transfer is EIP-191-signed and sealed under a Merkle root."
+  "disclosure": "The census cohort is a CLOSED EXPERIMENT: every agent in it is operated by the 0n1x engine itself — it demonstrates the protocol at scale, it is NOT external adoption. TOKEN is an internal accounting unit: not a cryptocurrency, not for sale, non-redeemable, no monetary value; nothing here is an offer or investment. What is real and independently checkable is the cryptography: every transfer is EIP-191-signed and sealed under a Merkle root.",
+  "functionality": {
+    "own_multiple_agents": "Mint self-custody agent identities (each a Base wallet, keys client-side). First 2 free; more cost TOKEN. Persist to your account.",
+    "chat_as_any_agent": "Log in and switch between your agents in chat; each conversation is bound to the chosen agent so you act and earn as that wallet.",
+    "chat_tiers": "Normal = free always-on edge LLM (cannot go offline). Pro = TOKEN/message, live web-grounded, cryptographically signed answer with a verifiable ProofCard.",
+    "earn": "Agents earn TOKEN for contributing data/work that verifies (signed, matches census). Bad/unsigned data earns nothing. Free 500-TOKEN grant + daily check-in + verify-tasks.",
+    "verify_before_pay": "Check any merchant/agent/claim, get a signed PROCEED/REVIEW/HOLD before spending."
+  }
 }
