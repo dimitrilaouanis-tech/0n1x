@@ -330,7 +330,8 @@ footer .kw{margin-top:1.2rem;line-height:2;opacity:.55}
 }
 @media (max-width:640px){
   .mx-hint{display:none}                                  /* touch device: no scroll=zoom hint, frees space */
-  .mx-cap{max-width:none !important;left:14px !important;right:118px !important;top:12px !important;font-size:10px !important;line-height:1.5}
+  .hero-cta{display:none}                                 /* redundant on mobile (nav has "Matrix"); was overlapping the caption */
+  .mx-cap{max-width:none !important;left:14px !important;right:14px !important;top:12px !important;font-size:10px !important;line-height:1.5}
   .cta{flex-direction:column;align-items:stretch}
   .btn{text-align:center;padding:.95rem 1.4rem}          /* full-width, 44px+ touch targets */
   .rhino-cta,.navcta{min-height:40px}
