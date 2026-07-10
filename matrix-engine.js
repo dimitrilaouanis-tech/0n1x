@@ -23,8 +23,8 @@
     const THEME = opts.theme === "rhino"
       ? { hot: [255, 150, 235], base: [160, 175, 255], ring: "255,150,225", core: "235,190,255",
           bg: ["#141026", "#0d0a1c", "#0a0716"] }                                                   // Rhino: deep indigo/violet
-      : { hot: [255, 196, 110], base: [150, 185, 255], ring: "255,225,170", core: "255,214,150",
-          bg: ["#0b0b10", "#07070a", "#050506"] };                                                  // 0n1x: neutral space
+      : { hot: [86, 240, 165], base: [150, 185, 255], ring: "120,255,185", core: "150,190,255",
+          bg: ["#080a0f", "#06070b", "#040509"] };                                                  // 0n1x: neutral deep-space; green only on active nodes (no gold)
     const ctx = cv.getContext("2d");
     let W = 0, H = 0;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
