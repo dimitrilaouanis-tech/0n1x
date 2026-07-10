@@ -629,11 +629,15 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     paint();
     if(REDUCE){ setTimeout(flow, 4000); } else { requestAnimationFrame(flow); }
   }
-  // agents loop — original organic cadence (unchanged motion)
+  // AGENTS — a gentle, perceptible climb on the rate_state PREDICTION (baseline_count + rate*elapsed).
+  // Non-decreasing; re-anchors UP to the live census every 2 min (aBase tracks census_manifest.count).
+  // Never exceeds the projection; holds (never decreases) if the projection momentarily dips.
   function agentTick(){
-    organic(A, agentsCeil(), 1);
+    var ceil=agentsCeil();
+    if(A.s==null) A.s=ceil;
+    else if(ceil>A.s) A.s=ceil;          // ease up to the projection (climbs ~rate/sec, visible + calm)
     paint();
-    setTimeout(agentTick, REDUCE ? 4000 : (650+Math.floor(Math.random()*750)));
+    setTimeout(agentTick, REDUCE ? 5000 : (1200+Math.floor(Math.random()*700)));
   }
   function pull(){
     fetch('https://rhinogent.com/rate_state.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(d){
