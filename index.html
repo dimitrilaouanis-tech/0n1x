@@ -390,13 +390,13 @@ footer .kw{margin-top:1.2rem;line-height:2;opacity:.55}
 <div style="position:relative;border-bottom:1px solid var(--line2);background:#040509">
   <canvas id="matrixhero" style="display:block;width:100%;height:62vh;height:62dvh;min-height:360px;cursor:grab;touch-action:none"></canvas>
   <div class="mx-cap" style="position:absolute;left:24px;top:16px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#9aa4b2;letter-spacing:.02em;max-width:62%">
-    <span style="color:#3FE0A0">●</span> SIGNED AGENT NETWORK · EIP-191-signed transfers · <span id="mh-agents" style="color:#3FE0A0;font-weight:700">2,546,085</span> keys in the gauntlet
+    <span style="color:#3FE0A0">●</span> SIGNED AGENT NETWORK · EIP-191-signed transfers · <span id="mh-agents" style="color:#3FE0A0;font-weight:700">2,934,963</span> keys in the gauntlet
   </div>
   <div class="mx-hint" style="position:absolute;right:20px;bottom:82px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:10px;color:#69707c">
     scroll = zoom · drag = pan · double-click = reset
   </div>
   <div class="telem">
-    <div class="cell"><span class="lbl"><i></i>AGENTS</span><b id="hud-eco" style="color:var(--jade)">2,546,085</b></div>
+    <div class="cell"><span class="lbl"><i></i>AGENTS</span><b id="hud-eco" style="color:var(--jade)">2,934,963</b></div>
     <div class="cell"><span class="lbl">VERIFIED TXS</span><b id="hud-txs" style="color:var(--ink)">277,890</b></div>
     <div class="cell"><span class="lbl">CIRCULATING · 0NX</span><b id="hud-circ" style="color:var(--ink)">1,683,988,013</b></div>
     <div class="cell"><span class="lbl">MERKLE ROOT</span><b id="hud-root" style="color:var(--amber);font-size:12px">667cca122968da…</b></div>
@@ -508,7 +508,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     <a class="btn primary" href="#ladder">Read the ladder →</a>
     <a class="btn" href="matrix.html">Open the live matrix</a>
   </div>
-  <div class="liveline"><span class="live"></span><span style="min-width:10ch;display:inline-block;text-align:right;color:var(--jade);font-weight:700;font-variant-numeric:tabular-nums">2,546,085</span>&nbsp;signed agent identities · recomputable, live</div>
+  <div class="liveline"><span class="live"></span><span style="min-width:10ch;display:inline-block;text-align:right;color:var(--jade);font-weight:700;font-variant-numeric:tabular-nums">2,934,963</span>&nbsp;signed agent identities · recomputable, live</div>
 </div>
 
 <!-- trust strip -->
@@ -564,7 +564,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
       <span class="n num-mono">147<small>AGENTS · ALL FOUR LEGS</small></span>
     </div>
     <div class="ladder-foot">
-      Gauntlet size: <b id="mCensus" data-count="2546085">2,546,085</b> registered keys, Merkle-rooted and publicly recomputable. We deliberately never headline this figure — a registered key is the <em>start</em> of the gauntlet, not proof of anything. Doctrine: recomputable&nbsp;&gt;&nbsp;claimed · time&nbsp;&gt;&nbsp;size.
+      Gauntlet size: <b id="mCensus" data-count="2934963">2,934,963</b> registered keys, Merkle-rooted and publicly recomputable. We deliberately never headline this figure — a registered key is the <em>start</em> of the gauntlet, not proof of anything. Doctrine: recomputable&nbsp;&gt;&nbsp;claimed · time&nbsp;&gt;&nbsp;size.
     </div>
   </div>
 </section>
@@ -581,7 +581,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   function fmt(n){return Math.round(n).toLocaleString('en-US');}
   // AGENTS via honest rate projection. aRate defaults to the published mint rate so the number keeps a
   // gentle live climb even if rate_state.json is briefly unreachable; rate_state overwrites it when it loads.
-  var aBase=2546085, aRate=0.2938, aBts=Date.now()/1000;
+  var aBase=2934963, aRate=0.2938, aBts=Date.now()/1000;
   // SOLID one-source bind 2026-07-10: seed AGENTS from the CANONICAL manifest count on load,
   // never a stale literal and not dependent on the rate_state relay. census_manifest.json = the source of truth.
   fetch("https://rhinogent.com/census_manifest.json").then(function(r){return r.json();}).then(function(d){
