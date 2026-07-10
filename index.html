@@ -578,8 +578,9 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
    merkle_root live. All bound to live feeds — no hardcoded totals. Re-anchors every 2 min. */
 (function(){
   function fmt(n){return Math.round(n).toLocaleString('en-US');}
-  // AGENTS via honest rate projection (shared with rhinogent.com)
-  var aBase=2546085, aRate=0, aBts=Date.now()/1000;
+  // AGENTS via honest rate projection. aRate defaults to the published mint rate so the number keeps a
+  // gentle live climb even if rate_state.json is briefly unreachable; rate_state overwrites it when it loads.
+  var aBase=2546085, aRate=0.2938, aBts=Date.now()/1000;
   function agentsCeil(){return aBase+aRate*(Date.now()/1000-aBts);}
   var txsCeil=null, circCeil=null, merkle=null;
   var A={s:null}, T={s:null}, C={s:null};   // display states (non-decreasing, never exceed ceil)
@@ -647,8 +648,10 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     fetch('https://rhinogent.com/census_manifest.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(m){
       if(m){
         // census_manifest.count is the canonical current census — track it UP (monotonic) so the page
-        // never shows a stale-low number even if rate_state's baseline lags behind.
-        if(m.count && m.count>aBase){ aBase=m.count; aBts=Date.now()/1000; }
+        // never shows a stale-low number even if rate_state's baseline lags behind. Only re-anchor the
+        // projection clock on a MEANINGFUL census batch update (>=25), so tiny per-poll growth during the
+        // startup warm-retry doesn't keep resetting the clock and suppressing the gentle rate climb.
+        if(m.count && m.count>aBase){ var jmp=m.count-aBase; aBase=m.count; if(jmp>=25) aBts=Date.now()/1000; }
         if(m.circulating)circCeil=m.circulating; if(m.merkle_root)merkle=m.merkle_root;
       }
       save();
