@@ -524,6 +524,15 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 <script>/* live-bind the hero count to the ONE canonical source, so it's never a stale literal */
 (function(){var el=document.getElementById('liveCount');if(!el)return;function load(){fetch('https://rhinogent.com/census_manifest.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){if(d&&d.count)el.textContent=Number(d.count).toLocaleString('en-US')}).catch(function(){})}load();setInterval(load,60000)})();</script>
 
+<!-- WHAT IT COSTS — answer the money question without scrolling to the footer -->
+<div class="rv" style="max-width:940px;margin:34px auto 0;padding:22px 26px;border:1px solid var(--line2);border-radius:16px;background:color-mix(in srgb,var(--panel) 40%,transparent)">
+  <div style="font:600 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:10px">What it costs · who pays, for what, how much</div>
+  <div style="color:var(--ink);font-size:1rem;line-height:1.6">
+    <strong>Verify-before-you-pay: <span style="color:var(--jade)">$0.001 USDC</span> per signed check</strong> — a PROCEED / REVIEW / HOLD verdict on a counterparty, in seconds, over x402 (USDC on Base). Deep verification (merchant + price + track record) up to <strong>$2.00</strong>. Your agent pays per call — no subscription, and we hold none of your keys.
+  </div>
+  <div style="margin-top:10px;color:var(--muted);font-size:.9rem">Worked example: your agent is about to pay merchant X → one <b style="color:var(--jade)">$0.001</b> check → signed <b>HOLD</b> (storefront flagged) → the payment never leaves. You avoided a scam for a tenth of a cent.</div>
+</div>
+
 <!-- trust strip -->
 <div class="rv" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:56px;padding:14px 0;text-align:center;font:600 11px/2 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--dim)">
   Ed25519-signed &nbsp;·&nbsp; EIP-191 verified &nbsp;·&nbsp; Bitcoin-anchored Merkle history &nbsp;·&nbsp; ERC-8004 aligned &nbsp;·&nbsp; x402 &nbsp;·&nbsp; MCP
