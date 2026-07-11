@@ -1,0 +1,41 @@
+{
+  "report": "0n1x-state-of-agent-security/v1",
+  "as_of": "2026-07-11",
+  "population": "x402 Bazaar payment agents (real, external) \u2014 every record accepts USDC on Base",
+  "n_scanned": 28224,
+  "source_dataset_sha256": "1216b2d862c013e92bd984c70ea3893152fbd23f4a7e34bfe1c43705cf296c8f",
+  "method": "static flag scan of each agent's public record + resource URL (onyx-security-flags/v0). Facts, not verdicts: each flag is an observed condition. Deterministic \u2014 recompute from the same dataset and you get these exact counts.",
+  "findings": {
+    "no_permission_scope": {
+      "count": 27869,
+      "pct": 98.7,
+      "flag": "F3/F4/F5",
+      "means": "record carries no permission/scope fields \u2014 nothing states what the agent is allowed to do"
+    },
+    "no_verifiable_signature": {
+      "count": 25563,
+      "pct": 90.6,
+      "flag": "F7",
+      "means": "no signing key / signature in the record \u2014 you cannot cryptographically confirm who controls it"
+    },
+    "insecure_transport": {
+      "count": 11,
+      "pct": 0.0,
+      "flag": "F1",
+      "means": "resource endpoint not served over https"
+    },
+    "transacts_without_verify": {
+      "count": 2099,
+      "pct": 7.4,
+      "flag": "F8",
+      "means": "accepts payment but record shows no counterparty-verification step"
+    },
+    "flag_clean": {
+      "count": 66,
+      "pct": 0.2,
+      "means": "zero flags raised"
+    }
+  },
+  "honesty": "This is the EXTERNAL agent economy (x402 Bazaar), not 0n1x's own census. It is exactly why verify-before-you-pay exists: real agents move real money with no scope, no signature, no counterparty check. 0n1x is the layer that adds them back.",
+  "recompute": "Run onyx-security-flags/v0 (tools_pkg/onyx_security_flags._flags) over each record with endpoint=record.resource. Aggregate the flags. Counts above are deterministic."
+}

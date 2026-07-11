@@ -513,13 +513,13 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 
 <!-- STATE OF AGENT SECURITY — the market-contrast flex, every number measured & recomputable -->
 <div class="rv" style="max-width:940px;margin:44px auto 0;padding:24px 26px;border:1px solid var(--line2);border-radius:16px;background:color-mix(in srgb,var(--panel) 45%,transparent);text-align:center">
-  <div style="font:600 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:14px">State of Agent Security · 2,227 live agents scanned</div>
+  <div style="font:600 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:14px">State of Agent Security · <b style="color:var(--jade)">28,224</b> live x402 payment agents scanned</div>
   <div style="display:flex;flex-wrap:wrap;gap:26px;justify-content:center;align-items:baseline">
-    <div><span class="hn" style="font-size:1.55rem;color:var(--jade)">99.1%</span> <span style="color:var(--muted);font-size:.9rem">expose no permission scope</span></div>
-    <div><span class="hn" style="font-size:1.55rem;color:var(--jade)">386/387</span> <span style="color:var(--muted);font-size:.9rem">value-movers, no spend cap</span></div>
-    <div><span class="hn" style="font-size:1.55rem;color:var(--jade)">2</span> <span style="color:var(--muted);font-size:.9rem">flag-clean</span></div>
+    <div><span class="hn" style="font-size:1.55rem;color:var(--jade)">98.7%</span> <span style="color:var(--muted);font-size:.9rem">expose no permission scope</span></div>
+    <div><span class="hn" style="font-size:1.55rem;color:var(--jade)">90.6%</span> <span style="color:var(--muted);font-size:.9rem">carry no verifiable signature</span></div>
+    <div><span class="hn" style="font-size:1.55rem;color:var(--jade)">0.2%</span> <span style="color:var(--muted);font-size:.9rem">flag-clean (66 of 28,224)</span></div>
   </div>
-  <div style="margin-top:14px;color:var(--dim);font-size:.86rem">The agent economy is running unguarded. We measured it — and we're the receipt that isn't.</div>
+  <div style="margin-top:14px;color:var(--dim);font-size:.86rem">Real agents moving real money, unguarded. We measured the whole population — <a href="agent_security_state.json" style="color:var(--muted);text-decoration:underline">recompute it yourself</a>.</div>
 </div>
 <script>/* live-bind the hero count to the ONE canonical source, so it's never a stale literal */
 (function(){var el=document.getElementById('liveCount');if(!el)return;function load(){fetch('https://rhinogent.com/census_manifest.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){if(d&&d.count)el.textContent=Number(d.count).toLocaleString('en-US')}).catch(function(){})}load();setInterval(load,60000)})();</script>
