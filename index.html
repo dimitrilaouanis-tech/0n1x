@@ -549,6 +549,20 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 </div>
 
 <!-- LIVING INTELLIGENCE — the hook: a network of working minds -->
+<!-- LIVE DEMO — "try to get scammed" (Skyfire-walkthrough style, the featured product moment) -->
+<section id="demo">
+  <div class="sechead rv">
+    <span class="eyebrow">Try it · live</span>
+    <h2>Type a domain. <em>Try to get scammed.</em></h2>
+    <p class="muted">Point 0n1x at any merchant or agent. It returns a signed <strong style="color:var(--ink)">PROCEED / REVIEW / HOLD</strong> in seconds — the exact check your agent runs before it pays. It has already caught live impersonators.</p>
+  </div>
+  <form class="rv" style="--d:80ms;display:flex;gap:10px;max-width:540px;margin:1.5rem auto 0;flex-wrap:wrap;justify-content:center" onsubmit="var d=this.q.value.trim().replace(/^https?:\/\//,'').replace(/\/.*$/,'');if(d){location.href='https://onyx-actions.onrender.com/api/check?url='+encodeURIComponent(d);}return false;">
+    <input name="q" type="text" placeholder="rayban.cc" autocomplete="off" spellcheck="false" style="flex:1;min-width:220px;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:.9rem 1.05rem;color:var(--ink);font:15px var(--mono);outline:none">
+    <button class="btn primary" type="submit">Run a signed check →</button>
+  </form>
+  <p class="muted" style="text-align:center;font-size:.82rem;margin-top:.7rem;color:var(--dim)">Signed verdict over x402 · try <b>rayban.cc</b> (a real impersonator we flagged)</p>
+</section>
+
 <section id="intelligence">
   <div class="sechead rv">
     <span class="eyebrow">The agent network</span>
@@ -911,6 +925,21 @@ curl -s https://rhinogent.com/census_manifest.json   <span class="c"># recompute
 </section>
 
 <!-- final CTA -->
+<!-- FAQ — straight answers (AEO + trust; half the top sites have this) -->
+<section id="faq">
+  <div class="sechead rv">
+    <span class="eyebrow">FAQ</span>
+    <h2>Straight answers.</h2>
+  </div>
+  <div class="rv" style="--d:80ms;max-width:760px;margin:1.3rem auto 0;display:flex;flex-direction:column;gap:12px">
+    <details style="border:1px solid var(--line2);border-radius:14px;background:color-mix(in srgb,var(--panel) 45%,transparent);padding:16px 20px"><summary style="cursor:pointer;font:600 1rem var(--head);color:var(--ink)">What is 0n1x?</summary><p class="muted" style="margin:.6rem 0 0">The ecosystem for AI agents — a neutral, cryptographic layer where agents get a signed identity, verify each other, and pay only what checks out. Every record is Ed25519/EIP-191 signed and publicly recomputable.</p></details>
+    <details style="border:1px solid var(--line2);border-radius:14px;background:color-mix(in srgb,var(--panel) 45%,transparent);padding:16px 20px"><summary style="cursor:pointer;font:600 1rem var(--head);color:var(--ink)">What does "verify before you pay" mean?</summary><p class="muted" style="margin:.6rem 0 0">Before your agent settles a payment, it asks 0n1x whether the counterparty is real and gets a signed PROCEED / REVIEW / HOLD. Payment rails verify the payment; 0n1x verifies the thing being paid for.</p></details>
+    <details style="border:1px solid var(--line2);border-radius:14px;background:color-mix(in srgb,var(--panel) 45%,transparent);padding:16px 20px"><summary style="cursor:pointer;font:600 1rem var(--head);color:var(--ink)">What does it cost?</summary><p class="muted" style="margin:.6rem 0 0">A signed check is $0.001 USDC (up to $2 for deep merchant + price + track-record verification), paid per call over x402 on Base. No subscription.</p></details>
+    <details style="border:1px solid var(--line2);border-radius:14px;background:color-mix(in srgb,var(--panel) 45%,transparent);padding:16px 20px"><summary style="cursor:pointer;font:600 1rem var(--head);color:var(--ink)">Do you hold my keys?</summary><p class="muted" style="margin:.6rem 0 0">No. Keys are generated in your browser and never leave your device — there is nothing to seize, freeze, or leak.</p></details>
+    <details style="border:1px solid var(--line2);border-radius:14px;background:color-mix(in srgb,var(--panel) 45%,transparent);padding:16px 20px"><summary style="cursor:pointer;font:600 1rem var(--head);color:var(--ink)">Can I check any of this myself?</summary><p class="muted" style="margin:.6rem 0 0">Yes — that's the whole point. Every figure and record is signed against a published key and recomputable from public shards. Run our script, get our number.</p></details>
+  </div>
+</section>
+
 <section id="finalcta" style="text-align:center">
   <span class="eyebrow" style="display:inline-block;border:1px solid var(--jade-line);background:var(--jade-soft);padding:.55rem 1.1rem;border-radius:100px">SIGNED FACTS · NOT JUDGMENTS</span>
   <h2 class="rv" style="margin:1.6rem auto 1rem;max-width:18ch">Verify before you pay.</h2>
