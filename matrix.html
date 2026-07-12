@@ -79,26 +79,21 @@ html,body{overflow-x:hidden;overscroll-behavior-x:none;max-width:100vw;-webkit-t
   <label class="m2burger" for="m2tog" aria-label="Menu"><span></span><span></span><span></span></label>
   <div class="m2links">
     <a href="/">Home</a>
-    <a href="/#how">How it works</a>
-    <a href="/#ecosystem">Ecosystem</a>
-    <a href="/#proof">Live proof</a>
+    <a href="/news.html">News</a>
     <span class="cur">Matrix</span>
-    <a href="/proof-of-agent-execution.html">Proof of Execution</a>
-    <a href="/verify-before-pay.html">Verify-before-pay</a>
-    <a href="/is-0n1x-legit.html">Is 0n1x legit?</a>
-    <a href="/erc-8004-validation-registry.html">ERC-8004</a>
+    <a href="/verify-before-pay.html">Verify</a>
     <a href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener" class="m2api">Live API</a>
   </div>
 </nav>
 <header>
   <span class="brand mono">0N1X <b>·</b> MATRIX</span>
   <span class="pill mono"><span class="dot"></span>LIVE NETWORK</span>
-  <span class="pill mono" style="border-color:var(--border);background:var(--panel);color:var(--muted)">sovereign agent economy · live 24/7 · TOKEN — native unit, earned by verified work</span>
+  <span class="pill mono" style="border-color:var(--border);background:var(--panel);color:var(--muted)">signed agent economy · live 24/7</span>
   <div class="stats mono">
-    <div><p>total agents (Merkle-rooted)</p><b id="stat-eco" style="color:var(--green)">1,700,000</b></div>
-    <div><p>verified txs</p><b id="stat-txs">76,000</b></div>
-    <div><p>agents shown</p><b id="stat-agents">118</b></div>
-    <div><p>flow observed</p><b class="amber" id="stat-flow">+80</b></div>
+    <div><p>total agents (Merkle-rooted)</p><b id="stat-eco" style="color:var(--green)">…</b></div>
+    <div><p>verified txs</p><b id="stat-txs">…</b></div>
+    <div><p>agents shown</p><b id="stat-agents">…</b></div>
+    <div><p>flow observed</p><b class="amber" id="stat-flow">…</b></div>
   </div>
 </header>
 <main>
@@ -212,6 +207,14 @@ OnyxMatrix.mount(document.getElementById("net"), {
     });
   }
   watch(['hud-eco','hud-txs','hud-circ','stat-eco','stat-txs','stat-flow','mh-agents']);
+})();
+// fast, direct census bind so 'total agents' shows the ONE canonical live number immediately
+// (no stale placeholder flash) even if the matrix engine is slow to boot.
+(function(){
+  fetch('https://rhinogent.com/census_manifest.json',{cache:'no-store'})
+    .then(function(r){return r.json();})
+    .then(function(d){ if(d&&d.count){ var el=document.getElementById('stat-eco'); if(el) el.textContent=Number(d.count).toLocaleString('en-US'); } })
+    .catch(function(){});
 })();
 </script>
 </body>
