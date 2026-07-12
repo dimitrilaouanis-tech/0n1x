@@ -36,12 +36,8 @@
   requestAnimationFrame(tickAll);
 
   // live clock + "last update" pulse
-  let govGini = 0, govActive = 0;
   setInterval(() => {
     const c = $("deck-clock"); if (c) c.textContent = new Date().toLocaleTimeString("en-US", { hour12: false });
-    // gini/active-ratio breathe with tiny real-scale jitter so they never sit frozen
-    if (govGini && $("g-gini")) $("g-gini").textContent = (govGini + (Math.sin(Date.now() / 900) * 0.0007)).toFixed(4);
-    if (govActive && $("g-active")) $("g-active").textContent = ((govActive + Math.sin(Date.now() / 1100) * 0.00004) * 100).toFixed(3) + "%";
     // forecast countdowns tick every second
     document.querySelectorAll("#fc-open > div[data-resolve]").forEach((d) => {
       const ms = +d.getAttribute("data-resolve") - Date.now();
@@ -129,14 +125,6 @@
         });
       }
     }
-    const gov = await j("/selfgov.json");
-    if (gov && gov.recent && gov.recent.length) {
-      const g0 = gov.recent[gov.recent.length - 1];
-      setTarget("g-trust", g0.health.network_trust_score, (v) => Math.round(v));
-      govGini = g0.health.gini; govActive = g0.health.active_ratio;
-      if ($("g-epoch")) $("g-epoch").textContent = g0.epoch;
-      if ($("g-rat")) $("g-rat").textContent = g0.ratified ? "RATIFIED" : "pending";
-    }
     const fc = await j("/forecast_feed.json");
     if (fc) {
       const o = $("fc-open");
@@ -186,30 +174,9 @@
     const pl = $("deck-pulse"); if (pl) { pl.style.opacity = "1"; setTimeout(() => { if (pl) pl.style.opacity = ".25"; }, 400); }
   }
 
-  // LIVE CLIMB: between sealed epochs, advance the headline numbers off the real
-  // signed tape so they never sit still — each replayed tx = +1 tx, +amount circulating.
-  // Reconciles UP to the sealed floor whenever a fresh epoch lands. Honest motion.
-  let liveTxs = 0, liveCirc = 0, tape = [], tapePos = 0, sealedTxs = 0, sealedCirc = 0;
-  async function loadTape() {
-    const f = await j("/token_feed.json");
-    if (f && f.txs && f.txs.length) tape = f.txs;
-  }
-  function climb() {
-    if (!tape.length) return;
-    const t = tape[tapePos % tape.length]; tapePos++;
-    liveTxs += 1; liveCirc += (t.amount || 0);
-    setTarget("m-txs", Math.max(sealedTxs, sealedTxs + liveTxs), (v) => fmt(v) + " sealed+live");
-    setTarget("m-supply", Math.max(sealedCirc, sealedCirc + liveCirc), (v) => fmt(v) + " TOKEN");
-    const rate = $("m-rate"); if (rate) rate.textContent = (tape.length ? (tape.length / 12).toFixed(1) : "0") + " tx/s live";
-  }
-  // capture the sealed floors when refresh() runs, then climb on top
-  async function refreshAndFloor() {
-    await refresh();
-    if (supplyPts.length) { sealedCirc = supplyPts[supplyPts.length - 1]; sealedTxs = txPts[txPts.length - 1]; }
-    await loadTape();
-    liveTxs = 0; liveCirc = 0;
-  }
-  refreshAndFloor();
-  setInterval(refreshAndFloor, 12000);
-  setInterval(climb, 900);   // headline numbers advance ~every 0.9s off the real tape   // Wall-Street cadence: 12s repoll (was 45s)
+  // Honest cadence: headline numbers come straight from the sealed signed feeds
+  // (census_history / token_feed) and update ONLY on real repoll — no synthetic climb,
+  // no jitter. Numbers move when the ledger moves, not before.
+  refresh();
+  setInterval(refresh, 12000);
 })();
