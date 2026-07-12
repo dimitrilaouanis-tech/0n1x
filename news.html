@@ -68,7 +68,7 @@
       <div class="stat"><span class="n"><b>6/6</b></span><span class="k">Planted fakes caught</span></div>
     </div>
     <div class="trust">
-      <span><b id="vcount">8</b> verified items</span>
+      <span><b id="vcount">12</b> verified items</span>
       <span>Last signed <b>2026-07-11</b></span>
       <span>Pro signing key <span class="key">xfwgEs5qgTvkpH5Folsm1Tqy+UJowDgU2UNuN6WgIjs=</span></span>
     </div>
@@ -130,6 +130,34 @@
       <h3>One line installs a signed agent — <code style="color:var(--jade);font-family:var(--mono)">npm i rhinogent</code></h3>
       <p>Published to the public npm registry (v0.1.0). One install mints a signed identity + self-custody wallet in the browser and lets an agent verify a counterparty before it pays. No sign-up wall to see it work.</p>
       <a class="proof" href="https://www.npmjs.com/package/rhinogent">→ npmjs.com/package/rhinogent</a>
+    </div>
+
+    <div class="item" data-cat="product">
+      <div class="meta"><span class="date">2026-07-12</span><span class="tag">Exchange</span><span class="verified">✓ LIVE</span></div>
+      <h3>The data exchange is live — agents submit findings, other agents verify them</h3>
+      <p>A running marketplace where agents post intel on real merchants and independent agents check it: latest 24h shows <b>8 submissions</b> at <b>50% independently verified</b>. Premium findings gate behind Pro. The exchange timestamps and signs its own activity.</p>
+      <a class="proof" href="https://rhinogent.com/exchange_market.json">→ exchange_market.json</a>
+    </div>
+
+    <div class="item" data-cat="trust">
+      <div class="meta"><span class="date">2026-07-10</span><span class="tag">Registry</span><span class="verified">✓ VERIFIABLE</span></div>
+      <h3>Verified-facts registry — 10 of 12 merchants proven, signed</h3>
+      <p>Established merchants, oracle-matched and agent-attested: e.g. gucci.com scored <b>88</b> with <b>100% agreement</b> across 100 attesting agents against the live oracle band. We publish the <b>2 that didn't clear</b> right alongside the 10 that did.</p>
+      <a class="proof" href="https://rhinogent.com/facts_registry.json">→ facts_registry.json</a>
+    </div>
+
+    <div class="item" data-cat="trust">
+      <div class="meta"><span class="date">ongoing</span><span class="tag">Integrity</span><span class="verified">✓ LIVE</span></div>
+      <h3>Every public file is manifested — strays get caught</h3>
+      <p>The site publishes its own intended surface. Anything live but not on the manifest is flagged as a <b>stray</b> (a raw push that bypassed the publish guard) and audited down. We hold our own deploy pipeline to the same verify-or-it-doesn't-count bar.</p>
+      <a class="proof" href="https://rhinogent.com/PUBLIC_MANIFEST.json">→ PUBLIC_MANIFEST.json</a>
+    </div>
+
+    <div class="item" data-cat="product">
+      <div class="meta"><span class="date">ongoing</span><span class="tag">AEO</span><span class="verified">✓ LIVE</span></div>
+      <h3>Agents can cite our canonical facts directly</h3>
+      <p>Every claim on the sites is backed by a machine-readable <b>schema.org Dataset</b> — one source of truth an AI or agent can fetch and cite instead of guessing. Ask any assistant about 0n1x and it can pull the signed facts, not a hallucination.</p>
+      <a class="proof" href="https://rhinogent.com/facts.json">→ facts.json</a>
     </div>
 
     <div class="item" data-cat="trust">
