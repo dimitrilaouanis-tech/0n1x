@@ -1,0 +1,80 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Metrics · Security — 0n1x</title>
+<meta name="description" content="0n1x security metrics — we scanned 28,224 live payment agents. 98.7% expose no permission scope, 90.6% no verifiable signature, 0.2% flag-clean. The immune system for the agent economy, measured.">
+<link rel="canonical" href="https://0n1xagntc.com/metrics.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#07070a;--panel:#0f0f16;--ink:#e9ecf2;--muted:#9aa3b2;--dim:#5c6472;--line:#1b1d27;--line2:#262a37;--jade:#3FE0A0;--red:#f0616d;--jade-glow:rgba(63,224,160,.4);
+    --sans:"Inter",system-ui,sans-serif;--head:"Space Grotesk",var(--sans);--mono:"JetBrains Mono",ui-monospace,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(120% 80% at 50% -10%,#0c0c14,var(--bg));color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:940px;margin:0 auto;padding:0 22px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);flex-wrap:wrap;gap:10px}
+  .logo{font:700 20px var(--head);letter-spacing:-.02em;text-decoration:none}.logo b{color:var(--jade)}
+  nav a{margin-left:18px;font:600 13px var(--sans);color:var(--muted);text-decoration:none}
+  nav a:hover{color:var(--ink)}
+  @media(max-width:640px){nav a{margin-left:12px;font-size:12px}}
+  .hero{padding:52px 0 14px}
+  .eyebrow{display:inline-block;font:600 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--jade);border:1px solid var(--line2);border-radius:99px;padding:5px 13px}
+  h1{font:700 clamp(2rem,5vw,3.1rem)/1.08 var(--head);letter-spacing:-.02em;margin:1.1rem 0 .6rem}
+  h1 em{font-style:normal;color:var(--jade)}
+  .lede{color:var(--muted);max-width:64ch}
+  .band{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;padding:26px 0 8px}
+  .stat{border:1px solid var(--line2);border-radius:16px;background:color-mix(in srgb,var(--panel) 60%,transparent);padding:18px 20px}
+  .stat .n{font:600 2.1rem var(--head);letter-spacing:-.01em;color:var(--red);font-variant-numeric:tabular-nums}
+  .stat .n.ok{color:var(--jade)}
+  .stat .k{font:500 13px var(--sans);color:var(--muted);margin-top:4px}
+  .note{color:var(--dim);font-size:13px;padding:10px 0 0}
+  .note a{color:var(--jade);text-decoration:none}
+  h2{font:600 1.5rem var(--head);letter-spacing:-.02em;margin:44px 0 4px}
+  .sub{color:var(--muted);max-width:64ch;margin:0 0 18px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+  .card{border:1px solid var(--line2);border-radius:16px;background:color-mix(in srgb,var(--panel) 55%,transparent);padding:20px 22px}
+  .card .tag{font:600 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--jade)}
+  .card h3{font:600 1.05rem var(--head);margin:.5rem 0 .4rem}
+  .card p{margin:0;color:var(--muted);font-size:14px}
+  .card p b{color:var(--ink)}
+  footer{border-top:1px solid var(--line);padding:26px 0 60px;color:var(--dim);font-size:13px;margin-top:44px}
+  footer a{color:var(--jade);text-decoration:none}
+</style></head><body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="/">0n<b>1</b>x</a>
+    <nav><a href="/">Home</a><a href="/metrics.html">Metrics</a><a href="/news.html">News</a><a href="/ai-news.html">AI News</a><a href="/matrix.html">Matrix</a><a href="/verify-before-pay.html">Verify</a></nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">Metrics · The State of Agent Security</span>
+    <h1>We scanned the agent economy. <em>It's unguarded.</em></h1>
+    <p class="lede">Security isn't a feature here — it's the product. We measured the whole external x402 payment-agent population with our own firewall. The result is why "verify before you pay" has to exist. Every number below is deterministic — recompute it from the same dataset and you get these exact counts.</p>
+    <div class="band">
+      <div class="stat"><div class="n">28,224</div><div class="k">Live payment agents scanned (external x402 population)</div></div>
+      <div class="stat"><div class="n">98.7%</div><div class="k">Expose no permission scope — nothing states what they're allowed to do</div></div>
+      <div class="stat"><div class="n">90.6%</div><div class="k">Carry no verifiable signature — you can't confirm who controls them</div></div>
+      <div class="stat"><div class="n ok">0.2%</div><div class="k">Flag-clean (66 of 28,224). The rest move money unguarded</div></div>
+    </div>
+    <p class="note">Deterministic scan · <a href="agent_security_state.json">agent_security_state.json</a> · recompute with onyx-security-flags/v0. This is the external agent economy, not 0n1x's own fleet.</p>
+  </section>
+
+  <h2>The immune system — three legs of trust</h2>
+  <p class="sub">Autonomous agents move value with no immune system. We built one, at the payment chokepoint.</p>
+  <div class="cards">
+    <div class="card"><div class="tag">Firewall</div><h3>Verify at the chokepoint</h3><p>A signed <b>PROCEED / REVIEW / HOLD</b> before an agent settles: recipient firewall, pre-sign preflight (catches unlimited-approve), EIP-712 permit-drain detection, token risk, and agent liveness — fused into one clearance.</p></div>
+    <div class="card"><div class="tag">Permission</div><h3>Mandate audit</h3><p>Is the action an agent is about to take actually inside its granted mandate? Signed <b>IN-SCOPE / OUT-OF-SCOPE</b> facts (PERM_v0 → AP2 mandates), plus signed permission grants.</p></div>
+    <div class="card"><div class="tag">Crypto</div><h3>Hardened, attack-tested</h3><p>Ed25519 + JCS canonical signing with pinned-key verification (key-substitution closed), prompt-injection guard with invisible-unicode detection, challenge-response nonces. Attack, don't trust.</p></div>
+  </div>
+
+  <h2>How we hold ourselves</h2>
+  <p class="sub">The same bar we measure everyone else against.</p>
+  <div class="cards">
+    <div class="card"><div class="tag">Untrusted</div><h3>Agent text is data, not commands</h3><p>Every inbound agent message is treated as untrusted input; outbound is public-safe by policy. The protocol assumes adversaries — because the agent economy already has them.</p></div>
+    <div class="card"><div class="tag">Signed</div><h3>Nothing asserted, everything provable</h3><p>Every security verdict is a signed fact you can verify offline against our published key — not a black-box score. Neutral by design: 0n1x earns nothing from what it grades.</p></div>
+    <div class="card"><div class="tag">Neutral</div><h3>We publish our own failures</h3><p>When our own grader once flipped coins, we caught it and published the postmortem. Radical verifiability is the moat a competitor can't fake. <a href="https://rhinogent.com/oracle_postmortem.json" style="color:var(--jade);text-decoration:none">See the receipt →</a></p></div>
+  </div>
+
+  <footer>Every figure here is signed and recomputable. · <a href="/news.html">Verified News →</a> · <a href="/matrix.html">Live Matrix →</a> · <a href="/">0n1x</a></footer>
+</div>
+</body></html>
