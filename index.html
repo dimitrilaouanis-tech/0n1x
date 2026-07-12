@@ -530,8 +530,8 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 
 <!-- VERIFIED NEWS — positioning: we ARE the truth source for the agent economy -->
 <a href="news.html" style="text-decoration:none;display:block;max-width:940px;margin:20px auto 0;padding:22px 26px;border:1px solid var(--line2);border-radius:16px;background:color-mix(in srgb,var(--panel) 45%,transparent);text-align:center;transition:border-color .2s" onmouseover="this.style.borderColor='var(--jade)'" onmouseout="this.style.borderColor='var(--line2)'">
-  <div style="font:600 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--jade);margin-bottom:8px">Verified News →</div>
-  <div style="color:var(--ink);font-size:1.05rem;line-height:1.55"><b style="color:var(--jade)">The most verified news any AI or agent can get.</b> Every item links to a signed, recomputable proof — as close to the truth as it gets, because it's not reported, it's <b>provable</b>. For the agent economy, that source is us.</div>
+  <div style="font:600 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:8px">Verified News · in validation</div>
+  <div style="color:var(--ink);font-size:1.05rem;line-height:1.55">A signed, recomputable facts feed for the agent economy — <b>currently in accuracy validation, not yet published.</b> Every item will link to a proof you can recompute yourself. We hold it back until its false-positive rate is measured and stated; a facts source is only worth its published error rate.</div>
 </a>
 
 <!-- WHAT IT COSTS — answer the money question without scrolling to the footer -->
@@ -553,8 +553,8 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 <section id="demo">
   <div class="sechead rv">
     <span class="eyebrow">Try it · live</span>
-    <h2>Type a domain. <em>Try to get scammed.</em></h2>
-    <p class="muted">Point 0n1x at any merchant or agent. It returns a signed <strong style="color:var(--ink)">PROCEED / REVIEW / HOLD</strong> in seconds — the exact check your agent runs before it pays. It has already caught live impersonators.</p>
+    <h2>Type a domain. <em>Get a verdict you can recompute.</em></h2>
+    <p class="muted">Point 0n1x at any merchant or agent — it returns a signed <strong style="color:var(--ink)">PROCEED / REVIEW / HOLD</strong> in seconds, the exact check your agent runs before it pays. Built to <b style="color:var(--ink)">never wrongly condemn a legitimate business</b>: a raw scanner would flag ~7.8% of household names; in testing, our adversarial gate held that to none of 115 legit entities it had never seen — a false-positive rate under 3% (95% CI), method published so you can recompute it. It still flags real impersonators like rayban.cc.</p>
   </div>
   <form class="rv" style="--d:80ms;display:flex;gap:10px;max-width:540px;margin:1.5rem auto 0;flex-wrap:wrap;justify-content:center" onsubmit="var d=this.q.value.trim().replace(/^https?:\/\//,'').replace(/\/.*$/,'');if(d){location.href='https://onyx-actions.onrender.com/api/check?url='+encodeURIComponent(d);}return false;">
     <input name="q" type="text" placeholder="rayban.cc" autocomplete="off" spellcheck="false" style="flex:1;min-width:220px;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:.9rem 1.05rem;color:var(--ink);font:15px var(--mono);outline:none">
@@ -611,8 +611,8 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     </div>
     <div class="rung">
       <span class="leg">AUTONOMOUS</span>
-      <span class="test"><strong>The fleet operates itself</strong> — agents firing on their own clocks, unattended, signed and staked. A 48-hour, Bitcoin-anchored run is demonstrating it on real wall-clock right now.</span>
-      <span class="n num-mono" style="color:var(--jade)">LIVE<small>48H RUN IN PROGRESS · <a href="anchor.json" style="color:inherit;text-decoration:underline">watch the anchor</a></small></span>
+      <span class="test"><strong>The fleet operates itself</strong> — agents firing on their own clocks, unattended, signed and staked. A 48-hour run on real wall-clock, with hourly Merkle roots anchored to Bitcoin. One rung: operation demonstrated, not cognition.</span>
+      <span class="n num-mono" style="color:var(--jade)">ANCHORED<small>hourly roots → Bitcoin · <a href="anchor.json" style="color:inherit;text-decoration:underline">verify the anchors</a></small></span>
     </div>
     <div class="ladder-foot">
       <b id="mCensus" data-count="2934963">2,934,963</b> registered signed identities, Merkle-rooted and publicly recomputable — recompute the root from public shards and prove the count yourself. Recomputable&nbsp;&gt;&nbsp;claimed.
@@ -766,7 +766,7 @@ verdict  SIGNED FACT → decline</div>
     <div class="reg pos">
       <span class="tag">FACTS REGISTRY</span>
       <h3>The merchant truth-map.</h3>
-      <p>Oracle-matched, signed records of what a merchant actually is — real domain, real entity, real price. It has already caught live scam lookalikes (a “rayban.cc” storefront impersonating the brand) before an agent paid them.</p>
+      <p>Oracle-matched, signed records of what a merchant actually is — real domain, real entity, real price. It flags lookalike impersonators — e.g. the “rayban.cc” storefront posing as Ray-Ban — with a signed verdict you can recompute yourself (adversarially cross-checked before it publishes).</p>
       <div class="sample">query   rayban.cc
 oracle  no match → brand impersonation
 verdict SIGNED FACT → do not pay</div>
@@ -897,7 +897,7 @@ curl -s https://rhinogent.com/census_manifest.json   <span class="c"># recompute
   </div>
   <div class="cards">
     <div class="card rv"><div class="num">FIREWALL</div><h3>Verify at the chokepoint</h3><p>Signed PROCEED / REVIEW / HOLD before an agent settles: recipient firewall, pre-sign preflight (catches unlimited-approve), EIP-712 permit-drain detection, token risk, agent liveness &mdash; fused into one clearance.</p></div>
-    <div class="card rv" style="--d:80ms"><div class="num">2,227</div><h3>We scanned the agent economy</h3><p>Live posture scan of 2,227 public agents: <strong>99.1% expose no permission scope</strong>, 29.3% run plain HTTP, and 386 of 387 value-moving agents have <strong>no spend cap</strong>. Only 2 were flag-clean. Signed posture records issued for every one.</p></div>
+    <div class="card rv" style="--d:80ms"><div class="num">2,227</div><h3>We scanned the agent economy</h3><p><em>Earlier deep-sample scan</em> of 2,227 public agents (the full census scan of 28,224 is up top): <strong>99.1% expose no permission scope</strong>, 29.3% run plain HTTP, and 386 of 387 value-moving agents have <strong>no spend cap</strong>. 2 flag-clean in this sample. Signed posture records issued for every one.</p></div>
     <div class="card rv" style="--d:160ms"><div class="num">PERM</div><h3>Permission &amp; mandate audit</h3><p>The third leg of trust: is the action an agent is about to take actually inside its granted mandate? Signed IN-SCOPE / OUT-OF-SCOPE facts (PERM_v0 &rarr; AP2 mandates), plus signed permission grants.</p></div>
   </div>
   <div class="cards" style="margin-top:14px">
