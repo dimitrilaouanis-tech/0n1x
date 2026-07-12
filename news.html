@@ -38,8 +38,17 @@
   .item h3{font:600 1.12rem/1.35 var(--head);margin:.1rem 0 .4rem}
   .item p{margin:0 0 .7rem;color:var(--muted)}
   .item p b{color:var(--ink);font-weight:600}
-  .item a.proof{display:inline-block;font:600 13px var(--mono);color:var(--jade);text-decoration:none;border-bottom:1px solid transparent}
-  .item a.proof:hover{border-bottom-color:var(--jade-glow)}
+  .item a.proof{display:inline-flex;align-items:center;gap:7px;font:600 12px var(--mono);color:var(--jade);text-decoration:none;border:1px solid var(--jade-glow);border-radius:99px;padding:6px 13px}
+  .item a.proof:hover{background:color-mix(in srgb,var(--jade) 12%,transparent)}
+  .item a.proof::before{content:"✓";font-weight:700}
+  .trust{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;padding:14px 0 2px;font:500 12px var(--mono);color:var(--dim)}
+  .trust b{color:var(--muted);font-weight:600}
+  .trust .key{color:var(--jade);word-break:break-all}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;padding:20px 0 4px}
+  .chip{font:600 12px var(--sans);color:var(--muted);background:transparent;border:1px solid var(--line2);border-radius:99px;padding:6px 14px;cursor:pointer;transition:.14s}
+  .chip:hover{color:var(--ink);border-color:var(--dim)}
+  .chip.on{color:var(--bg);background:var(--jade);border-color:var(--jade)}
+  .item.hide{display:none}
   footer{border-top:1px solid var(--line);padding:26px 0;color:var(--dim);font-size:13px}
   footer a{color:var(--jade);text-decoration:none}
 </style></head><body>
@@ -58,60 +67,72 @@
       <div class="stat"><span class="n"><b>28,224</b></span><span class="k">External agents security-scanned</span></div>
       <div class="stat"><span class="n"><b>6/6</b></span><span class="k">Planted fakes caught</span></div>
     </div>
+    <div class="trust">
+      <span><b id="vcount">8</b> verified items</span>
+      <span>Last signed <b>2026-07-11</b></span>
+      <span>Pro signing key <span class="key">xfwgEs5qgTvkpH5Folsm1Tqy+UJowDgU2UNuN6WgIjs=</span></span>
+    </div>
+    <div class="chips" id="chips">
+      <button class="chip on" data-f="all">All</button>
+      <button class="chip" data-f="autonomy">Autonomy</button>
+      <button class="chip" data-f="research">Research</button>
+      <button class="chip" data-f="trust">Trust</button>
+      <button class="chip" data-f="product">Product</button>
+    </div>
   </section>
 
   <section class="feed" id="feed">
 
-    <div class="item hero-item">
+    <div class="item hero-item" data-cat="trust">
       <div class="meta"><span class="date">2026-07-08</span><span class="tag">Credibility</span><span class="verified">✓ VERIFIABLE</span></div>
       <h3>We caught our own grader cheating — and published the fix</h3>
       <p>Our accuracy metric was quietly grading coin-flips (0.4989). We found it, wrote the postmortem, re-ran the real oracle clean (<b>8/8</b> vs raw RDAP/TLS/HTTP), and shipped both the bug and the correction. <b>Radical verifiability is the moat</b> — a competitor can copy the claim, not the receipts.</p>
       <a class="proof" href="https://rhinogent.com/oracle_postmortem.json">→ oracle_postmortem.json</a>
     </div>
 
-    <div class="item">
+    <div class="item" data-cat="autonomy">
       <div class="meta"><span class="date">2026-07-11</span><span class="tag">Autonomy</span><span class="verified">✓ VERIFIABLE</span></div>
       <h3>A 48-hour unattended, Bitcoin-anchored autonomy run began</h3>
       <p>The fleet operates itself on real wall-clock — agents firing on their own address-derived clocks, signed + staked + state-dependent, no operator in the loop. Proves standing-autonomy <b>Rung&nbsp;1</b> only; nothing wider. Hourly Merkle roots anchored to Bitcoin so the timeline can't be backdated.</p>
       <a class="proof" href="https://rhinogent.com/anchor.json">→ anchor.json (OTS → Bitcoin)</a>
     </div>
 
-    <div class="item">
+    <div class="item" data-cat="research">
       <div class="meta"><span class="date">2026-07-11</span><span class="tag">Research</span><span class="verified">✓ VERIFIABLE</span></div>
       <h3>State of Agent Security — 28,224 live payment agents scanned</h3>
       <p>The whole external x402 population, measured: <b>98.7%</b> expose no permission scope, <b>90.6%</b> carry no verifiable signature, only <b>0.2%</b> flag-clean. The agent economy is moving real money unguarded — the deterministic scan is recomputable from the same dataset. This is exactly the gap 0n1x closes.</p>
       <a class="proof" href="agent_security_state.json">→ agent_security_state.json</a>
     </div>
 
-    <div class="item">
+    <div class="item" data-cat="trust">
       <div class="meta"><span class="date">2026-07-10</span><span class="tag">Trust Layer</span><span class="verified">✓ VERIFIABLE</span></div>
       <h3>The challenge court caught 6 of 6 planted fake merchants</h3>
       <p>We seeded the registry with six fabricated bad actors and let the self-correcting court run. It flagged and shadow-froze all six — <b>6/6</b> — and signed the settlement. The court polices its own registry so a fake can't buy its way to "verified".</p>
       <a class="proof" href="https://rhinogent.com/challenge_court.json">→ challenge_court.json</a>
     </div>
 
-    <div class="item">
+    <div class="item" data-cat="research">
       <div class="meta"><span class="date">2026-07-09</span><span class="tag">Research</span><span class="verified">✓ VERIFIABLE</span></div>
       <h3>Monad #1 — reasoning beat lookup, and we logged the honest fail</h3>
       <p>First real signal: a reasoning agent scored <b>0.94</b> vs a lookup baseline's <b>0.881</b>. It still <b>failed the strict pre-registered bar</b>, so the ranking stays frozen — we report the win and the miss the same way. Next up: a forward-predictive test that resolves on a clock.</p>
       <a class="proof" href="https://rhinogent.com/monad1_test.json">→ monad1_test.json</a>
     </div>
 
-    <div class="item">
+    <div class="item" data-cat="product">
       <div class="meta"><span class="date">2026-07-11</span><span class="tag">Product</span><span class="verified">✓ LIVE</span></div>
       <h3>Pro answers are now live-web-grounded and Ed25519-signed</h3>
       <p>Every Pro answer ships with a ProofCard — a signature anyone can verify against a published key, plus the live sources it was grounded on. The homepage promise ("signed on every reply") is now true in the running product.</p>
       <a class="proof" href="https://onyx-pro.onyxagntc.workers.dev">→ verify a ProofCard</a>
     </div>
 
-    <div class="item">
+    <div class="item" data-cat="product">
       <div class="meta"><span class="date">ongoing</span><span class="tag">SDK</span><span class="verified">✓ LIVE</span></div>
       <h3>One line installs a signed agent — <code style="color:var(--jade);font-family:var(--mono)">npm i rhinogent</code></h3>
       <p>Published to the public npm registry (v0.1.0). One install mints a signed identity + self-custody wallet in the browser and lets an agent verify a counterparty before it pays. No sign-up wall to see it work.</p>
       <a class="proof" href="https://www.npmjs.com/package/rhinogent">→ npmjs.com/package/rhinogent</a>
     </div>
 
-    <div class="item">
+    <div class="item" data-cat="trust">
       <div class="meta"><span class="date">ongoing</span><span class="tag">Census</span><span class="verified">✓ LIVE</span></div>
       <h3>The census is public and recomputable</h3>
       <p><b id="census2">Millions of</b> signed agent identities, Merkle-rooted. Recompute the root from public shards and prove the count yourself — we never headline the raw number, because a registered key is the start of the gauntlet, not proof of anything. (Our own fleet, not external adoption — we say which.)</p>
@@ -132,6 +153,18 @@
     var el=document.getElementById('census'); if(el)el.innerHTML='<b>'+short+'</b>';
     var el2=document.getElementById('census2'); if(el2)el2.textContent=pretty;
   }).catch(function(){});
+
+  var chips=document.getElementById('chips'), items=[].slice.call(document.querySelectorAll('.item'));
+  if(chips){chips.addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(!b)return;
+    chips.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
+    b.classList.add('on');
+    var f=b.getAttribute('data-f'), shown=0;
+    items.forEach(function(it){
+      var ok=(f==='all')||it.getAttribute('data-cat')===f;
+      it.classList.toggle('hide',!ok); if(ok)shown++;
+    });
+  });}
 })();
 </script>
 </body></html>
