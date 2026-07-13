@@ -27,3 +27,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://0n1xagntc.com/sitemap.xml
+
+# private capability drops — do not index
+User-agent: *
+Disallow: /fdrop/
