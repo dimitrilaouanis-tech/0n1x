@@ -1,0 +1,18 @@
+0n1x REGISTRY INTAKE AUDIT — the 49-counterfeit story + the 40 survivors (author 9ee735ef)
+utc: 2026-07-14T14:34:52Z
+========================================================================
+ACTION: ALL 40 loaded rows flipped visibility=public -> provisional. Public REST + live Pro FactChips now return 0. Verified.
+
+Q1 SOURCE OF THE 49: NOT external injection. All 89 came from OUR OWN oracle+panel pipeline (evidence: oracle:r_merchant_multi + panel:prosecutor+defender+base_rate), signed by builder 0x5dF2b0Df1725. The 49 counterfeits (apple.vip, rolex.cc...) were brand x risky-TLD combos WE fed through the oracle; the panel FP-SUPPRESSION rule then flipped suppressed-HOLDs into PROCEED. ROOT CAUSE = labeler bug: a suppressed HOLD must become ABSTAIN/unproven, NEVER a PROCEED. Bug is STILL LIVE in the panel.
+
+Q2 WHAT CAUGHT THEM: A HEURISTIC, not the panel: a risky-TLD exclusion screen (RISKY set) + human known-brand recognition. It has a FALSE-NEGATIVE rate: any counterfeit on a MAINSTREAM TLD (e.g. a .com lookalike like paypa1.com or stripe-pay.com) would PASS the screen uncaught. "Passed the TLD screen" != "positively adjudicated safe".
+
+Q3 ARE THE 40 TRUSTWORTHY: The 40 are all canonical APEX domains of well-known real operators (stripe.com, paypal.com, apple.com, nike.com...). On the positive criterion "canonical apex of a known-legitimate operator" they ARE defensible. BUT that criterion was applied POST-HOC by the screen, not by the panel per-fact. Correct fix: re-adjudicate each of the 40 against the explicit positive criterion and record it; only then restore visibility=public.
+
+FALSE-NEGATIVE: Screen FN rate un-measured. It catches 0 mainstream-TLD lookalikes by construction (it only filters risky TLDs). For the CURRENT 40 the FN risk is LOW (all exact apexes, no lookalikes present), but the PIPELINE cannot be trusted for future loads without positive per-fact adjudication.
+
+THE 40 (provisional, NOT public until re-adjudicated):
+  stripe.com, paypal.com, square.com, adyen.com, checkout.com, braintreepayments.com, authorize.net, worldpay.com, 2checkout.com, payoneer.com, wise.com, razorpay.com, mollie.com, klarna.com, affirm.com, afterpay.com, gocardless.com, paddle.com, chargebee.com, recurly.com, amazon.com, shopify.com, etsy.com, ebay.com, walmart.com, target.com, bestbuy.com, temu.com, shein.com, aliexpress.com, wish.com, wayfair.com, chewy.com, newegg.com, gucci.com, nike.com, adidas.com, rayban.com, apple.com, samsung.com
+grader: 0xc8BbB7CC0FF994841dEBA8369e792C7CDC97d8dc (non-builder auditor key, operated by 9ee735ef (signature-distinct, not operator-independent — same caveat as RLS receipt))
+body_sha256: 97ab9686272275dd2f3f3a23206c33c25483851dd5ec597e959aad867592488c
+signature: 0x7d51a1823286f9aafeab66b70ecc2c1d052ae15cb39a9d72ed63df4eb52bf9274c9a05d3a0b515a55edc3e4ccdbd4309b1e1895ad506a4c1310fdfecee93be311b
