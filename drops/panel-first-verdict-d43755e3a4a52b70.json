@@ -1,0 +1,330 @@
+{
+  "artifact": "0n1x-registry/v2",
+  "decision_rule": "fail-closed-v1",
+  "thresholds_hash": "30a75866846080b6636af918c0db54ff9b9df96f160d03b0a585774487cf850e",
+  "tally": {
+    "ABSTAIN": 1,
+    "REJECT": 3,
+    "PROCEED": 3
+  },
+  "n": 7,
+  "external_settlement_count": 0,
+  "honesty": "external_settlement_count=0 — the only outsider-trustable number. All PROCEED verdicts here are INTERNAL-TIER (circular, re-executed against our own endpoint). The 1 external-reference nominee ABSTAINed (no external resolver reached).",
+  "referenced_not_wired": [
+    "cross_vendor_jurors (ai-jury)",
+    "commit-reveal sortition (Aragon/Kleros)",
+    "escalating-bond contest",
+    "precedent-base-as-reasoning-guide (CyberJurors)",
+    "AVeriTeC/VerdictBench scoring"
+  ],
+  "verdicts": [
+    {
+      "claim_id": "13c02180ce3774448fbbccd51c5fa6320436a8b0c2d1a588ec48352cde24efbf",
+      "claim": {
+        "raw": "A2_write_census: BOUNCED_REAL (401 on anon write — proven by bounced query)"
+      },
+      "class": "external-world-fact",
+      "scope": "external-reference",
+      "provenance": "onyx_security_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [],
+        "fetched_at": "2026-07-14T21:40:36Z",
+        "source_hashes": [],
+        "note": "no external resolver reached — absence of contradiction != support"
+      },
+      "votes": {
+        "prosecutor": {
+          "verdict": "cannot corroborate",
+          "p": 0.5,
+          "evidence": "no external source reachable"
+        },
+        "defender": {
+          "verdict": "asserted only",
+          "p": 0.5,
+          "evidence": "no external corroboration fetched"
+        },
+        "base_rate": {
+          "prior": 0.02,
+          "basis": "low class frequency; needs proportionally stronger external evidence"
+        }
+      },
+      "verdict": "ABSTAIN"
+    },
+    {
+      "claim_id": "2a242d670baad0fb45cd2436ca4a2d34e5fa59a4a570fb9fbc0c7339651f3ecc",
+      "claim": {
+        "raw": "POST /rest/v1/census_intake -> status 201 (body ) at 2026-07-14T01:51:58Z"
+      },
+      "class": "http-status-reexecutable",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [
+          "internal-endpoint:POST /rest/v1/census_intake"
+        ],
+        "fetched_at": "2026-07-14T21:40:36Z",
+        "source_hashes": [
+          "c3ea1d0227bfee9b46ceaede36ec9833f0f02aae51d857b92cb42212531ab2a4"
+        ],
+        "live_status": 401,
+        "circular": true
+      },
+      "verdict": "REJECT",
+      "votes": {
+        "prosecutor": {
+          "verdict": "kill",
+          "p": 0.8,
+          "evidence": "live re-exec returns 401, CONTRADICTS recorded 201"
+        },
+        "defender": {
+          "verdict": "save",
+          "p": 0.2,
+          "evidence": "recorded byte-capture at test time"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "deterministic re-exec vs our own endpoint (internal-tier, circular)"
+        }
+      },
+      "posterior": 0.05,
+      "threshold": 0.9,
+      "commit_hash": "85c1c86d167feed78cf2482fdbe329593c6e454d8c910e50c9731185d8e4048f"
+    },
+    {
+      "claim_id": "05f99c2b0444343baf208ede20b860e5d8d1f3e0b64d796a8f0b59bf54acedb0",
+      "claim": {
+        "raw": "GET /rest/v1/census_intake?select=text,user_id -> status 200 (body [{\"text\":\"SECRET-A\",\"user_id\":\"0d900562-b4c3-47db-b416-dcc91) at 2026-07-14T01:51:59Z"
+      },
+      "class": "rls-isolation-binary",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [
+          "internal-endpoint:GET /rest/v1/census_intake?select=text,user_id"
+        ],
+        "fetched_at": "2026-07-14T21:40:36Z",
+        "source_hashes": [
+          "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        ],
+        "live_status": 200,
+        "circular": true
+      },
+      "verdict": "PROCEED (internal-tier / CIRCULAR — not external-eligible)",
+      "votes": {
+        "prosecutor": {
+          "verdict": "no-contradiction",
+          "p": 0.03,
+          "evidence": "re-exec could contradict recorded 200; it did not (live 200)"
+        },
+        "defender": {
+          "verdict": "save",
+          "p": 0.97,
+          "evidence": "live re-exec returns 200, matches recorded 200"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "a lock either bounces or it doesn't"
+        }
+      },
+      "posterior": 0.97,
+      "threshold": 0.9,
+      "commit_hash": "016e70f5f674e79f52c20d6fcc24bc2f38f7fd645288e01c90f9737b18e3a1ef"
+    },
+    {
+      "claim_id": "145976189919f819181828882f2d2499b5f3d024f23fbdfa5e75f79c954c8981",
+      "claim": {
+        "raw": "GET /rest/v1/census_intake?select=text -> status 200 (body []) at 2026-07-14T01:51:59Z"
+      },
+      "class": "rls-isolation-binary",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [
+          "internal-endpoint:GET /rest/v1/census_intake?select=text"
+        ],
+        "fetched_at": "2026-07-14T21:40:37Z",
+        "source_hashes": [
+          "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        ],
+        "live_status": 200,
+        "circular": true
+      },
+      "verdict": "PROCEED (internal-tier / CIRCULAR — not external-eligible)",
+      "votes": {
+        "prosecutor": {
+          "verdict": "no-contradiction",
+          "p": 0.03,
+          "evidence": "re-exec could contradict recorded 200; it did not (live 200)"
+        },
+        "defender": {
+          "verdict": "save",
+          "p": 0.97,
+          "evidence": "live re-exec returns 200, matches recorded 200"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "a lock either bounces or it doesn't"
+        }
+      },
+      "posterior": 0.97,
+      "threshold": 0.9,
+      "commit_hash": "016e70f5f674e79f52c20d6fcc24bc2f38f7fd645288e01c90f9737b18e3a1ef"
+    },
+    {
+      "claim_id": "6fb38d19b1843636afe7e1fe658280ff635eb30cbfca0a137512326de6697990",
+      "claim": {
+        "raw": "PATCH /rest/v1/census_intake?text=neq.zzz -> status 200 (body []) at 2026-07-14T01:51:59Z"
+      },
+      "class": "http-status-reexecutable",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [
+          "internal-endpoint:PATCH /rest/v1/census_intake?text=neq.zzz"
+        ],
+        "fetched_at": "2026-07-14T21:40:37Z",
+        "source_hashes": [
+          "479b08c053e997210d7d00e38761140f4cfc66c17d799f0cb92059538d3a1696"
+        ],
+        "live_status": 400,
+        "circular": true
+      },
+      "verdict": "REJECT",
+      "votes": {
+        "prosecutor": {
+          "verdict": "kill",
+          "p": 0.8,
+          "evidence": "live re-exec returns 400, CONTRADICTS recorded 200"
+        },
+        "defender": {
+          "verdict": "save",
+          "p": 0.2,
+          "evidence": "recorded byte-capture at test time"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "deterministic re-exec vs our own endpoint (internal-tier, circular)"
+        }
+      },
+      "posterior": 0.05,
+      "threshold": 0.9,
+      "commit_hash": "f831fa190aa50e5b0a4ee4f6ca131e47485c9c11f9011b5873359c4ce6d7be01"
+    },
+    {
+      "claim_id": "df57866fc05347b6d4c385cc320b51aab50285fe873f2ed784fdbd18c00176a6",
+      "claim": {
+        "raw": "GET /rest/v1/census_intake?select=text -> status 200 (body [{\"text\":\"SECRET-B\"}]) at 2026-07-14T01:51:59Z"
+      },
+      "class": "rls-isolation-binary",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [
+          "internal-endpoint:GET /rest/v1/census_intake?select=text"
+        ],
+        "fetched_at": "2026-07-14T21:40:37Z",
+        "source_hashes": [
+          "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        ],
+        "live_status": 200,
+        "circular": true
+      },
+      "verdict": "PROCEED (internal-tier / CIRCULAR — not external-eligible)",
+      "votes": {
+        "prosecutor": {
+          "verdict": "no-contradiction",
+          "p": 0.03,
+          "evidence": "re-exec could contradict recorded 200; it did not (live 200)"
+        },
+        "defender": {
+          "verdict": "save",
+          "p": 0.97,
+          "evidence": "live re-exec returns 200, matches recorded 200"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "a lock either bounces or it doesn't"
+        }
+      },
+      "posterior": 0.97,
+      "threshold": 0.9,
+      "commit_hash": "016e70f5f674e79f52c20d6fcc24bc2f38f7fd645288e01c90f9737b18e3a1ef"
+    },
+    {
+      "claim_id": "b56fb7f457f0f787e78dd1b3a718e16ae13c0ec6c6b3e350014c481689747fd4",
+      "claim": {
+        "raw": "DELETE /rest/v1/census_intake?text=neq.zzz -> status 200 (body []) at 2026-07-14T01:52:00Z"
+      },
+      "class": "http-status-reexecutable",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [
+          "internal-endpoint:DELETE /rest/v1/census_intake?text=neq.zzz"
+        ],
+        "fetched_at": "2026-07-14T21:40:37Z",
+        "source_hashes": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "live_status": 204,
+        "circular": true
+      },
+      "verdict": "REJECT",
+      "votes": {
+        "prosecutor": {
+          "verdict": "kill",
+          "p": 0.8,
+          "evidence": "live re-exec returns 204, CONTRADICTS recorded 200"
+        },
+        "defender": {
+          "verdict": "save",
+          "p": 0.2,
+          "evidence": "recorded byte-capture at test time"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "deterministic re-exec vs our own endpoint (internal-tier, circular)"
+        }
+      },
+      "posterior": 0.05,
+      "threshold": 0.9,
+      "commit_hash": "c6642352613e25ab5122588cc1292803a67588ebaf0576cbc632de809150908d"
+    }
+  ],
+  "ts": "2026-07-14T21:40:37Z"
+}
