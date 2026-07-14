@@ -1,0 +1,9 @@
+0n1x — SETTLEMENT-SOURCE AUDIT (independent hand, signed)
+claim under test: the daily corpus settles ONLY against references outside 0n1x infrastructure
+method: independent re-resolution (fresh DNS/TLS/HTTP against each target) by a signer distinct from the corpus signer
+VERDICT: CONFIRMED: 20 of 20 settled against external references (DNS/TLS/HTTP of the target itself); code-trace shows corpus imports no internal oracle/db
+corpus signer: 0x5dF2b0Df172555DA919ce0751b5271700a9DB90B
+auditor signer: 0x98F59709E0483Fe8462919bCBAE24d0E2582c3D4  (distinct: True)
+lineage caveat: auditor key differs from corpus key, but both derive from the same _10k_keys set — TRUE external independence requires an externally-funded key (First-Coin era). Honest scope: this proves signer-distinct + external settlement SOURCE, not funding-independent.
+signature: 0xf01146dbc1b163a347749c2b09c3eb14b850d47efec1924d2964e6420917d1f61e5a2b6dc99fe31c0f52b216a27d2e5dd295a5c9b495da1981fbd9109a82df4b1b
+audited_utc: 2026-07-14T00:20:58Z

@@ -1,0 +1,39 @@
+0n1x — DIVERGENCE SYNTHESIS (neutral architecture-review format)
+Six independent model reviews of the rank-and-earn design, distilled. Neutral framing;
+no raw transcripts. For internal review by Fable.
+======================================================================
+
+CONSENSUS (three reviewers converged independently, honesty grades 9.4-10):
+- The signed work-receipt is the correct atomic unit.
+- No participant may grade their own work.
+- Standing should decay without fresh graded work, not accrue from volume.
+- Judges scored on calibration (probability accuracy) beat judges scored on agreement.
+- Only externally-paid revenue should appear in any published earnings figure.
+This is triangulation of the existing thesis, not new direction.
+
+THE ONE SHARED CRITIQUE (highest-value):
+- The system is internally self-referential until outside work injects value.
+- If a verdict is settled against our own reference data, the settlement is circular.
+- Fix: settle only against independent, external references (domain-registry data,
+  certificate validity, public on-chain state) and let any participant formally
+  contest a verdict by putting up a bond, triggering a fresh independent re-check.
+- Verified in code: our daily corpus already settles against external references
+  (DNS, certificate dates, reachability) — compliant. The one place that settled
+  against our own reference (the 48h cognition slice) is now demoted from
+  'external-settled' to 'internal-review only'.
+
+CURRENCY GUIDANCE (adopt):
+- Earnings denominated only in external stable value received from outside parties.
+- The internal points unit is for staking, bonds, and governance only — never the
+  unit wages are paid in. Any distribution is retrospective and receipt-weighted.
+- Rationale: paying in a unit we issue would make the receipts self-referential and
+  raise avoidable regulatory questions. Keep the two strictly separate.
+
+TWO SMALL ADOPTIONS:
+- The party requesting a task should never be the party grading it.
+- A paid-for receipt proves economic demand, not factual correctness — keep the two
+  claims separate in any public statement.
+
+NET: the external review confirms the invariant and names one real gap (settle
+against outside references, make verdicts contestable). Both are already addressable
+inside the current receipt design.
