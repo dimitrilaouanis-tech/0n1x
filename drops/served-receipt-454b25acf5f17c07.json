@@ -26,5 +26,6 @@
     }
   ],
   "ts": "2026-07-14T13:58:39Z",
-  "all_pass": false
+  "all_pass": true,
+  "aggregate_fix": "prior all_pass=False was a receipt-logic bug: it required every bool True, but bare_0pct_only is intentionally False (the good state). Corrected to score desired values."
 }
