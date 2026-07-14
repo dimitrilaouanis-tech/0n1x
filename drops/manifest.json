@@ -1,6 +1,5 @@
 {
   "artifact": "0n1x-drops-manifest/v1",
-  "channel": "content-addressed; absolute URLs canonical",
   "drops": [
     {
       "file": "deploy-integrity-a7dcf6aed5163424.json",
@@ -18,10 +17,14 @@
       "sha256": "0bf4021d9b1fcc079c02e31b188e22f01fb882fa65aa344e20037cf9644c805f"
     },
     {
+      "file": "served-receipt-5547775d20ebef6b.json",
+      "url": "https://0n1xagntc.com/drops/served-receipt-5547775d20ebef6b.json",
+      "sha256": "5547775d20ebef6b9a4ce7e76d26621e5c096770d8308dd2c0ea1e12234a1ef0"
+    },
+    {
       "file": "verify-gate-bfb57df2ebbf7822.json",
       "url": "https://0n1xagntc.com/drops/verify-gate-bfb57df2ebbf7822.json",
       "sha256": "bfb57df2ebbf7822857a8a65c25abf8e1a64c53c7411ceed394a0e8d1cc2f9c4"
     }
-  ],
-  "note": "FP files dropped VERBATIM for independent recount \u2014 NOT published to rhinogent.com. Recount happens on these raw bytes."
+  ]
 }

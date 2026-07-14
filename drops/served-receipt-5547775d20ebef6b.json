@@ -1,0 +1,30 @@
+{
+  "artifact": "0n1x-served-bytes-receipt/v1",
+  "claim": "DELIVERED (served bytes), not merely announced (repo state)",
+  "verifier": "deploy-verifier — fetched the live domain, not the repo",
+  "checks": [
+    {
+      "url": "https://rhinogent.com/fp_rate.json",
+      "status": 200,
+      "sha256": "09090e783c018999",
+      "ci_string_present": true,
+      "bare_0pct_only": false
+    },
+    {
+      "url": "https://rhinogent.com/verify_gate.json",
+      "status": 200,
+      "sha256": "81ad6f021c7c11be",
+      "ledger_372_369_3": true,
+      "vetoes_verbatim": true
+    },
+    {
+      "url": "https://0n1xagntc.com/news.html",
+      "status": 200,
+      "sha256": "9da9510a6336eda1",
+      "copy_flatters": true,
+      "copy_costs": true
+    }
+  ],
+  "ts": "2026-07-14T13:58:39Z",
+  "all_pass": false
+}
