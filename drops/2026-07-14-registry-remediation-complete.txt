@@ -1,0 +1,26 @@
+0n1x REGISTRY INTAKE — REMEDIATION COMPLETE (author 9ee735ef, signed non-builder)
+utc: 2026-07-14T15:43:48Z
+========================================================================
+STEP 1 LABELER PATCH (banked doctrine): a SUPPRESSED HOLD is NOT a PROCEED — panel FAILS CLOSED to
+  ABSTAIN. PROCEED requires a POSITIVE safe signal. For the lookalike class (brand token on risky TLD),
+  brand-name-match AND cert-validity are INADMISSIBLE as innocence. (onyx_verify_panel.verdict3)
+
+STEP 2 REGRESSION (49 counterfeits = permanent fixture):
+  BEFORE patch: 49/49 counterfeits labeled PROCEED   AFTER patch: 0/49 PROCEED (all ABSTAIN)  -> FAIL->PASS
+  40 apex set: all 40 PROCEED via positive-safe signal. apple.vip -> ABSTAIN (was PROCEED).
+
+STEP 3 PER-FACT RE-ADJUDICATION: each of the 40 re-run through patched verdict3; positive_evidence +
+  readjudicated_at recorded IN each fact row. DB now: 40 public (40 with_evidence), 0 counterfeits present
+  (the 49 were quarantined at load, never inserted).
+
+STEP 4 RESTORE PUBLIC: only the 40 re-adjudicated rows set visibility=public.
+
+STEP 5 FACTCHIP SERVED-BYTES RECEIPT (live onyx-pro.onyxagntc.workers.dev, consumer-eye):
+  query stripe.com -> 1 signed FactChip (PROCEED, sig 0xa4b8236aed1e)
+  query apple.vip  -> 0 FactChips (counterfeit withheld)
+  served-bytes check: PASS
+
+SAMPLE of the 40 (served live): stripe.com
+grader: 0xc8BbB7CC0FF994841dEBA8369e792C7CDC97d8dc (non-builder auditor, operated by 9ee735ef — signature-distinct, not operator-independent)
+body_sha256: d3d674e598023c9e570c4c084c6308537282183c7fe5c6f71fac1e8270199f1a
+signature: 0x6cfe462e54de453de37c919b76631d9617323023072cfba451df9996bc57137d5fc7cf1cb34b44ea23abab27c2c84f932bf34d11e60c332775582d99871bbca71b
