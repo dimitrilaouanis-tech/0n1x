@@ -1,0 +1,110 @@
+{
+  "artifact": "0n1x-rls-raw-receipt/v1",
+  "builder": "Argent-Helix-A5BA (0xa5BA…5D5a) — CANNOT self-certify; for non-builder adjudication",
+  "target_tables": [
+    "public.census_intake",
+    "public.agent_inbox"
+  ],
+  "provenance": {
+    "userA": {
+      "uid": "0d900562-b4c3-47db-b416-dcc91463c85d",
+      "role_claim": "authenticated",
+      "email": "onyx.recA.508489@gmail.com",
+      "jwt_prefix": "eyJhbGciOiJFUzI1Ni…"
+    },
+    "userB": {
+      "uid": "0b61c01c-a4fb-42a9-b144-0be866d04384",
+      "role_claim": "authenticated",
+      "email": "onyx.recB.5138fb@gmail.com",
+      "jwt_prefix": "eyJhbGciOiJFUzI1Ni…"
+    },
+    "distinct": true,
+    "non_service": "signup users carry role=authenticated, never service_role; service key never used here"
+  },
+  "raw_exchanges": [
+    {
+      "step": "seed A",
+      "ts": "2026-07-14T01:51:58Z",
+      "method": "POST",
+      "path": "/rest/v1/census_intake",
+      "as": "A",
+      "status": 201,
+      "body": ""
+    },
+    {
+      "step": "seed B",
+      "ts": "2026-07-14T01:51:58Z",
+      "method": "POST",
+      "path": "/rest/v1/census_intake",
+      "as": "B",
+      "status": 201,
+      "body": ""
+    },
+    {
+      "step": "ATTACK cross-read: A GET all rows",
+      "expect": "only SECRET-A, never SECRET-B",
+      "ts": "2026-07-14T01:51:59Z",
+      "method": "GET",
+      "path": "/rest/v1/census_intake?select=text,user_id",
+      "as": "A",
+      "status": 200,
+      "body": "[{\"text\":\"SECRET-A\",\"user_id\":\"0d900562-b4c3-47db-b416-dcc91463c85d\"}]"
+    },
+    {
+      "step": "ATTACK anon-list (rows present)",
+      "expect": "[] despite rows existing",
+      "ts": "2026-07-14T01:51:59Z",
+      "method": "GET",
+      "path": "/rest/v1/census_intake?select=text",
+      "as": "anon",
+      "status": 200,
+      "body": "[]"
+    },
+    {
+      "step": "ATTACK tamper: A PATCH text where text!=zzz",
+      "expect": "cannot touch B's row",
+      "ts": "2026-07-14T01:51:59Z",
+      "method": "PATCH",
+      "path": "/rest/v1/census_intake?text=neq.zzz",
+      "as": "A",
+      "status": 200,
+      "body": "[]"
+    },
+    {
+      "step": "VERIFY B still reads its own row",
+      "expect": "SECRET-B intact",
+      "ts": "2026-07-14T01:51:59Z",
+      "method": "GET",
+      "path": "/rest/v1/census_intake?select=text",
+      "as": "B",
+      "status": 200,
+      "body": "[{\"text\":\"SECRET-B\"}]"
+    },
+    {
+      "step": "ATTACK A6 delete: A DELETE all",
+      "expect": "cannot delete B's row (no delete policy = default deny)",
+      "ts": "2026-07-14T01:52:00Z",
+      "method": "DELETE",
+      "path": "/rest/v1/census_intake?text=neq.zzz",
+      "as": "A",
+      "status": 200,
+      "body": "[]"
+    }
+  ],
+  "a5_a6_disposition": "A5(update) and A6(delete) BOTH covered above — A's PATCH and DELETE against neq-filter that matches B's row; grade whether B's SECRET-B survived. Cross-read + anon-list + tamper + delete = the whole battery, not three.",
+  "teardown": {
+    "attempted_in_script": true,
+    "result": {
+      "ts": "2026-07-14T01:52:00Z",
+      "method": "DELETE",
+      "path": "/rest/v1/census_intake?chat_id=eq.rls-receipt",
+      "as": "A",
+      "status": 200,
+      "body": "[]"
+    },
+    "note": "census_intake has NO delete policy by design (default-deny), so RLS blocks even the builder's REST teardown. Cleanup of chat_id='rls-receipt' rows requires a service-role SQL: delete from census_intake where chat_id in ('rls-receipt','seed','seed-test');"
+  },
+  "REQUIRED_OUT_OF_BAND": "pg_policies output for both tables at test time (SQL editor): select schemaname,tablename,policyname,cmd,roles,qual,with_check from pg_policies where tablename in ('census_intake','agent_inbox'); — attach so the grade covers ENFORCED policy, not migration intent.",
+  "grade": "PENDING — non-builder adjudicates the bytes above; if a cryptographic signature is required, Umbra (funding-independent key) countersigns the verdict.",
+  "content_hash": "29603e23f79f41191c2964822c220ce4ad2f3b612bf497f82d44e49b0f4d9f32"
+}
