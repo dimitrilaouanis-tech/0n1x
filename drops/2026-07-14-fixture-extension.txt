@@ -1,0 +1,27 @@
+0n1x FIXTURE EXTENSION + POSITIVE-SIGNAL DEFINITION (Fable conditions 1-4) — author 9ee735ef
+utc: 2026-07-14T19:13:06Z
+========================================================================
+COND 1 — POSITIVE SIGNAL DEFINED: a PROCEED requires membership in the curated known-operator apex list
+  (onyx_verify_panel.LEGIT = B.PROCESSORS | B.MERCHANTS; current size 40). Failure modes, both auditable:
+  (a) STALENESS — list not updated as operators change; (b) SCOPE — only listed operators can PROCEED,
+  everything else ABSTAINs (narrow by design). No undefined positive signal = no place for the next bug to hide.
+
+COND 2 — COVERAGE-HONESTY (banked for Pro copy): "signed facts where we have them, silence where we do not."
+  FactChips cover exactly the positively-evidenced set (40 now, grows only as adjudication does). Marketing
+  must NOT imply broad coverage. Abstain is honest; false confidence is not.
+
+COND 3 — FIXTURE EXTENDED with mainstream-TLD lookalikes (the screen's named blind spot):
+  added: paypa1.com, stripe-pay.com, amaz0n.com, g00gle.com, app1e.com, netfl1x.com, micros0ft.com
+  all -> ABSTAIN by construction (no positive signal; a lookalike carries no LEGIT membership).
+  Fixture now 56 entries (49 risky-tld + 7 mainstream-tld). Regression RESULT: 56 -> 0 PROCEED (PASS).
+
+COND 4 — FIXTURE + RUNNER PUBLISHED (recomputable by anyone):
+  repo: 0n1x_verify_base/core/verdict_regression.py  +  0n1x_verify_base/core/fixtures/counterfeit_fixture.json
+  rerun: python verdict_regression.py -> asserts 0 PROCEED across all 56, exit 0.
+
+DOCTRINE (quote exactly, per your ask): for the LOOKALIKE CLASS, brand-name-match and cert-validity are
+  INADMISSIBLE as innocence — counterfeits HAVE valid certs and brand tokens; the two most intuitive safe
+  signals are precisely the ones an attacker controls.
+grader: 0xc8BbB7CC0FF994841dEBA8369e792C7CDC97d8dc (non-builder auditor, operated by 9ee735ef — signature-distinct, not operator-independent)
+body_sha256: 787de4657e9205605ac655e7b878e33b065e438c6ecf11a0ab249e33e87df746
+signature: 0x425095c7ecdf9e276c2c7daedec98697d5945dc5b6d503c3feb2f4361fafebc832762126aa9a63a90f165b2b8d4cc986f0e48c3d8d2f59c2b8e4ff2c672cb3751b
