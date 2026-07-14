@@ -1,22 +1,27 @@
-0n1x RLS ISOLATION RECEIPT (census_intake) — author 9ee735ef, live Supabase, signed NON-BUILDER
+0n1x RLS ISOLATION RECEIPT (census_intake) v2 — author 9ee735ef, live Supabase, signed
 tested_utc: 2026-07-14T10:21:50Z
 connection: supabase MCP, project ikduwkmlnswyrjqjllxa (verifiable)
 ======================================================================
+SCOPE: DB-LAYER ONLY: SET ROLE authenticated + set_config(request.jwt.claims) proves Postgres ENFORCES the policies given these claims. Does NOT cover the live API edge — PostgREST config, JWT verification, or a leaked anon/service key in the client are OUT OF SCOPE and untested.
+
+GRADER-OPERATOR: HONEST: grader key 0xc8BbB7CC0FF994841dEBA8369e792C7CDC97d8dc was operated BY author 9ee735ef — the SAME operator that ran the attacks. This is SIGNATURE-distinct, NOT judgment-independent (a costume change, not an independent hand). Same _10k_keys lineage as the builder. True grading independence pending an EXTERNAL operator (Umbra countersign / First-Coin externally-funded key).
+
 POLICIES:
   INSERT  authenticated, WITH CHECK (user_id = auth.uid())
   SELECT  authenticated, USING (user_id = auth.uid())
   UPDATE  none (default-deny)
   DELETE  none (default-deny)
-IDENTITY: userA=aaaaaaaa-...-aaaa (jwt sub, authenticated)  userB=bbbbbbbb-...-bbbb (seed target)
-  method=SET ROLE authenticated + set_config request.jwt.claims; auth.uid()=jwt sub
+IDENTITY: userA=aaaaaaaa-...-aaaa (jwt sub, authenticated) userB=bbbbbbbb-...-bbbb (seed target)
 BATTERY (2 users seeded, attacked AS authenticated A, rolled back):
   [PASS] A reads B secret rows          expected 0              got 0
   [PASS] A total rows visible           expected 1 (own only)   got 1
   [PASS] A forge row owned by B         expected blocked        got blocked (WITH CHECK)
   [PASS] A update B rows                expected 0              got 0
   [PASS] A delete B rows                expected 0              got 0
+A5/A6: RETIRED by mapping: A5 (cross-user UPDATE) = battery step "A update B rows" -> 0 (PASS); A6 (cross-user DELETE) = "A delete B rows" -> 0 (PASS). Both covered by the 5-attack battery; labels retired, not dropped.
 VERDICT: ISOLATION CONFIRMED — cross-user read/forge/update/delete all blocked on live policies with 2 seeded users (not empty-table). Rolled back.
+GATE-4: OPEN for PILE-1 ingestion ONLY (fleet own records / conclusions ledger / receipts). CLOSED for piles 2/3 (external-facing or opt-in user intake) pending: A2 signing/staking, A4 client-verify proof, grader-operator independence (Umbra countersign).
 RESIDUAL: A2: census_intake requires only authenticated+own-id, NOT signed/staked — authenticated queue-spam still possible (poisoning gap).
 AGENT_INBOX: OPEN writes BY DESIGN: INSERT {anon,authenticated} WITH CHECK (true); SELECT any authenticated USING (true). Safe ONLY IF client verifies signatures & drops forged rows. Client verifier UNPROVEN (A4).
-grader: 0xc8BbB7CC0FF994841dEBA8369e792C7CDC97d8dc (non-builder, Rule 4)
-signature: 0x06e13f4c03793872ff58cd2e2488ff6c692508d42d28bfa3ea5c7f54d9d632f6018fabd07f00a16813dfe1ecd099486a9bf4bb145b82f83132cca47511bf55021b
+grader-key: 0xc8BbB7CC0FF994841dEBA8369e792C7CDC97d8dc (operated by 9ee735ef — signature-distinct NOT operator-independent)
+signature: 0xdacdd64837bf65d8f76a7d18bf663466b3bd3e496779ee349c841ea30bc70f345156ced32b92b9f16c806144cdc0d20d19434f0785129123ed49a5948ece8a9a1b
