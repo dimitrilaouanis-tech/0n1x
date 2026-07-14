@@ -1,0 +1,58 @@
+{
+  "artifact": "0n1x-accuracy-harness \u2014 PUBLISHED false-positive rate (the headline metric)",
+  "principle": "the product is fact-SUPPRESSION: our value is the rarest, recomputable error rate. A false positive on an established company is a lawsuit; the bar is near-zero on HELD-OUT legit.",
+  "LEGIT_in_list": {
+    "n": 40,
+    "raw_oracle_FP_rate": 0.075,
+    "gated_FP_rate": 0.0,
+    "note": "gate's veto knows these \u2014 near-0 expected, NOT the real test"
+  },
+  "LEGIT_heldout": {
+    "n": 115,
+    "raw_oracle_FP_rate": 0.0783,
+    "gated_FP_rate": 0.0,
+    "note": "THE REAL TEST \u2014 gate has never seen these. This FP rate is the product metric.",
+    "sample": [
+      {
+        "e": "netflix.com",
+        "band": "ok",
+        "gate_publishes_risk": false
+      },
+      {
+        "e": "spotify.com",
+        "band": "ok",
+        "gate_publishes_risk": false
+      },
+      {
+        "e": "airbnb.com",
+        "band": "ok",
+        "gate_publishes_risk": false
+      },
+      {
+        "e": "uber.com",
+        "band": "caution",
+        "gate_publishes_risk": false
+      },
+      {
+        "e": "doordash.com",
+        "band": "ok",
+        "gate_publishes_risk": false
+      },
+      {
+        "e": "github.com",
+        "band": "ok",
+        "gate_publishes_risk": false
+      }
+    ]
+  },
+  "BAD_lookalike": {
+    "n": 120,
+    "raw_oracle_FN_rate": 0.1333,
+    "gated_FN_rate": 0.1333,
+    "note": "FN (missed bad actor) is forgivable; FP is not. But if FN~1.0 we catch nobody."
+  },
+  "verdict": "READY-ish: held-out gated FP rate near-zero \u2014 safe to publish flags conservatively",
+  "as_of": "2026-07-12T15:31:02Z",
+  "sig": "0x77db1a5bc5df75c0cb05e51465443d314ccc2f145d6dbf010ae63dd8115be0cd364188d0f138e3701502a86bf0e4e645eb3a055956d08c065e4202a3d8cc791b1c",
+  "signer": "0x5dF2b0Df172555DA919ce0751b5271700a9DB90B"
+}

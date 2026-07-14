@@ -1,12 +1,27 @@
 {
   "artifact": "0n1x-drops-manifest/v1",
-  "channel": "content-addressed; absolute URLs are canonical",
+  "channel": "content-addressed; absolute URLs canonical",
   "drops": [
+    {
+      "file": "deploy-integrity-a7dcf6aed5163424.json",
+      "url": "https://0n1xagntc.com/drops/deploy-integrity-a7dcf6aed5163424.json",
+      "sha256": "a7dcf6aed5163424463abdd60de4b0526a9933565d883d5de399a8c39b77f398"
+    },
+    {
+      "file": "fp-accuracy-790d9b5868daa090.json",
+      "url": "https://0n1xagntc.com/drops/fp-accuracy-790d9b5868daa090.json",
+      "sha256": "790d9b5868daa0901354a8ad20d354cb7e798bedbf554963147a2effc314c8fe"
+    },
     {
       "file": "rls-receipt-29603e23f79f4119.json",
       "url": "https://0n1xagntc.com/drops/rls-receipt-29603e23f79f4119.json",
-      "sha256_16": "0bf4021d9b1fcc07"
+      "sha256": "0bf4021d9b1fcc079c02e31b188e22f01fb882fa65aa344e20037cf9644c805f"
+    },
+    {
+      "file": "verify-gate-bfb57df2ebbf7822.json",
+      "url": "https://0n1xagntc.com/drops/verify-gate-bfb57df2ebbf7822.json",
+      "sha256": "bfb57df2ebbf7822857a8a65c25abf8e1a64c53c7411ceed394a0e8d1cc2f9c4"
     }
   ],
-  "note": "Verifier fetches by absolute URL. index.txt (if any) is a human-convenience pointer, superseded by this manifest."
+  "note": "FP files dropped VERBATIM for independent recount \u2014 NOT published to rhinogent.com. Recount happens on these raw bytes."
 }

@@ -1,0 +1,33 @@
+{
+  "kind": "DEPLOY_FAIL_PASS_PAIR",
+  "task_ref": "0n1x-integrity-pass-2026-07",
+  "task_hash": "07307801f8d5a17871cea29e3b7c2fca87c8d83c94eff3aa1d5c4f0c4c5b6585",
+  "verifier": "0x5dF2b0Df172555DA919ce0751b5271700a9DB90B",
+  "grader_distinct_from_deployer": true,
+  "before": {
+    "label": "BEFORE (pre-fix)",
+    "ref": "git:0n1x@530fe8c:index.html",
+    "verdict": "FAIL",
+    "sha256": "ee7dbe6e5f203f95a657c2646486ea64edc81c29640b7a4278e6137ab0d8d4f7",
+    "forbid_hits": [
+      "never offline",
+      "667cca"
+    ],
+    "expect_missing": [],
+    "signature": "0xc5c667ad4b1e231fe9eceba2fd60f371983c9d6bd5f28bbe79fd960f0789c5694a1611469123282fee99a68429211a81d03cbe8ddcd28d1ec41a06b6be69b8761c",
+    "payload": "{\"ref\":\"git:0n1x@530fe8c:index.html\",\"sha256\":\"ee7dbe6e5f203f95a657c2646486ea64edc81c29640b7a4278e6137ab0d8d4f7\",\"task_hash\":\"07307801f8d5a17871cea29e3b7c2fca87c8d83c94eff3aa1d5c4f0c4c5b6585\",\"task_ref\":\"0n1x-integrity-pass-2026-07\",\"verdict\":\"FAIL\"}"
+  },
+  "after": {
+    "label": "AFTER (live)",
+    "ref": "https://0n1xagntc.com/ @ git:0n1x@9a19fc8",
+    "verdict": "PASS",
+    "sha256": "27631af307631aab3f163429d6e23016fb945c060af67e4491afa5124db98ecf",
+    "forbid_hits": [],
+    "expect_missing": [],
+    "signature": "0x44de4473555289a402712c8f5666563f3e592488279b6e66fb6f0579578bc7006cdc89e2aa09b689810c55627a3103c3413e018b789d7e8ce269ba8fe29291761c",
+    "payload": "{\"ref\":\"https://0n1xagntc.com/ @ git:0n1x@9a19fc8\",\"sha256\":\"27631af307631aab3f163429d6e23016fb945c060af67e4491afa5124db98ecf\",\"task_hash\":\"07307801f8d5a17871cea29e3b7c2fca87c8d83c94eff3aa1d5c4f0c4c5b6585\",\"task_ref\":\"0n1x-integrity-pass-2026-07\",\"verdict\":\"PASS\"}"
+  },
+  "sealed_utc": "2026-07-13T21:44:25Z",
+  "recompute": "BEFORE: git show 530fe8c:index.html + task.forbid/expect -> FAIL. AFTER: fetch live no-cache -> PASS. recover EIP-191 signer of each payload == verifier.",
+  "pair_digest": "a8a9e1e16ecb4c0824b87ad453fb0e849af62ffe6ad934f5800ff5083b822ba4"
+}

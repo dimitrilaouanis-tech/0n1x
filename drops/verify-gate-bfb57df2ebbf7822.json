@@ -1,0 +1,46 @@
+{
+  "gate": "0n1x multi-agent verify-before-publish",
+  "proposed": 372,
+  "published": 369,
+  "rejected_false_positive": 3,
+  "rejected_examples": [
+    {
+      "entity": "razorpay.com",
+      "band": "caution",
+      "why": "VETO: known-legit entity"
+    },
+    {
+      "entity": "ebay.com",
+      "band": "caution",
+      "why": "VETO: known-legit entity"
+    },
+    {
+      "entity": "chewy.com",
+      "band": "caution",
+      "why": "VETO: known-legit entity"
+    }
+  ],
+  "published_risk_flags": [
+    "rayban.cc",
+    "rayban.shop",
+    "rayban.store",
+    "rayban.top",
+    "rayban.vip",
+    "rayban.sale",
+    "rayban.online",
+    "rayban.buzz",
+    "gucci.cc",
+    "gucci.shop",
+    "gucci.store",
+    "gucci.top",
+    "gucci.vip",
+    "gucci.sale",
+    "gucci.online",
+    "gucci.buzz",
+    "nike.cc",
+    "nike.shop",
+    "nike.store",
+    "nike.top"
+  ],
+  "as_of": "2026-07-12T13:05:47Z"
+}
