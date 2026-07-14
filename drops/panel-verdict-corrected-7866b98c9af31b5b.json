@@ -1,0 +1,301 @@
+{
+  "artifact": "0n1x-registry/v2",
+  "decision_rule": "fail-closed-v1",
+  "thresholds_hash": "30a75866846080b6636af918c0db54ff9b9df96f160d03b0a585774487cf850e",
+  "tally": {
+    "ABSTAIN": 5,
+    "PROCEED": 2
+  },
+  "n": 7,
+  "external_settlement_count": 0,
+  "honesty": "external_settlement_count=0 — the only outsider-trustable number. All PROCEED verdicts here are INTERNAL-TIER (circular, re-executed against our own endpoint). The 1 external-reference nominee ABSTAINed (no external resolver reached).",
+  "referenced_not_wired": [
+    "cross_vendor_jurors (ai-jury)",
+    "commit-reveal sortition (Aragon/Kleros)",
+    "escalating-bond contest",
+    "precedent-base-as-reasoning-guide (CyberJurors)",
+    "AVeriTeC/VerdictBench scoring"
+  ],
+  "verdicts": [
+    {
+      "claim_id": "13c02180ce3774448fbbccd51c5fa6320436a8b0c2d1a588ec48352cde24efbf",
+      "claim": {
+        "raw": "A2_write_census: BOUNCED_REAL (401 on anon write — proven by bounced query)"
+      },
+      "class": "external-world-fact",
+      "scope": "external-reference",
+      "provenance": "onyx_security_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [],
+        "fetched_at": "2026-07-14T21:43:39Z",
+        "source_hashes": [],
+        "note": "no external resolver reached — absence of contradiction != support"
+      },
+      "votes": {
+        "prosecutor": {
+          "verdict": "cannot corroborate",
+          "p": 0.5,
+          "evidence": "no external source reachable"
+        },
+        "defender": {
+          "verdict": "asserted only",
+          "p": 0.5,
+          "evidence": "no external corroboration fetched"
+        },
+        "base_rate": {
+          "prior": 0.02,
+          "basis": "low class frequency; needs proportionally stronger external evidence"
+        }
+      },
+      "verdict": "ABSTAIN"
+    },
+    {
+      "claim_id": "2a242d670baad0fb45cd2436ca4a2d34e5fa59a4a570fb9fbc0c7339651f3ecc",
+      "claim": {
+        "raw": "POST /rest/v1/census_intake -> status 201 (body ) at 2026-07-14T01:51:58Z"
+      },
+      "class": "http-status-reexecutable",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [],
+        "fetched_at": "2026-07-14T21:43:39Z",
+        "source_hashes": [],
+        "note": "authenticated-context — not anon-re-executable; fail closed (REJECT would be a false contradiction)"
+      },
+      "votes": {
+        "prosecutor": {
+          "verdict": "cannot re-run",
+          "p": 0.5,
+          "evidence": "authenticated-context claim; JWT expired; anon re-exec tests a different context (not a contradiction)"
+        },
+        "defender": {
+          "verdict": "captured bytes only",
+          "p": 0.5,
+          "evidence": "supported by signed byte-capture at authenticated test time"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "deterministic re-exec vs our own endpoint (internal-tier, circular)"
+        }
+      },
+      "verdict": "ABSTAIN",
+      "commit_hash": "59963f66a9467c45bd29d7c74bb6d07b58d58a8362f14b4e3cd35a34f972c842"
+    },
+    {
+      "claim_id": "05f99c2b0444343baf208ede20b860e5d8d1f3e0b64d796a8f0b59bf54acedb0",
+      "claim": {
+        "raw": "GET /rest/v1/census_intake?select=text,user_id -> status 200 (body [{\"text\":\"SECRET-A\",\"user_id\":\"0d900562-b4c3-47db-b416-dcc91) at 2026-07-14T01:51:59Z"
+      },
+      "class": "rls-isolation-binary",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [],
+        "fetched_at": "2026-07-14T21:43:39Z",
+        "source_hashes": [],
+        "note": "authenticated-context — not anon-re-executable; fail closed (REJECT would be a false contradiction)"
+      },
+      "votes": {
+        "prosecutor": {
+          "verdict": "cannot re-run",
+          "p": 0.5,
+          "evidence": "authenticated-context claim; JWT expired; anon re-exec tests a different context (not a contradiction)"
+        },
+        "defender": {
+          "verdict": "captured bytes only",
+          "p": 0.5,
+          "evidence": "supported by signed byte-capture at authenticated test time"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "a lock either bounces or it doesn't"
+        }
+      },
+      "verdict": "ABSTAIN",
+      "commit_hash": "49d4d1349908833e75990b14c78981d5a934d43186446a135befc571e4d74be3"
+    },
+    {
+      "claim_id": "145976189919f819181828882f2d2499b5f3d024f23fbdfa5e75f79c954c8981",
+      "claim": {
+        "raw": "GET /rest/v1/census_intake?select=text -> status 200 (body []) at 2026-07-14T01:51:59Z"
+      },
+      "class": "rls-isolation-binary",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [
+          "internal-endpoint:GET /rest/v1/census_intake?select=text"
+        ],
+        "fetched_at": "2026-07-14T21:43:39Z",
+        "source_hashes": [
+          "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        ],
+        "live_status": 200,
+        "circular": true
+      },
+      "verdict": "PROCEED (internal-tier / CIRCULAR — not external-eligible)",
+      "votes": {
+        "prosecutor": {
+          "verdict": "no-contradiction",
+          "p": 0.03,
+          "evidence": "re-exec could contradict recorded 200; it did not (live 200)"
+        },
+        "defender": {
+          "verdict": "save",
+          "p": 0.97,
+          "evidence": "live re-exec returns 200, matches recorded 200"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "a lock either bounces or it doesn't"
+        }
+      },
+      "posterior": 0.97,
+      "threshold": 0.9,
+      "commit_hash": "016e70f5f674e79f52c20d6fcc24bc2f38f7fd645288e01c90f9737b18e3a1ef"
+    },
+    {
+      "claim_id": "6fb38d19b1843636afe7e1fe658280ff635eb30cbfca0a137512326de6697990",
+      "claim": {
+        "raw": "PATCH /rest/v1/census_intake?text=neq.zzz -> status 200 (body []) at 2026-07-14T01:51:59Z"
+      },
+      "class": "http-status-reexecutable",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [],
+        "fetched_at": "2026-07-14T21:43:40Z",
+        "source_hashes": [],
+        "note": "authenticated-context — not anon-re-executable; fail closed (REJECT would be a false contradiction)"
+      },
+      "votes": {
+        "prosecutor": {
+          "verdict": "cannot re-run",
+          "p": 0.5,
+          "evidence": "authenticated-context claim; JWT expired; anon re-exec tests a different context (not a contradiction)"
+        },
+        "defender": {
+          "verdict": "captured bytes only",
+          "p": 0.5,
+          "evidence": "supported by signed byte-capture at authenticated test time"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "deterministic re-exec vs our own endpoint (internal-tier, circular)"
+        }
+      },
+      "verdict": "ABSTAIN",
+      "commit_hash": "59963f66a9467c45bd29d7c74bb6d07b58d58a8362f14b4e3cd35a34f972c842"
+    },
+    {
+      "claim_id": "df57866fc05347b6d4c385cc320b51aab50285fe873f2ed784fdbd18c00176a6",
+      "claim": {
+        "raw": "GET /rest/v1/census_intake?select=text -> status 200 (body [{\"text\":\"SECRET-B\"}]) at 2026-07-14T01:51:59Z"
+      },
+      "class": "rls-isolation-binary",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [
+          "internal-endpoint:GET /rest/v1/census_intake?select=text"
+        ],
+        "fetched_at": "2026-07-14T21:43:40Z",
+        "source_hashes": [
+          "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        ],
+        "live_status": 200,
+        "circular": true
+      },
+      "verdict": "PROCEED (internal-tier / CIRCULAR — not external-eligible)",
+      "votes": {
+        "prosecutor": {
+          "verdict": "no-contradiction",
+          "p": 0.03,
+          "evidence": "re-exec could contradict recorded 200; it did not (live 200)"
+        },
+        "defender": {
+          "verdict": "save",
+          "p": 0.97,
+          "evidence": "live re-exec returns 200, matches recorded 200"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "a lock either bounces or it doesn't"
+        }
+      },
+      "posterior": 0.97,
+      "threshold": 0.9,
+      "commit_hash": "016e70f5f674e79f52c20d6fcc24bc2f38f7fd645288e01c90f9737b18e3a1ef"
+    },
+    {
+      "claim_id": "b56fb7f457f0f787e78dd1b3a718e16ae13c0ec6c6b3e350014c481689747fd4",
+      "claim": {
+        "raw": "DELETE /rest/v1/census_intake?text=neq.zzz -> status 200 (body []) at 2026-07-14T01:52:00Z"
+      },
+      "class": "http-status-reexecutable",
+      "scope": "internal-infrastructure",
+      "provenance": "onyx_rls_raw_receipt.json",
+      "decision_rule": "fail-closed-v1",
+      "cross_vendor_jurors": false,
+      "commit_reveal": "single-agent-commit-only",
+      "escalating_bond": false,
+      "precedent_guardrail": "precedent guides reasoning only; never in settlement.sources",
+      "settlement": {
+        "sources": [],
+        "fetched_at": "2026-07-14T21:43:40Z",
+        "source_hashes": [],
+        "note": "authenticated-context — not anon-re-executable; fail closed (REJECT would be a false contradiction)"
+      },
+      "votes": {
+        "prosecutor": {
+          "verdict": "cannot re-run",
+          "p": 0.5,
+          "evidence": "authenticated-context claim; JWT expired; anon re-exec tests a different context (not a contradiction)"
+        },
+        "defender": {
+          "verdict": "captured bytes only",
+          "p": 0.5,
+          "evidence": "supported by signed byte-capture at authenticated test time"
+        },
+        "base_rate": {
+          "prior": 0.5,
+          "basis": "deterministic re-exec vs our own endpoint (internal-tier, circular)"
+        }
+      },
+      "verdict": "ABSTAIN",
+      "commit_hash": "59963f66a9467c45bd29d7c74bb6d07b58d58a8362f14b4e3cd35a34f972c842"
+    }
+  ],
+  "ts": "2026-07-14T21:43:40Z"
+}

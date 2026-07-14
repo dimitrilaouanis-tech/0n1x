@@ -24,7 +24,16 @@
     {
       "file": "panel-first-verdict-d43755e3a4a52b70.json",
       "url": "https://0n1xagntc.com/drops/panel-first-verdict-d43755e3a4a52b70.json",
-      "sha256": "d43755e3a4a52b704b8b0ac1fa23f38abc1ce28c915180c1891e74ab91c68fa5"
+      "sha256": "d43755e3a4a52b704b8b0ac1fa23f38abc1ce28c915180c1891e74ab91c68fa5",
+      "superseded_by": "panel-verdict-corrected-7866b98c9af31b5b.json",
+      "note": "SUPERSEDED: 3 false REJECTs from anon re-exec of authenticated-context claims; corrected -> ABSTAIN"
+    },
+    {
+      "file": "panel-verdict-corrected-7866b98c9af31b5b.json",
+      "url": "https://0n1xagntc.com/drops/panel-verdict-corrected-7866b98c9af31b5b.json",
+      "sha256": "7866b98c9af31b5b0730e6ae01be0c75e8e7e9bbc43ee9886b0b8a677df40146",
+      "supersedes": "panel-first-verdict",
+      "fix": "authenticated-context guard -> ABSTAIN not REJECT"
     },
     {
       "file": "rls-receipt-29603e23f79f4119.json",
