@@ -1,0 +1,19 @@
+0n1x SESSION RECEIPT LEDGER  (author-labeled; the shared board renders from receipts, no brain owns it)
+author-session: 9ee735ef  |  orchestrator  |  signing-lineage 0x5dF2b0Df1725 (+ audit hand 0x98F59709E048)
+generated_utc: 2026-07-14T01:56:48Z
+==================================================================================
+THIS SESSION'S SIGNED RECEIPTS:
+  drops-channel          DELIVERED                                      signer:0x5dF2b0Df1725
+  settlement-audit       CONFIRMED: 20 of 20 settled against external r signer:0x98F59709E048
+  integrity FAIL->PASS   a8a9e1e16ecb4c0824b87ad453fb0e849af62ffe6ad934 signer:0x5dF2b0Df1725
+  deploy-verifier        PASS                                           signer:0x5dF2b0Df1725
+  angeal-48h             operation held; anchor chain 45/48 (3-hour tai signer:0x5dF2b0Df1725
+  truth-corpus           2fe06a6eb26121b2507f374a2ac7d7582f7d882285dab6 signer:0x5dF2b0Df1725
+
+EXPLICITLY NOT MINE (other lineage; their receipts, not in my state):
+  - Autonomous isolation / RLS two-user attack test  -> UNVERIFIED here (no receipt on my side)
+  - 'Crimson-Harbor' batch                            -> not present in my state
+RLS isolation is UNPROVEN until a signed non-builder receipt exists, from whichever agent ran it.
+
+DOCTRINE (banked): one receipt-derived board both agents write to, neither owns; an agent
+that produced no receipt does not get to assert the state; relays carry an author signature.
