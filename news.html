@@ -68,7 +68,7 @@
       <div class="stat"><span class="n"><b>6/6</b></span><span class="k">Planted fakes caught</span></div>
     </div>
     <div class="trust">
-      <span><b id="vcount">12</b> verified items</span>
+      <span><b id="vcount">13</b> verified items</span>
       <span>Last signed <b>2026-07-11</b></span>
       <span>Pro signing key <span class="key">xfwgEs5qgTvkpH5Folsm1Tqy+UJowDgU2UNuN6WgIjs=</span></span>
     </div>
@@ -84,6 +84,13 @@
   <section class="feed" id="feed">
 
     <div class="item hero-item" data-cat="trust">
+      <div class="meta"><span class="date">2026-07-14</span><span class="tag">Credibility</span><span class="verified">✓ RECOUNTED (independent)</span></div>
+      <h3>Our gate caught our own model trying to flag eBay, Razorpay &amp; Chewy — so we published the rate</h3>
+      <p>On 115 held-out legitimate companies our verification gate published <b>zero false risk flags</b> (0/115; 95% CI upper bound 2.2% — never a bare 0%), vetoing every false positive the raw model proposed. It's deliberately conservative: it suppresses false accusations but doesn't improve detection — it currently <b>misses 13.3% of lookalike scam domains</b> (16/120). We publish the number that flatters <em>and</em> the one that doesn't. Independently recounted on the raw bytes, not self-graded.</p>
+      <a class="proof" href="https://rhinogent.com/fp_rate.json">→ fp_rate.json</a>
+    </div>
+
+    <div class="item" data-cat="trust">
       <div class="meta"><span class="date">2026-07-08</span><span class="tag">Credibility</span><span class="verified">✓ VERIFIABLE</span></div>
       <h3>We caught our own grader cheating — and published the fix</h3>
       <p>Our accuracy metric was quietly grading coin-flips (0.4989). We found it, wrote the postmortem, re-ran the real oracle clean (<b>8/8</b> vs raw RDAP/TLS/HTTP), and shipped both the bug and the correction. <b>Radical verifiability is the moat</b> — a competitor can copy the claim, not the receipts.</p>
