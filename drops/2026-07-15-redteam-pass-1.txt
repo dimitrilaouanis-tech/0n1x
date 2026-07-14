@@ -1,0 +1,23 @@
+0n1x RED-TEAM PASS #1 — first ADVERSARIAL (non-self-inflicted) find, full immune cycle (author 9ee735ef)
+utc: 2026-07-14T21:09:43Z
+========================================================================
+CONTEXT (Fable): every pathogen so far was homegrown. This is the first attack we ran AGAINST our own panel.
+
+DETECTION: red-teamed patched verdict3 with subdomain-prefix / brand-as-label phishing domains.
+BREACH FOUND: apple.com.evil.com, paypal.com.attacker.net, apple.evil.com, paypal.attacker.net -> PROCEED
+  (when the attacker actually registers the domain + serves a cert). Live-masked only because the test
+  domains do not exist (cert_ok=False); forcing cert_ok=True exposed it — the correct way to preview the day.
+DIAGNOSIS: positive_safe used _root(entity)=FIRST DNS LABEL, so apple.com.evil.com parsed brand=apple (a
+  MAJOR) though the REGISTRABLE domain is evil.com. Classic subdomain-prefix bypass.
+CURE: the MAJORS-apex PROCEED path now requires a BARE APEX (exactly <root>.<tld>, 2 labels). Brand-as-
+  subdomain-label -> ABSTAIN. Curated LEGIT (exact strings) still pass. Fail closed on extra labels.
+VERIFY: post-patch, all 6 vectors ABSTAIN even with cert_ok forced True; the 40 real apexes still PROCEED (40/40).
+MEMORY: 6 vectors added to the published fixture as class redteam-subdomain-prefix with force_cert=true
+  (so the antibody guards the PARSE LOGIC, not mere non-existence). Fixture 56 -> 62 entries, regression 0 PROCEED.
+
+HONEST SCOPE: this previews ONE adversarial class (impersonation-domain parsing). Volume poisoning (A2) and
+  forged-inbox (A4) remain the untested adversarial frontier, correctly parked behind their residuals.
+repo: 0n1x_verify_base/core/verdict_regression.py + fixtures/counterfeit_fixture.json (rerun -> 0 PROCEED).
+grader: 0xc8BbB7CC0FF994841dEBA8369e792C7CDC97d8dc (non-builder auditor, operated by 9ee735ef — signature-distinct, not operator-independent)
+body_sha256: b134c1a6e007d9c6e0586714a8d56d4393d5308f6ae5b31f1c290c9eafba7da3
+signature: 0xe5141a20f38e0944d27ca6120386917b5842b961642db159d262ff45cb098d5a31cf005acd46fb00afa0bbdb092e143c00c69723c44e3aa34ae96d71f1aa2e011c
