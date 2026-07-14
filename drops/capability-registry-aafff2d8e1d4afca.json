@@ -1,0 +1,155 @@
+{
+  "artifact": "0n1x-capability-registry/v1",
+  "first_principle": "unenumerated power doesn't exist; enumerated power is scoped, every use receipted, and a non-wielder reads the log",
+  "note": "Grant-side census: every privileged capability, its holder, scope, and grant status. Use-side lives in onyx_capability_ledger.json. Fold layers in as touched — no big-bang.",
+  "layers": {
+    "infrastructure": [
+      {
+        "cap": "signing_keys",
+        "holder": "per-identity keypair",
+        "scope": "sign AS that address",
+        "grant": "key registry (which key/whom/authorized-for) — PENDING build",
+        "break_glass": false,
+        "status": "live"
+      },
+      {
+        "cap": "deployer",
+        "holder": "single-deployer of the run",
+        "scope": "push to live gh-pages",
+        "grant": "served-bytes verifier receipts",
+        "break_glass": false,
+        "status": "live"
+      },
+      {
+        "cap": "anchor_wallet",
+        "holder": "fleet",
+        "scope": "OTS->Bitcoin anchoring",
+        "grant": "anchor.json roots",
+        "break_glass": false,
+        "status": "live"
+      },
+      {
+        "cap": "db_service_role",
+        "holder": "Supabase dashboard",
+        "scope": "ALL tables, bypass RLS",
+        "grant": "BREAK-GLASS: use fires alarm needing non-builder countersign",
+        "break_glass": true,
+        "status": "exists-locked"
+      }
+    ],
+    "fleet": [
+      {
+        "cap": "fleet_spawn",
+        "holder": "orchestrator",
+        "scope": "mint workers + queue messages",
+        "grant": "capability ledger",
+        "break_glass": false,
+        "status": "live"
+      },
+      {
+        "cap": "message_relay",
+        "holder": "any agent",
+        "scope": "inject to an inbox",
+        "grant": "Gate-2 render-side verify + sender log",
+        "break_glass": false,
+        "status": "live"
+      },
+      {
+        "cap": "filesystem_reach",
+        "holder": "agents",
+        "scope": "read outside workdir (allowlisted)",
+        "grant": "capability ledger",
+        "break_glass": false,
+        "status": "live"
+      },
+      {
+        "cap": "browser_eyes",
+        "holder": "visual-verifier citizen",
+        "scope": "headless browser on the PUBLIC product + test accounts only",
+        "grant": "screenshot receipts (pile-1)",
+        "break_glass": false,
+        "status": "building"
+      },
+      {
+        "cap": "screen_capture",
+        "holder": "agent",
+        "scope": "operator's paired device",
+        "grant": "PER-REQUEST only, never ambient, capture-logged",
+        "break_glass": false,
+        "status": "retired-in-favor-of-browser_eyes"
+      }
+    ],
+    "truth": [
+      {
+        "cap": "nominate",
+        "holder": "extractor",
+        "scope": "stage claims to panel queue",
+        "grant": "extract receipts",
+        "break_glass": false,
+        "status": "live"
+      },
+      {
+        "cap": "adjudicate",
+        "holder": "panel",
+        "scope": "nominee->registry verdict",
+        "grant": "panel receipts (prosecutor/defender/base-rate)",
+        "break_glass": false,
+        "status": "pilot"
+      },
+      {
+        "cap": "sign_fact",
+        "holder": "key-holder",
+        "scope": "attest a verifiable fact",
+        "grant": "key registry",
+        "break_glass": false,
+        "status": "live"
+      },
+      {
+        "cap": "supersede",
+        "holder": "author",
+        "scope": "correct-by-append",
+        "grant": "leaf-set semantics",
+        "break_glass": false,
+        "status": "live"
+      }
+    ],
+    "money": [
+      {
+        "cap": "mint_ntel",
+        "holder": "TBD",
+        "scope": "create internal accounting units",
+        "grant": "receipted before first external cent",
+        "break_glass": false,
+        "status": "future"
+      },
+      {
+        "cap": "stake_slash_payout",
+        "holder": "TBD",
+        "scope": "economic consequences",
+        "grant": "receipted, graded",
+        "break_glass": false,
+        "status": "future"
+      }
+    ],
+    "users": [
+      {
+        "cap": "product_data_powers",
+        "holder": "the product",
+        "scope": "what it can do with user data",
+        "grant": "opt-in default-off, deletable, never-anchored (three-pile)",
+        "break_glass": false,
+        "status": "constitutional"
+      }
+    ],
+    "founder_human_root": [
+      {
+        "cap": "human_root",
+        "holder": "operator",
+        "scope": "root over everything — cannot be scoped away",
+        "grant": "but WITNESSED: dashboard changes / key mints / the Umbra signature enter the same log",
+        "break_glass": false,
+        "status": "witnessed"
+      }
+    ]
+  }
+}
