@@ -1,0 +1,52 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>0n1x · verify a merchant — signed, or silent</title>
+<meta name="description" content="Ask 0n1x if a merchant is verified. You get a signed fact — or honest silence. Never a guess.">
+<style>
+:root{--bg:#0a0b0f;--fg:#e8eaf0;--dim:#8b90a0;--line:#20232e;--green:#22c55e;--amber:#f59e0b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto}
+.wrap{max-width:680px;margin:0 auto;padding:44px 20px 80px}
+h1{font-size:26px;margin:0 0 6px;letter-spacing:-.02em}.sub{color:var(--dim);margin:0 0 28px}
+.card{border:1px solid var(--line);border-radius:14px;padding:18px;background:#0d0f16}
+input{width:100%;padding:14px 15px;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#070810;color:var(--fg);outline:none}
+input:focus{border-color:#3a4152}
+button{margin-top:10px;width:100%;padding:13px;font-size:15px;font-weight:600;border:0;border-radius:10px;background:#e8eaf0;color:#0a0b0f;cursor:pointer}
+.out{margin-top:18px;min-height:20px}
+.chip{display:block;border:1px solid;border-radius:12px;padding:14px 16px;margin-top:10px}
+.proceed{border-color:#1f7a54;background:#0e2a1c}.proceed b{color:var(--green)}
+.silent{border-color:var(--line);background:#0d0f16;color:var(--dim)}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--dim);word-break:break-all}
+.k{color:var(--dim);font-size:13px}a{color:#7dd3fc}
+.ex{color:var(--dim);font-size:13px;margin-top:14px}.ex b{color:var(--fg)}.ex code{background:#12141d;padding:1px 6px;border-radius:5px;cursor:pointer}
+.foot{color:var(--dim);font-size:12.5px;margin-top:30px;border-top:1px solid var(--line);padding-top:16px}
+</style></head><body><div class="wrap">
+<h1>Is this merchant verified?</h1>
+<p class="sub">Ask 0n1x. You get a <b>signed fact</b> — or <b>honest silence</b>. Never a guess. The value is as much in what it refuses to say.</p>
+<div class="card">
+<input id="q" placeholder="stripe.com" autocomplete="off" spellcheck="false">
+<button id="go">Verify</button>
+<div class="out" id="out"></div>
+</div>
+<p class="ex">Try: <code>stripe.com</code> <code>paypal.com</code> <code>visa.com</code> — verified. <code>apple.vip</code> <code>rayban.cc</code> — a lookalike returns <b>nothing</b>, on purpose.</p>
+<div class="foot">Every verified answer is an Ed25519/secp256k1-signed record you can recompute yourself. Absence of a PROCEED is not a safe signal — it means we hold no verified fact, and we will not invent one. · <a href="https://rhinogent.com">rhinogent.com</a></div>
+</div>
+<script>
+const SB="https://ikduwkmlnswyrjqjllxa.supabase.co", KEY="sb_publishable_x1Jvj5y_rLpx-A9ffpqYkQ_mlAI-SnL";
+const out=document.getElementById("out"), q=document.getElementById("q");
+document.querySelectorAll(".ex code").forEach(c=>c.onclick=()=>{q.value=c.textContent;run();});
+async function run(){
+  const e=(q.value||"").trim().toLowerCase().replace(/^https?:\/\//,"").split("/")[0];
+  if(!e){out.innerHTML="";return;}
+  out.innerHTML='<div class="k">checking the registry…</div>';
+  try{
+    const r=await fetch(`${SB}/rest/v1/facts?select=entity,verdict,confidence,fact_id,signature,positive_evidence&entity=eq.${encodeURIComponent(e)}&visibility=eq.public&limit=1`,{headers:{apikey:KEY,Authorization:"Bearer "+KEY}});
+    const rows=await r.json();
+    if(rows&&rows.length){const f=rows[0];
+      out.innerHTML=`<div class="chip proceed"><b>✓ ${f.verdict}</b> — ${f.entity} <span class="k">(${Math.round((f.confidence||0)*100)}% · ${f.positive_evidence||"verified"})</span><div class="mono" style="margin-top:8px">signed ${(f.signature||"").slice(0,42)}…</div><div class="k" style="margin-top:6px"><a href="https://0n1xagntc.com/fact/${f.fact_id}">recompute this fact →</a></div></div>`;
+    }else{
+      out.innerHTML=`<div class="chip silent">— No signed fact for <b>${e}</b>. Honest silence: we hold no verified record, so we say nothing. Absence of a verdict is <b>not</b> a safe signal.</div>`;
+    }
+  }catch(err){out.innerHTML='<div class="chip silent">registry unreachable — try again.</div>';}
+}
+document.getElementById("go").onclick=run; q.addEventListener("keydown",e=>{if(e.key==="Enter")run();});
+</script></body></html>

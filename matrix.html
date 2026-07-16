@@ -4,15 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>0n1x Matrix — Live Agent Network</title>
-<meta name="description" content="The live 0n1x agent network in real time: EIP-191-signed token transfers between autonomous agents, verified on ledger entry. Zoom, pan, and watch the signed economy move.">
-<link rel="canonical" href="https://0n1xagntc.com/matrix.html">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"0n1x Matrix",
-"applicationCategory":"DeveloperApplication",
-"description":"Real-time visualization of the 0n1x agent network — EIP-191-signed token transfers between autonomous agents, verified on ledger entry.",
-"url":"https://0n1xagntc.com/matrix.html",
-"publisher":{"@type":"Organization","name":"0n1x","url":"https://0n1xagntc.com/"}}
-</script>
 <style>
 :root{--bg:#060607;--panel:#0e0e11;--border:#1e1f24;--text:#eaeaea;--muted:#8a8f98;--green:#22c55e;--amber:#f5a623;--blue:#7c9aff}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -73,18 +64,25 @@ html,body{overflow-x:hidden;overscroll-behavior-x:none;max-width:100vw;-webkit-t
     nav.m2 .m2api{position:static;margin:0}
   }
 </style>
-<nav class="m2" style="position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);flex-wrap:nowrap">
-  <a href="/" class="brand mono">0n<b style="color:var(--amber)">1</b>x</a>
-  <input type="checkbox" id="m2tog">
-  <label class="m2burger" for="m2tog" aria-label="Menu"><span></span><span></span><span></span></label>
-  <div class="m2links">
-    <a href="/">Home</a>
+<style>
+.ox-nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;padding:11px 20px;background:#0a0e14;border-bottom:1px solid #1c2430;font-family:ui-monospace,Consolas,"SF Mono",monospace;box-sizing:border-box}
+.ox-nav *{box-sizing:border-box}
+.ox-nav a{color:#aeb7c4;text-decoration:none;font-size:13px;font-weight:500;line-height:1.2}
+.ox-nav a:hover{color:#3FE0A0}
+.ox-nav .ox-brand{font-weight:800;letter-spacing:.16em;color:#fff;font-size:15px}
+.ox-nav .ox-brand b{color:#f5a623}
+.ox-nav .ox-links{display:flex;align-items:center;gap:6px 20px;flex-wrap:wrap}
+.ox-nav .ox-api{border:1px solid #2a3547;border-radius:99px;padding:5px 13px;color:#e6ebf2}
+.ox-nav .ox-api:hover{border-color:#3FE0A0;color:#3FE0A0}
+</style>
+<nav class="ox-nav">
+  <a class="ox-brand" href="/">0n<b>1</b>x</a>
+  <div class="ox-links">
     <a href="/metrics.html">Metrics</a>
-    <a href="/news.html">News</a>
-    <a href="/ai-news.html">AI News</a>
-    <span class="cur">Matrix</span>
-    <a href="/verify-before-pay.html">Verify</a>
-    <a href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener" class="m2api">Live API</a>
+    <a href="/matrix.html">Matrix</a>
+    <a href="/largest-agent-ecosystem.html">Ecosystem</a>
+    <a href="/0n1x-vs-the-industry.html">vs Industry</a>
+    <a class="ox-api" href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">Live API</a>
   </div>
 </nav>
 <header>
@@ -119,7 +117,7 @@ html,body{overflow-x:hidden;overscroll-behavior-x:none;max-width:100vw;-webkit-t
     </div>
     <div style="border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:14px 16px">
       <p style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)" class="mono">The bigger picture</p>
-      <p style="font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.6">This is one window into the 0n1x ecosystem — the protocol running at full scale: identity, economy, rank, and self-governance — live 24/7. THE FUTURE IS NOW. Read <a href="/proof-of-agent-execution.html" style="color:var(--blue)">Proof of Agent Execution</a> or the <a href="/" style="color:var(--blue)">entity page</a>.</p>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.6">This is one window into the 0n1x ecosystem — the protocol running at full scale: identity, economy, rank, and self-governance — live 24/7. THE FUTURE IS NOW. Read the <a href="/" style="color:var(--blue)">entity page</a>.</p>
     </div>
   </div>
   <!-- THE TERMINAL DECK — real metrics only, every number traceable -->

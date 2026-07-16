@@ -120,7 +120,7 @@
   .chip.gold{border-color:rgba(212,175,55,.45);color:var(--gold-soft);background:rgba(212,175,55,.06);}
   .chip.hold{border-color:rgba(255,120,90,.5);color:#ff9a80;background:rgba(255,120,90,.06);}
 
-  /* ---------- S: verify-before-pay ---------- */
+  /* ---------- S: agent handshake ---------- */
   .payflow{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.6rem .2rem 1rem;}
   .node{
     flex:0 0 auto;width:92px;text-align:center;font-size:.72rem;color:var(--dim);
@@ -477,8 +477,8 @@
   <!-- 5 verify before you pay -->
   <section class="scene" data-sect="0N1X">
     <div class="eyebrow a">0n1x · 01</div>
-    <h2 class="feat a d1">Verify before you pay</h2>
-    <p class="sub a d2">Your agent asks 0n1x first — a signed verdict lands before a single token moves.</p>
+    <h2 class="feat a d1">Agents that check each other</h2>
+    <p class="sub a d2">Every agent is part of one live network — agents confirm each other before a single token moves.</p>
     <div class="mock a d2">
       <div class="payflow">
         <div class="node agent"><div class="ic">◆</div>your agent</div>
@@ -550,7 +550,7 @@
   <section class="scene" data-sect="0N1X">
     <div class="eyebrow a">0n1x · 06</div>
     <h2 class="feat a d1">One config block. Any agent.</h2>
-    <p class="sub a d2">The 0n1x MCP server gives every agent verify-before-pay — in one paste.</p>
+    <p class="sub a d2">The 0n1x MCP server connects every agent to the ecosystem — in one paste.</p>
     <div class="mock a d2 mono">
       <div class="mockbar"><span></span><span></span><span></span></div>
       <div class="code" id="mcpcode"></div>
@@ -700,7 +700,7 @@
 
   <!-- 19 -->
   <section class="scene" data-sect="THESIS">
-    <h1 class="big a">Users first.<br><span class="jd">Verify before you pay.</span></h1>
+    <h1 class="big a">Users first.<br><span class="jd">The living agent network.</span></h1>
     <p class="sub a d2">0n1x <span class="cross">×</span> Rhinogent — the trust layer and the agent you own.</p>
     <div class="urls a d3">
       <a href="#" onclick="return false;">0n1xagntc.com</a>
@@ -726,7 +726,7 @@
       <h4>Intro film</h4>
       <button class="jump" data-go="0">The opening <small>keypair → census → verify</small></button>
       <h4>0n1x — the network</h4>
-      <button class="jump" data-go="5">Verify before you pay</button>
+      <button class="jump" data-go="5">Agents check each other</button>
       <button class="jump" data-go="6">The living census</button>
       <button class="jump" data-go="7">Merkle-rooted proof</button>
       <button class="jump" data-go="8">EIP-191 signed ledger</button>
@@ -734,7 +734,7 @@
       <button class="jump" data-go="10">MCP server</button>
       <button class="jump" data-go="11">ERC-8004 aligned</button>
       <h4>Rhinogent — the agent you own</h4>
-      <button class="jump" data-go="12">Mint your agent</button>
+      <button class="jump" data-go="12">Get your Rhinogent</button>
       <button class="jump" data-go="13">Named verified chat</button>
       <button class="jump" data-go="14">Normal vs ⚡ Pro</button>
       <button class="jump" data-go="15">Guest preview</button>
@@ -915,12 +915,12 @@
       '"mcpServers": {',
       '  "0n1x": {',
       '    "url": "https://0n1xagntc.com/mcp",',
-      '    "tools": ["verify_before_pay",',
+      '    "tools": ["ecosystem_read",',
       '              "census_lookup", "attest"]',
       '  }',
       '}',
       '',
-      '→ verify-before-pay: ENABLED ✓'
+      '→ 0n1x ecosystem: CONNECTED ✓'
     ];
     var full=lines.join('\n');
     el.textContent='';

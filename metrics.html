@@ -1,8 +1,6 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Metrics · Security — 0n1x</title>
-<meta name="description" content="0n1x security metrics — we scanned 28,224 live payment agents. 98.7% expose no permission scope, 90.6% no verifiable signature, 0.2% flag-clean. The immune system for the agent economy, measured.">
-<link rel="canonical" href="https://0n1xagntc.com/metrics.html">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -41,10 +39,27 @@
   footer a{color:var(--jade);text-decoration:none}
 </style></head><body>
 <div class="wrap">
-  <header>
-    <a class="logo" href="/">0n<b>1</b>x</a>
-    <nav><a href="/">Home</a><a href="/metrics.html">Metrics</a><a href="/news.html">News</a><a href="/ai-news.html">AI News</a><a href="/matrix.html">Matrix</a><a href="/verify-before-pay.html">Verify</a></nav>
-  </header>
+  <style>
+.ox-nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;padding:11px 20px;background:#0a0e14;border-bottom:1px solid #1c2430;font-family:ui-monospace,Consolas,"SF Mono",monospace;box-sizing:border-box}
+.ox-nav *{box-sizing:border-box}
+.ox-nav a{color:#aeb7c4;text-decoration:none;font-size:13px;font-weight:500;line-height:1.2}
+.ox-nav a:hover{color:#3FE0A0}
+.ox-nav .ox-brand{font-weight:800;letter-spacing:.16em;color:#fff;font-size:15px}
+.ox-nav .ox-brand b{color:#f5a623}
+.ox-nav .ox-links{display:flex;align-items:center;gap:6px 20px;flex-wrap:wrap}
+.ox-nav .ox-api{border:1px solid #2a3547;border-radius:99px;padding:5px 13px;color:#e6ebf2}
+.ox-nav .ox-api:hover{border-color:#3FE0A0;color:#3FE0A0}
+</style>
+<nav class="ox-nav">
+  <a class="ox-brand" href="/">0n<b>1</b>x</a>
+  <div class="ox-links">
+    <a href="/metrics.html">Metrics</a>
+    <a href="/matrix.html">Matrix</a>
+    <a href="/largest-agent-ecosystem.html">Ecosystem</a>
+    <a href="/0n1x-vs-the-industry.html">vs Industry</a>
+    <a class="ox-api" href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">Live API</a>
+  </div>
+</nav>
 
   <section class="hero">
     <span class="eyebrow">Metrics · The State of Agent Security</span>
@@ -75,6 +90,6 @@
     <div class="card"><div class="tag">Neutral</div><h3>We publish our own failures</h3><p>When our own grader once flipped coins, we caught it and published the postmortem. Radical verifiability is the moat a competitor can't fake. <a href="https://rhinogent.com/oracle_postmortem.json" style="color:var(--jade);text-decoration:none">See the receipt →</a></p></div>
   </div>
 
-  <footer>Every figure here is signed and recomputable. · <a href="/news.html">Verified News →</a> · <a href="/matrix.html">Live Matrix →</a> · <a href="/">0n1x</a></footer>
+  <footer>Every figure here is signed and recomputable. · <a href="/matrix.html">Live Matrix →</a> · <a href="/">0n1x</a></footer>
 </div>
 </body></html>
