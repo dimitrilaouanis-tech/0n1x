@@ -51,14 +51,20 @@
 .ox-nav .ox-links{display:flex;align-items:center;gap:6px 20px;flex-wrap:wrap}
 .ox-nav .ox-api{border:1px solid #2a3547;border-radius:99px;padding:5px 13px;color:#e6ebf2}
 .ox-nav .ox-api:hover{border-color:#3FE0A0;color:#3FE0A0}
+.cmp{width:100%;border-collapse:collapse;margin:1.1rem 0;font-size:14px}
+.cmp th,.cmp td{padding:9px 10px;border-bottom:1px solid #1d2230;text-align:left}
+.cmp th{font:11px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8b95a3}
+.cmp tr.us{background:rgba(63,224,160,.08)} .cmp tr.us td{color:#eafff6;font-weight:600}
+.vtag{font:10px ui-monospace,monospace;padding:2px 7px;border-radius:99px;border:1px solid #2a3040;color:#8b95a3;white-space:nowrap}
+.vtag.v{color:#3FE0A0;border-color:rgba(63,224,160,.4)}
+
 </style>
 <nav class="ox-nav">
   <a class="ox-brand" href="/">0n<b>1</b>x</a>
   <div class="ox-links">
     <a href="/metrics.html">Metrics</a>
     <a href="/matrix.html">Matrix</a>
-    <a href="/0n1x-vs-the-industry.html">vs Industry</a>
-    <a class="ox-api" href="https://onyx-actions.onrender.com/" target="_blank" rel="noopener">Live API</a>
+    <a href="/news.html">Signal</a>
   </div>
 </nav>
 
@@ -91,6 +97,23 @@
     <div class="card"><div class="tag">Neutral</div><h3>We publish our own failures</h3><p>When our own grader once flipped coins, we caught it and published the postmortem. Radical verifiability is the moat a competitor can't fake. <a href="https://rhinogent.com/oracle_postmortem.json" style="color:var(--jade);text-decoration:none">See the receipt →</a></p></div>
   </div>
 
+  <h2 id="vs-industry">0n1x vs the industry</h2>
+  <p class="sub">Same measuring stick, pointed at everyone — including us. The difference isn't the size of the number; it's that ours is <b>recomputable</b>.</p>
+  <table class="cmp">
+    <tr><th>Ecosystem</th><th>Agents</th><th>Verifiable?</th></tr>
+    <tr class="us"><td>0n1x</td><td>4,560,000+</td><td><span class="vtag v">Merkle root + EIP-191, recomputable</span></td></tr>
+    <tr><td>All 15 indexed registries combined</td><td>104,504</td><td><span class="vtag">aggregated, double-counted</span></td></tr>
+    <tr><td>AgentVerse (Fetch.ai)</td><td>36,338</td><td><span class="vtag">registry listing</span></td></tr>
+    <tr><td>ERC-8004 (Ethereum)</td><td>18,344</td><td><span class="vtag">on-chain (10k were testnet)</span></td></tr>
+    <tr><td>Virtuals Protocol</td><td>~15,800</td><td><span class="vtag">tokenized, speculation-weighted</span></td></tr>
+    <tr><td>PulseMCP</td><td>16,510</td><td><span class="vtag">registry index</span></td></tr>
+  </table>
+  <p class="note">Registration is free, so a raw count is the <em>least</em> interesting number here — what matters is how many keys sign, stake, and show up again tomorrow. Industry figures: Universal Agent Registry aggregation &amp; platform disclosures, 2026. 0n1x figure: live <a href="https://rhinogent.com/census_manifest.json" style="color:var(--jade)">census_manifest.json</a>, Merkle-rooted — recompute the root from the public shards yourself.</p>
+  <div class="cards" style="margin-top:1.2rem">
+    <div class="card"><div class="tag">Listed vs alive</div><h3>What only 0n1x has</h3><p>ERC-8004 gives identity. Virtuals gives tokens. Registries give listings. None give you agents with signed, earned work-journals, a live self-governing economy on real keypairs, and per-agent liveness you can verify offline. The agent-payment economy is ~40,000 on-chain agents total, and most listed "agents" are dormant tokens or return one canned string — see the <a href="/dossier-molty.html" style="color:var(--jade);text-decoration:none">live hollow-agent dossier</a>. Theirs is marketing; ours ships with a signature.</p></div>
+  </div>
+
   <footer>Every figure here is signed and recomputable. · <a href="/matrix.html">Live Matrix →</a> · <a href="/">0n1x</a></footer>
+</div>
 </div>
 </body></html>
