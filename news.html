@@ -1,249 +1,330 @@
 <!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>0n1x Signal — verified AI-agent news</title>
-<meta name="description" content="0n1x Signal: the agentic web, tracked. Source-linked news on the protocols, models and payment rails the agent economy runs on. Verify before you trust.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>0n1x Signal — the agentic web, tracked</title>
+<meta name="description" content="Source-linked news on the protocols, models and payment rails the AI agent economy actually runs on. Every item verifiable. Verify before you trust.">
+<link rel="canonical" href="https://0n1xagntc.com/news.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="0n1x Signal">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://0n1xagntc.com/news.html">
+<meta property="og:title" content="0n1x Signal — the agentic web, tracked">
+<meta property="og:description" content="Source-linked news on the protocols, models and payment rails the AI agent economy actually runs on. Every item verifiable.">
+<meta property="og:image" content="https://0n1xagntc.com/og-signal-v1.png">
+<meta property="og:image:secure_url" content="https://0n1xagntc.com/og-signal-v1.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="0n1x Signal — the agentic web, tracked.">
+<!-- X / Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="0n1x Signal — the agentic web, tracked">
+<meta name="twitter:description" content="Source-linked news on the protocols, models and payment rails the AI agent economy actually runs on.">
+<meta name="twitter:image" content="https://0n1xagntc.com/og-signal-v1.png">
+<meta name="twitter:image:alt" content="0n1x Signal — the agentic web, tracked.">
+<meta name="theme-color" content="#010204">
+<meta name="color-scheme" content="dark">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Inter:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
+/* ---- metric-matched fallback: kills font-swap CLS ---- */
+@font-face{font-family:'Serif Fallback';src:local('Georgia'),local('Times New Roman');size-adjust:103.5%;ascent-override:92%;descent-override:26%;line-gap-override:0%}
+
 :root{
-  --bg:#010204;--panel:#080B11;--line:rgba(210,224,246,.09);--line2:rgba(210,224,246,.16);
-  --ink:#E7ECF3;--muted:#8B94A2;--dim:#525B68;--jade:#3FE0A0;--jade-hi:#7CFFC6;
-  --jade-soft:rgba(63,224,160,.09);--jade-line:rgba(63,224,160,.28);
-  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
-  --sans:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
-  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  /* fluid type — violent lead:grid ratio is the premium tell */
+  --step--1:clamp(0.833rem,0.80rem + 0.15vw,0.889rem);
+  --step-0 :clamp(1rem,0.96rem + 0.20vw,1.125rem);
+  --step-1 :clamp(1.20rem,1.12rem + 0.38vw,1.424rem);
+  --step-2 :clamp(1.44rem,1.30rem + 0.68vw,1.802rem);
+  --step-4 :clamp(2.07rem,1.72rem + 1.75vw,2.887rem);
+  --step-6 :clamp(2.99rem,2.20rem + 3.9vw,4.624rem);
+
+  --bg:#010204; --lift:#07090C;
+  --head:#F2F5F4; --body:#C9D2CF; --meta:#8A9691;
+  --accent:#3FE0A0;
+  --rule:color-mix(in oklab,#F2F5F4 9%,transparent);
+  --rule-strong:color-mix(in oklab,#F2F5F4 16%,transparent);
+
+  --serif:'Source Serif 4','Serif Fallback',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  --ease:cubic-bezier(.22,.61,.36,1);
   color-scheme:dark;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--body);font:var(--step-0)/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{text-wrap:balance;color:var(--head)}
+p{text-wrap:pretty}
 a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#010204;padding:10px 16px;font:600 14px var(--sans);z-index:999}
+.skip:focus{left:8px;top:8px}
+time,.num{font-variant-numeric:tabular-nums}
 
-/* ---- nav (matches 0n1x) ---- */
-.ox-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;padding:11px 20px;background:#0a0e14;border-bottom:1px solid #1c2430;font-family:var(--mono)}
-.ox-nav .ox-brand{font-weight:800;letter-spacing:.16em;color:#fff;font-size:15px}
-.ox-nav .ox-brand b{color:var(--jade)}
-.ox-nav .ox-links{display:flex;align-items:center;gap:6px 20px;flex-wrap:wrap}
-.ox-nav .ox-links a{color:#aeb7c4;font-size:13px;font-weight:500}
-.ox-nav .ox-links a:hover{color:var(--jade)}
+/* ---- masthead nav ---- */
+.topnav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;padding:11px 20px;background:#05070b;border-bottom:1px solid var(--rule);font-family:var(--mono)}
+.brand{font-weight:700;letter-spacing:.16em;color:#fff;font-size:15px}
+.brand b{color:var(--accent)}
+.topnav nav{display:flex;gap:20px;flex-wrap:wrap}
+.topnav nav a{color:var(--meta);font-size:13px;transition:color .2s var(--ease)}
+.topnav nav a:hover,.topnav nav a[aria-current]{color:var(--head)}
 
-/* ---- ticker strip (terminal vibe) ---- */
-.ticker{border-bottom:1px solid var(--line);background:#05070c;overflow:hidden;white-space:nowrap;padding:8px 0}
-.ticker-in{display:inline-flex;gap:34px;font:500 11.5px var(--mono);letter-spacing:.08em;color:var(--dim);animation:slide 46s linear infinite;padding-left:100%}
-.ticker-in b{color:var(--jade);font-weight:600}
-.ticker-in span{color:var(--muted)}
-@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-100%)}}
-@media (prefers-reduced-motion:reduce){.ticker-in{animation:none;padding-left:20px}}
-
-.wrap{max-width:1080px;margin:0 auto;padding:0 24px 90px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 
 /* ---- masthead ---- */
-.mast{border-bottom:2px solid var(--ink);padding:34px 0 16px;margin-bottom:6px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.mast h1{font:700 40px/1 var(--serif);letter-spacing:-.02em;margin:0}
-.mast h1 em{font-style:italic;color:var(--jade)}
-.mast .tag{font:500 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:9px}
-.mast .right{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:right;line-height:1.9}
-.mast .right b{color:var(--jade)}
-.railline{border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:30px;font:600 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.mast{padding:clamp(2.5rem,6vw,4.5rem) 0 1.1rem;border-bottom:1px solid var(--rule-strong);display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.mast h1{font:600 var(--step-4)/1.06 var(--serif);letter-spacing:-.018em;font-variation-settings:'opsz' 40}
+.mast h1 em{font-style:italic;color:var(--accent)}
+.mast .sub{font:500 var(--step--1)/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--meta);margin-top:10px}
+.mast .stand{font:400 var(--step--1)/1.9 var(--mono);letter-spacing:.06em;color:var(--meta);text-align:right}
 
-/* ---- section kicker ---- */
-.kick{display:inline-block;font:600 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--jade);border:1px solid var(--jade-line);background:var(--jade-soft);border-radius:3px;padding:3px 8px}
-.stamp{font:500 11px var(--mono);letter-spacing:.09em;color:var(--dim);text-transform:uppercase}
+/* ---- section head ---- */
+.shead{font:500 var(--step--1)/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--meta);padding:0 0 12px;border-bottom:1px solid var(--rule);margin-bottom:0}
+
+/* ---- kicker (the third voice) ---- */
+.kick{font:500 var(--step--1)/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.stamp{font:400 var(--step--1)/1.2 var(--mono);letter-spacing:.06em;color:var(--meta)}
+.metaline{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+
+/* ---- headline link: underline grows from baseline ---- */
+.hl a{background-image:linear-gradient(var(--accent),var(--accent));background-size:0% 1px;background-position:0 100%;background-repeat:no-repeat;transition:background-size 260ms var(--ease)}
+.hl a:hover{background-size:100% 1px}
 
 /* ---- LEAD ---- */
-.lead{display:grid;grid-template-columns:1.5fr 1fr;gap:44px;padding-bottom:34px;border-bottom:1px solid var(--line2)}
-.lead .meta{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
-.lead h2{font:700 38px/1.12 var(--serif);letter-spacing:-.015em;margin:0 0 14px}
-.lead h2 a:hover{color:var(--jade-hi)}
-.lead .dek{color:var(--muted);font-size:1.06rem;line-height:1.6;margin:0 0 18px}
-.why{border-left:2px solid var(--jade-line);padding:2px 0 2px 14px;color:var(--ink);font-size:.95rem;line-height:1.6}
-.why b{color:var(--jade);font-weight:600}
-.src{margin-top:16px;font:500 11.5px var(--mono);color:var(--dim);letter-spacing:.04em}
-.src a{color:var(--jade);border-bottom:1px solid var(--jade-line)}
-.src a:hover{color:var(--jade-hi)}
-.leadside{border-left:1px solid var(--line);padding-left:32px}
-.leadside h3{font:600 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-.brief{padding:13px 0;border-bottom:1px solid var(--line)}
-.brief:last-child{border-bottom:0}
-.brief .n{font:600 11px var(--mono);color:var(--jade);letter-spacing:.1em}
-.brief p{margin:5px 0 0;font:600 .95rem/1.4 var(--serif);color:var(--ink)}
-.brief small{color:var(--dim);font:500 10.5px var(--mono);letter-spacing:.08em}
+.lead{padding:clamp(2.5rem,5vw,4rem) 0;display:grid;grid-template-columns:1.55fr 1fr;gap:clamp(2rem,4vw,3.5rem)}
+.lead h2{font:600 var(--step-6)/1.0 var(--serif);letter-spacing:-.022em;max-width:18ch;font-variation-settings:'opsz' 60;margin-bottom:1.1rem}
+.lead .dek{font:400 var(--step-2)/1.35 var(--serif);letter-spacing:-.005em;color:var(--body);max-width:42ch;margin-bottom:1.4rem}
+.why{border-left:1px solid var(--rule-strong);padding-left:16px;color:var(--body);font-size:.97rem;line-height:1.6;max-width:58ch}
+.why b{color:var(--head);font-weight:600}
+.src{margin-top:18px;font:400 var(--step--1)/1.6 var(--mono);color:var(--meta)}
+.src a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.18em;text-decoration-color:color-mix(in oklab,var(--accent) 55%,transparent);transition:text-decoration-color 180ms var(--ease)}
+.src a:hover{text-decoration-color:var(--accent)}
 
-/* ---- story grid ---- */
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;padding:34px 0;border-bottom:1px solid var(--line2)}
-.story .meta{display:flex;align-items:center;gap:10px;margin-bottom:11px;flex-wrap:wrap}
-.story h3{font:600 21px/1.25 var(--serif);letter-spacing:-.01em;margin:0 0 10px}
-.story h3 a:hover{color:var(--jade-hi)}
-.story p{color:var(--muted);font-size:.93rem;line-height:1.58;margin:0 0 12px}
+/* the tape */
+.tape{border-left:1px solid var(--rule);padding-left:clamp(1.5rem,3vw,2.5rem)}
+.tape ol{list-style:none;padding:0;counter-reset:t}
+.tape li{counter-increment:t;padding:14px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:2rem 1fr;gap:12px;align-items:baseline}
+.tape li:last-child{border-bottom:0}
+.tape li::before{content:counter(t,decimal-leading-zero);font:500 var(--step--1) var(--mono);color:var(--meta)}
+.tape p{font:600 1rem/1.4 var(--serif);color:var(--head)}
+.tape small{display:block;font:400 var(--step--1) var(--mono);color:var(--meta);margin-top:3px;letter-spacing:.05em}
 
-/* ---- archive ---- */
-.arch{padding-top:40px}
-.arch h2{font:700 26px/1.2 var(--serif);margin:0 0 6px}
-.arch .sub{color:var(--muted);font-size:.95rem;margin:0 0 24px;max-width:64ch}
-.year{font:600 11px var(--mono);letter-spacing:.2em;color:var(--dim);text-transform:uppercase;padding:22px 0 10px;border-bottom:1px solid var(--line2);margin-bottom:4px}
-.row{display:grid;grid-template-columns:110px 1fr auto;gap:20px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
-.row:hover{background:rgba(63,224,160,.02)}
-.row .d{font:500 11.5px var(--mono);color:var(--jade);letter-spacing:.06em}
-.row .t{font:600 1rem/1.45 var(--serif);color:var(--ink)}
-.row .t span{display:block;font:400 .87rem/1.5 var(--sans);color:var(--muted);margin-top:3px}
-.row .s{font:500 11px var(--mono);color:var(--dim);white-space:nowrap}
-.row .s a{color:var(--jade)}
+/* ---- STORY GRID: rules, not cards ---- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:0;border-top:1px solid var(--rule-strong)}
+.grid > article{container-type:inline-size;padding:clamp(1.75rem,3vw,2.25rem) clamp(1.25rem,2vw,1.75rem);border-inline-start:1px solid var(--rule);transition:background 300ms var(--ease)}
+.grid > article:first-child{border-inline-start:0;padding-inline-start:0}
+.grid > article:has(a:hover){background:var(--lift)}
+.grid h3{font:600 var(--step-1)/1.18 var(--serif);letter-spacing:-.011em;margin-bottom:12px}
+.grid p{font-size:.95rem;line-height:1.6;color:var(--body);margin-bottom:14px}
 
-.foot{margin-top:52px;padding-top:22px;border-top:2px solid var(--line2);color:var(--dim);font-size:12.5px;line-height:1.8}
-.foot b{color:var(--muted)}
-.foot a{color:var(--jade)}
+/* ---- THE RECORD (history) ---- */
+.record{padding:clamp(4rem,9vw,7rem) 0 0}
+.record > h2{font:600 var(--step-2)/1.2 var(--serif);letter-spacing:-.01em;margin-bottom:.5rem}
+.record .intro{color:var(--meta);max-width:62ch;margin-bottom:2rem;font-size:.98rem}
+.yr{font:500 var(--step--1)/1.2 var(--mono);letter-spacing:.2em;color:var(--meta);padding:2rem 0 .75rem;border-bottom:1px solid var(--rule-strong)}
+.rec{display:grid;grid-template-columns:8.5rem 1fr 7rem;gap:24px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--rule);transition:background 240ms var(--ease)}
+.rec:has(a:hover){background:var(--lift)}
+.rec .d{font:400 var(--step--1) var(--mono);color:var(--meta);letter-spacing:.05em}
+.rec .t{font:600 1.02rem/1.45 var(--serif);color:var(--head)}
+.rec .t span{display:block;font:400 .89rem/1.55 var(--sans);color:var(--meta);margin-top:4px;text-wrap:pretty}
+.rec .s{font:400 var(--step--1) var(--mono);text-align:right}
+.rec .s a{color:var(--meta);transition:color 180ms var(--ease)}
+.rec .s a:hover{color:var(--accent)}
+.rec.next{opacity:.72}
+.rec.next .d{color:var(--accent)}
 
-@media(max-width:900px){
-  .lead{grid-template-columns:1fr;gap:30px}
-  .leadside{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:24px}
-  .grid{grid-template-columns:1fr;gap:30px}
-  .mast h1{font-size:30px}.lead h2{font-size:29px}
-  .row{grid-template-columns:1fr;gap:5px}
-  .row .s{white-space:normal}
+footer{margin-top:clamp(4rem,8vw,6rem);padding:2rem 0 5rem;border-top:1px solid var(--rule-strong);color:var(--meta);font-size:.87rem;line-height:1.8}
+footer strong{color:var(--body)}
+footer a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.18em;text-decoration-color:color-mix(in oklab,#F2F5F4 30%,transparent)}
+footer a:hover{color:var(--head)}
+
+@container (max-width:22rem){.grid h3{font-size:var(--step-0)}}
+@media(max-width:860px){
+  .lead{grid-template-columns:1fr}
+  .tape{border-left:0;border-top:1px solid var(--rule);padding-left:0;padding-top:1.75rem}
+  .grid > article{border-inline-start:0;border-block-start:1px solid var(--rule);padding-inline:0}
+  .grid > article:first-child{border-block-start:0}
+  .rec{grid-template-columns:1fr;gap:5px}
+  .rec .s{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
 }
 </style></head><body>
+<a class="skip" href="#main">Skip to content</a>
 
-<nav class="ox-nav">
-  <a class="ox-brand" href="/">0n<b>1</b>x</a>
-  <div class="ox-links">
-    <a href="/">Home</a>
-    <a href="/matrix.html">Matrix</a>
-    <a href="/news.html" style="color:var(--jade)">Signal</a>
-    <a href="/0n1x-vs-the-industry.html">vs Industry</a>
-    <a href="https://rhinogent.com/" target="_blank" rel="noopener">Rhinogent →</a>
+<header role="banner">
+  <div class="topnav">
+    <a class="brand" href="/">0n<b>1</b>x</a>
+    <nav aria-label="Sections">
+      <a href="/">Home</a>
+      <a href="/matrix.html">Matrix</a>
+      <a href="/news.html" aria-current="page">Signal</a>
+      <a href="/0n1x-vs-the-industry.html">vs Industry</a>
+      <a href="https://rhinogent.com/" target="_blank" rel="noopener">Rhinogent</a>
+    </nav>
   </div>
-</nav>
+  <div class="wrap">
+    <div class="mast">
+      <div>
+        <h1>0n1x <em>Signal</em></h1>
+        <p class="sub">The agentic web, tracked</p>
+      </div>
+      <p class="stand">Every item source-linked<br>Verify before you trust</p>
+    </div>
+  </div>
+</header>
 
-<div class="ticker"><div class="ticker-in">
-  <span>MCP <b>spec RC 2026-07-28</b> · stateless protocol layer</span>
-  <span>A2A <b>150+ orgs</b> · 22k★ · Linux Foundation</span>
-  <span>AP2 <b>→ FIDO Alliance</b> · v0.2 human-not-present</span>
-  <span>GPT-5.6 <b>Sol / Terra / Luna</b> · multi-agent orchestration</span>
-  <span>Claude <b>Sonnet 5</b> · cheaper agent runs</span>
-  <span>STACK <b>MCP + A2A + AP2</b> · converged</span>
-  <span>0n1x <b>verify-before-you-pay</b> · signed or silent</span>
-</div></div>
-
+<main id="main">
 <div class="wrap">
 
-  <div class="mast">
-    <div>
-      <h1>0n1x <em>Signal</em></h1>
-      <div class="tag">The agentic web, tracked</div>
-    </div>
-    <div class="right">
-      Vol. 1 · Edition 01<br>
-      <b>●</b> Every item source-linked<br>
-      Verify before you trust
-    </div>
-  </div>
-  <div class="railline">Protocols &nbsp;·&nbsp; Payments &nbsp;·&nbsp; Models &nbsp;·&nbsp; The stack &nbsp;·&nbsp; Trust</div>
-
   <!-- ===== LEAD ===== -->
-  <div class="lead">
-    <div>
-      <div class="meta"><span class="kick">Protocol</span><span class="stamp">MCP · July 2026</span></div>
-      <h2>MCP's next spec goes stateless — and the agent tooling layer gets a scaling unlock</h2>
-      <p class="dek">The Model Context Protocol release candidate dated <b style="color:var(--ink)">2026-07-28</b> makes MCP easier to run, reason about and extend in agentic systems. The headline change: MCP becomes stateless at the protocol layer — removing the sticky-session assumption that kept agent tooling from scaling horizontally.</p>
-      <p class="why"><b>Why it matters for 0n1x:</b> MCP is the agent-to-tools layer we already expose over x402 on Base. A stateless core is precisely what lets a metered verify endpoint fan out without session affinity — the difference between a demo and a rail.</p>
-      <div class="src">Sources: <a href="https://dev.to/alexmercedcoder/the-state-of-agentic-ai-standards-in-2026-mcp-a2a-webmcp-osi-and-the-protocol-stack-taking-3o2l" target="_blank" rel="noopener">State of Agentic AI Standards 2026 — DEV</a> · <a href="https://aaif.io/blog/mcp-is-growing-up/" target="_blank" rel="noopener">MCP Is Growing Up — AAIF</a></div>
+  <section aria-labelledby="lead-h">
+    <div class="lead">
+      <article>
+        <div class="metaline"><span class="kick">Protocol</span><span class="stamp">MCP · <time datetime="2026-07">July 2026</time></span></div>
+        <h2 id="lead-h" class="hl"><a href="https://aaif.io/blog/mcp-is-growing-up/" target="_blank" rel="noopener">MCP drops the session model — and the agent tooling layer finally scales sideways</a></h2>
+        <p class="dek">The release candidate dated <time datetime="2026-07-28">28 July 2026</time> removes the initialize handshake and the <code>Mcp-Session-Id</code> header outright. Protocol version and client info now ride in <code>_meta</code> on every request; a new <code>server/discover</code> replaces up-front capability exchange.</p>
+        <p class="why"><b>Why it matters.</b> This is the change with the biggest operational impact in the spec's history. Anything built against the 2025-11-25 session model has hidden session dependencies that break — and the fix isn't cosmetic: requests must survive moving between server instances. Statelessness is what turns a metered endpoint from a demo into a rail.</p>
+        <p class="src">Sources: <a href="https://aaif.io/blog/mcp-is-growing-up/" target="_blank" rel="noopener">MCP Is Growing Up — AAIF</a> · <a href="https://dev.to/alexmercedcoder/the-state-of-agentic-ai-standards-in-2026-mcp-a2a-webmcp-osi-and-the-protocol-stack-taking-3o2l" target="_blank" rel="noopener">State of Agentic AI Standards 2026</a></p>
+      </article>
+      <aside class="tape" aria-labelledby="tape-h">
+        <p class="shead" id="tape-h">The tape</p>
+        <ol>
+          <li><div><p>x402 Foundation goes live under the Linux Foundation with 40 members</p><small>Payments · governance</small></div></li>
+          <li><div><p>Google hands AP2 to the FIDO Alliance</p><small>Payments · v0.2</small></div></li>
+          <li><div><p>A2A passes 150 organizations, ships in Azure and Bedrock</p><small>Protocol · production</small></div></li>
+          <li><div><p>GPT-5.6 lands as three agent-shaped models</p><small>Models · OpenAI</small></div></li>
+          <li><div><p>Sonnet 5 cuts the cost of running agents</p><small>Models · Anthropic</small></div></li>
+        </ol>
+      </aside>
     </div>
-    <div class="leadside">
-      <h3>The tape</h3>
-      <div class="brief"><div class="n">01</div><p>AP2 governance moves to the FIDO Alliance</p><small>Payments · community-governed</small></div>
-      <div class="brief"><div class="n">02</div><p>A2A passes 150 organizations, ships in Azure &amp; Bedrock</p><small>Protocol · production</small></div>
-      <div class="brief"><div class="n">03</div><p>GPT-5.6 lands as three agent-shaped models</p><small>Models · OpenAI</small></div>
-      <div class="brief"><div class="n">04</div><p>Sonnet 5 cuts the cost of running agents</p><small>Models · Anthropic</small></div>
-      <div class="brief"><div class="n">05</div><p>The 2026 stack settles: MCP + A2A + AP2</p><small>Stack · convergence</small></div>
-    </div>
-  </div>
+  </section>
 
   <!-- ===== GRID ===== -->
-  <div class="grid">
-    <div class="story">
-      <div class="meta"><span class="kick">Payments</span><span class="stamp">AP2 · 2026</span></div>
-      <h3>Google hands the Agent Payments Protocol to the FIDO Alliance</h3>
-      <p>Ownership of AP2 moved to FIDO for community governance — mirroring A2A's move to the Linux Foundation. v0.2 ships Human-Not-Present support for autonomous, pre-authorized transactions, and layers on top of A2A and MCP.</p>
-      <p class="why"><b>For 0n1x:</b> AP2's three signed Mandates — Intent, Cart, Payment — are the exact shape of verify-before-you-pay. Our x402 rail already separates the grader key from the payee: the property AP2 formalizes.</p>
-      <div class="src">Sources: <a href="https://ap2-protocol.org/" target="_blank" rel="noopener">ap2-protocol.org</a> · <a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol" target="_blank" rel="noopener">Google Cloud</a></div>
+  <section aria-labelledby="latest-h">
+    <h2 class="shead" id="latest-h">Latest</h2>
+    <div class="grid">
+      <article>
+        <div class="metaline"><span class="kick">Payments</span><span class="stamp"><time datetime="2026-07-14">14 Jul 2026</time></span></div>
+        <h3 class="hl"><a href="https://blog.cloudflare.com/x402/" target="_blank" rel="noopener">x402 Foundation goes live under the Linux Foundation</a></h3>
+        <p>Forty members — Visa, Mastercard, Amex, Stripe, Google, AWS, Shopify, Cloudflare, Coinbase — with Anthropic, Circle and Vercel in core membership. Coinbase completed contributing the protocol, putting it under vendor-neutral governance.</p>
+        <p class="why"><b>For 0n1x:</b> the rail we settle on is now institutionally safe to borrow. Both protocols we build on sit under Linux Foundation governance as of this week.</p>
+        <p class="src">Sources: <a href="https://blog.cloudflare.com/x402/" target="_blank" rel="noopener">Cloudflare</a> · <a href="https://www.x402.org/writing/x402-v2-launch" target="_blank" rel="noopener">x402.org</a></p>
+      </article>
+      <article>
+        <div class="metaline"><span class="kick">Payments</span><span class="stamp">AP2 · <time datetime="2026">2026</time></span></div>
+        <h3 class="hl"><a href="https://ap2-protocol.org/" target="_blank" rel="noopener">Google hands the Agent Payments Protocol to the FIDO Alliance</a></h3>
+        <p>AP2 moved to FIDO for community governance, mirroring A2A's move to the Linux Foundation. v0.2 ships Human-Not-Present support for autonomous, pre-authorized transactions, layering on top of A2A and MCP.</p>
+        <p class="why"><b>For 0n1x:</b> AP2's three signed Mandates — Intent, Cart, Payment — are the shape of verify-before-you-pay. Our rail already separates the grader key from the payee: the property AP2 formalizes.</p>
+        <p class="src">Sources: <a href="https://ap2-protocol.org/" target="_blank" rel="noopener">ap2-protocol.org</a> · <a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol" target="_blank" rel="noopener">Google Cloud</a></p>
+      </article>
+      <article>
+        <div class="metaline"><span class="kick">Protocol</span><span class="stamp">A2A · <time datetime="2026-04">Apr 2026</time></span></div>
+        <h3 class="hl"><a href="https://stellagent.ai/insights/a2a-protocol-google-agent-to-agent" target="_blank" rel="noopener">A2A crosses 150 organizations and lands in production clouds</a></h3>
+        <p>150+ participating organizations, 22,000+ GitHub stars, with production deployments inside Azure AI Foundry and Amazon Bedrock AgentCore. Governance sits with the Linux Foundation.</p>
+        <p class="why"><b>For 0n1x:</b> our agents speak A2A natively — signed Agent Cards, identity verified before action. The horizontal layer is table stakes now, not a bet.</p>
+        <p class="src">Sources: <a href="https://stellagent.ai/insights/a2a-protocol-google-agent-to-agent" target="_blank" rel="noopener">Stellagent</a> · <a href="https://zuplo.com/blog/agent-protocol-stack-mcp-a2a-acp-2026" target="_blank" rel="noopener">Zuplo</a></p>
+      </article>
+      <article>
+        <div class="metaline"><span class="kick">Models</span><span class="stamp">OpenAI · <time datetime="2026-07">Jul 2026</time></span></div>
+        <h3 class="hl"><a href="https://thursdai.news/releases/2026-07" target="_blank" rel="noopener">GPT-5.6 ships as three models built for agents</a></h3>
+        <p>Sol (frontier), Terra (~5.5-level intelligence at half the cost) and Luna (small, fast), plus an Ultra mode with Max reasoning and heavier sub-agent use. New API surface: programmatic tool calling, multi-agent orchestration, prompt-cache breakpoints.</p>
+        <p class="why"><b>For 0n1x:</b> cheap frontier reasoning plus native orchestration is the substrate. The moat was never the model — it's signed proof-of-execution on top of it.</p>
+        <p class="src">Sources: <a href="https://thursdai.news/releases/2026-07" target="_blank" rel="noopener">ThursdAI</a> · <a href="https://www.buildfastwithai.com/blogs/ai-news-today-july-7-2026" target="_blank" rel="noopener">BuildFastWithAI</a></p>
+      </article>
+      <article>
+        <div class="metaline"><span class="kick">Models</span><span class="stamp">Anthropic · <time datetime="2026-06-30">30 Jun 2026</time></span></div>
+        <h3 class="hl"><a href="https://techcrunch.com/2026/06/30/anthropic-launches-claude-sonnet-5-as-a-cheaper-way-to-run-agents/" target="_blank" rel="noopener">Anthropic makes agents cheaper to run with Claude Sonnet 5</a></h3>
+        <p>Sonnet 5 launched as a lower-cost way to run agents, while Claude Cowork expanded to web and mobile — agents running multi-step tasks in the background across devices.</p>
+        <p class="why"><b>For 0n1x:</b> falling cost-per-run is what makes an always-on fleet economical. A network only compounds when running an agent 24/7 stops being expensive.</p>
+        <p class="src">Sources: <a href="https://techcrunch.com/2026/06/30/anthropic-launches-claude-sonnet-5-as-a-cheaper-way-to-run-agents/" target="_blank" rel="noopener">TechCrunch</a> · <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic</a></p>
+      </article>
+      <article>
+        <div class="metaline"><span class="kick">The stack</span><span class="stamp"><time datetime="2026">2026</time></span></div>
+        <h3 class="hl"><a href="https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production/" target="_blank" rel="noopener">The 2026 agent stack has converged: MCP + A2A + AP2</a></h3>
+        <p>Three complementary layers — MCP for agent-to-tools, A2A for agent-to-agent, AP2 for payments — each under independent foundation governance. The plumbing debate is over.</p>
+        <p class="why"><b>For 0n1x:</b> we sit across all three. The question the standards <em>don't</em> answer is trust — is this agent, and this fact, real? That unanswered layer is the whole company.</p>
+        <p class="src">Sources: <a href="https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production/" target="_blank" rel="noopener">NiteAgent</a> · <a href="https://agenticplug.ai/current-state-of-agentic-commerce" target="_blank" rel="noopener">AgenticPlug</a></p>
+      </article>
     </div>
-    <div class="story">
-      <div class="meta"><span class="kick">Protocol</span><span class="stamp">A2A · Apr 2026</span></div>
-      <h3>A2A crosses 150+ organizations and lands in production clouds</h3>
-      <p>The Agent2Agent standard now counts 150+ participating organizations and 22,000+ GitHub stars, with production deployments inside Azure AI Foundry and Amazon Bedrock AgentCore. Governance sits with the Linux Foundation.</p>
-      <p class="why"><b>For 0n1x:</b> Our agents speak A2A natively — signed Agent Cards, identity verified before action, settlement over x402. The horizontal layer is now table stakes, not a bet.</p>
-      <div class="src">Sources: <a href="https://stellagent.ai/insights/a2a-protocol-google-agent-to-agent" target="_blank" rel="noopener">Stellagent</a> · <a href="https://zuplo.com/blog/agent-protocol-stack-mcp-a2a-acp-2026" target="_blank" rel="noopener">Zuplo</a></div>
-    </div>
-    <div class="story">
-      <div class="meta"><span class="kick">Models</span><span class="stamp">OpenAI · Jul 2026</span></div>
-      <h3>GPT-5.6 ships as three models built for agents</h3>
-      <p>GPT-5.6 arrives as Sol (frontier), Terra (~5.5-level intelligence at half the cost) and Luna (small, fast), plus an Ultra mode with a Max reasoning level and heavier sub-agent use. New API surface: programmatic tool calling, multi-agent orchestration, prompt-cache breakpoints.</p>
-      <p class="why"><b>For 0n1x:</b> Cheap frontier reasoning plus native orchestration is the substrate a live agent network runs on. The moat was never the model — it's signed proof-of-execution on top of it.</p>
-      <div class="src">Sources: <a href="https://www.buildfastwithai.com/blogs/ai-news-today-july-7-2026" target="_blank" rel="noopener">BuildFastWithAI</a> · <a href="https://thursdai.news/releases/2026-07" target="_blank" rel="noopener">ThursdAI</a></div>
-    </div>
-  </div>
+  </section>
 
-  <div class="grid" style="grid-template-columns:1fr 1fr;border-bottom:0">
-    <div class="story">
-      <div class="meta"><span class="kick">Models</span><span class="stamp">Anthropic · Jun–Jul 2026</span></div>
-      <h3>Anthropic makes agents cheaper to run with Claude Sonnet 5</h3>
-      <p>Sonnet 5 launched as a lower-cost way to run agents, while Claude Cowork expanded to web and mobile — letting agents run multi-step tasks in the background across devices. Claude Code shipped a broad stability pass: subagent streaming, better permissions, faster rendering.</p>
-      <p class="why"><b>For 0n1x:</b> Falling cost-per-agent-run is what makes an always-on fleet economical. A network compounds only when running an agent 24/7 stops being expensive.</p>
-      <div class="src">Sources: <a href="https://techcrunch.com/2026/06/30/anthropic-launches-claude-sonnet-5-as-a-cheaper-way-to-run-agents/" target="_blank" rel="noopener">TechCrunch</a> · <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic Newsroom</a></div>
-    </div>
-    <div class="story">
-      <div class="meta"><span class="kick">The stack</span><span class="stamp">Agentic commerce · 2026</span></div>
-      <h3>The 2026 agent stack has converged: MCP + A2A + AP2</h3>
-      <p>The ecosystem settled on three complementary layers — MCP for agent-to-tools (vertical), A2A for agent-to-agent (horizontal), AP2 for payments — each governed by an independent foundation. The plumbing debate is over.</p>
-      <p class="why"><b>For 0n1x:</b> We sit across all three. The question the standards <em style="color:var(--ink)">don't</em> answer is trust — is this agent, and this fact, real? That unanswered layer is the whole company.</p>
-      <div class="src">Sources: <a href="https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production/" target="_blank" rel="noopener">NiteAgent</a> · <a href="https://agenticplug.ai/current-state-of-agentic-commerce" target="_blank" rel="noopener">AgenticPlug</a></div>
-    </div>
-  </div>
+  <!-- ===== THE RECORD ===== -->
+  <section class="record" aria-labelledby="record-h">
+    <h2 id="record-h">The record</h2>
+    <p class="intro">How the agent economy's trust and payment layer got here — from a protocol announcement in late 2024 to three foundation-governed standards. Dated, source-linked, append-only. We add; we don't quietly revise.</p>
 
-  <!-- ===== ARCHIVE ===== -->
-  <div class="arch">
-    <h2>The record</h2>
-    <p class="sub">How the agent economy's trust and payment layer got here. Dated, source-linked, append-only — we add, we don't quietly revise.</p>
-
-    <div class="year">2026</div>
-    <div class="row">
-      <div class="d">Jul 2026</div>
-      <div class="t">MCP release candidate goes stateless at the protocol layer<span>Removes the sticky-session assumption blocking horizontal scale for agent tooling.</span></div>
-      <div class="s"><a href="https://aaif.io/blog/mcp-is-growing-up/" target="_blank" rel="noopener">AAIF ↗</a></div>
+    <p class="yr">2026</p>
+    <div class="rec next">
+      <span class="d"><time datetime="2026-07-28">28 Jul 2026</time></span>
+      <span class="t">MCP spec removes the session model <span>Handshake and <code>Mcp-Session-Id</code> gone; <code>server/discover</code> replaces capability exchange. Final ships this date — the RC is out now.</span></span>
+      <span class="s"><a href="https://aaif.io/blog/mcp-is-growing-up/" target="_blank" rel="noopener">AAIF ↗</a></span>
     </div>
-    <div class="row">
-      <div class="d">Jul 2026</div>
-      <div class="t">OpenAI ships GPT-5.6 — Sol, Terra, Luna + Ultra mode<span>Programmatic tool calling and multi-agent orchestration become first-class API surface.</span></div>
-      <div class="s"><a href="https://thursdai.news/releases/2026-07" target="_blank" rel="noopener">ThursdAI ↗</a></div>
+    <div class="rec">
+      <span class="d"><time datetime="2026-07-14">14 Jul 2026</time></span>
+      <span class="t">x402 Foundation goes operationally live under the Linux Foundation <span>40 members including Visa, Mastercard, Stripe, Google, AWS, Cloudflare and Coinbase; Anthropic, Circle and Vercel in core membership.</span></span>
+      <span class="s"><a href="https://blog.cloudflare.com/x402/" target="_blank" rel="noopener">Cloudflare ↗</a></span>
     </div>
-    <div class="row">
-      <div class="d">Jun 30 2026</div>
-      <div class="t">Anthropic launches Claude Sonnet 5 as a cheaper way to run agents<span>Cost-per-run falls; always-on fleets become economically viable.</span></div>
-      <div class="s"><a href="https://techcrunch.com/2026/06/30/anthropic-launches-claude-sonnet-5-as-a-cheaper-way-to-run-agents/" target="_blank" rel="noopener">TechCrunch ↗</a></div>
+    <div class="rec">
+      <span class="d"><time datetime="2026-07">Jul 2026</time></span>
+      <span class="t">OpenAI ships GPT-5.6 — Sol, Terra, Luna, plus Ultra mode <span>Programmatic tool calling and multi-agent orchestration become first-class API surface.</span></span>
+      <span class="s"><a href="https://thursdai.news/releases/2026-07" target="_blank" rel="noopener">ThursdAI ↗</a></span>
     </div>
-    <div class="row">
-      <div class="d">Apr 2026</div>
-      <div class="t">A2A reaches 150+ organizations and 22k stars; governance at the Linux Foundation<span>Production deployments land in Azure AI Foundry and Amazon Bedrock AgentCore.</span></div>
-      <div class="s"><a href="https://stellagent.ai/insights/a2a-protocol-google-agent-to-agent" target="_blank" rel="noopener">Stellagent ↗</a></div>
+    <div class="rec">
+      <span class="d"><time datetime="2026-06-30">30 Jun 2026</time></span>
+      <span class="t">Anthropic launches Claude Sonnet 5 as a cheaper way to run agents <span>Cost-per-run falls; always-on agent fleets become economically viable.</span></span>
+      <span class="s"><a href="https://techcrunch.com/2026/06/30/anthropic-launches-claude-sonnet-5-as-a-cheaper-way-to-run-agents/" target="_blank" rel="noopener">TechCrunch ↗</a></span>
     </div>
-    <div class="row">
-      <div class="d">2026</div>
-      <div class="t">AP2 governance transfers to the FIDO Alliance; v0.2 adds Human-Not-Present<span>Autonomous, pre-authorized agent payments get a community-governed standard.</span></div>
-      <div class="s"><a href="https://ap2-protocol.org/" target="_blank" rel="noopener">ap2-protocol.org ↗</a></div>
+    <div class="rec">
+      <span class="d"><time datetime="2026-04">Apr 2026</time></span>
+      <span class="t">A2A reaches 150+ organizations and 22k stars; governance at the Linux Foundation <span>Production deployments land in Azure AI Foundry and Amazon Bedrock AgentCore.</span></span>
+      <span class="s"><a href="https://stellagent.ai/insights/a2a-protocol-google-agent-to-agent" target="_blank" rel="noopener">Stellagent ↗</a></span>
+    </div>
+    <div class="rec">
+      <span class="d"><time datetime="2026">2026</time></span>
+      <span class="t">AP2 governance transfers to the FIDO Alliance; v0.2 adds Human-Not-Present <span>Autonomous, pre-authorized agent payments get a community-governed standard.</span></span>
+      <span class="s"><a href="https://ap2-protocol.org/" target="_blank" rel="noopener">ap2-protocol.org ↗</a></span>
+    </div>
+    <div class="rec">
+      <span class="d"><time datetime="2026">2026</time></span>
+      <span class="t">MCP is donated to the Agentic AI Foundation under the Linux Foundation <span>Anthropic hands the protocol to neutral governance — the first of the three layers to go independent.</span></span>
+      <span class="s"><a href="https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation" target="_blank" rel="noopener">Anthropic ↗</a></span>
     </div>
 
-    <div class="year">2025</div>
-    <div class="row">
-      <div class="d">Sep 16 2025</div>
-      <div class="t">Google announces the Agent Payments Protocol with 60+ partners<span>Mastercard, PayPal, Coinbase, Amex and Salesforce back a standard for agent-led payments.</span></div>
-      <div class="s"><a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol" target="_blank" rel="noopener">Google Cloud ↗</a></div>
+    <p class="yr">2025</p>
+    <div class="rec">
+      <span class="d"><time datetime="2025-09-16">16 Sep 2025</time></span>
+      <span class="t">Google announces the Agent Payments Protocol with 60+ partners <span>Mastercard, PayPal, Coinbase, Amex and Salesforce back a standard for agent-led payments.</span></span>
+      <span class="s"><a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol" target="_blank" rel="noopener">Google Cloud ↗</a></span>
     </div>
-  </div>
+    <div class="rec">
+      <span class="d"><time datetime="2025-05">May 2025</time></span>
+      <span class="t">Coinbase authors and open-sources x402 <span>The dormant HTTP 402 status code is turned into a real payment rail — stablecoin payments over plain HTTP, made practical by cheap L2s and gasless transfers.</span></span>
+      <span class="s"><a href="https://www.coinbase.com/developer-platform/discover/launches/x402" target="_blank" rel="noopener">Coinbase ↗</a> · <a href="https://www.x402.org/writing/x402-v2-launch" target="_blank" rel="noopener">x402.org ↗</a></span>
+    </div>
 
-  <div class="foot">
-    <b>0n1x Signal</b> — curated for the agentic web. Every item carries its primary source; where a claim can't be sourced, it doesn't run. Absence of a story is not a signal — it means we hold nothing verified to say, and we won't invent it. The same standard we hold our own registry to.<br>
-    <a href="/">← 0n1x</a> &nbsp;·&nbsp; <a href="/proof.html">Try the verifier</a> &nbsp;·&nbsp; <a href="https://rhinogent.com/" target="_blank" rel="noopener">Rhinogent ↗</a>
-  </div>
+    <p class="yr">2024</p>
+    <div class="rec">
+      <span class="d"><time datetime="2024-11-25">25 Nov 2024</time></span>
+      <span class="t">Anthropic announces the Model Context Protocol <span>The origin point. One open standard to connect AI systems to the places data lives, replacing bespoke per-source integrations. Everything above is downstream of this.</span></span>
+      <span class="s"><a href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener">Anthropic ↗</a></span>
+    </div>
+  </section>
 
 </div>
+</main>
+
+<footer role="contentinfo">
+  <div class="wrap">
+    <p><strong>0n1x Signal</strong> — curated for the agentic web. Every item carries its primary source; where a claim can't be sourced, it doesn't run. Absence of a story is not a signal — it means we hold nothing verified to say, and we won't invent one. The same standard we hold our own registry to.</p>
+    <p style="margin-top:1rem"><a href="/">0n1x</a> &nbsp;·&nbsp; <a href="/proof.html">Try the verifier</a> &nbsp;·&nbsp; <a href="https://rhinogent.com/" target="_blank" rel="noopener">Rhinogent</a></p>
+  </div>
+</footer>
 </body></html>
