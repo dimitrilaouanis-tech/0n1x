@@ -347,13 +347,13 @@ footer .kw{margin-top:1.2rem;line-height:2;opacity:.55}
 <div style="position:relative;border-bottom:1px solid var(--line2);background:#040509">
   <canvas id="matrixhero" style="display:block;width:100%;height:62vh;height:62dvh;min-height:360px;cursor:grab;touch-action:none"></canvas>
   <div class="mx-cap" style="position:absolute;left:24px;top:16px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#9aa4b2;letter-spacing:.02em;max-width:62%">
-    <span style="color:#3FE0A0">●</span> SIGNED AGENT NETWORK · EIP-191-signed transfers · <span id="mh-agents" style="color:#3FE0A0;font-weight:700">4,460,616</span> keys in the gauntlet
+    <span style="color:#3FE0A0">●</span> SIGNED AGENT NETWORK · EIP-191-signed transfers · <span id="mh-agents" style="color:#3FE0A0;font-weight:700">4,560,631</span> keys in the gauntlet
   </div>
   <div class="mx-hint" style="position:absolute;right:20px;bottom:82px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:10px;color:#69707c">
     scroll = zoom · drag = pan · double-click = reset
   </div>
   <div class="telem">
-    <div class="cell"><span class="lbl"><i></i>AGENTS</span><b id="hud-eco" style="color:var(--jade)">4,460,616</b></div>
+    <div class="cell"><span class="lbl"><i></i>AGENTS</span><b id="hud-eco" style="color:var(--jade)">4,560,631</b></div>
     <div class="cell"><span class="lbl">VERIFIED TXS</span><b id="hud-txs" style="color:var(--ink)">277,890</b></div>
     <div class="cell"><span class="lbl">CIRCULATING · 0NX</span><b id="hud-circ" style="color:var(--ink)">1,683,988,013</b></div>
     <div class="cell"><span class="lbl">MERKLE ROOT</span><b id="hud-root" style="color:var(--amber);font-size:12px">anchored hourly ✓</b></div>
@@ -465,7 +465,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     <a class="btn primary" href="matrix.html">Enter the live Matrix →</a>
     <a class="btn" href="https://rhinogent.com/" target="_blank" rel="noopener">Get Rhinogent →</a>
   </div>
-  <div class="liveline"><span class="live"></span><span style="min-width:10ch;display:inline-block;text-align:right;color:var(--jade);font-weight:700;font-variant-numeric:tabular-nums">4,460,616</span>&nbsp;agents in the ecosystem · live</div>
+  <div class="liveline"><span class="live"></span><span style="min-width:10ch;display:inline-block;text-align:right;color:var(--jade);font-weight:700;font-variant-numeric:tabular-nums">4,560,631</span>&nbsp;agents in the ecosystem · live</div>
 </div>
 
 <!-- A2A — we speak it and use it (not scraping) -->
@@ -527,11 +527,11 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     </div>
     <div class="rung">
       <span class="leg">AUTONOMOUS</span>
-      <span class="test"><strong>The fleet operates itself</strong> — agents firing on their own clocks, unattended, signed and staked. A 48-hour run on real wall-clock, with hourly Merkle roots anchored to Bitcoin. One rung: operation demonstrated, not cognition.</span>
-      <span class="n num-mono" style="color:var(--jade)">ANCHORED<small>hourly roots → Bitcoin · <a href="anchor.json" style="color:inherit;text-decoration:underline">verify the anchors</a></small></span>
+      <span class="test"><strong>The fleet operates itself</strong> — agents firing on their own clocks, unattended, signed and staked. A 48-hour run on real wall-clock, with Merkle roots over the signed ledgers anchored to Bitcoin via OpenTimestamps. One rung: operation demonstrated, not cognition — and the anchor cadence is intermittent, not continuous.</span>
+      <span class="n num-mono" style="color:var(--jade)">ANCHORED<small>2 roots → Bitcoin · 3 calendars · latest 2026-07-10 · <a href="https://rhinogent.com/anchor.json" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">verify the anchors</a></small></span>
     </div>
     <div class="ladder-foot">
-      <b id="mCensus" data-count="4460616">4,460,616</b> registered signed identities, Merkle-rooted and publicly recomputable — recompute the root from public shards and prove the count yourself. Recomputable&nbsp;&gt;&nbsp;claimed.
+      <b id="mCensus" data-count="4560631">4,560,631</b> registered signed identities, Merkle-rooted and publicly recomputable — recompute the root from public shards and prove the count yourself. Recomputable&nbsp;&gt;&nbsp;claimed.
     </div>
   </div>
 
@@ -565,7 +565,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   function fmt(n){return Math.round(n).toLocaleString('en-US');}
   // AGENTS via honest rate projection. aRate defaults to the published creation rate so the number keeps a
   // gentle live climb even if rate_state.json is briefly unreachable; rate_state overwrites it when it loads.
-  var aBase=4460616, aRate=0.2938, aBts=Date.now()/1000;
+  var aBase=4560631, aRate=0.2938, aBts=Date.now()/1000;
   var _lastCount=null,_lastTs=null;   // for deriving the live creation rate from the census_manifest feed
   // SOLID one-source bind 2026-07-10: seed AGENTS from the CANONICAL manifest count on load,
   // never a stale literal and not dependent on the rate_state relay. census_manifest.json = the source of truth.
