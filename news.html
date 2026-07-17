@@ -155,8 +155,25 @@ footer a:hover{color:var(--head)}
   .rec{grid-template-columns:1fr;gap:5px}
   .rec .s{text-align:left}
 }
+/* ---- Bloomberg-terminal ticker tape ---- */
+.ticker{border-bottom:1px solid var(--rule);background:#05070b;overflow:hidden;white-space:nowrap;position:relative}
+.ticker::before,.ticker::after{content:"";position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
+.ticker::before{left:0;background:linear-gradient(90deg,#05070b,transparent)}
+.ticker::after{right:0;background:linear-gradient(270deg,#05070b,transparent)}
+.ticker-in{display:inline-block;padding:8px 0;font:500 12px/1 var(--mono);letter-spacing:.06em;color:var(--meta);animation:tape 48s linear infinite}
+.ticker-in span{padding:0 22px;border-right:1px solid var(--rule)}
+.ticker-in b{color:var(--accent);font-weight:600}
+.ticker-in i{color:var(--head);font-style:normal}
+@keyframes tape{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker:hover .ticker-in{animation-play-state:paused}
+/* ---- dateline bar ---- */
+.dateline{border-bottom:1px solid var(--rule);font:500 var(--step--1)/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--meta);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:9px 0}
+.dateline .live{color:var(--accent)}
+.dateline .live::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:7px;vertical-align:middle;box-shadow:0 0 6px var(--accent)}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+  .ticker-in{animation:none;padding-left:24px}
 }
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
@@ -171,7 +188,17 @@ footer a:hover{color:var(--head)}
       <a href="https://rhinogent.com/" target="_blank" rel="noopener">Rhinogent</a>
     </nav>
   </div>
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-in">
+      <span><b>MCP</b> stateless spec RC <i>28 Jul</i></span><span><b>x402</b> Foundation live · <i>40 members</i></span><span><b>A2A</b> <i>150+ orgs</i> · Linux Foundation</span><span><b>AP2</b> → FIDO · <i>v0.2</i></span><span><b>GPT-5.6</b> <i>Sol / Terra / Luna</i></span><span><b>Sonnet 5</b> cheaper agent runs</span><span>stack converged · <i>MCP + A2A + AP2</i></span>
+      <span><b>MCP</b> stateless spec RC <i>28 Jul</i></span><span><b>x402</b> Foundation live · <i>40 members</i></span><span><b>A2A</b> <i>150+ orgs</i> · Linux Foundation</span><span><b>AP2</b> → FIDO · <i>v0.2</i></span><span><b>GPT-5.6</b> <i>Sol / Terra / Luna</i></span><span><b>Sonnet 5</b> cheaper agent runs</span><span>stack converged · <i>MCP + A2A + AP2</i></span>
+    </div>
+  </div>
   <div class="wrap">
+    <div class="dateline">
+      <span>Signal · Vol. 1 · Ed. 01</span>
+      <span class="live">Live · source-linked</span>
+    </div>
     <div class="mast">
       <div>
         <h1>0n1x <em>Signal</em></h1>
@@ -324,7 +351,7 @@ footer a:hover{color:var(--head)}
 
 <footer role="contentinfo">
   <div class="wrap">
-    <p><strong>0n1x Signal</strong> — curated for the agentic web. Every item carries its primary source; where a claim can't be sourced, it doesn't run. Absence of a story is not a signal — it means we hold nothing verified to say, and we won't invent one. The same standard we hold our own registry to.</p>
+    <p><strong>0n1x Signal</strong> — every item carries its primary source; where a claim can't be sourced, it doesn't run. The same standard we hold our own registry to.</p>
     <p style="margin-top:1rem"><a href="/">0n1x</a> &nbsp;·&nbsp; <a href="/proof.html">Try the verifier</a> &nbsp;·&nbsp; <a href="https://rhinogent.com/" target="_blank" rel="noopener">Rhinogent</a></p>
   </div>
 </footer>
