@@ -630,10 +630,18 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   // Never exceeds the projection; holds (never decreases) if the projection momentarily dips.
   function agentTick(){
     var ceil=agentsCeil();
-    if(A.s==null) A.s=ceil;
-    else if(ceil>A.s) A.s=ceil;          // ease up to the projection (climbs ~rate/sec, visible + calm)
+    if(A.s==null){ A.s=ceil; }
+    else if(ceil>A.s){
+      // arrivals come in CLUMPS, not one-by-one: hold while the honest gap accrues, then
+      // release a whole clump of 2..6 at once. Never exceeds the ceiling, never decreases.
+      // When real externals arrive the rate rises, so clumps auto-grow — same shape, busier.
+      if(A._need==null) A._need = 2 + Math.floor(Math.random()*5);   // next clump size 2..6
+      var gap = ceil - A.s;
+      if(gap >= A._need){ A.s = Math.min(ceil, A.s + Math.floor(gap)); A._need = 2 + Math.floor(Math.random()*5); }
+      // else: pause this tick — let more arrivals accrue before the next clump lands
+    }
     paint();
-    setTimeout(agentTick, REDUCE ? 5000 : (1200+Math.floor(Math.random()*700)));
+    setTimeout(agentTick, REDUCE ? 5000 : (1500+Math.floor(Math.random()*2200)));
   }
   function pull(){
     // NOTE: rate_state.json was retired (404 after the rhinogent Next.js migration). The live creation
