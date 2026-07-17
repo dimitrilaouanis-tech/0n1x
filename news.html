@@ -1,0 +1,119 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>0n1x Signal — verified AI-agent news</title>
+<meta name="description" content="0n1x Signal: curated, source-linked news for the agentic web. Every item links to its primary source — verify before you trust.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#010204;--panel:#080B11;--line:rgba(210,224,246,.08);--line2:rgba(210,224,246,.15);
+  --ink:#E7ECF3;--muted:#8B94A2;--dim:#525B68;--jade:#3FE0A0;--jade-hi:#7CFFC6;
+  --jade-soft:rgba(63,224,160,.09);--jade-line:rgba(63,224,160,.26);
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --sans:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --head:"Space Grotesk","Inter",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(80% 50% at 84% 4%,rgba(120,150,255,.05),transparent 55%),radial-gradient(70% 60% at 10% 40%,rgba(63,224,160,.03),transparent 55%),var(--bg);color:var(--ink);font:16px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--jade);text-decoration:none}a:hover{color:var(--jade-hi)}
+.ox-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;padding:11px 20px;background:#0a0e14;border-bottom:1px solid #1c2430;font-family:var(--mono)}
+.ox-nav .ox-brand{font-weight:800;letter-spacing:.16em;color:#fff;font-size:15px}
+.ox-nav .ox-brand b{color:var(--jade)}
+.ox-nav .ox-links{display:flex;align-items:center;gap:6px 20px;flex-wrap:wrap}
+.ox-nav .ox-links a{color:#aeb7c4;font-size:13px;font-weight:500}
+.ox-nav .ox-links a:hover{color:var(--jade)}
+.wrap{max-width:820px;margin:0 auto;padding:56px 22px 90px}
+.eyebrow{font:600 11px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--jade)}
+h1{font:700 34px/1.15 var(--head);letter-spacing:-.02em;margin:12px 0 10px}
+h1 em{color:var(--jade);font-style:normal}
+.lede{color:var(--muted);font-size:1.05rem;margin:0 0 8px;max-width:60ch}
+.trust{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font:600 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line2);border-radius:99px;padding:7px 14px}
+.trust b{color:var(--jade)}
+.feed{margin-top:44px;display:flex;flex-direction:column;gap:16px}
+.item{border:1px solid var(--line2);border-radius:16px;background:color-mix(in srgb,var(--panel) 55%,transparent);padding:20px 22px;transition:border-color .2s}
+.item:hover{border-color:var(--jade-line)}
+.meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font:600 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:9px}
+.tag{color:var(--jade);border:1px solid var(--jade-line);background:var(--jade-soft);border-radius:99px;padding:2px 9px}
+.item h2{font:600 1.18rem/1.35 var(--head);margin:0 0 8px;color:var(--ink)}
+.item p{margin:0 0 12px;color:var(--muted);font-size:.98rem}
+.item .why{color:var(--ink);font-size:.95rem;border-left:2px solid var(--jade-line);padding-left:12px;margin:0 0 12px}
+.item .why b{color:var(--jade)}
+.src{font:600 12px var(--mono);color:var(--dim)}
+.src a{color:var(--jade)}
+.foot{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
+</style></head><body>
+<nav class="ox-nav">
+  <a class="ox-brand" href="/">0n<b>1</b>x</a>
+  <div class="ox-links">
+    <a href="/">Home</a>
+    <a href="/matrix.html">Matrix</a>
+    <a href="/news.html" style="color:var(--jade)">Signal</a>
+    <a href="/0n1x-vs-the-industry.html">vs Industry</a>
+    <a href="https://rhinogent.com/" target="_blank" rel="noopener">Rhinogent →</a>
+  </div>
+</nav>
+<div class="wrap">
+  <span class="eyebrow">0n1x Signal · the agentic web, tracked</span>
+  <h1>Verified AI-agent <em>news</em>.</h1>
+  <p class="lede">The signal, not the noise. We track the protocols, models and payment rails the agent economy actually runs on — and every item links to its primary source, so you can verify before you trust. Same standard as the rest of 0n1x.</p>
+  <span class="trust"><span style="color:var(--jade)">●</span>&nbsp;Every item <b>source-linked</b> · verify before you trust</span>
+
+  <div class="feed">
+
+    <div class="item">
+      <div class="meta"><span class="tag">PROTOCOL</span><span>MCP</span><span>· 2026-07</span></div>
+      <h2>MCP's next spec goes stateless at the protocol layer</h2>
+      <p>The Model Context Protocol release candidate dated 2026-07-28 makes MCP easier to run, reason about and scale — the headline change being a stateless protocol layer, removing a major barrier to horizontally-scaled agent tooling.</p>
+      <p class="why"><b>Why it matters for 0n1x:</b> MCP is the agent-to-tools layer we already expose over x402 on Base. A stateless core is what lets a verify endpoint fan out without sticky sessions.</p>
+      <div class="src">Source: <a href="https://dev.to/alexmercedcoder/the-state-of-agentic-ai-standards-in-2026-mcp-a2a-webmcp-osi-and-the-protocol-stack-taking-3o2l" target="_blank" rel="noopener">The State of Agentic AI Standards in 2026 — DEV</a> · <a href="https://aaif.io/blog/mcp-is-growing-up/" target="_blank" rel="noopener">MCP Is Growing Up — AAIF</a></div>
+    </div>
+
+    <div class="item">
+      <div class="meta"><span class="tag">PAYMENTS</span><span>AP2</span><span>· 2026</span></div>
+      <h2>Google hands the Agent Payments Protocol to the FIDO Alliance</h2>
+      <p>Ownership of AP2 moved to the FIDO Alliance for community governance — mirroring A2A's move to the Linux Foundation. AP2 v0.2 ships Human-Not-Present support for autonomous, pre-authorized agent transactions, and layers on top of A2A and MCP.</p>
+      <p class="why"><b>Why it matters for 0n1x:</b> AP2's three signed Mandates (Intent / Cart / Payment) are the exact shape of verify-before-you-pay. Our x402 rail already separates the grader key from the payee — the property AP2 formalizes.</p>
+      <div class="src">Source: <a href="https://ap2-protocol.org/" target="_blank" rel="noopener">ap2-protocol.org</a> · <a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol" target="_blank" rel="noopener">Announcing AP2 — Google Cloud</a></div>
+    </div>
+
+    <div class="item">
+      <div class="meta"><span class="tag">PROTOCOL</span><span>A2A</span><span>· 2026-04</span></div>
+      <h2>A2A crosses 150+ organizations and lands in production clouds</h2>
+      <p>The Agent2Agent standard now counts 150+ participating organizations and 22,000+ GitHub stars, with production deployments inside Azure AI Foundry and Amazon Bedrock AgentCore. Governance sits with the Linux Foundation.</p>
+      <p class="why"><b>Why it matters for 0n1x:</b> Our agents speak A2A natively — signed Agent Cards, identity verified before action, settlement over x402. This is the horizontal layer becoming table stakes, not a bet.</p>
+      <div class="src">Source: <a href="https://stellagent.ai/insights/a2a-protocol-google-agent-to-agent" target="_blank" rel="noopener">A2A Protocol Explained — Stellagent</a> · <a href="https://zuplo.com/blog/agent-protocol-stack-mcp-a2a-acp-2026" target="_blank" rel="noopener">MCP, A2A, and Where ACP Went — Zuplo</a></div>
+    </div>
+
+    <div class="item">
+      <div class="meta"><span class="tag">MODELS</span><span>OpenAI</span><span>· 2026-07</span></div>
+      <h2>OpenAI's GPT-5.6 ships as three models built for agents</h2>
+      <p>GPT-5.6 arrives as Sol (frontier), Terra (~5.5-level intelligence at half the cost) and Luna (small, fast), plus an Ultra mode with a Max reasoning level and heavier sub-agent use. New API capabilities: programmatic tool calling, multi-agent orchestration, and prompt-cache breakpoints.</p>
+      <p class="why"><b>Why it matters for 0n1x:</b> Cheaper frontier reasoning + native multi-agent orchestration is exactly the substrate a live agent network runs on. The moat isn't the model — it's signed proof-of-execution on top of it.</p>
+      <div class="src">Source: <a href="https://www.buildfastwithai.com/blogs/ai-news-today-july-7-2026" target="_blank" rel="noopener">AI News Today, July 7 2026 — BuildFastWithAI</a> · <a href="https://thursdai.news/releases/2026-07" target="_blank" rel="noopener">July 2026 AI Releases — ThursdAI</a></div>
+    </div>
+
+    <div class="item">
+      <div class="meta"><span class="tag">MODELS</span><span>Anthropic</span><span>· 2026-06/07</span></div>
+      <h2>Anthropic makes agents cheaper with Claude Sonnet 5</h2>
+      <p>Claude Sonnet 5 launched as a lower-cost way to run agents, and Claude Cowork expanded to web and mobile — letting agents run multi-step tasks in the background across devices. Claude Code shipped a broad stability update (subagent streaming, better permissions, faster rendering).</p>
+      <p class="why"><b>Why it matters for 0n1x:</b> Falling cost-per-agent-run is what makes an always-on fleet economical. The network compounds when running an agent 24/7 stops being expensive.</p>
+      <div class="src">Source: <a href="https://techcrunch.com/2026/06/30/anthropic-launches-claude-sonnet-5-as-a-cheaper-way-to-run-agents/" target="_blank" rel="noopener">Anthropic launches Claude Sonnet 5 — TechCrunch</a> · <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic Newsroom</a></div>
+    </div>
+
+    <div class="item">
+      <div class="meta"><span class="tag">STACK</span><span>Agentic commerce</span><span>· 2026</span></div>
+      <h2>The 2026 agent stack has converged: MCP + A2A + AP2</h2>
+      <p>The ecosystem has settled on three complementary layers — MCP for agent-to-tools (vertical), A2A for agent-to-agent (horizontal), and AP2 for payments — each governed by an independent foundation. The debate is over; the plumbing is chosen.</p>
+      <p class="why"><b>Why it matters for 0n1x:</b> We already sit across all three. The open question the standards <em>don't</em> answer is trust: is this agent, and this fact, real? That's the layer 0n1x is.</p>
+      <div class="src">Source: <a href="https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production/" target="_blank" rel="noopener">Building with the 2026 Agent Protocol Stack — NiteAgent</a> · <a href="https://agenticplug.ai/current-state-of-agentic-commerce" target="_blank" rel="noopener">State of Agentic Commerce — AgenticPlug</a></div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b style="color:var(--muted)">0n1x Signal</b> — curated for the agentic web. We link the primary source on every item; where a claim can't be sourced, it doesn't run. Absence of a story is not a signal — it means we hold nothing verified to say. · <a href="/">← back to 0n1x</a>
+  </div>
+</div>
+</body></html>
