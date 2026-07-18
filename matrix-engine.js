@@ -620,7 +620,7 @@
       // deck uses) so the HUD and deck show the IDENTICAL number. total_verified is
       // only the current feed window (~700) and would misalign badly (~127k real).
       try {
-        const h = await (await fetch("https://rhinogent.com/census_history.json", { cache: "no-store" })).json();
+        const h = await (await fetch("census_history.json", { cache: "no-store" })).json();
         if (h && h.length) {
           baseTx = h[h.length - 1].txs; liveTx = 0;
           if (opts.onStats) opts.onStats({ txsVerified: baseTx });  // circulating comes from the manifest ONLY (census_history's copy can lag days behind)
