@@ -175,7 +175,37 @@ footer a:hover{color:var(--head)}
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
   .ticker-in{animation:none;padding-left:24px}
 }
+
+/* ---- reading-progress bar ---- */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:200;box-shadow:0 0 8px var(--accent);transition:width .1s linear}
+/* ---- TL;DR top-3 ---- */
+.tldr{border:1px solid var(--rule-strong);border-radius:2px;padding:18px 20px;margin:clamp(1.5rem,3vw,2.25rem) 0 0}
+.tldr h2{font:600 var(--step--1)/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.tldr ol{list-style:none;padding:0;counter-reset:d;display:grid;gap:11px}
+.tldr li{counter-increment:d;display:grid;grid-template-columns:1.6rem 1fr;gap:10px;align-items:baseline;font:400 1.02rem/1.4 var(--serif);color:var(--body)}
+.tldr li::before{content:counter(d);font:500 var(--step--1) var(--mono);color:var(--accent)}
+.tldr li b{color:var(--head);font-weight:600}
+.tldr a{border-bottom:1px solid var(--rule-strong)}
+/* ---- by the numbers ---- */
+.bynum{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:0;border-top:1px solid var(--rule-strong);border-bottom:1px solid var(--rule-strong);margin:clamp(2rem,4vw,3rem) 0 0}
+.bynum .kk{grid-column:1/-1;font:500 var(--step--1)/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--meta);padding:12px 0 2px}
+.bynum figure{padding:14px 18px 16px 0;border-left:1px solid var(--rule);padding-left:18px}
+.bynum figure:first-of-type{border-left:0;padding-left:0}
+.bynum .n{font:600 clamp(1.5rem,3vw,2rem)/1 var(--mono);color:var(--accent);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.bynum figcaption{font:400 var(--step--1)/1.35 var(--sans);color:var(--meta);margin-top:7px;max-width:20ch}
+/* ---- quick hits ---- */
+.quick{padding:clamp(2.5rem,5vw,4rem) 0 0}
+.quick ul{list-style:none;padding:0;border-top:1px solid var(--rule)}
+.quick li{padding:13px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;transition:background .2s var(--ease)}
+.quick li:hover{background:var(--lift)}
+.quick .txt{font:400 1rem/1.45 var(--serif);color:var(--body)}
+.quick .txt b{color:var(--head);font-weight:600}
+.quick .tg{font:400 var(--step--1) var(--mono);color:var(--meta);white-space:nowrap}
+.quick .tg a{color:var(--accent)}
+/* ---- Semaform labels on the lead ---- */
+.sig{font:600 var(--step--1)/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--meta);display:block;margin:0 0 5px}
 </style></head><body>
+<div class="progress" id="progress" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 
 <header role="banner">
@@ -196,7 +226,7 @@ footer a:hover{color:var(--head)}
   </div>
   <div class="wrap">
     <div class="dateline">
-      <span>Signal · Vol. 1 · Ed. 01</span>
+      <span>Signal №001 · <time datetime="2026-07-18">18 Jul 2026</time></span>
       <span class="live">Live · source-linked</span>
     </div>
     <div class="mast">
@@ -205,6 +235,14 @@ footer a:hover{color:var(--head)}
         <p class="sub">The agentic web, tracked</p>
       </div>
       <p class="stand">Every item source-linked<br>Verify before you trust</p>
+    </div>
+    <div class="tldr">
+      <h2>The three that matter</h2>
+      <ol>
+        <li><span><b>MCP goes stateless <time datetime="2026-07-28">28 Jul</time>.</b> The session model is deleted — anything built on it breaks. <a href="#main">Lead ↓</a></span></li>
+        <li><span><b>Both rails now sit under the Linux Foundation.</b> x402 (40 members) and MCP are institutionally governed as of this week. <a href="#latest-h">Latest ↓</a></span></li>
+        <li><span><b>The stack is settled: MCP + A2A + AP2.</b> The plumbing debate is over; the open question is trust. <a href="#record-h">The record ↓</a></span></li>
+      </ol>
     </div>
   </div>
 </header>
@@ -218,6 +256,7 @@ footer a:hover{color:var(--head)}
       <article>
         <div class="metaline"><span class="kick">Protocol</span><span class="stamp">MCP · <time datetime="2026-07">July 2026</time></span></div>
         <h2 id="lead-h" class="hl"><a href="https://aaif.io/blog/mcp-is-growing-up/" target="_blank" rel="noopener">MCP drops the session model — and the agent tooling layer finally scales sideways</a></h2>
+        <span class="sig">The signal</span>
         <p class="dek">The release candidate dated <time datetime="2026-07-28">28 July 2026</time> removes the initialize handshake and the <code>Mcp-Session-Id</code> header outright. Protocol version and client info now ride in <code>_meta</code> on every request; a new <code>server/discover</code> replaces up-front capability exchange.</p>
         <p class="why"><b>Why it matters.</b> This is the change with the biggest operational impact in the spec's history. Anything built against the 2025-11-25 session model has hidden session dependencies that break — and the fix isn't cosmetic: requests must survive moving between server instances. Statelessness is what turns a metered endpoint from a demo into a rail.</p>
         <p class="src">Sources: <a href="https://aaif.io/blog/mcp-is-growing-up/" target="_blank" rel="noopener">MCP Is Growing Up — AAIF</a> · <a href="https://dev.to/alexmercedcoder/the-state-of-agentic-ai-standards-in-2026-mcp-a2a-webmcp-osi-and-the-protocol-stack-taking-3o2l" target="_blank" rel="noopener">State of Agentic AI Standards 2026</a></p>
@@ -233,6 +272,15 @@ footer a:hover{color:var(--head)}
         </ol>
       </aside>
     </div>
+  </section>
+
+  <!-- ===== BY THE NUMBERS ===== -->
+  <section class="bynum" aria-label="By the numbers">
+    <div class="kk">By the numbers · the agent economy, July 2026</div>
+    <figure><div class="n">150+</div><figcaption>organizations shipping A2A in production</figcaption></figure>
+    <figure><div class="n">40</div><figcaption>x402 Foundation members under the Linux Foundation</figcaption></figure>
+    <figure><div class="n">3</div><figcaption>protocol layers now foundation-governed: MCP · A2A · AP2</figcaption></figure>
+    <figure><div class="n">~$28k</div><figcaption>daily x402 volume — the plumbing is real, demand is early</figcaption></figure>
   </section>
 
   <!-- ===== GRID ===== -->
@@ -282,6 +330,17 @@ footer a:hover{color:var(--head)}
         <p class="src">Sources: <a href="https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production/" target="_blank" rel="noopener">NiteAgent</a> · <a href="https://agenticplug.ai/current-state-of-agentic-commerce" target="_blank" rel="noopener">AgenticPlug</a></p>
       </article>
     </div>
+  </section>
+
+  <!-- ===== QUICK HITS ===== -->
+  <section class="quick" aria-labelledby="quick-h">
+    <h2 class="shead" id="quick-h">Also happening</h2>
+    <ul>
+      <li><span class="txt"><b>AWS Bedrock AgentCore Payments</b> (preview) lets any agent pay an x402 endpoint with no custom integration — buyer-side, budget-bounded.</span><span class="tg"><a href="https://aws.amazon.com/bedrock/agentcore/" target="_blank" rel="noopener">AWS ↗</a></span></li>
+      <li><span class="txt"><b>Coinbase Agent.market</b> — a directory of x402-paywalled services; listing is a zero-cost discovery channel for agent-payable endpoints.</span><span class="tg"><a href="https://docs.cdp.coinbase.com/x402/bazaar" target="_blank" rel="noopener">Coinbase ↗</a></span></li>
+      <li><span class="txt"><b>AP2 reference sample fails open</b> on mandate-amount match (PR #300 / issue #299, dated 2026-07-15) — a live demo of the verify-before-pay gap.</span><span class="tg"><a href="https://github.com/google-agentic-commerce/AP2/pull/300" target="_blank" rel="noopener">GitHub ↗</a></span></li>
+      <li><span class="txt"><b>Discovery is standardizing</b> on <code>/.well-known/x402</code> — how buyer-side agents find sellers without a middleman.</span><span class="tg"><a href="https://www.x402.org/" target="_blank" rel="noopener">x402.org ↗</a></span></li>
+    </ul>
   </section>
 
   <!-- ===== THE RECORD ===== -->
@@ -355,4 +414,16 @@ footer a:hover{color:var(--head)}
     <p style="margin-top:1rem"><a href="/">0n1x</a> &nbsp;·&nbsp; <a href="/proof.html">Try the verifier</a> &nbsp;·&nbsp; <a href="https://rhinogent.com/" target="_blank" rel="noopener">Rhinogent</a></p>
   </div>
 </footer>
+<script>
+/* reading-progress bar — pure scroll %, no deps, respects reduced-motion via CSS transition */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar) return;
+  function upd(){
+    var h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+  }
+  addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd); upd();
+})();
+</script>
 </body></html>
