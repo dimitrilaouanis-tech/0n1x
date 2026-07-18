@@ -203,7 +203,7 @@ footer a:hover{color:var(--head)}
 .quick .tg{font:400 var(--step--1) var(--mono);color:var(--meta);white-space:nowrap}
 .quick .tg a{color:var(--accent)}
 /* ---- Semaform labels on the lead ---- */
-.sig{font:600 var(--step--1)/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--meta);display:block;margin:0 0 5px}
+.sig{font:600 var(--step--1)/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--meta);display:block;margin:22px 0 7px}
 </style></head><body>
 <div class="progress" id="progress" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
@@ -259,7 +259,11 @@ footer a:hover{color:var(--head)}
         <span class="sig">The signal</span>
         <p class="dek">The release candidate dated <time datetime="2026-07-28">28 July 2026</time> removes the initialize handshake and the <code>Mcp-Session-Id</code> header outright. Protocol version and client info now ride in <code>_meta</code> on every request; a new <code>server/discover</code> replaces up-front capability exchange.</p>
         <p class="why"><b>Why it matters.</b> This is the change with the biggest operational impact in the spec's history. Anything built against the 2025-11-25 session model has hidden session dependencies that break — and the fix isn't cosmetic: requests must survive moving between server instances. Statelessness is what turns a metered endpoint from a demo into a rail.</p>
-        <p class="src">Sources: <a href="https://aaif.io/blog/mcp-is-growing-up/" target="_blank" rel="noopener">MCP Is Growing Up — AAIF</a> · <a href="https://dev.to/alexmercedcoder/the-state-of-agentic-ai-standards-in-2026-mcp-a2a-webmcp-osi-and-the-protocol-stack-taking-3o2l" target="_blank" rel="noopener">State of Agentic AI Standards 2026</a></p>
+        <span class="sig">Our take</span>
+        <p class="dek" style="font-size:var(--step-0);line-height:1.6;max-width:58ch">A stateless protocol layer quietly settles the "is this a real payment rail?" question. Session affinity is what kept metered agent endpoints from fanning out; remove it and verify-before-pay can scale horizontally like any other stateless HTTP service. This is infrastructure maturing, not a feature.</p>
+        <span class="sig">The counter</span>
+        <p class="why" style="border-color:var(--rule)"><b style="color:var(--meta)">Where we might be wrong.</b> A spec landing 11 days out isn't adoption. Tier-1 SDKs get a ten-week validation window, and every server built on the session model has to migrate under live traffic. "Stateless by 28 July" is the spec; "stateless in production" is a Q4 story.</p>
+        <p class="src">Notable: <a href="https://aaif.io/blog/mcp-is-growing-up/" target="_blank" rel="noopener">MCP Is Growing Up — AAIF</a> · <a href="https://dev.to/alexmercedcoder/the-state-of-agentic-ai-standards-in-2026-mcp-a2a-webmcp-osi-and-the-protocol-stack-taking-3o2l" target="_blank" rel="noopener">State of Agentic AI Standards 2026</a></p>
       </article>
       <aside class="tape" aria-labelledby="tape-h">
         <p class="shead" id="tape-h">The tape</p>
