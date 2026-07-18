@@ -1,0 +1,72 @@
+{
+  "protocolVersion": "1.0",
+  "name": "0n1x",
+  "description": "The neutral trust layer for AI agents. 0n1x issues cryptographically signed facts — identity, rank, and verify-before-you-pay verdicts on counterparties — that anyone can recompute from public data. Neutral by design: it earns nothing from what it grades (payTo key != grader key).",
+  "version": "1.0.0",
+  "url": "https://0n1xagntc.com",
+  "documentationUrl": "https://0n1xagntc.com/mint-spec.html",
+  "preferredTransport": "JSONRPC",
+  "provider": {
+    "organization": "0n1x",
+    "url": "https://0n1xagntc.com"
+  },
+  "iconUrl": "https://0n1xagntc.com/favicon.svg",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": true
+  },
+  "defaultInputModes": ["text/plain", "application/json"],
+  "defaultOutputModes": ["application/json"],
+  "skills": [
+    {
+      "id": "verify-before-pay",
+      "name": "Verify a counterparty before you pay",
+      "description": "Return a signed PROCEED / REVIEW / HOLD verdict on a merchant, agent, or claim BEFORE an agent settles a payment. Payment rails verify the payment; 0n1x verifies the thing being paid for (Know Your Counterparty).",
+      "tags": ["verification", "payments", "x402", "trust", "KYC-agent"],
+      "examples": [
+        "Is example-merchant.com a real counterparty and is this price honest?",
+        "Verify agent did:pkh:eip155:8453:0x... before I transact with it."
+      ]
+    },
+    {
+      "id": "census-read",
+      "name": "Read the signed agent census",
+      "description": "Query the Merkle-rooted registry of agent identities. Every entry is EIP-191 signed; the count is recomputable from public shards. Read the live count from census_manifest.json — never a hardcoded number.",
+      "tags": ["registry", "census", "merkle", "identity"],
+      "examples": ["Return the current census merkle root and count.", "Is did:pkh:eip155:8453:0x... a registered citizen?"]
+    },
+    {
+      "id": "facts",
+      "name": "Canonical signed facts",
+      "description": "Definitions and current figures as signed, citable facts rather than assertions. 0n1x signs facts, not judgments.",
+      "tags": ["facts", "attestation", "citation"],
+      "examples": ["What is 'verify before you pay' per 0n1x?"]
+    },
+    {
+      "id": "signal",
+      "name": "0n1x Signal — verified agent-economy news",
+      "description": "The verified news brief on agentic standards, payments, and identity. Every claim is sourced; where a claim can't be sourced, it doesn't run.",
+      "tags": ["news", "intelligence", "standards"],
+      "examples": ["What changed in the MCP 2026-07-28 spec?"]
+    }
+  ],
+  "securitySchemes": {
+    "x402": {
+      "type": "http",
+      "scheme": "x402",
+      "description": "Metered access via HTTP 402 Payment Required. Pay USDC on Base per request; receive a signed verdict. payTo (treasury) is a DIFFERENT key from the grader that signs the verdict, so the payee cannot tilt the result."
+    }
+  },
+  "security": [{ "x402": [] }],
+  "additionalInterfaces": [
+    { "transport": "JSONRPC", "url": "https://0n1xagntc.com" }
+  ],
+  "x-0n1x": {
+    "note": "This is 0n1x's own A2A v1.0 Agent Card (CARD-1 rendering #3). It is currently UNSIGNED (v0): the AgentCardSignature (JWS, JCS-canonicalized per RFC 8785) is reserved and will be added by the 0n1x attest key. Per-citizen cards countersigned by 0n1x — with skills_verified (feed-evidence-backed) kept strictly separate from skills_declared — are the next CARD-1 rendering.",
+    "spec": "https://0n1xagntc.com/mint-spec.html",
+    "erc8004": "identity registry pointer reserved for 0n1x deployment on Base",
+    "neutrality": "payTo != grader",
+    "signatureStatus": "reserved"
+  }
+}
