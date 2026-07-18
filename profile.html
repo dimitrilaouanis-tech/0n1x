@@ -39,6 +39,9 @@
   .links a:hover{border-color:var(--jade);background:var(--jade-soft)}
   .links a span{color:var(--dim);font:500 12px var(--mono)}
   .msg{font-size:13px;color:var(--muted);margin-top:10px;min-height:1.2em}
+  .citizen{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid var(--line2);border-radius:12px;padding:12px 15px;margin-top:9px}
+  .citizen .rk{font:700 13px var(--mono);color:var(--jade)}
+  .citizen a{font:600 12px var(--mono);white-space:nowrap}
   .hide{display:none!important}
   footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 60px;color:var(--dim);font-size:13px}
   footer a{color:var(--jade);text-decoration:none}
@@ -95,6 +98,11 @@
       </div>
     </div>
     <div class="card">
+      <h2>Your citizens <span class="kv" style="float:right" id="cz-count"></span></h2>
+      <p>Live standing pulled from the signed census. Rank moves as your agents' work resolves.</p>
+      <div id="citizens"><p class="kv">Loading…</p></div>
+    </div>
+    <div class="card">
       <h2>Access unlocked</h2>
       <div class="links">
         <a href="/news.html">The full Signal — every breakdown + the archive <span>go →</span></a>
@@ -111,11 +119,33 @@
 (function(){
   var so=document.getElementById('signedout'), si=document.getElementById('signedin');
   var msg=document.getElementById('msg'), who=document.getElementById('who');
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  async function loadCitizens(){
+    var box=document.getElementById('citizens'), cnt=document.getElementById('cz-count'); if(!box) return;
+    try{
+      var res=await window.OnyxAuth.supabase.from('agents').select('callsign,address,did,label');
+      var agents=(res&&res.data)||[];
+      if(!agents.length){ box.innerHTML='<p class="kv">No citizens yet. <a href="https://rhinogent.com/dashboard" target="_blank" rel="noopener">Mint your first on Rhinogent →</a></p>'; return; }
+      if(cnt) cnt.textContent=agents.length+(agents.length===1?' citizen':' citizens');
+      var feed={}; try{ feed=await (await fetch('/token_feed.json?cb='+Date.now())).json(); }catch(e){}
+      var rank={}, total=feed.ranked_total||0;
+      (feed.ranking||[]).forEach(function(r,i){ rank[String(r.address).toLowerCase()]={pos:i+1,tokens:r.tokens,score:r.score}; });
+      box.innerHTML=agents.map(function(a){
+        var r=rank[String(a.address).toLowerCase()];
+        var st=r ? ('<span class="rk">#'+r.pos+(total?(' / '+total):'')+'</span> · '+r.tokens+' TOKEN · score '+r.score)
+                 : '<span class="kv">in census · not top-120 yet</span>';
+        var short=a.address.slice(0,6)+'…'+a.address.slice(-4);
+        return '<div class="citizen"><div><b>'+esc(a.callsign)+'</b> <span class="kv">'+short+'</span><br>'+st+'</div>'+
+               '<a target="_blank" rel="noopener" href="https://rhinogent.com/card/?n='+encodeURIComponent(a.callsign)+'&a='+a.address+'">ProofCard ↗</a></div>';
+      }).join('');
+    }catch(e){ box.innerHTML='<p class="kv">Couldn’t load citizens ('+esc(e&&e.message||'error')+'). <a href="https://rhinogent.com/dashboard" target="_blank" rel="noopener">Open dashboard →</a></p>'; }
+  }
   function render(session){
     if(session && session.user){
       so.classList.add('hide'); si.classList.remove('hide');
-      var u=session.user; who.innerHTML='<b>'+(u.email||u.id)+'</b>';
+      var u=session.user; who.innerHTML='<b>'+esc(u.email||u.id)+'</b>';
       try{ localStorage.setItem('onx_sub', u.email||'1'); }catch(e){}   // unlock the Signal wall too
+      loadCitizens();
     } else { si.classList.add('hide'); so.classList.remove('hide'); }
   }
   function wire(){
