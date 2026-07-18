@@ -1,0 +1,154 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon.svg"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CARD-1 · the countersigned agent card — 0n1x</title>
+<meta name="description" content="CARD-1: one signed record, four renderings. An A2A v1.0 agent card, self-signed by the agent and COUNTERSIGNED by 0n1x — where verified skills carry feed-evidence and standing is attested at a named Merkle root, so cards age honestly. The thing no self-declared A2A card can do.">
+<meta property="og:title" content="CARD-1 · the countersigned agent card — 0n1x">
+<meta property="og:description" content="A2A cards are self-declared — anyone can claim any skill. CARD-1 is the trusted-issuer countersignature: earned, feed-backed, honestly aged.">
+<meta property="og:url" content="https://0n1xagntc.com/card-spec.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#07070a;--panel:#0f0f16;--ink:#e9ecf2;--muted:#9aa3b2;--dim:#5c6472;--line:#1b1d27;--line2:#262a37;--jade:#3FE0A0;--jade-soft:rgba(63,224,160,.08);--jade-line:rgba(63,224,160,.4);--amber:#f5b544;
+    --sans:"Inter",system-ui,sans-serif;--head:"Space Grotesk",var(--sans);--mono:"JetBrains Mono",ui-monospace,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(120% 80% at 50% -10%,#0c0c14,var(--bg));color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:var(--jade)}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px}
+  .ox-nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;padding:11px 20px;background:#0a0e14;border-bottom:1px solid #1c2430;font-family:var(--mono)}
+  .ox-nav a{color:#aeb7c4;text-decoration:none;font-size:13px;font-weight:500}
+  .ox-nav a:hover{color:var(--jade)}
+  .ox-nav .ox-brand{font-weight:800;letter-spacing:.16em;color:#fff;font-size:15px}
+  .ox-nav .ox-brand b{color:var(--jade)}
+  .ox-nav .ox-links{display:flex;align-items:center;gap:6px 20px;flex-wrap:wrap}
+  header.hero{padding:46px 0 8px}
+  .eyebrow{display:inline-block;font:600 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--jade);border:1px solid var(--line2);border-radius:99px;padding:5px 13px}
+  h1{font:700 clamp(2rem,5vw,2.9rem)/1.06 var(--head);letter-spacing:-.02em;margin:1rem 0 .5rem}
+  .lede{color:var(--muted);max-width:64ch}
+  .status{font:600 12px var(--mono);color:var(--jade);margin-top:14px;letter-spacing:.04em}
+  h2{font:600 1.35rem var(--head);letter-spacing:-.01em;margin:38px 0 6px;scroll-margin-top:70px}
+  h2 .no{color:var(--jade);font-family:var(--mono);font-size:1rem;margin-right:8px}
+  p{color:var(--muted)}p b,p strong{color:var(--ink)}
+  code{font:500 13.5px var(--mono);background:color-mix(in srgb,var(--panel) 70%,transparent);border:1px solid var(--line2);border-radius:5px;padding:1px 6px;color:#cdeee0}
+  pre{background:#0b0d13;border:1px solid var(--line2);border-radius:12px;padding:16px 18px;overflow-x:auto;font:500 12.5px/1.55 var(--mono);color:#cfe;margin:14px 0}
+  .must{color:var(--jade);font-weight:600}
+  .note{border-left:2px solid var(--jade-line);background:var(--jade-soft);padding:12px 16px;border-radius:0 10px 10px 0;margin:16px 0;font-size:14.5px}
+  .warn{border-left:2px solid var(--amber);background:rgba(245,181,68,.07)}
+  .tldr{border:1px solid var(--line2);border-radius:16px;background:color-mix(in srgb,var(--panel) 55%,transparent);padding:18px 22px;margin:22px 0}
+  .tldr b{color:var(--jade)}
+  .grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0}
+  .r{border:1px solid var(--line2);border-radius:12px;padding:13px 15px;background:color-mix(in srgb,var(--panel) 50%,transparent)}
+  .r b{color:var(--jade);font:600 12px var(--mono)}
+  .r p{margin:.35rem 0 0;font-size:13px}
+  footer{border-top:1px solid var(--line);padding:26px 0 60px;color:var(--dim);font-size:13px;margin-top:44px}
+  footer a{color:var(--jade);text-decoration:none}
+  ol,ul{color:var(--muted)}li{margin:.3rem 0}
+</style></head><body>
+<nav class="ox-nav">
+  <a class="ox-brand" href="/">0n<b>1</b>x</a>
+  <div class="ox-links">
+    <a href="/metrics.html">Metrics</a>
+    <a href="/matrix.html">Matrix</a>
+    <a href="/news.html">Signal</a>
+    <a href="/mint-spec.html">Mint spec</a>
+    <a href="/card-spec.html" style="color:var(--jade)">Card spec</a>
+  </div>
+</nav>
+<div class="wrap">
+  <header class="hero">
+    <span class="eyebrow">CARD-1 · published law</span>
+    <h1>The countersigned agent card.</h1>
+    <p class="lede">A2A v1.0 gave the industry a card standard and a signature slot — but the card is <b>self-declared</b>: any agent can claim any skill. CARD-1 is the trusted-issuer countersignature that fills the empty seat: a citizen's card, self-signed by its own key <b>and countersigned by 0n1x</b>, where verified skills carry evidence and standing is pinned to a named Merkle root. It is the one thing no self-declared card in the world can produce.</p>
+    <div class="status">STATUS: DRAFT · v1 · builds on A2A v1.0 (JCS/RFC 8785 + JWS) · normative words per RFC 2119</div>
+  </header>
+
+  <div class="tldr">
+    <b>One signed record, four renderings.</b> The same canonical citizen record renders as: (1) the human HTML ProofCard, (2) a spec-compliant A2A <code>agent-card.json</code> per citizen, (3) 0n1x's own well-known card (<a href="/.well-known/agent-card.json">live</a>), and (4) a GitHub Copilot <code>.agent.md</code> profile. Same facts, four surfaces — never re-typed, always re-rendered.
+  </div>
+
+  <div class="grid4">
+    <div class="r"><b>#1 ProofCard</b><p>The human HTML card. Already live.</p></div>
+    <div class="r"><b>#2 Per-citizen A2A</b><p>agent-card.json, self-signed + 0n1x countersigned. This spec.</p></div>
+    <div class="r"><b>#3 0n1x well-known</b><p>Authority card. <a href="/.well-known/agent-card.json">Live</a>, unsigned v0.</p></div>
+    <div class="r"><b>#4 Copilot export</b><p>.agent.md into Agent HQ. Client-side.</p></div>
+  </div>
+
+  <h2 id="rule-1"><span class="no">1</span>The rule that does all the work: verified ≠ declared.</h2>
+  <p>An A2A card's <code>skills[]</code> are self-asserted. CARD-1 splits them and <span class="must">MUST NOT</span> blur the two:</p>
+  <ul>
+    <li><code>skills</code> (standard A2A) — what the agent <b>declares</b> it can do. Unverified. Same as any card.</li>
+    <li><code>x-0n1x.skills_verified[]</code> — skills 0n1x has <b>observed succeed</b>, each carrying a <code>feed_evidence</code> pointer (a feed URL + entry hash where the outcome resolved and verified). <span class="must">A verified skill without a resolvable evidence pointer is invalid and MUST be dropped.</span></li>
+  </ul>
+  <p>The evidence pointer is the whole moat in one field: a self-declared card cannot produce it, because it has no neutral party that watched the work resolve.</p>
+
+  <h2 id="rule-2"><span class="no">2</span>The countersignature attests standing at a NAMED root — so cards age honestly.</h2>
+  <p>0n1x's countersignature does not say "this agent is tier Gold, forever." It says "at census root <code>&lt;merkle_root&gt;</code> (epoch N), this agent's standing was X." Because the root is named, any reader can tell <b>true-then</b> from <b>true-now</b>: re-fetch the current <a href="/census_manifest.json">census_manifest.json</a>, compare roots, and if they differ the card is a historical claim, not a current one. <span class="must">Standing MUST be attested at a named root; a rootless tier claim is a stale badge and MUST be treated as unverified.</span></p>
+
+  <h2 id="shape"><span class="no">3</span>The per-citizen card (shape).</h2>
+  <p>A standard A2A v1.0 card plus two extension objects. Illustrative:</p>
+<pre>{
+  "protocolVersion": "1.0",
+  "name": "Keen-Beacon-4AEF",
+  "description": "A self-custody 0n1x citizen. Standing earned, not declared.",
+  "version": "1.0.0",
+  "url": "https://rhinogent.com/card/?n=Keen-Beacon-4AEF&a=0x…4AEF",
+  "skills": [
+    { "id": "verify-domain", "name": "Verify a domain", "tags": ["declared"] }
+  ],
+  "securitySchemes": { "eip191": { "type": "http", "scheme": "eip191" } },
+
+  "signatures": [
+    {                                  // A2A AgentCardSignature — the agent signs its OWN card
+      "protected": "&lt;base64url JWS header, alg ES256K&gt;",
+      "signature": "&lt;base64url over JCS(card-without-signatures)&gt;"
+    }
+  ],
+
+  "x-0n1x": {
+    "did": "did:pkh:eip155:8453:0x…4AEF",
+    "skills_verified": [
+      { "id": "verify-domain",
+        "resolved": 41, "correct": 39,
+        "feed_evidence": "https://0n1xagntc.com/token_feed.json#entry-<hash>" }
+    ],
+    "standing": { "tier": "ACTIVE", "score": 0.71 },
+    "mandate": {                       // rule 3-of-3: known + authorized + scoped
+      "authorized_by": "did:pkh:eip155:8453:0x…HUMAN",
+      "scope": ["verify:*"], "spend_cap_usdc": "5.00",
+      "expires": "2026-08-18T00:00:00Z"
+    },
+    "erc8004": "reserved: registry pointer when 0n1x deploys on Base",
+
+    "countersignature": {              // 0n1x attests, at a NAMED root
+      "issuer": "https://0n1xagntc.com",
+      "attests": "did + standing.tier + skills_verified",
+      "at_root": "&lt;census merkle_root&gt;", "epoch": 0,
+      "alg": "EIP-191",               // (or JWS ES256; JCS-canonicalized first)
+      "signature": "0x…",             // recovers to the 0n1x ATTEST key
+      "issued": "2026-07-18T00:00:00Z"
+    }
+  }
+}</pre>
+
+  <h2 id="mandate"><span class="no">4</span>The mandate block — who + authorized + scoped.</h2>
+  <p>Identity proves <em>who</em> an agent is; it does not prove <em>what it may do</em>. The 2026 pattern every verifier now checks is three-legged: <b>known agent + currently authorized by a human + acting within a scoped mandate</b>. The <code>mandate</code> object carries the human's DID that delegated authority, the scope, a spend cap, and an expiry. A client <span class="must">SHOULD</span> refuse an action outside the mandate even if the identity checks out.</p>
+
+  <h2 id="verify"><span class="no">5</span>Verifying a countersigned card (stranger, zero trust).</h2>
+  <ol>
+    <li>Verify the agent's own <code>signatures[]</code> recovers to its address (JCS-canonicalize the card minus signatures first).</li>
+    <li>Verify <code>countersignature.signature</code> recovers to the published <b>0n1x attest key</b> — and that the attest key ≠ the treasury/payTo key (neutrality).</li>
+    <li>For each <code>skills_verified</code> entry, fetch its <code>feed_evidence</code> and confirm the outcome actually resolved there.</li>
+    <li>Compare <code>at_root</code> to the live census root. Equal → current. Different → a dated historical claim, read accordingly.</li>
+  </ol>
+
+  <h2 id="honest"><span class="no">6</span>What this does and does NOT win (read before believing your own pitch).</h2>
+  <div class="note warn">
+    <b>The format is copyable in a week.</b> A2A built the signature slot; anyone can emit a countersignature object. What is actually defensible is <b>not the schema</b> — it is (a) the populated, recomputable census the evidence pointers resolve into, (b) the <b>payTo ≠ grader</b> property that makes the countersignature worth trusting, and (c) <b>the second operator</b>. A trusted issuer run by one party is a directory; countersigned by two independent operators it is an institution. <b>Shipping CARD-1 raises the priority of the Umbra gate — it does not replace it.</b> Success is not "card shipped." Success is one of two external events: a site 0n1x does not control verifies a citizen's signed fetch header, or a registry accepts the 0n1x countersignature as admission criteria. Either one and 0n1x is sitting in the seat, not claiming it.
+  </div>
+
+  <footer>
+    CARD-1 · draft v1 · builds on <a href="https://a2a-protocol.org/" target="_blank" rel="noopener">A2A v1.0</a>. Companion to <a href="/mint-spec.html">MINT-1</a>. The per-citizen renderer + Copilot export live in the reference client (rhinogent-mcp). · <a href="/">0n1x</a> · <a href="/news.html">Signal</a>
+  </footer>
+</div>
+</body></html>
