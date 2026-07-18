@@ -312,6 +312,12 @@ footer a:hover{color:var(--pink)}
 .gate.mini .lock .lh{font-size:1.02rem;margin-bottom:10px}
 .gate.mini .subform button{padding:11px 16px;font-size:var(--step--1)}
 .gate.mini .subform input[type=email]{padding:11px 13px;font-size:var(--step--1);flex-basis:9rem}
+/* Google sign-in + email wall */
+.lock .gbtn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#1f2430;border:1px solid var(--rule-strong);border-radius:10px;padding:11px 18px;font:600 var(--step--1) var(--sans);cursor:pointer;box-shadow:var(--shad);transition:.16s var(--ease)}
+.lock .gbtn:hover{border-color:var(--blue);box-shadow:var(--shad-lg)}
+.lock .gbtn .gg{width:18px;height:18px;flex:none}
+.lock .ordiv{display:flex;align-items:center;gap:10px;color:var(--meta);font:600 12px var(--mono);margin:12px 0;max-width:34rem;width:100%}
+.lock .ordiv::before,.lock .ordiv::after{content:"";height:1px;flex:1;background:var(--rule-strong)}
 </style></head><body>
 <div class="progress" id="progress" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
@@ -391,7 +397,7 @@ footer a:hover{color:var(--pink)}
         <p class="dek">The release candidate dated <time datetime="2026-07-28">28 July 2026</time> removes the initialize handshake and the <code>Mcp-Session-Id</code> header outright. Protocol version and client info now ride in <code>_meta</code> on every request; a new <code>server/discover</code> replaces up-front capability exchange.</p>
         <p class="why"><b>Why it matters.</b> This is the change with the biggest operational impact in the spec's history. Anything built against the 2025-11-25 session model has hidden session dependencies that break — and the fix isn't cosmetic: requests must survive moving between server instances. Statelessness is what turns a metered endpoint from a demo into a rail.</p>
 
-        <div class="gate" data-gate data-locked="true">
+        <div class="gate" data-gate data-locked="false">
           <div class="gated">
             <span class="sig">Our take</span>
             <p class="dek" style="font-size:var(--step-0);line-height:1.6;max-width:58ch">A stateless protocol layer quietly settles the "is this a real payment rail?" question. Session affinity is what kept metered agent endpoints from fanning out; remove it and verify-before-pay can scale horizontally like any other stateless HTTP service. This is infrastructure maturing, not a feature.</p>
@@ -448,7 +454,7 @@ footer a:hover{color:var(--pink)}
         <h3 class="hl"><a href="https://thursdai.news/releases/2026-07" target="_blank" rel="noopener">OpenAI splits GPT-5.6 into three agents — and halves the price of frontier reasoning</a></h3>
         <div class="hook"><span class="hlab">TikTok</span><span class="htxt">OpenAI didn't ship one model. It shipped three — and the middle one is 5.5-smart at half the cost.</span></div>
         <p>Sol (frontier), Terra (~5.5-level intelligence at half the cost) and Luna (small, fast), plus an Ultra mode with Max reasoning and heavier sub-agent use. New API surface: programmatic tool calling, multi-agent orchestration, prompt-cache breakpoints.</p>
-        <div class="gate mini" data-gate data-locked="true">
+        <div class="gate mini" data-gate data-locked="false">
           <div class="gated">
             <p class="why" style="border:0;padding:0;margin:0"><b>For 0n1x:</b> cheap frontier reasoning plus native orchestration is the substrate. The moat was never the model — it's signed proof-of-execution on top of it.</p>
           </div>
@@ -474,7 +480,7 @@ footer a:hover{color:var(--pink)}
         <h3 class="hl"><a href="https://techcrunch.com/2026/06/30/anthropic-launches-claude-sonnet-5-as-a-cheaper-way-to-run-agents/" target="_blank" rel="noopener">Claude Sonnet 5 makes the always-on agent finally cheap enough to leave running</a></h3>
         <div class="hook"><span class="hlab">TikTok</span><span class="htxt">The thing stopping 24/7 AI agents was never smarts — it was the bill. Sonnet 5 just cut it.</span></div>
         <p>Sonnet 5 launched as a lower-cost way to run agents, while Claude Cowork expanded to web and mobile — agents running multi-step tasks in the background across devices.</p>
-        <div class="gate mini" data-gate data-locked="true">
+        <div class="gate mini" data-gate data-locked="false">
           <div class="gated">
             <p class="why" style="border:0;padding:0;margin:0"><b>For 0n1x:</b> falling cost-per-run is what makes an always-on fleet economical. A network only compounds when running an agent 24/7 stops being expensive.</p>
           </div>
@@ -539,7 +545,7 @@ footer a:hover{color:var(--pink)}
         <h3 class="hl"><a href="https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production/" target="_blank" rel="noopener">The plumbing debate is over: MCP + A2A + AP2 won — and left one question unanswered</a></h3>
         <div class="hook"><span class="hlab">TikTok</span><span class="htxt">Three layers, three foundations, debate closed. The one thing none of them answer? Whether the agent — or the fact — is real.</span></div>
         <p>Three complementary layers — MCP for agent-to-tools, A2A for agent-to-agent, AP2 for payments — each under independent foundation governance. The plumbing debate is over.</p>
-        <div class="gate mini" data-gate data-locked="true">
+        <div class="gate mini" data-gate data-locked="false">
           <div class="gated">
             <p class="why" style="border:0;padding:0;margin:0"><b>For 0n1x:</b> we sit across all three. The question the standards <em>don't</em> answer is trust — is this agent, and this fact, real? That unanswered layer is the whole company.</p>
           </div>
@@ -574,11 +580,13 @@ footer a:hover{color:var(--pink)}
     <h2 id="record-h">The record</h2>
     <p class="intro">How the agent economy's trust and payment layer got here — from a protocol announcement in late 2024 to three foundation-governed standards. Dated, source-linked, append-only. We add; we don't quietly revise.</p>
 
+    <div class="gate wall" data-gate data-locked="true">
+    <div class="gated">
     <p class="yr">2026</p>
     <div class="rec next">
       <span class="d"><time datetime="2026-07-28">28 Jul 2026</time></span>
-      <span class="t">MCP spec removes the session model <span>Handshake and <code>Mcp-Session-Id</code> gone; <code>server/discover</code> replaces capability exchange. Final ships this date — the RC is out now.</span></span>
-      <span class="s"><a href="https://aaif.io/blog/mcp-is-growing-up/" target="_blank" rel="noopener">AAIF ↗</a></span>
+      <span class="t">MCP spec removes the session model <span>Handshake and <code>Mcp-Session-Id</code> gone; protocol info now rides in <code>_meta</code> per request. Final ships this date — the RC is out now.</span></span>
+      <span class="s"><a href="https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/" target="_blank" rel="noopener">MCP spec blog ↗</a></span>
     </div>
     <div class="rec">
       <span class="d"><time datetime="2026-07-14">14 Jul 2026</time></span>
@@ -629,6 +637,24 @@ footer a:hover{color:var(--pink)}
       <span class="t">Anthropic announces the Model Context Protocol <span>The origin point. One open standard to connect AI systems to the places data lives, replacing bespoke per-source integrations. Everything above is downstream of this.</span></span>
       <span class="s"><a href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener">Anthropic ↗</a></span>
     </div>
+    </div><!-- /.gated -->
+    <div class="lock">
+      <span class="lk">The full record + daily brief</span>
+      <p class="lh">You've read the brief free. Unlock the full dated archive — and get every breakdown, source-linked, in your inbox.</p>
+      <button type="button" class="gbtn" data-google hidden>
+        <svg class="gg" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.3 0 24 0 14.6 0 6.4 5.4 2.5 13.3l7.9 6.1C12.3 13.2 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.1 5.3-4.6 7l7.1 5.5c4.2-3.9 6.6-9.6 6.6-16z"/><path fill="#FBBC05" d="M10.4 28.6c-.5-1.4-.7-2.9-.7-4.6s.3-3.2.7-4.6l-7.9-6.1C.9 16.5 0 20.1 0 24s.9 7.5 2.5 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.3 0 11.6-2.1 15.5-5.7l-7.1-5.5c-2 1.3-4.5 2.1-8.4 2.1-6.4 0-11.7-3.7-13.6-8.9l-7.9 6.1C6.4 42.6 14.6 48 24 48z"/></svg>
+        Continue with Google
+      </button>
+      <div class="ordiv" data-ordiv hidden><span>or</span></div>
+      <form class="subform" data-sub novalidate>
+        <label class="skip" for="wall-email">Email address</label>
+        <input id="wall-email" name="email" type="email" autocomplete="email" placeholder="you@domain.com" required>
+        <button type="submit">Unlock with email</button>
+      </form>
+      <p class="submsg" data-msg role="status" aria-live="polite"></p>
+      <p class="subnote">Free. Source-linked. No spam. Unlocks the full archive across the site.</p>
+    </div>
+    </div><!-- /.gate -->
   </section>
 
 </div>
@@ -720,7 +746,29 @@ footer a:hover{color:var(--pink)}
   });
 })();
 </script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
+/* Google sign-in for the news wall. Self-contained: reveals the Google button ONLY if a
+   real client id is configured (deploy-time replaces __GOOGLE_CLIENT_ID__). Otherwise the
+   wall is email-only — no dead Google button. Unlock = same localStorage key the gate uses. */
+(function(){
+  var CID = "__GOOGLE_CLIENT_ID__";
+  if(!CID || CID.indexOf("__GOOGLE")===0) return;         // not configured → email-only, graceful
+  function unlock(email){
+    try{ localStorage.setItem('onx_sub', email||'1'); }catch(e){}
+    document.querySelectorAll('[data-gate]').forEach(function(g){ g.setAttribute('data-locked','false'); });
+  }
+  function onCred(r){
+    try{ var p = JSON.parse(atob(r.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))); unlock(p.email); }
+    catch(e){ unlock(); }
+  }
+  (function boot(){
+    if(!(window.google && google.accounts && google.accounts.id)) return setTimeout(boot,300);
+    google.accounts.id.initialize({ client_id: CID, callback: onCred });
+    document.querySelectorAll('[data-google]').forEach(function(b){ b.hidden=false; b.onclick=function(){ google.accounts.id.prompt(); }; });
+    document.querySelectorAll('[data-ordiv]').forEach(function(o){ o.hidden=false; });
+  })();
+})();
 /* keep the MCP clickbait countdown honest: days until the 2026-07-28 RC ships.
    A wrong countdown reads as fake — so compute it, never hardcode it. */
 (function(){
