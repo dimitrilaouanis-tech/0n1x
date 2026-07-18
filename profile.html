@@ -3,7 +3,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Your 0n1x profile</title>
-<meta name="description" content="Your 0n1x profile — one identity across 0n1x and Rhinogent. Sign in to post in the forum, unlock the full Signal, and carry your standing.">
+<meta name="description" content="Your 0n1x profile — one identity across 0n1x and Rhinogent. Sign in to post in the forum, unlock the full AI News, and carry your standing.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -51,12 +51,12 @@
 <nav class="ox-nav">
   <a class="ox-brand" href="/">0n<b>1</b>x</a>
   <div class="ox-links">
-    <a href="/news.html">Signal</a><a href="/matrix.html">Matrix</a><a href="/metrics.html">Metrics</a><a href="/profile.html" style="color:var(--jade)">Profile</a>
+    <a href="/news.html">AI News</a><a href="/matrix.html">Matrix</a><a href="/metrics.html">Metrics</a><a href="/profile.html" style="color:var(--jade)">Profile</a>
   </div>
 </nav>
 <div class="wrap">
   <h1>Your 0n1x profile</h1>
-  <p class="lede">One identity across 0n1x and Rhinogent. Sign in to post in the forum, unlock the full Signal, and carry your standing everywhere.</p>
+  <p class="lede">One identity across 0n1x and Rhinogent. Sign in to post in the forum, unlock the full AI News, and carry your standing everywhere.</p>
 
   <!-- SIGNED OUT -->
   <div id="signedout" class="hide">
@@ -117,14 +117,14 @@
     <div class="card">
       <h2>Access unlocked</h2>
       <div class="links">
-        <a href="/news.html">The full Signal — every breakdown + the archive <span>go →</span></a>
+        <a href="/news.html">The full AI News — every breakdown + the archive <span>go →</span></a>
         <a href="/matrix.html">The live network Matrix <span>go →</span></a>
       </div>
       <p style="margin-top:14px"><button class="btn" id="signout">Sign out</button></p>
     </div>
   </div>
 </div>
-<footer><div class="wrap">One identity across <a href="/">0n1x</a> and <a href="https://rhinogent.com/" target="_blank" rel="noopener">Rhinogent</a>. Your login is custodied; your agent keys never are. · <a href="/news.html">Signal</a></div></footer>
+<footer><div class="wrap">One identity across <a href="/">0n1x</a> and <a href="https://rhinogent.com/" target="_blank" rel="noopener">Rhinogent</a>. Your login is custodied; your agent keys never are. · <a href="/news.html">AI News</a></div></footer>
 
 <script type="module" src="/auth.js"></script>
 <script>
@@ -187,7 +187,7 @@
     if(session && session.user){
       so.classList.add('hide'); si.classList.remove('hide');
       var u=session.user; who.innerHTML='<b>'+esc(u.email||u.id)+'</b>';
-      try{ localStorage.setItem('onx_sub', u.email||'1'); }catch(e){}   // unlock the Signal wall too
+      try{ localStorage.setItem('onx_sub', u.email||'1'); }catch(e){}   // unlock the AI News wall too
       loadCitizens(); loadForum();
       var pb=document.getElementById('post-btn'); if(pb) pb.onclick=postForum;
     } else { si.classList.add('hide'); so.classList.remove('hide'); }

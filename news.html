@@ -429,7 +429,7 @@ footer a:hover{color:var(--pink)}
         <ol>
           <li><div><p>x402 Foundation goes live under the Linux Foundation with 40 members</p><small>Payments · governance</small></div></li>
           <li><div><p>Google hands AP2 to the FIDO Alliance</p><small>Payments · v0.2</small></div></li>
-          <li><div><p>A2A passes 150 organizations, ships in Azure and Bedrock</p><small>Protocol · production</small></div></li>
+          <li><div><p>Visa takes agentic checkout live at real EU merchants — 30+ issuers, under real SCA</p><small>Payments · live</small></div></li>
           <li><div><p>GPT-5.6 lands as three agent-shaped models</p><small>Models · OpenAI</small></div></li>
           <li><div><p>Sonnet 5 cuts the cost of running agents</p><small>Models · Anthropic</small></div></li>
         </ol>
@@ -451,13 +451,30 @@ footer a:hover{color:var(--pink)}
     <h2 class="shead" id="latest-h">Latest</h2>
     <div class="grid">
       <article>
+        <div class="cover c-protocol" role="img" aria-label="Cover: ERC-8004 audit finds most agents are Sybil">
+          <span class="cat">Identity</span>
+          <span class="glyph" aria-hidden="true">⬡</span>
+          <span class="kin">Registered<br>≠ <em>real</em></span>
+        </div>
+        <div class="metaline"><span class="kick">Identity</span><span class="stamp">ERC-8004 · <time datetime="2026-07-08">Jul 2026</time></span></div>
+        <h3 class="hl"><a href="https://arxiv.org/abs/2606.26028" target="_blank" rel="noopener">The first ERC-8004 audit is in — and ~90% of "agents" on Base are Sybil</a></h3>
+        <div class="hook"><span class="hlab">TikTok</span><span class="htxt">Everyone's racing to register on the agent-identity standard. The first audit says 9 in 10 are fake.</span></div>
+        <p>The first empirical audit of every ERC-8004 agent across Ethereum, BSC and Base (revised 8 Jul) found only <b>3% / 4% / 15%</b> (ETH/BSC/Base) exposed a valid registration with a live endpoint — the rest is placeholder squatting. Coordinated fake-reviewer behavior hit <b>90.6% on Base</b>; reputation is "manipulable at minimal cost." The EIP itself is still formally Draft.</p>
+        <div class="gate mini" data-gate data-locked="false">
+          <div class="gated">
+            <p class="why" style="border:0;padding:0;margin:0"><b>For 0n1x:</b> this is the empirical proof of the whole thesis — a registry standardizes <em>where</em> you write a claim, not <em>whether</em> it's true. Free-to-forge reputation is theater; the open seat is interaction-grounded, stake-secured resolution — the Validation Registry hook almost nobody is populating.</p>
+          </div>
+        </div>
+        <p class="src">Sources: <a href="https://arxiv.org/abs/2606.26028" target="_blank" rel="noopener">ERC-8004 audit (arXiv) ↗</a> · <a href="https://eips.ethereum.org/EIPS/eip-8004" target="_blank" rel="noopener">EIP-8004 ↗</a></p>
+      </article>
+      <article>
         <div class="cover c-models" role="img" aria-label="Cover: GPT-5.6 ships three models">
           <span class="cat">Models</span>
           <span class="glyph" aria-hidden="true">◈</span>
           <span class="kin">Three minds,<br>one <em>API</em></span>
         </div>
         <div class="metaline"><span class="kick">Models</span><span class="stamp">OpenAI · <time datetime="2026-07">Jul 2026</time></span></div>
-        <h3 class="hl"><a href="https://thursdai.news/releases/2026-07" target="_blank" rel="noopener">OpenAI splits GPT-5.6 into three agents — and halves the price of frontier reasoning</a></h3>
+        <h3 class="hl"><a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noopener">OpenAI splits GPT-5.6 into three agents — and halves the price of frontier reasoning</a></h3>
         <div class="hook"><span class="hlab">TikTok</span><span class="htxt">OpenAI didn't ship one model. It shipped three — and the middle one is 5.5-smart at half the cost.</span></div>
         <p>Sol (frontier), Terra (~5.5-level intelligence at half the cost) and Luna (small, fast), plus an Ultra mode with Max reasoning and heavier sub-agent use. New API surface: programmatic tool calling, multi-agent orchestration, prompt-cache breakpoints.</p>
         <div class="gate mini" data-gate data-locked="false">
@@ -576,6 +593,9 @@ footer a:hover{color:var(--pink)}
     <ul>
       <li><span class="txt"><b>AWS Bedrock AgentCore Payments</b> (preview) lets any agent pay an x402 endpoint with no custom integration — buyer-side, budget-bounded.</span><span class="tg"><a href="https://aws.amazon.com/bedrock/agentcore/" target="_blank" rel="noopener">AWS ↗</a></span></li>
       <li><span class="txt"><b>Coinbase Agent.market</b> — a directory of x402-paywalled services; listing is a zero-cost discovery channel for agent-payable endpoints.</span><span class="tg"><a href="https://docs.cdp.coinbase.com/x402/bazaar" target="_blank" rel="noopener">Coinbase ↗</a></span></li>
+      <li><span class="txt"><b>Web Bot Auth</b> is chartered at the IETF (refreshed 15 Jul) — origins cryptographically confirm "this really is Anthropic/OpenAI" via keys at a <code>.well-known</code>, killing the IP allowlist. Proves <em>who's</em> calling; not whether the output is trustworthy — the two compose.</span><span class="tg"><a href="https://blog.cloudflare.com/web-bot-auth/" target="_blank" rel="noopener">Cloudflare ↗</a></span></li>
+      <li><span class="txt"><b>Kimi K3</b> (16 Jul) — the first open 3T-class model, built for multi-day autonomous engineering. A downloadable, no-vendor-in-the-loop agent that runs for days is a <em>demand generator</em> for third-party "prove what it did," not a threat to it.</span><span class="tg"><a href="https://kimi.com/blog/kimi-k3" target="_blank" rel="noopener">Moonshot ↗</a></span></li>
+      <li><span class="txt"><b>Cloudflare Monetization Gateway</b> (1 Jul) — charge any agent per-request via x402 at the edge, for ~20% of the web with zero plumbing. Payment-as-credential handles access; it says nothing about whether the resource is authentic — the missing safety rail.</span><span class="tg"><a href="https://blog.cloudflare.com/monetization-gateway/" target="_blank" rel="noopener">Cloudflare ↗</a></span></li>
       <li><span class="txt"><b>AP2 reference sample fails open</b> on mandate-amount match (PR #300 / issue #299, dated 2026-07-15) — a live demo of the verify-before-pay gap.</span><span class="tg"><a href="https://github.com/google-agentic-commerce/AP2/pull/300" target="_blank" rel="noopener">GitHub ↗</a></span></li>
       <li><span class="txt"><b>Discovery is standardizing</b> on <code>/.well-known/x402</code> — how buyer-side agents find sellers without a middleman.</span><span class="tg"><a href="https://www.x402.org/" target="_blank" rel="noopener">x402.org ↗</a></span></li>
     </ul>
