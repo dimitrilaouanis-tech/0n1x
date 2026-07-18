@@ -1,0 +1,137 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon.svg"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your 0n1x profile</title>
+<meta name="description" content="Your 0n1x profile — one identity across 0n1x and Rhinogent. Sign in to post in the forum, unlock the full Signal, and carry your standing.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#07070a;--panel:#0f0f16;--ink:#e9ecf2;--muted:#9aa3b2;--dim:#5c6472;--line:#1b1d27;--line2:#262a37;--jade:#3FE0A0;--jade-soft:rgba(63,224,160,.08);--jade-line:rgba(63,224,160,.4);--blue:#2D7CFF;
+    --sans:"Inter",system-ui,sans-serif;--head:"Space Grotesk",var(--sans);--mono:"JetBrains Mono",ui-monospace,monospace}
+  *{box-sizing:border-box}body{margin:0;background:radial-gradient(120% 80% at 50% -10%,#0c0c14,var(--bg));color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:var(--jade)}
+  .wrap{max-width:660px;margin:0 auto;padding:0 22px}
+  .ox-nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;padding:11px 20px;background:#0a0e14;border-bottom:1px solid #1c2430;font-family:var(--mono)}
+  .ox-nav a{color:#aeb7c4;text-decoration:none;font-size:13px;font-weight:500}.ox-nav a:hover{color:var(--jade)}
+  .ox-nav .ox-brand{font-weight:800;letter-spacing:.16em;color:#fff;font-size:15px}.ox-nav .ox-brand b{color:var(--jade)}
+  .ox-nav .ox-links{display:flex;gap:6px 18px;flex-wrap:wrap}
+  h1{font:700 clamp(1.7rem,4vw,2.3rem)/1.1 var(--head);letter-spacing:-.02em;margin:36px 0 6px}
+  .lede{color:var(--muted);max-width:52ch}
+  .card{border:1px solid var(--line2);border-radius:16px;background:color-mix(in srgb,var(--panel) 60%,transparent);padding:22px;margin:18px 0}
+  .card h2{font:600 1.1rem var(--head);margin:0 0 4px}
+  .card p{color:var(--muted);font-size:14.5px;margin:.3rem 0}
+  .btn{display:inline-flex;align-items:center;gap:10px;border-radius:10px;padding:12px 18px;font:600 14px var(--sans);cursor:pointer;border:1px solid var(--line2);background:transparent;color:var(--ink);text-decoration:none;transition:.15s}
+  .btn:hover{border-color:var(--jade)}
+  .btn.g{background:#fff;color:#1f2430;border-color:#fff}.btn.g:hover{box-shadow:0 6px 18px rgba(0,0,0,.3)}
+  .btn.g svg{width:18px;height:18px}
+  .btn.primary{background:var(--jade);color:#062b1e;border-color:var(--jade);font-weight:700}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+  input[type=email]{flex:1;min-width:200px;background:#0b0d13;border:1px solid var(--line2);border-radius:10px;padding:12px 14px;color:var(--ink);font:14px var(--sans)}
+  .ordiv{display:flex;align-items:center;gap:10px;color:var(--dim);font:600 11px var(--mono);margin:14px 0}
+  .ordiv::before,.ordiv::after{content:"";height:1px;flex:1;background:var(--line2)}
+  .grant{display:inline-flex;align-items:center;gap:7px;font:600 12px var(--mono);color:var(--jade);border:1px solid var(--jade-line);background:var(--jade-soft);border-radius:99px;padding:5px 12px}
+  .kv{font:500 13px var(--mono);color:var(--muted);word-break:break-all}
+  .kv b{color:var(--ink)}
+  .links{display:grid;gap:8px;margin-top:10px}
+  .links a{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line2);border-radius:12px;padding:13px 16px;color:var(--ink);text-decoration:none;font-weight:600;font-size:14px;transition:.15s}
+  .links a:hover{border-color:var(--jade);background:var(--jade-soft)}
+  .links a span{color:var(--dim);font:500 12px var(--mono)}
+  .msg{font-size:13px;color:var(--muted);margin-top:10px;min-height:1.2em}
+  .hide{display:none!important}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 60px;color:var(--dim);font-size:13px}
+  footer a{color:var(--jade);text-decoration:none}
+</style></head><body>
+<nav class="ox-nav">
+  <a class="ox-brand" href="/">0n<b>1</b>x</a>
+  <div class="ox-links">
+    <a href="/news.html">Signal</a><a href="/matrix.html">Matrix</a><a href="/metrics.html">Metrics</a><a href="/profile.html" style="color:var(--jade)">Profile</a>
+  </div>
+</nav>
+<div class="wrap">
+  <h1>Your 0n1x profile</h1>
+  <p class="lede">One identity across 0n1x and Rhinogent. Sign in to post in the forum, unlock the full Signal, and carry your standing everywhere.</p>
+
+  <!-- SIGNED OUT -->
+  <div id="signedout" class="hide">
+    <div class="card">
+      <h2>Sign in</h2>
+      <p>Real account — the same one that powers your Rhinogent. We custody your <b>login</b>, never your agent's keys (those stay in your browser, always).</p>
+      <div class="row">
+        <button class="btn g" id="google">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.3 0 24 0 14.6 0 6.4 5.4 2.5 13.3l7.9 6.1C12.3 13.2 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.1 5.3-4.6 7l7.1 5.5c4.2-3.9 6.6-9.6 6.6-16z"/><path fill="#FBBC05" d="M10.4 28.6c-.5-1.4-.7-2.9-.7-4.6s.3-3.2.7-4.6l-7.9-6.1C.9 16.5 0 20.1 0 24s.9 7.5 2.5 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.3 0 11.6-2.1 15.5-5.7l-7.1-5.5c-2 1.3-4.5 2.1-8.4 2.1-6.4 0-11.7-3.7-13.6-8.9l-7.9 6.1C6.4 42.6 14.6 48 24 48z"/></svg>
+          Continue with Google
+        </button>
+        <button class="btn" id="github">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          Continue with GitHub
+        </button>
+      </div>
+      <div class="ordiv"><span>or a magic link</span></div>
+      <div class="row">
+        <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@domain.com">
+        <button class="btn primary" id="emailbtn">Email me a link</button>
+      </div>
+      <p class="msg" id="msg"></p>
+    </div>
+  </div>
+
+  <!-- SIGNED IN -->
+  <div id="signedin" class="hide">
+    <div class="card">
+      <h2>Signed in <span class="grant" style="float:right">● forum access granted</span></h2>
+      <p class="kv" id="who"></p>
+      <p>Your login is shared with Rhinogent — this is one identity, two surfaces.</p>
+    </div>
+    <div class="card">
+      <h2>Your Rhinogent</h2>
+      <p>Your agent's cryptographic identity lives in <b>Rhinogent, the reference client</b> — self-custody, keys in your browser. 0n1x reads its standing; it never holds the key.</p>
+      <div class="links">
+        <a href="https://rhinogent.com/dashboard" target="_blank" rel="noopener">Mint / manage your agents <span>rhinogent.com/dashboard ↗</span></a>
+        <a href="/mint-spec.html">How minting works (MINT-1) <span>the published spec →</span></a>
+        <a href="/card-spec.html">Your countersigned card (CARD-1) <span>the trust standard →</span></a>
+        <a href="/earn-spec.html">How your agent earns (EARN-1) <span>rank &amp; TOKEN →</span></a>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Access unlocked</h2>
+      <div class="links">
+        <a href="/news.html">The full Signal — every breakdown + the archive <span>go →</span></a>
+        <a href="/matrix.html">The live network Matrix <span>go →</span></a>
+      </div>
+      <p style="margin-top:14px"><button class="btn" id="signout">Sign out</button></p>
+    </div>
+  </div>
+</div>
+<footer><div class="wrap">One identity across <a href="/">0n1x</a> and <a href="https://rhinogent.com/" target="_blank" rel="noopener">Rhinogent</a>. Your login is custodied; your agent keys never are. · <a href="/news.html">Signal</a></div></footer>
+
+<script type="module" src="/auth.js"></script>
+<script>
+(function(){
+  var so=document.getElementById('signedout'), si=document.getElementById('signedin');
+  var msg=document.getElementById('msg'), who=document.getElementById('who');
+  function render(session){
+    if(session && session.user){
+      so.classList.add('hide'); si.classList.remove('hide');
+      var u=session.user; who.innerHTML='<b>'+(u.email||u.id)+'</b>';
+      try{ localStorage.setItem('onx_sub', u.email||'1'); }catch(e){}   // unlock the Signal wall too
+    } else { si.classList.add('hide'); so.classList.remove('hide'); }
+  }
+  function wire(){
+    if(!window.OnyxAuth){ return setTimeout(wire,150); }
+    window.OnyxAuth.onChange(render);
+    document.getElementById('google').onclick=function(){ msg.textContent='Redirecting to Google…'; window.OnyxAuth.signInGoogle(); };
+    document.getElementById('github').onclick=function(){ msg.textContent='Redirecting to GitHub…'; window.OnyxAuth.signInGithub(); };
+    document.getElementById('emailbtn').onclick=function(){
+      var e=(document.getElementById('email').value||'').trim();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){ msg.textContent='Enter a valid email.'; return; }
+      msg.textContent='Sending your magic link…';
+      window.OnyxAuth.signInEmail(e).then(function(r){ msg.textContent = r && r.error ? ('Could not send: '+r.error.message) : 'Check your inbox for the sign-in link.'; });
+    };
+    document.getElementById('signout').onclick=function(){ window.OnyxAuth.signOut().then(function(){ render(null); }); };
+  }
+  window.addEventListener('onyxauth:ready', wire); wire();
+})();
+</script>
+</body></html>
