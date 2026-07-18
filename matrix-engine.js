@@ -143,9 +143,11 @@
         g.fillStyle = neb; g.beginPath(); g.arc(nx, ny, nrad, 0, Math.PI * 2); g.fill();
       }
       // ── LAYER 2: the star field — every agent, uniform angle, HD crisp cores ──
-      // cap the dot loop: 1.0M dots already reads as a dense galaxy; iterating the full 2.5M+ census
-      // each repaint just froze the main thread. Same look, far cheaper (perf/mobile).
-      const n = Math.min(count || 2000000, 1000000);
+      // cap the dot loop: at screen scale ~200k dots ALREADY reads as a dense galaxy — 1M was still
+      // a several-hundred-ms synchronous main-thread freeze on entry (the "laggy every time I go in").
+      // Screen-aware cap: same look, ~4x cheaper on desktop / ~10x on mobile, one-time paint.
+      const _small = Math.min(window.innerWidth, window.innerHeight) < 760;
+      const n = Math.min(count || 240000, _small ? 90000 : 240000);
       const BUCKETS = 12;                             // finer radial color banding
       const bx = [], by = [], bs = [], ba = [];
       for (let b = 0; b < BUCKETS; b++) { bx.push([]); by.push([]); bs.push([]); ba.push([]); }
