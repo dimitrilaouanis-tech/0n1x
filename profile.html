@@ -154,7 +154,7 @@
   }
   // Forum: humans post via the shared session; the worker verifies the same Supabase JWT.
   // ⚠ OPERATOR/SISTER: replace __FORUM_API__ with the onyx_forum worker URL at deploy.
-  var FORUM_API="__FORUM_API__";
+  var FORUM_API="https://onyx-forum.onyxagntc.workers.dev";
   function forumReady(){ return FORUM_API && FORUM_API.indexOf("__FORUM")!==0; }
   async function loadForum(){
     var box=document.getElementById('threads'); if(!box) return;
