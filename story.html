@@ -1,0 +1,135 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>0n1x AI News</title>
+<meta name="description" content="0n1x AI News — the agent economy, decoded daily. Sign in to read the full analysis.">
+<meta name="theme-color" content="#ffffff"><meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{--bg:#F4F5FA;--surface:#fff;--surface-2:#FBFBFE;--ink:#0A0B12;--body:#3B4152;--meta:#8A90A2;--rule:#E7E9F2;--rule-strong:#D5D8E6;
+    --pink:#FE2C55;--jade:#3FE0A0;--amber:#FF9E1B;--violet:#7A4DFF;--blue:#2D7CFF;
+    --sans:'Inter',system-ui,sans-serif;--disp:'Space Grotesk','Inter',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--ease:cubic-bezier(.22,.61,.36,1);
+    --shad:0 1px 2px rgba(16,20,40,.05),0 8px 24px rgba(16,20,40,.06);--shad-lg:0 12px 40px rgba(16,20,40,.14);color-scheme:light}
+  *{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--body);font:17px/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}code{font:600 .88em var(--mono);background:color-mix(in oklab,var(--violet) 10%,transparent);color:var(--violet);padding:.05em .36em;border-radius:5px}
+  .topnav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;padding:12px 22px;background:rgba(255,255,255,.86);backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid var(--rule)}
+  .brand{font:800 20px/1 var(--disp);letter-spacing:-.03em;color:var(--ink)}.brand b{color:#fff;background:linear-gradient(96deg,#FE2C55,#7A4DFF);border-radius:6px;padding:2px 6px}
+  .topnav nav a{color:var(--meta);font:600 13.5px var(--sans);padding:7px 12px;border-radius:999px}.topnav nav a:hover{color:var(--ink);background:var(--rule)}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  main{padding:26px 0 60px}
+  .back{display:inline-block;font:600 13px var(--mono);color:var(--meta);margin:14px 0 8px}.back:hover{color:var(--ink)}
+  .cat{display:inline-block;font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#fff;padding:5px 11px;border-radius:6px}
+  .dateline{font:600 12px var(--mono);color:var(--meta);margin-left:10px}
+  h1{font:800 clamp(1.9rem,5vw,3rem)/1.06 var(--disp);letter-spacing:-.03em;color:var(--ink);margin:14px 0 10px;text-wrap:balance}
+  .hook{font:500 clamp(1.05rem,2.2vw,1.3rem)/1.45 var(--sans);color:var(--body);margin-bottom:18px;text-wrap:pretty}
+  .byline{font:600 12.5px var(--mono);color:var(--meta);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:11px 0;margin-bottom:22px}
+  /* cover photo */
+  .cover{position:relative;aspect-ratio:16/8;border-radius:20px;overflow:hidden;margin:0 0 26px;box-shadow:var(--shad-lg);display:flex;align-items:flex-end;padding:26px}
+  .cover .mesh{position:absolute;inset:0;z-index:0}
+  .cover .glyph{position:absolute;right:-2%;top:-12%;font-size:min(52vw,360px);line-height:1;opacity:.16;color:#fff;z-index:1;font-family:var(--disp)}
+  .cover .kin{position:relative;z-index:2;font:800 clamp(1.6rem,6vw,3rem)/1.02 var(--disp);letter-spacing:-.03em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+  .cover .kin em{font-style:normal;-webkit-text-stroke:1.5px rgba(255,255,255,.9);color:transparent}
+  .lede,p.b{font-size:1.08rem;line-height:1.72;color:var(--body);margin:0 0 18px}
+  .sig{display:block;font:800 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin:26px 0 8px}
+  .why{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--violet);border-radius:0 14px 14px 0;padding:16px 20px;margin:6px 0 8px}
+  /* the hard gate (FT-style fade → wall) */
+  .gate{position:relative}
+  .gate .locked{position:relative;max-height:130px;overflow:hidden}
+  .gate.open .locked{max-height:none;overflow:visible}
+  .gate .locked::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,var(--bg) 82%);pointer-events:none}
+  .gate.open .locked::after{display:none}
+  .wall{border:1px solid var(--rule-strong);border-radius:20px;background:var(--surface);box-shadow:var(--shad-lg);padding:26px;margin:14px 0 8px;text-align:center}
+  .gate.open .wall{display:none}
+  .wall .lk{font:800 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--pink)}
+  .wall h3{font:800 clamp(1.3rem,3vw,1.7rem)/1.15 var(--disp);letter-spacing:-.02em;color:var(--ink);margin:8px 0 6px}
+  .wall p{color:var(--meta);font-size:14.5px;max-width:42ch;margin:0 auto 16px}
+  .authrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .gbtn{display:inline-flex;align-items:center;gap:9px;background:#fff;color:#1f2430;border:1px solid var(--rule-strong);border-radius:11px;padding:12px 18px;font:600 14px var(--sans);cursor:pointer;box-shadow:var(--shad);transition:.16s var(--ease)}
+  .gbtn:hover{border-color:var(--blue);transform:translateY(-1px)}.gbtn svg{width:18px;height:18px}
+  .ordiv{display:flex;align-items:center;gap:10px;color:var(--meta);font:600 11px var(--mono);margin:14px auto;max-width:30rem}.ordiv::before,.ordiv::after{content:"";height:1px;flex:1;background:var(--rule-strong)}
+  .mrow{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;max-width:30rem;margin:0 auto}
+  .mrow input{flex:1;min-width:180px;background:var(--surface-2);border:1px solid var(--rule-strong);border-radius:11px;padding:12px 14px;font:14px var(--sans)}
+  .mrow button{background:var(--ink);color:#fff;border:0;border-radius:11px;padding:12px 18px;font:700 14px var(--sans);cursor:pointer}
+  .msg{font:13px var(--sans);color:var(--meta);margin-top:12px;min-height:1.1em}
+  .src{font:500 13px var(--sans);color:var(--meta);margin-top:26px;padding-top:16px;border-top:1px solid var(--rule)}.src a{color:var(--blue);font-weight:600}
+  .rel{margin-top:44px}.rel h2{font:800 1.2rem var(--disp);letter-spacing:-.02em;color:var(--ink);margin-bottom:14px}
+  .rel .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:14px}
+  .rc{display:block;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--surface);text-decoration:none;transition:.2s var(--ease)}
+  .rc:hover{transform:translateY(-4px);box-shadow:var(--shad-lg)}
+  .rc .cv{aspect-ratio:16/9;position:relative;display:flex;align-items:flex-end;padding:12px}
+  .rc .cv .g{position:absolute;right:0;top:-10%;font-size:120px;opacity:.18;color:#fff;font-family:var(--disp)}
+  .rc .cv b{position:relative;z-index:2;color:#fff;font:700 12px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+  .rc h3{font:700 1rem/1.25 var(--disp);letter-spacing:-.02em;color:var(--ink);padding:12px 14px}
+  footer{border-top:1px solid var(--rule);padding:26px 0 60px;color:var(--meta);font-size:13px;margin-top:40px}footer a{color:var(--blue)}
+  .skel{color:var(--meta);text-align:center;padding:80px 0;font:600 15px var(--mono)}
+</style></head><body>
+<header class="topnav">
+  <a class="brand" href="/">0n<b>1</b>x</a>
+  <nav><a href="/news.html">AI News</a><a href="/matrix.html">Matrix</a><a href="/metrics.html">Metrics</a><a href="/profile.html">Sign in</a></nav>
+</header>
+<main class="wrap"><div id="art"><p class="skel">Loading story…</p></div></main>
+<footer><div class="wrap">© 0n1x AI News — every item carries its primary source; where a claim can't be sourced, it doesn't run. · <a href="/news.html">← All stories</a></div></footer>
+
+<script type="module" src="/auth.js"></script>
+<script>
+var GG='<svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.3 0 24 0 14.6 0 6.4 5.4 2.5 13.3l7.9 6.1C12.3 13.2 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.1 5.3-4.6 7l7.1 5.5c4.2-3.9 6.6-9.6 6.6-16z"/><path fill="#FBBC05" d="M10.4 28.6c-.5-1.4-.7-2.9-.7-4.6s.3-3.2.7-4.6l-7.9-6.1C.9 16.5 0 20.1 0 24s.9 7.5 2.5 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.3 0 11.6-2.1 15.5-5.7l-7.1-5.5c-2 1.3-4.5 2.1-8.4 2.1-6.4 0-11.7-3.7-13.6-8.9l-7.9 6.1C6.4 42.6 14.6 48 24 48z"/></svg>';
+var GH='<svg viewBox="0 0 16 16" fill="#1f2430"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>';
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function mesh(a){return 'background:radial-gradient(120% 90% at 12% 10%,'+a+',transparent 60%),radial-gradient(120% 120% at 100% 0%,color-mix(in oklab,'+a+' 55%,#0A0B12),#0A0B12);';}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+
+(async function(){
+  var box=document.getElementById('art');
+  var id=qs('id')||'';
+  var data; try{ data=await (await fetch('/stories.json?cb='+Date.now())).json(); }catch(e){ box.innerHTML='<p class="skel">Could not load. <a href="/news.html">← All stories</a></p>'; return; }
+  var list=data.stories||[]; var s=list.filter(function(x){return x.id===id;})[0]||list[0];
+  if(!s){ box.innerHTML='<p class="skel">Story not found. <a href="/news.html">← All stories</a></p>'; return; }
+  document.title=s.headline+' — 0n1x AI News';
+  var kin=String(s.kicker||'').split('\n').map(function(l,i){return i? '<br>'+esc(l):esc(l);}).join('').replace(/&lt;em&gt;/g,'').replace(/&lt;\/em&gt;/g,'');
+  var rel=list.filter(function(x){return x.id!==s.id;}).slice(0,3);
+  box.innerHTML=
+    '<a class="back" href="/news.html">← All stories</a>'+
+    '<div><span class="cat" style="background:'+s.accent+'">'+esc(s.cat)+'</span><span class="dateline">'+esc(s.date)+' · '+esc(s.read||'')+' read</span></div>'+
+    '<h1>'+esc(s.headline)+'</h1>'+
+    '<p class="hook">'+esc(s.hook)+'</p>'+
+    '<div class="cover"><div class="mesh" style="'+mesh(s.accent)+'"></div><div class="glyph">'+esc(s.glyph||'◆')+'</div><div class="kin">'+kin+'</div></div>'+
+    '<div class="byline">0n1x AI News · sourced, not asserted</div>'+
+    '<span class="sig">The signal</span><p class="b">'+esc(s.signal)+'</p>'+
+    '<span class="sig">Why it matters</span><div class="why"><p class="b" style="margin:0">'+esc(s.why)+'</p></div>'+
+    '<div class="gate" id="gate">'+
+      '<div class="locked">'+
+        '<span class="sig">Our take</span><p class="b">'+esc(s.take)+'</p>'+
+        '<span class="sig">The counter</span><p class="b">'+esc(s.counter)+'</p>'+
+      '</div>'+
+      '<div class="wall">'+
+        '<span class="lk">🔒 The full analysis</span>'+
+        '<h3>Sign up to read the rest</h3>'+
+        '<p>Our take + the counter-case, and every breakdown after. One free account across 0n1x &amp; Rhinogent — your agent keys never leave your browser.</p>'+
+        '<div class="authrow"><button class="gbtn" data-oauth="google">'+GG+'Continue with Google</button><button class="gbtn" data-oauth="github">'+GH+'Continue with GitHub</button></div>'+
+        '<div class="ordiv"><span>or a magic link</span></div>'+
+        '<div class="mrow"><input id="wemail" type="email" placeholder="you@domain.com"><button data-magic>Email me a link</button></div>'+
+        '<p class="msg" id="wmsg"></p>'+
+      '</div>'+
+    '</div>'+
+    '<p class="src">Sources: '+(s.sources||[]).map(function(x){return '<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.name)+' ↗</a>';}).join(' · ')+'</p>'+
+    '<div class="rel"><h2>More from AI News</h2><div class="grid">'+rel.map(function(x){
+      return '<a class="rc" href="/story.html?id='+encodeURIComponent(x.id)+'"><div class="cv" style="'+mesh(x.accent)+'"><span class="g">'+esc(x.glyph||'◆')+'</span><b>'+esc(x.cat)+'</b></div><h3>'+esc(x.headline)+'</h3></a>';
+    }).join('')+'</div></div>';
+
+  // gate wiring — real Supabase sign-in unlocks the article
+  function open(){ document.getElementById('gate').classList.add('open'); }
+  function msg(t){ var m=document.getElementById('wmsg'); if(m) m.textContent=t||''; }
+  (function wire(){
+    if(!window.OnyxAuth){ return setTimeout(wire,150); }
+    window.OnyxAuth.onChange(function(se){ if(se&&se.user){ try{localStorage.setItem('onx_sub',se.user.email||'1');}catch(e){} open(); } });
+    document.querySelectorAll('[data-oauth]').forEach(function(b){ b.onclick=function(){ msg('Redirecting to '+b.getAttribute('data-oauth')+'…'); window.OnyxAuth.signInOAuth(b.getAttribute('data-oauth')); }; });
+    var mb=document.querySelector('[data-magic]'), mi=document.getElementById('wemail');
+    if(mb) mb.onclick=function(){ var e=(mi&&mi.value||'').trim(); if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){ msg('Enter a valid email.'); return; } msg('Sending your sign-in link…'); window.OnyxAuth.signInEmail(e).then(function(r){ msg(r&&r.error?('Could not send: '+r.error.message):'Check your inbox for the sign-in link.'); }); };
+    // already signed in?
+    window.OnyxAuth.getSession().then(function(se){ if(se&&se.user) open(); });
+  })();
+})();
+</script>
+</body></html>

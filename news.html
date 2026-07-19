@@ -390,14 +390,14 @@ footer a:hover{color:var(--pink)}
   <section aria-labelledby="lead-h">
     <div class="lead">
       <article>
-        <div class="cover hero c-protocol" role="img" aria-label="Cover: MCP kills the session model">
+        <div class="cover hero c-protocol" role="img" aria-label="Cover: MCP kills the session model" style="cursor:pointer" onclick="location.href='/story.html?id=mcp-stateless'">
           <span class="cat">Protocol</span>
           <span class="glyph" aria-hidden="true">⧉</span>
           <span class="scan" aria-hidden="true"></span>
           <span class="kin">The session<br>is <em>dead</em></span>
         </div>
         <div class="metaline"><span class="kick">Protocol</span><span class="stamp">MCP · <time datetime="2026-07">July 2026</time></span></div>
-        <h2 id="lead-h" class="hl"><a href="https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/" target="_blank" rel="noopener">MCP just deleted the session model — and everything built on it breaks in <span class="mcp-cd">10</span> days</a></h2>
+        <h2 id="lead-h" class="hl"><a href="/story.html?id=mcp-stateless">MCP just deleted the session model — and everything built on it breaks in <span class="mcp-cd">10</span> days</a></h2>
         <div class="hook"><span class="hlab">TikTok</span><span class="htxt">The spec that runs every AI agent's tools just rewrote itself. If your app used sessions, it breaks on the 28th. Here's why that's actually the good news.</span></div>
         <span class="sig">The signal</span>
         <p class="dek">The release candidate dated <time datetime="2026-07-28">28 July 2026</time> removes the initialize handshake and the <code>Mcp-Session-Id</code> header outright. Protocol version and client info now ride in <code>_meta</code> on every request; a new <code>server/discover</code> replaces up-front capability exchange.</p>
@@ -457,7 +457,7 @@ footer a:hover{color:var(--pink)}
           <span class="kin">Registered<br>≠ <em>real</em></span>
         </div>
         <div class="metaline"><span class="kick">Identity</span><span class="stamp">ERC-8004 · <time datetime="2026-07-08">Jul 2026</time></span></div>
-        <h3 class="hl"><a href="https://arxiv.org/abs/2606.26028" target="_blank" rel="noopener">The first ERC-8004 audit is in — and ~90% of "agents" on Base are Sybil</a></h3>
+        <h3 class="hl"><a href="/story.html?id=erc8004-sybil">The first ERC-8004 audit is in — and ~90% of "agents" on Base are Sybil</a></h3>
         <div class="hook"><span class="hlab">TikTok</span><span class="htxt">Everyone's racing to register on the agent-identity standard. The first audit says 9 in 10 are fake.</span></div>
         <p>The first empirical audit of every ERC-8004 agent across Ethereum, BSC and Base (revised 8 Jul) found only <b>3% / 4% / 15%</b> (ETH/BSC/Base) exposed a valid registration with a live endpoint — the rest is placeholder squatting. Coordinated fake-reviewer behavior hit <b>90.6% on Base</b>; reputation is "manipulable at minimal cost." The EIP itself is still formally Draft.</p>
         <div class="gate mini" data-gate data-locked="false">
@@ -474,7 +474,7 @@ footer a:hover{color:var(--pink)}
           <span class="kin">Three minds,<br>one <em>API</em></span>
         </div>
         <div class="metaline"><span class="kick">Models</span><span class="stamp">OpenAI · <time datetime="2026-07">Jul 2026</time></span></div>
-        <h3 class="hl"><a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noopener">OpenAI splits GPT-5.6 into three agents — and halves the price of frontier reasoning</a></h3>
+        <h3 class="hl"><a href="/story.html?id=gpt56">OpenAI splits GPT-5.6 into three agents — and halves the price of frontier reasoning</a></h3>
         <div class="hook"><span class="hlab">TikTok</span><span class="htxt">OpenAI didn't ship one model. It shipped three — and the middle one is 5.5-smart at half the cost.</span></div>
         <p>Sol (frontier), Terra (~5.5-level intelligence at half the cost) and Luna (small, fast), plus an Ultra mode with Max reasoning and heavier sub-agent use. New API surface: programmatic tool calling, multi-agent orchestration, prompt-cache breakpoints.</p>
         <div class="gate mini" data-gate data-locked="false">
@@ -526,7 +526,7 @@ footer a:hover{color:var(--pink)}
           <span class="kin">Money over<br><em>HTTP</em></span>
         </div>
         <div class="metaline"><span class="kick">Payments</span><span class="stamp"><time datetime="2026-07-14">14 Jul 2026</time></span></div>
-        <h3 class="hl"><a href="https://blog.cloudflare.com/x402/" target="_blank" rel="noopener">Visa, Stripe and Coinbase just put agent payments under one neutral foundation</a></h3>
+        <h3 class="hl"><a href="/story.html?id=x402-foundation">Visa, Stripe and Coinbase just put agent payments under one neutral foundation</a></h3>
         <div class="hook"><span class="hlab">TikTok</span><span class="htxt">40 members. Visa to Coinbase in one room. The rail agents pay each other on just became institutional.</span></div>
         <p>Forty members — Visa, Mastercard, Amex, Stripe, Google, AWS, Shopify, Cloudflare, Coinbase — with Anthropic, Circle and Vercel in core membership. Coinbase completed contributing the protocol, putting it under vendor-neutral governance.</p>
         <p class="why"><b>For 0n1x:</b> the rail we settle on is now institutionally safe to borrow. Both protocols we build on sit under Linux Foundation governance as of this week.</p>
