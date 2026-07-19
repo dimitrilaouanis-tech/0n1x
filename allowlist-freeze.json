@@ -1,0 +1,18 @@
+{
+  "artifact": "0n1x-allowlist-freeze",
+  "frozen_at": "2026-07-19T18:17:32Z",
+  "pre_freeze_accounts": 28,
+  "commitment_sha256": "85f01dbcae423e67a17473af8edc050451769c2ef6206933a963350153c19a09",
+  "commitment_method": "sha256(comma-join(sorted auth.users.id))",
+  "rule": "EXTERNAL user = an account whose created_at > frozen_at AND whose id is not in the committed pre-freeze set. All 28 pre-freeze accounts are operator/pre-launch (created 2026-07-02..2026-07-19), disclosed. This freeze makes the first real external sign-in provable rather than asserted.",
+  "note": "The count and cutoff are checkable against Supabase created_at; the set is committed (not published) for privacy.",
+  "signature": {
+    "alg": "Ed25519",
+    "public_key_jwk": {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "ECBVIvpERPIsyMZaqXyS6ywmmmB8RB7FPCt0lHsxykY"
+    },
+    "value_b64": "pN0jvyORAAf1qk1lb6b/U53RiXA7iH3L/uhT1BDNpjxG2X2xLNYaN4fkNP52MHhfj6p1CcH4Ljf1oQb5QGaGBQ=="
+  }
+}
