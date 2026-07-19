@@ -824,8 +824,9 @@ console.log(verify(null,Buffer.from(C(f)),
       setMsg(form,'Subscribing…');
 
       function win(persist){
-        store(persist ? email : '1'); unlockAll();
-        setMsg(form,'You’re in. The full breakdowns are unlocked.','ok');
+        // Newsletter subscribe ONLY — does NOT unlock the gate. Full AI News access
+        // requires a VERIFIED sign-in (Supabase magic-link/OAuth), never a typed email.
+        setMsg(form,'Subscribed to the daily brief. To read full stories, sign in below (we email you a link).','ok');
         if(btn) btn.disabled=false;
       }
 
