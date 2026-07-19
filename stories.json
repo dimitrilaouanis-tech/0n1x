@@ -16,9 +16,19 @@
       "take": "A stateless protocol layer quietly settles the “is this a real payment rail?” question. Session affinity is what kept metered agent endpoints from fanning out; remove it and verify-before-pay can scale horizontally like any other stateless HTTP service. The same release ships MCP Apps (sandboxed UI routed back through the same consent/audit path) and MCP's first Active→Deprecated→Removed policy — the quiet signal MCP is now run like enterprise infrastructure, and that the audit log is the product.",
       "counter": "A spec landing days out isn't adoption. Tier-1 SDKs get a ten-week validation window, and every server built on the session model has to migrate under live traffic. And a “stateless core” that mints server-issued handles passed as tool args just relocated session state into app code — “stateless by 28 July” is the spec; “stateless in production” is a Q4 story.",
       "sources": [
-        {"name": "MCP 2026-07-28 Release Candidate — official spec blog", "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/"},
-        {"name": "4sysops breakdown", "url": "https://4sysops.com/archives/2026-07-28-model-context-protocol-mcp-stateless-multi-round-trip-routable-headers-authorization-hardening/"}
-      ]
+        {
+          "name": "MCP 2026-07-28 Release Candidate — official spec blog",
+          "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/"
+        },
+        {
+          "name": "4sysops breakdown",
+          "url": "https://4sysops.com/archives/2026-07-28-model-context-protocol-mcp-stateless-multi-round-trip-routable-headers-authorization-hardening/"
+        }
+      ],
+      "runit": {
+        "label": "Test whether your MCP server survives the 28th — 200 with no session header = you live; needs Mcp-Session-Id = you break:",
+        "code": "curl -sS -X POST https://YOUR-SERVER/mcp -H \"content-type: application/json\" -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"_meta\":{\"protocolVersion\":\"2026-07-28\"}}'"
+      }
     },
     {
       "id": "erc8004-sybil",
@@ -34,9 +44,18 @@
         "title": "Share of registered ERC-8004 agents with a valid, live registration",
         "unit": "%",
         "bars": [
-          {"label": "Ethereum", "value": 3},
-          {"label": "BSC", "value": 4},
-          {"label": "Base", "value": 15}
+          {
+            "label": "Ethereum",
+            "value": 3
+          },
+          {
+            "label": "BSC",
+            "value": 4
+          },
+          {
+            "label": "Base",
+            "value": 15
+          }
         ],
         "ref": 100,
         "refLabel": "every agent that registered",
@@ -47,9 +66,20 @@
       "take": "The open seat is exactly what ERC-8004 leaves empty: interaction-grounded, stake-secured resolution — the Validation Registry hook that almost nobody is populating. A registry gives identity; it does not give you earned-not-declared standing with a payer key that can't tilt the verdict. That's the layer that makes the other 90% legible instead of ignorable.",
       "counter": "Adoption is genuinely fast (six-figure registrations, ENS/EigenLayer/Graph integrations), a Draft standard getting gamed early is normal, and v2 explicitly targets payment-proof-backed feedback — the Sybil hole may partially close on its own. Don't mistake “early and gamed” for “doomed.”",
       "sources": [
-        {"name": "ERC-8004 audit (arXiv)", "url": "https://arxiv.org/abs/2606.26028"},
-        {"name": "EIP-8004", "url": "https://eips.ethereum.org/EIPS/eip-8004"}
-      ]
+        {
+          "name": "ERC-8004 audit (arXiv)",
+          "url": "https://arxiv.org/abs/2606.26028"
+        },
+        {
+          "name": "EIP-8004",
+          "url": "https://eips.ethereum.org/EIPS/eip-8004"
+        }
+      ],
+      "runit": {
+        "label": "Do what the registry can not: check a counterparty is real before you pay it.",
+        "url": "https://0n1xagntc.com/proof.html",
+        "cta": "Verify an agent yourself"
+      }
     },
     {
       "id": "x402-foundation",
@@ -66,9 +96,20 @@
       "take": "They agreed on how money moves and shipped zero agreement on how to verify the agent on the other end — that's our seat. A payments foundation with no conformance suite, no security profile, and no validation procedure is an open invitation for a signed-verification layer to sit on top. The rail is settled; the trust layer is not.",
       "counter": "Foundation launches are governance theater until there's a ratified spec with conformance tests. “40 members” counts logos, not interop — and card networks joining standards bodies is defensive table-stakes, not a build commitment.",
       "sources": [
-        {"name": "Linux Foundation — x402 Foundation operational launch", "url": "https://www.linuxfoundation.org/press/linux-foundation-announces-operational-launch-of-x402-foundation-to-standardize-internet-native-payments-for-ai-agents-and-applications"},
-        {"name": "x402.org", "url": "https://x402.org/"}
-      ]
+        {
+          "name": "Linux Foundation — x402 Foundation operational launch",
+          "url": "https://www.linuxfoundation.org/press/linux-foundation-announces-operational-launch-of-x402-foundation-to-standardize-internet-native-payments-for-ai-agents-and-applications"
+        },
+        {
+          "name": "x402.org",
+          "url": "https://x402.org/"
+        }
+      ],
+      "runit": {
+        "label": "See the rail everyone just co-signed.",
+        "url": "https://x402.org/",
+        "cta": "Read the x402 spec"
+      }
     },
     {
       "id": "gpt56",
@@ -85,9 +126,20 @@
       "take": "When the model spawns and synthesizes sub-agents in one request, the trust question moves from “which model” to “what did the swarm actually do” — the audit surface fragments exactly where our signed-receipt seat lives. Cheaper frontier reasoning is the substrate; the moat was never the model, it's signed proof-of-execution on top of it.",
       "counter": "Every headline number is OpenAI's own harness (latency and cost explicitly simulated), and rival indices still top some coding benchmarks — “best model” is index-selective. In-model orchestration also means fewer round-trips and fewer natural places to interpose a verifier.",
       "sources": [
-        {"name": "OpenAI — GPT-5.6", "url": "https://openai.com/index/gpt-5-6/"},
-        {"name": "ThursdAI (secondary)", "url": "https://thursdai.news/releases/2026-07"}
-      ]
+        {
+          "name": "OpenAI — GPT-5.6",
+          "url": "https://openai.com/index/gpt-5-6/"
+        },
+        {
+          "name": "ThursdAI (secondary)",
+          "url": "https://thursdai.news/releases/2026-07"
+        }
+      ],
+      "runit": {
+        "label": "Read it from the source, not the recap.",
+        "url": "https://openai.com/index/gpt-5-6/",
+        "cta": "GPT-5.6 model card"
+      }
     },
     {
       "id": "visa-checkout",
@@ -104,8 +156,16 @@
       "take": "Visa is quietly building the agent-identity/authorization layer (TAP + Agent Directory + Passkeys) that x402 lacks — which validates verification-as-product. But a closed Visa directory is a walled garden; the open, cross-network version of “know the agent before you settle” is the un-enclosable one, and that's the seat 0n1x plays.",
       "counter": "“Live” here means a curated pilot cohort with hand-picked merchants. Volume, chargeback behavior, and non-Visa interop are all unproven.",
       "sources": [
-        {"name": "Visa newsroom", "url": "https://www.visa.co.uk/about-visa/newsroom/press-releases.3457328.html"}
-      ]
+        {
+          "name": "Visa newsroom",
+          "url": "https://www.visa.co.uk/about-visa/newsroom/press-releases.3457328.html"
+        }
+      ],
+      "runit": {
+        "label": "See the agent-identity layer Visa is quietly building.",
+        "url": "https://www.visa.co.uk/about-visa/newsroom/press-releases.3457328.html",
+        "cta": "Visa Trusted Agent Protocol"
+      }
     },
     {
       "id": "webbotauth",
@@ -122,9 +182,20 @@
       "take": "It answers “which vendor's bot is this,” not “is the agent's output trustworthy” — and the two compose. Owning the directory-of-keys posture is table-stakes; the durable value is what you attest after you know who's calling. A signed fetch header is the handshake; a signed verdict is the product.",
       "counter": "It only proves operator identity for the big signed crawlers — nothing for the unsigned long tail — and the working group is still pre-RFC.",
       "sources": [
-        {"name": "Cloudflare — Web Bot Auth", "url": "https://blog.cloudflare.com/web-bot-auth/"},
-        {"name": "IETF draft (architecture)", "url": "https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture"}
-      ]
+        {
+          "name": "Cloudflare — Web Bot Auth",
+          "url": "https://blog.cloudflare.com/web-bot-auth/"
+        },
+        {
+          "name": "IETF draft (architecture)",
+          "url": "https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture"
+        }
+      ],
+      "runit": {
+        "label": "Read the handshake that kills user-agent spoofing.",
+        "url": "https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture",
+        "cta": "Web Bot Auth draft"
+      }
     }
   ]
 }

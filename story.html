@@ -41,6 +41,13 @@
   .min60{background:linear-gradient(180deg,color-mix(in oklab,var(--jade) 12%,#fff),#fff);border:1px solid color-mix(in oklab,var(--jade) 45%,var(--rule));border-radius:16px;padding:16px 20px;margin:0 0 22px}
   .min60 .l{display:block;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#0FB5A6;margin-bottom:6px}
   .min60 p{margin:0;color:var(--ink);font-size:1.03rem;line-height:1.6}
+  /* Run it — the funnel-to-product block */
+  .runit{border:1px solid var(--rule-strong);border-left:3px solid var(--jade,#0FB5A6);border-radius:0 14px 14px 0;background:var(--surface);padding:16px 20px;margin:20px 0}
+  .runit .ri-l{display:block;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#0FB5A6;margin-bottom:8px}
+  .runit .ri-t{font-size:15px;color:var(--body);margin:0 0 10px}
+  .runit .ri-code{overflow-x:auto;background:#0A0B12;color:#3FE0A0;border-radius:10px;padding:13px 15px;font:500 12px/1.5 var(--mono);margin:0;white-space:pre}
+  .runit .ri-btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border-radius:10px;padding:11px 18px;font:700 14px var(--sans);text-decoration:none}
+  .runit .ri-btn:hover{background:var(--violet)}
   .sig{display:block;font:800 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin:26px 0 8px}
   .why{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--violet);border-radius:0 14px 14px 0;padding:16px 20px;margin:6px 0 8px}
   /* the hard gate (FT-style fade → wall) */
@@ -119,6 +126,11 @@ function renderChart(c){
     '<div class="byline">0n1x AI News · sourced, not asserted</div>'+
     '<div class="min60"><span class="l">⏱ The 60-second version</span><p>'+esc(s.signal)+'</p></div>'+
     '<span class="sig">Why it matters</span><div class="why"><p class="b" style="margin:0">'+esc(s.why)+'</p></div>'+
+    (s.runit ? ('<div class="runit"><span class="ri-l">▶ Run it</span>'+
+      (s.runit.label ? '<p class="ri-t">'+esc(s.runit.label)+'</p>' : '')+
+      (s.runit.code ? '<pre class="ri-code">'+esc(s.runit.code)+'</pre>'
+        : (s.runit.url ? '<a class="ri-btn" href="'+esc(s.runit.url)+'" target="_blank" rel="noopener">'+esc(s.runit.cta||'Try it')+' ↗</a>' : ''))+
+      '</div>') : '')+
     '<div class="gate" id="gate">'+
       '<div class="locked">'+
         '<span class="sig">Our take</span><p class="b">'+esc(s.take)+'</p>'+
