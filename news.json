@@ -1,0 +1,91 @@
+{
+  "feed": "0n1x AI News",
+  "spec": "https://0n1xagntc.com/news.html",
+  "doctrine": "every item carries its primary source; where a claim can't be sourced, it doesn't run",
+  "generated": "2026-07-19",
+  "count": 6,
+  "items": [
+    {
+      "id": "mcp-stateless",
+      "category": "Protocol",
+      "headline": "MCP just deleted the session model — and everything built on it breaks in 10 days",
+      "summary": "The spec that runs every AI agent's tools rewrote itself. If your app used sessions, it breaks on the 28th. Here's why that's actually the good news.",
+      "date": "2026-07-28",
+      "url": "https://0n1xagntc.com/story.html?id=mcp-stateless",
+      "sources": [
+        "https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/",
+        "https://4sysops.com/archives/2026-07-28-model-context-protocol-mcp-stateless-multi-round-trip-routable-headers-authorization-hardening/"
+      ]
+    },
+    {
+      "id": "erc8004-sybil",
+      "category": "Identity",
+      "headline": "The first ERC-8004 audit is in — and ~90% of “agents” on Base are Sybil",
+      "summary": "Everyone's racing to register on the agent-identity standard. The first audit says 9 in 10 are fake.",
+      "date": "2026-07-08",
+      "url": "https://0n1xagntc.com/story.html?id=erc8004-sybil",
+      "sources": [
+        "https://arxiv.org/abs/2606.26028",
+        "https://eips.ethereum.org/EIPS/eip-8004"
+      ]
+    },
+    {
+      "id": "x402-foundation",
+      "category": "Payments",
+      "headline": "The payments industry just co-signed one agent rail — x402 goes to the Linux Foundation",
+      "summary": "Visa, Mastercard, Stripe, Google, AWS, Cloudflare and the stablecoin camp are now at one table. The protocol war ended before it started.",
+      "date": "2026-07-14",
+      "url": "https://0n1xagntc.com/story.html?id=x402-foundation",
+      "sources": [
+        "https://www.linuxfoundation.org/press/linux-foundation-announces-operational-launch-of-x402-foundation-to-standardize-internet-native-payments-for-ai-agents-and-applications",
+        "https://x402.org/"
+      ]
+    },
+    {
+      "id": "gpt56",
+      "category": "Models",
+      "headline": "OpenAI splits GPT-5.6 into three agents — and halves the price of frontier reasoning",
+      "summary": "OpenAI didn't ship one model. It shipped three — and the orchestration now lives inside the model boundary.",
+      "date": "2026-07-09",
+      "url": "https://0n1xagntc.com/story.html?id=gpt56",
+      "sources": [
+        "https://openai.com/index/gpt-5-6/",
+        "https://thursdai.news/releases/2026-07"
+      ]
+    },
+    {
+      "id": "visa-checkout",
+      "category": "Payments",
+      "headline": "Visa takes agentic checkout LIVE at real European merchants",
+      "summary": "Not a demo. Agents completed real purchases at real shops, under real Strong Customer Authentication.",
+      "date": "2026-07-02",
+      "url": "https://0n1xagntc.com/story.html?id=visa-checkout",
+      "sources": [
+        "https://www.visa.co.uk/about-visa/newsroom/press-releases.3457328.html"
+      ]
+    },
+    {
+      "id": "webbotauth",
+      "category": "Identity",
+      "headline": "Web Bot Auth: “sign the request, kill the IP allowlist” gets chartered at the IETF",
+      "summary": "Soon a website will cryptographically know it's really Anthropic or OpenAI knocking — not something wearing their user-agent.",
+      "date": "2026-07-15",
+      "url": "https://0n1xagntc.com/story.html?id=webbotauth",
+      "sources": [
+        "https://blog.cloudflare.com/web-bot-auth/",
+        "https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture"
+      ]
+    }
+  ],
+  "signature": {
+    "alg": "Ed25519",
+    "public_key_b64": "nNaqGlfjssVkvZC4eTk5Ocg68dan1mrx2etMsEYCbgA=",
+    "public_key_jwk": {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "nNaqGlfjssVkvZC4eTk5Ocg68dan1mrx2etMsEYCbgA"
+    },
+    "value_b64": "EQ2467P893bdKjZcIvYG17S1qbpJvLByENP9GDsxKsbMt/TTKfC0Ku1Yh1gTGghUOapJ5ucd+jzm0hzmELquAQ==",
+    "note": "Verify: take this object minus `signature`, canonicalize (recursively sort keys), Ed25519-verify value_b64 with public_key. This feed is 0n1x's and unmodified iff it checks."
+  }
+}

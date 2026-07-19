@@ -46,9 +46,10 @@
     {
       "id": "ai-news",
       "name": "0n1x AI News — verified agent-economy news",
-      "description": "The verified news brief on agentic standards, payments, and identity. Every claim is sourced; where a claim can't be sourced, it doesn't run.",
-      "tags": ["news", "intelligence", "standards"],
-      "examples": ["What changed in the MCP 2026-07-28 spec?"]
+      "description": "The verified news brief on agentic standards, payments, and identity. Every claim is sourced; where a claim can't be sourced, it doesn't run. Machine-readable, Ed25519-SIGNED feed at https://0n1xagntc.com/news.json — an agent can fetch, verify the signature against the embedded public key, and cite it. The first AI news feed an agent can cryptographically verify.",
+      "tags": ["news", "intelligence", "standards", "signed-feed"],
+      "resourceUrl": "https://0n1xagntc.com/news.json",
+      "examples": ["What changed in the MCP 2026-07-28 spec?", "Give me the signed news feed."]
     }
   ],
   "securitySchemes": {
