@@ -37,6 +37,10 @@
   .chartwrap{background:#0A0B12;border-radius:20px;padding:24px 22px 14px;box-shadow:var(--shad-lg)}
   .charthero figcaption{font:500 13.5px/1.55 var(--sans);color:var(--meta);margin-top:12px}
   .charthero figcaption b{color:var(--ink);font-weight:700}
+  /* AI-illustration hero — stylized concept art, tagged so it's never mistaken for a photo */
+  .imghero{margin:0 0 26px;position:relative}
+  .imghero img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:20px;box-shadow:var(--shad-lg);display:block;background:#0A0B12}
+  .imghero figcaption{position:absolute;left:12px;bottom:12px;font:700 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(10,11,18,.72);backdrop-filter:blur(4px);padding:5px 10px;border-radius:99px}
   /* 60-second teaching box */
   .min60{background:linear-gradient(180deg,color-mix(in oklab,var(--jade) 12%,#fff),#fff);border:1px solid color-mix(in oklab,var(--jade) 45%,var(--rule));border-radius:16px;padding:16px 20px;margin:0 0 22px}
   .min60 .l{display:block;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#0FB5A6;margin-bottom:6px}
@@ -122,7 +126,9 @@ function renderChart(c){
     '<div><span class="cat" style="background:'+s.accent+'">'+esc(s.cat)+'</span><span class="dateline">'+esc(s.date)+' · '+esc(s.read||'')+' read</span></div>'+
     '<h1>'+esc(s.headline)+'</h1>'+
     '<p class="hook">'+esc(s.hook)+'</p>'+
-    (s.chart ? renderChart(s.chart) : ('<div class="cover"><div class="mesh" style="'+mesh(s.accent)+'"></div><div class="glyph">'+esc(s.glyph||'◆')+'</div><div class="kin">'+kin+'</div></div>'))+
+    (s.chart ? renderChart(s.chart)
+      : s.image ? ('<figure class="imghero"><img src="'+esc(s.image)+'" alt="'+esc(s.headline)+'" loading="eager" fetchpriority="high"><figcaption>AI illustration · concept art, not a photograph</figcaption></figure>')
+      : ('<div class="cover"><div class="mesh" style="'+mesh(s.accent)+'"></div><div class="glyph">'+esc(s.glyph||'◆')+'</div><div class="kin">'+kin+'</div></div>'))+
     '<div class="byline">0n1x AI News · sourced, not asserted</div>'+
     '<div class="min60"><span class="l">⏱ The 60-second version</span><p>'+esc(s.signal)+'</p></div>'+
     '<span class="sig">Why it matters</span><div class="why"><p class="b" style="margin:0">'+esc(s.why)+'</p></div>'+

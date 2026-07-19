@@ -28,7 +28,8 @@
       "runit": {
         "label": "Test whether your MCP server survives the 28th — 200 with no session header = you live; needs Mcp-Session-Id = you break:",
         "code": "curl -sS -X POST https://YOUR-SERVER/mcp -H \"content-type: application/json\" -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"_meta\":{\"protocolVersion\":\"2026-07-28\"}}'"
-      }
+      },
+      "image": "/img/mcp-stateless.png"
     },
     {
       "id": "erc8004-sybil",
@@ -109,7 +110,8 @@
         "label": "See the rail everyone just co-signed.",
         "url": "https://x402.org/",
         "cta": "Read the x402 spec"
-      }
+      },
+      "image": "/img/x402-foundation.png"
     },
     {
       "id": "gpt56",
@@ -139,7 +141,8 @@
         "label": "Read it from the source, not the recap.",
         "url": "https://openai.com/index/gpt-5-6/",
         "cta": "GPT-5.6 model card"
-      }
+      },
+      "image": "/img/gpt56.png"
     },
     {
       "id": "visa-checkout",
@@ -165,7 +168,8 @@
         "label": "See the agent-identity layer Visa is quietly building.",
         "url": "https://www.visa.co.uk/about-visa/newsroom/press-releases.3457328.html",
         "cta": "Visa Trusted Agent Protocol"
-      }
+      },
+      "image": "/img/visa-checkout.png"
     },
     {
       "id": "webbotauth",
@@ -195,7 +199,8 @@
         "label": "Read the handshake that kills user-agent spoofing.",
         "url": "https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture",
         "cta": "Web Bot Auth draft"
-      }
+      },
+      "image": "/img/webbotauth.png"
     }
   ]
 }
