@@ -1,0 +1,74 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>cert_rotation_7d — a pre-registered result (0n1x)</title>
+<meta name="description" content="A pre-registered, falsifiable prediction with a fixed decision date. Published BEFORE the data, resolved on 2026-07-20 whichever way it goes.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#07070a;--panel:#0f0f16;--ink:#e9ecf2;--muted:#9aa3b2;--dim:#5c6472;--line2:#262a37;--jade:#3FE0A0;--amber:#f5b544;--red:#f0616d;
+    --sans:"Inter",system-ui,sans-serif;--head:"Space Grotesk",var(--sans);--mono:"JetBrains Mono",ui-monospace,monospace}
+  *{box-sizing:border-box;margin:0}body{background:radial-gradient(120% 80% at 50% -10%,#0c0c14,var(--bg));color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:var(--jade)}.wrap{max-width:760px;margin:0 auto;padding:0 22px}
+  .nav{position:sticky;top:0;z-index:10;display:flex;gap:18px;padding:12px 22px;background:#0a0e14;border-bottom:1px solid #1c2430;font:500 13px var(--mono)}
+  .nav a{color:#aeb7c4;text-decoration:none}.nav a:hover{color:var(--jade)}.nav b{color:#fff;letter-spacing:.14em}.nav b i{color:var(--jade);font-style:normal}
+  header{padding:44px 0 10px}
+  .status{display:inline-block;font:700 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:6px 13px;border-radius:99px}
+  .status.pending{color:var(--amber);border:1px solid color-mix(in oklab,var(--amber) 45%,transparent);background:rgba(245,181,68,.08)}
+  h1{font:700 clamp(1.8rem,5vw,2.7rem)/1.06 var(--head);letter-spacing:-.02em;margin:14px 0 8px}
+  .lede{color:var(--muted);max-width:62ch}
+  h2{font:600 1.2rem var(--head);margin:34px 0 6px}
+  p{color:var(--muted)}p b{color:var(--ink)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font:500 14px var(--mono)}
+  td{padding:9px 10px;border-bottom:1px solid var(--line2)}td:first-child{color:var(--dim);width:44%}td:last-child{color:var(--ink)}
+  .box{border:1px solid var(--line2);border-radius:14px;background:color-mix(in srgb,var(--panel) 60%,transparent);padding:18px 22px;margin:16px 0}
+  .box.commit{border-left:3px solid var(--jade)}
+  code{font:500 13px var(--mono);background:#0b0d13;border:1px solid var(--line2);border-radius:5px;padding:1px 6px;color:#cdeee0}
+  ol{color:var(--muted)}ol li{margin:.35rem 0}
+  footer{border-top:1px solid var(--line2);margin-top:40px;padding:24px 0 60px;color:var(--dim);font:13px var(--sans)}
+  .result{border:2px dashed var(--line2);border-radius:16px;padding:22px;margin:18px 0;text-align:center;color:var(--dim);font:600 14px var(--mono)}
+</style></head><body>
+<nav class="nav"><a href="/"><b>0n<i>1</i>x</b></a><a href="/news.html">AI News</a><a href="/earn-spec.html">EARN-1</a><a href="/metrics.html">Metrics</a></nav>
+<div class="wrap">
+<header>
+  <span class="status pending">● Result pending · resolves 2026-07-20</span>
+  <h1>A pre-registered result: <code>cert_rotation_7d</code></h1>
+  <p class="lede">This page is published <b>before the data exists</b>. The hypothesis, the band, the method, and the decision rule are all fixed here, git-timestamped, on <b>2026-07-19</b>. On <b>2026-07-20</b> it resolves on the real 07-13 → 07-20 snapshot pair — <b>admit or reject, whichever the data says</b>, appended to this same URL with both snapshots attached. No retrofit. That's the whole point.</p>
+</header>
+
+<h2>The question</h2>
+<p><b>Will a specific external domain's TLS certificate rotate (its <code>notBefore</code> advance / reissue) within a 7-day window?</b> Per-domain, not "will some cert appear in a firehose" — the latter has a base rate near 1 and is trivial in the opposite direction. Per-domain rotation is the skill question.</p>
+
+<h2>Pre-registered parameters (fixed 2026-07-19, before resolution)</h2>
+<table>
+  <tr><td>class</td><td>cert_rotation_7d</td></tr>
+  <tr><td>measurement span (input)</td><td>2026-07-13 … 2026-07-17</td></tr>
+  <tr><td>domains observed (n)</td><td>114</td></tr>
+  <tr><td>rotations seen in span</td><td>6 · daily rate 0.0152</td></tr>
+  <tr><td>median cert lifetime</td><td>90 days</td></tr>
+  <tr><td>expected 7-day base rate</td><td>0.10 · band [0.07, 0.14]</td></tr>
+  <tr><td>expected persistence (no rotation)</td><td>0.899</td></tr>
+  <tr><td>eligibility threshold</td><td>persistence &lt; 0.95 AND base_rate ∈ [0.03, 0.50]</td></tr>
+  <tr><td>resolution pair</td><td>2026-07-13 snapshot vs 2026-07-20 snapshot</td></tr>
+  <tr><td>decision date</td><td>2026-07-20</td></tr>
+</table>
+
+<div class="box commit">
+  <b>The commitment.</b> Admit <code>cert_rotation_7d</code> to the earn-eligible set <b>only if</b> the measured 07-13 → 07-20 per-domain rotation persistence clears the threshold on real data. If it doesn't clear, it is <b>rejected and stays rejected</b> — published here either way. A rejection on schedule is the result; it is not a failure.
+</div>
+
+<h2>How you'll recompute it (on 07-20)</h2>
+<ol>
+  <li>Both snapshots (07-13 and 07-20) — the per-domain cert <code>notBefore</code> for all 114 domains — will be attached to this page as JSON.</li>
+  <li>Rotation = <code>notBefore(07-20) &gt; notBefore(07-13)</code> for a given domain.</li>
+  <li>Measured 7-day rate = rotations / 114. Persistence = 1 − rate.</li>
+  <li>Admit iff persistence &lt; 0.95 and the rate sits in the pre-registered band. Anyone can rerun step 2–4 from the attached snapshots and get the same answer.</li>
+</ol>
+
+<div class="result" id="result">RESULT — appended here on 2026-07-20, with both snapshots. Not before.</div>
+
+<p style="color:var(--dim);font-size:13.5px">Spec: <a href="/earn-spec.html">EARN-1 §3.1</a> — a question class is earn-eligible only if its measured persistence is &lt; 0.95 and its base rate sits away from both extremes (a real skill window, not trivial in either direction).</p>
+
+<footer>Pre-registered 2026-07-19 · resolves 2026-07-20 · published before the data by design. This is the first pre-registered, on-schedule, recomputable result in the 0n1x record. · <a href="/">0n1x</a></footer>
+</div>
+</body></html>
