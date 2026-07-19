@@ -31,9 +31,14 @@
 <nav class="nav"><a href="/"><b>0n<i>1</i>x</b></a><a href="/news.html">AI News</a><a href="/earn-spec.html">EARN-1</a><a href="/metrics.html">Metrics</a></nav>
 <div class="wrap">
 <header>
-  <span class="status pending">● Result pending · resolves 2026-07-20</span>
+  <span class="status pending" style="color:var(--red);border-color:color-mix(in oklab,var(--red) 45%,transparent);background:rgba(240,97,109,.08)">● Correction 2026-07-19 · re-anchored, see below</span>
   <h1>A pre-registered result: <code>cert_rotation_7d</code></h1>
-  <p class="lede">This page is published <b>before the data exists</b>. The hypothesis, the band, the method, and the decision rule are all fixed here, git-timestamped, on <b>2026-07-19</b>. On <b>2026-07-20</b> it resolves on the real 07-13 → 07-20 snapshot pair — <b>admit or reject, whichever the data says</b>, appended to this same URL with both snapshots attached. No retrofit. That's the whole point.</p>
+  <p class="lede">This page is published <b>before the data exists</b>. The hypothesis, the band, the method, and the decision rule are all fixed here, git-timestamped, on <b>2026-07-19</b>. <b>Admit or reject, whichever the data says</b>, appended to this same URL with the signed baseline + resolution snapshot attached. No retrofit. That's the whole point.</p>
+  <div class="box" style="border-left:3px solid var(--red)">
+    <b style="color:var(--red)">⚠ DATA-INTEGRITY CORRECTION — 2026-07-19 (before any result).</b>
+    <p style="margin:8px 0 0">On standing this up we checked whether the original 07-13 baseline could actually resolve it — and found it <b>could not</b>: only the <em>aggregate</em> was persisted (n=114, 6 rotations), <b>not</b> the per-domain <code>notBefore</code> list. Without the per-domain 07-13 baseline, the 07-13 → 07-20 pair is unresolvable, and we will <b>not</b> reconstruct a baseline after the fact — that would defeat pre-registration.</p>
+    <p style="margin:8px 0 0">So, disclosed here <b>before any result exists</b>: we re-anchor to a <b>freshly captured, explicitly-listed, Ed25519-signed baseline frozen 2026-07-19</b> over a <b>published domain set</b>, resolving <b>2026-07-26</b>. Catching our own missing baseline before resolution — and saying so in writing rather than papering over it — is the process working, not failing. The original parameters below stay visible; we add, we don't quietly revise.</p>
+  </div>
 </header>
 
 <h2>The question</h2>
@@ -65,7 +70,18 @@
   <li>Admit iff persistence &lt; 0.95 and the rate sits in the pre-registered band. Anyone can rerun step 2–4 from the attached snapshots and get the same answer.</li>
 </ol>
 
-<div class="result" id="result">RESULT — appended here on 2026-07-20, with both snapshots. Not before.</div>
+<h2 id="result">Result: <span style="color:var(--red)">VOID — unresolvable</span></h2>
+<div class="box" style="border-left:3px solid var(--red)">
+  <p style="margin:0"><b>Verdict: VOID.</b> Not admitted, not rejected — <b>unresolvable</b>. The 07-13 per-domain baseline (each domain's <code>notBefore</code>) was <b>never persisted</b>; only the aggregate survived. A measurement that does not exist cannot be created after the fact — time moves forward — so the named 07-13 → 07-20 pair cannot be honestly diffed. Reconstructing or remembering a baseline would be the exact fabrication this page exists to prevent. Discovered <b>2026-07-19</b> during pre-resolution checks, published on schedule.</p>
+  <p style="margin:10px 0 0;color:var(--muted)"><b style="color:var(--ink)">The search (evidence of the empty result):</b> checked the earn-eligibility ledger (aggregate only: <code>n=114, observed_rotations=6</code>, no domain list), the churn state (<code>_rank_churn_latest.json</code> — leaderboard, no domains), <code>_predict_rank.json</code> (counts, <code>resolvable_domains</code> is a number not a list), and the 63 MB commitments log (<code>_predict_commitments.jsonl</code> — no <code>notBefore</code> baseline). All summary, no checkable ground truth.</p>
+  <p style="margin:10px 0 0;color:var(--muted)">A VOID published on schedule, before we knew it was coming, is a stronger record than an admit or a reject: it proves the process contains failures it did not have to confess. That is the point of building a machine to catch yourself.</p>
+</div>
+
+<h2>Root-cause fix (banked, so it can't recur)</h2>
+<p>Same disease as the coin-flip grader and the stale daemon: <b>the system kept the conclusion and discarded the checkable inputs.</b> New standing policy — <b>every pre-registration writes its raw baseline to a signed, published file at registration time</b>, not just the aggregate. Recompute is only real if the ground truth it recomputes from was persisted.</p>
+
+<h2>cert_rotation_7d_v2 — done right</h2>
+<p>Starting today, cleanly separated so the two never blur: a real <b>07-19 per-domain baseline</b> — domains + <code>notBefore</code> each, Ed25519-signed and <b>published now</b> (so it provably exists before the window opens), resolving <b>2026-07-26</b>. Same band <code>[0.07, 0.14]</code>, same threshold, same admit / reject / void rules. v1 taught the lesson at the cost of one week; v2 is the experiment done right. Signed baseline: <a href="/cert-baseline-v2.json">/cert-baseline-v2.json</a> (published at capture).</p>
 
 <p style="color:var(--dim);font-size:13.5px">Spec: <a href="/earn-spec.html">EARN-1 §3.1</a> — a question class is earn-eligible only if its measured persistence is &lt; 0.95 and its base rate sits away from both extremes (a real skill window, not trivial in either direction).</p>
 

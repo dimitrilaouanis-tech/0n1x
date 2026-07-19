@@ -1,0 +1,272 @@
+{
+  "experiment": "cert_rotation_7d_v2",
+  "what": "per-domain TLS certificate notBefore, frozen at capture — the baseline v1 failed to persist",
+  "domain_set": "0n1x registry verified-merchant apexes (public.facts, verdict-verified)",
+  "captured": "2026-07-19T17:55:40Z",
+  "resolves": "2026-07-26",
+  "band": [
+    0.07,
+    0.14
+  ],
+  "threshold": "admit iff persistence<0.95 AND rate in [0.03,0.50]; else reject; unmeasurable=void",
+  "n": 41,
+  "n_with_cert": 41,
+  "baseline": [
+    {
+      "domain": "2checkout.com",
+      "notBefore": "Feb 10 00:00:00 2026 GMT",
+      "notAfter": "Feb 10 23:59:59 2027 GMT",
+      "issuer": "Sectigo Limited"
+    },
+    {
+      "domain": "adidas.com",
+      "notBefore": "Apr 15 00:00:00 2026 GMT",
+      "notAfter": "Oct 30 23:59:59 2026 GMT",
+      "issuer": "Entrust Limited"
+    },
+    {
+      "domain": "adyen.com",
+      "notBefore": "Jun 13 01:59:53 2026 GMT",
+      "notAfter": "Sep 11 01:59:52 2026 GMT",
+      "issuer": "Let's Encrypt"
+    },
+    {
+      "domain": "affirm.com",
+      "notBefore": "Jun 11 04:58:57 2026 GMT",
+      "notAfter": "Sep  9 05:58:42 2026 GMT",
+      "issuer": "Google Trust Services"
+    },
+    {
+      "domain": "afterpay.com",
+      "notBefore": "Jul 10 04:01:49 2026 GMT",
+      "notAfter": "Oct  8 05:01:12 2026 GMT",
+      "issuer": "Google Trust Services"
+    },
+    {
+      "domain": "aliexpress.com",
+      "notBefore": "May 18 11:22:02 2026 GMT",
+      "notAfter": "Dec  3 11:16:15 2026 GMT",
+      "issuer": "GlobalSign nv-sa"
+    },
+    {
+      "domain": "amazon.com",
+      "notBefore": "May  5 00:00:00 2026 GMT",
+      "notAfter": "Nov 18 23:59:59 2026 GMT",
+      "issuer": "DigiCert Inc"
+    },
+    {
+      "domain": "apple.com",
+      "notBefore": "Jun 17 21:31:27 2026 GMT",
+      "notAfter": "Sep 15 18:01:57 2026 GMT",
+      "issuer": "Apple Inc."
+    },
+    {
+      "domain": "authorize.net",
+      "notBefore": "Apr  2 21:04:19 2026 GMT",
+      "notAfter": "Oct 18 21:04:18 2026 GMT",
+      "issuer": "CLOUDFLARE, INC."
+    },
+    {
+      "domain": "bestbuy.com",
+      "notBefore": "Feb 11 00:00:00 2026 GMT",
+      "notAfter": "Feb 11 23:59:59 2027 GMT",
+      "issuer": "DigiCert Inc"
+    },
+    {
+      "domain": "braintreepayments.com",
+      "notBefore": "Apr  1 00:00:00 2026 GMT",
+      "notAfter": "Oct 16 23:59:59 2026 GMT",
+      "issuer": "DigiCert Inc"
+    },
+    {
+      "domain": "chargebee.com",
+      "notBefore": "Jul 13 00:00:00 2026 GMT",
+      "notAfter": "Jan 26 23:59:59 2027 GMT",
+      "issuer": "Amazon"
+    },
+    {
+      "domain": "checkout.com",
+      "notBefore": "Jun 24 14:17:07 2026 GMT",
+      "notAfter": "Sep 22 15:17:04 2026 GMT",
+      "issuer": "Google Trust Services"
+    },
+    {
+      "domain": "chewy.com",
+      "notBefore": "Apr  8 00:00:00 2026 GMT",
+      "notAfter": "Oct 23 23:59:59 2026 GMT",
+      "issuer": "DigiCert Inc"
+    },
+    {
+      "domain": "ebay.com",
+      "notBefore": "May 20 00:00:00 2026 GMT",
+      "notAfter": "Dec  4 23:59:59 2026 GMT",
+      "issuer": "Sectigo Limited"
+    },
+    {
+      "domain": "etsy.com",
+      "notBefore": "Nov  3 15:09:45 2025 GMT",
+      "notAfter": "Dec  5 15:09:44 2026 GMT",
+      "issuer": "GlobalSign nv-sa"
+    },
+    {
+      "domain": "gocardless.com",
+      "notBefore": "May 29 01:05:43 2026 GMT",
+      "notAfter": "Aug 27 02:05:31 2026 GMT",
+      "issuer": "Google Trust Services"
+    },
+    {
+      "domain": "gucci.com",
+      "notBefore": "Jun 26 09:43:19 2026 GMT",
+      "notAfter": "Sep 24 09:43:18 2026 GMT",
+      "issuer": "Let's Encrypt"
+    },
+    {
+      "domain": "klarna.com",
+      "notBefore": "Oct 10 00:00:00 2025 GMT",
+      "notAfter": "Nov  8 23:59:59 2026 GMT",
+      "issuer": "Amazon"
+    },
+    {
+      "domain": "mastercard.com",
+      "notBefore": "Apr  7 00:00:00 2026 GMT",
+      "notAfter": "Oct 22 23:59:59 2026 GMT",
+      "issuer": "DigiCert Inc"
+    },
+    {
+      "domain": "mollie.com",
+      "notBefore": "Jun 19 09:34:28 2026 GMT",
+      "notAfter": "Sep 17 10:28:00 2026 GMT",
+      "issuer": "Google Trust Services"
+    },
+    {
+      "domain": "newegg.com",
+      "notBefore": "Dec 23 00:00:00 2025 GMT",
+      "notAfter": "Jan 22 23:59:59 2027 GMT",
+      "issuer": "Sectigo Limited"
+    },
+    {
+      "domain": "nike.com",
+      "notBefore": "Apr 19 00:00:00 2026 GMT",
+      "notAfter": "Nov  2 23:59:59 2026 GMT",
+      "issuer": "Amazon"
+    },
+    {
+      "domain": "paddle.com",
+      "notBefore": "Jun 13 12:23:58 2026 GMT",
+      "notAfter": "Sep 11 12:23:57 2026 GMT",
+      "issuer": "Let's Encrypt"
+    },
+    {
+      "domain": "payoneer.com",
+      "notBefore": "May  5 00:00:00 2026 GMT",
+      "notAfter": "Nov 19 23:59:59 2026 GMT",
+      "issuer": "DigiCert Inc"
+    },
+    {
+      "domain": "paypal.com",
+      "notBefore": "May 11 00:00:00 2026 GMT",
+      "notAfter": "Nov 25 23:59:59 2026 GMT",
+      "issuer": "DigiCert Inc"
+    },
+    {
+      "domain": "rayban.com",
+      "notBefore": "May 27 00:00:00 2026 GMT",
+      "notAfter": "Oct 16 23:59:59 2026 GMT",
+      "issuer": "DigiCert Inc"
+    },
+    {
+      "domain": "razorpay.com",
+      "notBefore": "Oct  7 00:00:00 2025 GMT",
+      "notAfter": "Nov  4 23:59:59 2026 GMT",
+      "issuer": "Amazon"
+    },
+    {
+      "domain": "recurly.com",
+      "notBefore": "May 27 00:00:00 2026 GMT",
+      "notAfter": "Dec 11 23:59:59 2026 GMT",
+      "issuer": "DigiCert Inc"
+    },
+    {
+      "domain": "samsung.com",
+      "notBefore": "Apr  8 00:00:00 2026 GMT",
+      "notAfter": "Oct 23 23:59:59 2026 GMT",
+      "issuer": "Sectigo Limited"
+    },
+    {
+      "domain": "shein.com",
+      "notBefore": "Feb 25 00:00:00 2026 GMT",
+      "notAfter": "Aug 25 23:59:59 2026 GMT",
+      "issuer": "DigiCert, Inc."
+    },
+    {
+      "domain": "shopify.com",
+      "notBefore": "Jun 12 17:19:05 2026 GMT",
+      "notAfter": "Sep 10 18:18:50 2026 GMT",
+      "issuer": "Google Trust Services"
+    },
+    {
+      "domain": "square.com",
+      "notBefore": "Jun  3 00:13:10 2026 GMT",
+      "notAfter": "Sep  1 01:12:59 2026 GMT",
+      "issuer": "Google Trust Services"
+    },
+    {
+      "domain": "stripe.com",
+      "notBefore": "May 27 00:00:00 2026 GMT",
+      "notAfter": "Sep  3 23:59:59 2026 GMT",
+      "issuer": "DigiCert Inc"
+    },
+    {
+      "domain": "target.com",
+      "notBefore": "Sep  4 16:25:19 2025 GMT",
+      "notAfter": "Oct  6 16:25:18 2026 GMT",
+      "issuer": "GlobalSign nv-sa"
+    },
+    {
+      "domain": "temu.com",
+      "notBefore": "Jul 15 07:22:32 2026 GMT",
+      "notAfter": "Jan 29 07:22:32 2027 GMT",
+      "issuer": "GoDaddy.com"
+    },
+    {
+      "domain": "visa.com",
+      "notBefore": "Apr  3 03:42:09 2026 GMT",
+      "notAfter": "Oct 19 03:42:08 2026 GMT",
+      "issuer": "CLOUDFLARE, INC."
+    },
+    {
+      "domain": "walmart.com",
+      "notBefore": "Feb 20 03:07:20 2026 GMT",
+      "notAfter": "Mar 24 03:07:19 2027 GMT",
+      "issuer": "GlobalSign nv-sa"
+    },
+    {
+      "domain": "wayfair.com",
+      "notBefore": "Jul  8 09:05:15 2026 GMT",
+      "notAfter": "Oct  6 09:05:14 2026 GMT",
+      "issuer": "Let's Encrypt"
+    },
+    {
+      "domain": "wise.com",
+      "notBefore": "Apr 22 00:00:00 2026 GMT",
+      "notAfter": "Nov  6 23:59:59 2026 GMT",
+      "issuer": "DigiCert Inc"
+    },
+    {
+      "domain": "worldpay.com",
+      "notBefore": "Jul 23 00:00:00 2025 GMT",
+      "notAfter": "Aug 22 23:59:59 2026 GMT",
+      "issuer": "Sectigo Limited"
+    }
+  ],
+  "signature": {
+    "alg": "Ed25519",
+    "public_key_jwk": {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "ECBVIvpERPIsyMZaqXyS6ywmmmB8RB7FPCt0lHsxykY"
+    },
+    "value_b64": "8sOJLg/u29wA1N9/WY8rOFcOXOeWNmGY2IU9Gagyxc7kWrAfreD2QP3KnwGhuHR6Qd+CPdqk6Gb21/N94f6EDw==",
+    "note": "On 2026-07-26, re-scan these domains, diff notBefore against this signed baseline, compute rotation rate = rotations/n_with_cert. Verify: this object minus signature, canonicalize (sort keys), Ed25519-verify."
+  }
+}
