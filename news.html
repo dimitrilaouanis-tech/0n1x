@@ -830,7 +830,7 @@ console.log(verify(null,Buffer.from(C(f)),
   function wire(){
     if(!window.OnyxAuth){ return setTimeout(wire,150); }
     // already signed in (or just returned from OAuth) → reveal everything
-    window.OnyxAuth.onChange(function(s){ if(s && s.user){ try{localStorage.setItem('onx_sub', s.user.email||'1');}catch(e){} unlock(); } });
+    window.OnyxAuth.onChange(function(s){ if(s && s.user){ try{localStorage.setItem('onx_sub', s.user.email||'1');}catch(e){} unlock(); var b=document.querySelector('.suband'); if(b){ b.style.background='linear-gradient(110deg,#0A140F,#0d2a1e)'; b.innerHTML='<div style="text-align:center;width:100%;color:#3FE0A0;font-weight:700;padding:12px;font-size:15px">✓ Signed in as '+(s.user.email||'you')+' — full AI News access unlocked.</div>'; } } });
     document.querySelectorAll('.lock [data-oauth]').forEach(function(b){
       b.onclick=function(){ var p=b.getAttribute('data-oauth'); msg('Redirecting to '+p+'…'); window.OnyxAuth.signInOAuth(p); };
     });
@@ -856,4 +856,5 @@ console.log(verify(null,Buffer.from(C(f)),
   });
 })();
 </script>
+<script src="/analytics.js" defer></script>
 </body></html>
