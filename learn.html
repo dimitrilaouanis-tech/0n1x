@@ -1,0 +1,96 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Learn the agent economy — 0n1x</title>
+<meta name="description" content="Plain-language explainers for the agent economy: MCP, A2A, x402, ERC-8004, verify-before-you-pay, and how an agent earns. Understand it in 7 reads.">
+<meta name="theme-color" content="#ffffff"><meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{--bg:#F4F5FA;--surface:#fff;--surface-2:#FBFBFE;--ink:#0A0B12;--body:#3B4152;--meta:#8A90A2;--rule:#E7E9F2;--rule-strong:#D5D8E6;
+    --jade:#3FE0A0;--violet:#7A4DFF;--blue:#2D7CFF;--pink:#FE2C55;
+    --sans:'Inter',system-ui,sans-serif;--disp:'Space Grotesk','Inter',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--ease:cubic-bezier(.22,.61,.36,1);
+    --shad:0 1px 2px rgba(16,20,40,.05),0 8px 24px rgba(16,20,40,.06);--shad-lg:0 12px 40px rgba(16,20,40,.14);color-scheme:light}
+  *{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--body);font:17px/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}code{font:600 .88em var(--mono);background:color-mix(in oklab,var(--violet) 10%,transparent);color:var(--violet);padding:.05em .36em;border-radius:5px}
+  .topnav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;padding:12px 22px;background:rgba(255,255,255,.86);backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid var(--rule)}
+  .brand{font:800 20px/1 var(--disp);letter-spacing:-.03em;color:var(--ink)}.brand b{color:#fff;background:linear-gradient(96deg,#FE2C55,#7A4DFF);border-radius:6px;padding:2px 6px}
+  .topnav nav a{color:var(--meta);font:600 13.5px var(--sans);padding:7px 12px;border-radius:999px}.topnav nav a:hover{color:var(--ink);background:var(--rule)}
+  .topnav nav a[aria-current]{color:#fff;background:var(--ink)}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  main{padding:30px 0 60px}
+  .eyebrow{font:700 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--violet)}
+  h1{font:800 clamp(2rem,5vw,3rem)/1.04 var(--disp);letter-spacing:-.03em;color:var(--ink);margin:10px 0 10px;text-wrap:balance}
+  .lede{font:500 clamp(1.05rem,2.2vw,1.25rem)/1.5 var(--sans);color:var(--body);max-width:60ch;margin-bottom:8px}
+  .back{display:inline-block;font:600 13px var(--mono);color:var(--meta);margin:14px 0 6px}.back:hover{color:var(--ink)}
+  .cat{display:inline-block;font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#fff;padding:5px 11px;border-radius:6px}
+  /* curriculum index */
+  .rail{display:grid;gap:12px;margin-top:24px;counter-reset:r}
+  .read{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--rule);border-radius:16px;background:var(--surface);padding:18px 20px;text-decoration:none;transition:.2s var(--ease)}
+  .read:hover{transform:translateY(-3px);box-shadow:var(--shad-lg);border-color:var(--rule-strong)}
+  .read .no{counter-increment:r;font:800 20px var(--disp);color:var(--jade);min-width:1.6em}
+  .read .no::before{content:counter(r,decimal-leading-zero)}
+  .read h3{font:700 1.15rem var(--disp);letter-spacing:-.02em;color:var(--ink);margin-bottom:3px}
+  .read p{font-size:14.5px;color:var(--meta);margin:0}
+  .read .tag{font:700 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#fff;padding:3px 8px;border-radius:5px;margin-left:auto;white-space:nowrap;align-self:center}
+  /* explainer body */
+  section.ex h2{font:800 1.25rem var(--disp);letter-spacing:-.02em;color:var(--ink);margin:30px 0 10px}
+  section.ex p{font-size:1.06rem;line-height:1.72;margin-bottom:16px}
+  .how{list-style:none;padding:0;counter-reset:h;display:grid;gap:12px}
+  .how li{counter-increment:h;display:grid;grid-template-columns:2rem 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px}
+  .how li::before{content:counter(h);font:800 15px var(--mono);color:var(--violet);background:color-mix(in oklab,var(--violet) 12%,#fff);border-radius:8px;width:2rem;height:2rem;display:grid;place-items:center}
+  .one{background:linear-gradient(180deg,color-mix(in oklab,var(--jade) 12%,#fff),#fff);border:1px solid color-mix(in oklab,var(--jade) 45%,var(--rule));border-radius:16px;padding:18px 22px;margin:24px 0}
+  .one .l{display:block;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#0FB5A6;margin-bottom:6px}
+  .one p{font:600 1.15rem/1.5 var(--disp);color:var(--ink);margin:0;letter-spacing:-.01em}
+  .seealso{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule)}
+  .seealso b{font:700 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--meta);display:block;margin-bottom:8px}
+  .seealso a{color:var(--blue);font-weight:600;display:block;padding:4px 0}
+  .pn{display:flex;justify-content:space-between;gap:12px;margin-top:30px;flex-wrap:wrap}
+  .pn a{flex:1;min-width:200px;border:1px solid var(--rule);border-radius:14px;padding:14px 16px;text-decoration:none;background:var(--surface);transition:.2s}
+  .pn a:hover{border-color:var(--jade);box-shadow:var(--shad)}
+  .pn small{font:700 11px var(--mono);color:var(--meta);letter-spacing:.1em;text-transform:uppercase}
+  .pn b{display:block;font:700 1rem var(--disp);color:var(--ink);margin-top:3px}
+  footer{border-top:1px solid var(--rule);padding:26px 0 60px;color:var(--meta);font-size:13px;margin-top:44px}footer a{color:var(--blue)}
+  .skel{color:var(--meta);text-align:center;padding:80px 0;font:600 15px var(--mono)}
+</style></head><body>
+<header class="topnav">
+  <a class="brand" href="/">0n<b>1</b>x</a>
+  <nav><a href="/news.html">AI News</a><a href="/learn.html" aria-current="page">Learn</a><a href="/matrix.html">Matrix</a><a href="/metrics.html">Metrics</a><a href="/profile.html">Sign in</a></nav>
+</header>
+<main class="wrap"><div id="root"><p class="skel">Loading…</p></div></main>
+<footer><div class="wrap">Explainers are evergreen and free — the news decays, the fundamentals don't. · <a href="/news.html">AI News →</a></div></footer>
+<script>
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+(async function(){
+  var root=document.getElementById('root'), data;
+  try{ data=await (await fetch('/learn.json?cb='+Date.now())).json(); }catch(e){ root.innerHTML='<p class="skel">Could not load.</p>'; return; }
+  var ex=data.explainers||{}, cur=data.curriculum||Object.keys(ex);
+  var id=qs('id');
+  if(!id || !ex[id]){
+    // INDEX — the 7 reads
+    root.innerHTML='<span class="eyebrow">0n1x · Learn</span><h1>Understand the agent economy in 7 reads.</h1>'+
+      '<p class="lede">Plain-language explainers for the standards, rails and trust primitives the agent economy runs on. Start at the top; each builds on the last.</p>'+
+      '<div class="rail">'+cur.map(function(k){var e=ex[k]; if(!e)return''; return '<a class="read" href="/learn.html?id='+encodeURIComponent(k)+'"><span class="no"></span><span><h3>'+esc(e.term)+' — '+esc(e.full)+'</h3><p>'+esc(e.one)+'</p></span><span class="tag" style="background:'+e.accent+'">'+esc(e.cat)+'</span></a>';}).join('')+'</div>';
+    document.title='Learn the agent economy in 7 reads — 0n1x';
+    return;
+  }
+  var e=ex[id]; document.title=e.term+' explained — 0n1x Learn';
+  var i=cur.indexOf(id), prev=cur[i-1]?ex[cur[i-1]]:null, next=cur[i+1]?ex[cur[i+1]]:null;
+  root.innerHTML=
+    '<a class="back" href="/learn.html">← All explainers</a>'+
+    '<div><span class="cat" style="background:'+e.accent+'">'+esc(e.cat)+' · Explainer</span></div>'+
+    '<h1>'+esc(e.term)+'</h1><p class="lede">'+esc(e.full)+'</p>'+
+    '<section class="ex"><p>'+esc(e.what)+'</p>'+
+    '<h2>Why it matters</h2><p>'+esc(e.why)+'</p>'+
+    '<h2>How it works</h2><ol class="how">'+(e.how||[]).map(function(h){return '<li><span>'+esc(h)+'</span></li>';}).join('')+'</ol>'+
+    '<div class="one"><span class="l">In one sentence</span><p>'+esc(e.one)+'</p></div>'+
+    (e.seealso&&e.seealso.length?('<div class="seealso"><b>See also</b>'+e.seealso.map(function(s){var ext=/^https?:/.test(s.u); return '<a href="'+esc(s.u)+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+esc(s.t)+(ext?' ↗':' →')+'</a>';}).join('')+'</div>'):'')+
+    '<div class="pn">'+
+      (prev?('<a href="/learn.html?id='+esc(cur[i-1])+'"><small>← Previous</small><b>'+esc(prev.term)+'</b></a>'):'<span></span>')+
+      (next?('<a href="/learn.html?id='+esc(cur[i+1])+'" style="text-align:right"><small>Next →</small><b>'+esc(next.term)+'</b></a>'):'<span></span>')+
+    '</div></section>';
+})();
+</script>
+</body></html>
