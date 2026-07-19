@@ -2,8 +2,8 @@
   "feed": "0n1x AI News",
   "spec": "https://0n1xagntc.com/news.html",
   "doctrine": "every item carries its primary source; where a claim can't be sourced, it doesn't run",
-  "generated": "2026-07-19",
-  "count": 6,
+  "generated": "2026-07-20",
+  "count": 7,
   "items": [
     {
       "id": "mcp-stateless",
@@ -75,6 +75,18 @@
         "https://blog.cloudflare.com/web-bot-auth/",
         "https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture"
       ]
+    },
+    {
+      "id": "agui",
+      "category": "Protocol",
+      "headline": "The agent stack just grew a fourth layer — the one users actually see",
+      "summary": "MCP wired agents to tools. A2A to each other. x402 to money. AG-UI just wired them to YOU.",
+      "date": "2026-07-19",
+      "url": "https://0n1xagntc.com/story.html?id=agui",
+      "sources": [
+        "https://github.com/ag-ui-protocol/ag-ui",
+        "https://www.copilotkit.ai/ag-ui"
+      ]
     }
   ],
   "signature": {
@@ -85,7 +97,7 @@
       "crv": "Ed25519",
       "x": "nNaqGlfjssVkvZC4eTk5Ocg68dan1mrx2etMsEYCbgA"
     },
-    "value_b64": "EQ2467P893bdKjZcIvYG17S1qbpJvLByENP9GDsxKsbMt/TTKfC0Ku1Yh1gTGghUOapJ5ucd+jzm0hzmELquAQ==",
+    "value_b64": "1zJ4Pbp6guU91MiXqCY96iYkzlpc3BD6t77m6u/89otqi11teCQ1moF/9t+SSl7QY1BXHxpiLUcpLT5qzxIKDg==",
     "note": "Verify: take this object minus `signature`, canonicalize (recursively sort keys), Ed25519-verify value_b64 with public_key. This feed is 0n1x's and unmodified iff it checks."
   }
 }

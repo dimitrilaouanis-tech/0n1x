@@ -201,6 +201,36 @@
         "cta": "Web Bot Auth draft"
       },
       "image": "/img/webbotauth.png"
+    },
+    {
+      "id": "agui",
+      "cat": "Protocol",
+      "accent": "#2D7CFF",
+      "glyph": "◫",
+      "kicker": "The user\nlayer",
+      "headline": "The agent stack just grew a fourth layer — the one users actually see",
+      "hook": "MCP wired agents to tools. A2A to each other. x402 to money. AG-UI just wired them to YOU.",
+      "date": "2026-07-19",
+      "read": "3 min",
+      "signal": "AG-UI (Agent-User Interaction Protocol), CopilotKit’s open event-based protocol, standardizes how an agent streams to a front-end — typed events over SSE, one HTTP POST up, an event stream down. It has crossed 9,000 GitHub stars and 120k weekly installs, with adoption cited across Google, AWS, Microsoft, and LangChain.",
+      "why": "The stack now has all four layers: MCP (tools), A2A (agent-to-agent), x402 (payments), and AG-UI (agent-to-user). The plumbing that connects agents to everything — tools, each other, money, and now humans — is essentially complete.",
+      "take": "Four layers now move value and information between machines and people, and not one of them answers whether the agent on the other end is real or its output is true. The more surfaces an agent touches — your tools, your wallet, your screen — the louder the unanswered question gets: should you trust what it just did? A finished plumbing stack doesn’t close the trust gap; it makes it the only thing left to build. Completing the stack completes our market.",
+      "counter": "AG-UI is a UI-transport convention, not a standards-body-ratified spec; star counts and install numbers are momentum, not production lock-in; and “the stack is complete” is a tidy narrative — real interop across all four layers, in production, is still early.",
+      "sources": [
+        {
+          "name": "AG-UI Protocol — GitHub",
+          "url": "https://github.com/ag-ui-protocol/ag-ui"
+        },
+        {
+          "name": "AG-UI — CopilotKit",
+          "url": "https://www.copilotkit.ai/ag-ui"
+        }
+      ],
+      "runit": {
+        "label": "See the protocol that puts agents on the screen.",
+        "url": "https://github.com/ag-ui-protocol/ag-ui",
+        "cta": "AG-UI on GitHub"
+      }
     }
   ]
 }
