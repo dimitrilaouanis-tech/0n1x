@@ -30,6 +30,18 @@
       "hook": "Everyone's racing to register on the agent-identity standard. The first audit says 9 in 10 are fake.",
       "date": "2026-07-08",
       "read": "4 min",
+      "chart": {
+        "title": "Share of registered ERC-8004 agents with a valid, live registration",
+        "unit": "%",
+        "bars": [
+          {"label": "Ethereum", "value": 3},
+          {"label": "BSC", "value": 4},
+          {"label": "Base", "value": 15}
+        ],
+        "ref": 100,
+        "refLabel": "every agent that registered",
+        "note": "The slivers are what's real. The rest is placeholder squatting — and on Base, 90.6% of registered agents showed coordinated fake-reviewer behavior."
+      },
       "signal": "The first empirical audit of every ERC-8004 agent across Ethereum, BSC and Base (revised 8 Jul) found only 3% / 4% / 15% (ETH/BSC/Base) exposed a valid registration with a live endpoint — the rest is placeholder squatting. Coordinated fake-reviewer behavior hit 90.6% on Base; reputation is “manipulable at minimal cost.” The EIP itself is still formally Draft.",
       "why": "This is the empirical proof of the whole thesis: an on-chain registry standardizes where you write a claim, not whether it's true. A reputation number that's free to forge is theater — and the market is minting theater at scale, fast.",
       "take": "The open seat is exactly what ERC-8004 leaves empty: interaction-grounded, stake-secured resolution — the Validation Registry hook that almost nobody is populating. A registry gives identity; it does not give you earned-not-declared standing with a payer key that can't tilt the verdict. That's the layer that makes the other 90% legible instead of ignorable.",

@@ -32,6 +32,15 @@
   .cover .kin{position:relative;z-index:2;font:800 clamp(1.6rem,6vw,3rem)/1.02 var(--disp);letter-spacing:-.03em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.35)}
   .cover .kin em{font-style:normal;-webkit-text-stroke:1.5px rgba(255,255,255,.9);color:transparent}
   .lede,p.b{font-size:1.08rem;line-height:1.72;color:var(--body);margin:0 0 18px}
+  /* chart-as-hero (the proof IS the picture — owned, zero licensing) */
+  .charthero{margin:0 0 26px}
+  .chartwrap{background:#0A0B12;border-radius:20px;padding:24px 22px 14px;box-shadow:var(--shad-lg)}
+  .charthero figcaption{font:500 13.5px/1.55 var(--sans);color:var(--meta);margin-top:12px}
+  .charthero figcaption b{color:var(--ink);font-weight:700}
+  /* 60-second teaching box */
+  .min60{background:linear-gradient(180deg,color-mix(in oklab,var(--jade) 12%,#fff),#fff);border:1px solid color-mix(in oklab,var(--jade) 45%,var(--rule));border-radius:16px;padding:16px 20px;margin:0 0 22px}
+  .min60 .l{display:block;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#0FB5A6;margin-bottom:6px}
+  .min60 p{margin:0;color:var(--ink);font-size:1.03rem;line-height:1.6}
   .sig{display:block;font:800 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin:26px 0 8px}
   .why{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--violet);border-radius:0 14px 14px 0;padding:16px 20px;margin:6px 0 8px}
   /* the hard gate (FT-style fade → wall) */
@@ -79,6 +88,18 @@ var GH='<svg viewBox="0 0 16 16" fill="#1f2430"><path d="M8 0C3.58 0 0 3.58 0 8c
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function mesh(a){return 'background:radial-gradient(120% 90% at 12% 10%,'+a+',transparent 60%),radial-gradient(120% 120% at 100% 0%,color-mix(in oklab,'+a+' 55%,#0A0B12),#0A0B12);';}
 function qs(k){return new URLSearchParams(location.search).get(k);}
+function renderChart(c){
+  var bars=c.bars||[],n=bars.length||1,W=560,H=300,L=24,R=24,T=34,B=54,plotH=H-T-B,plotW=W-L-R,slot=plotW/n,bw=Math.min(84,slot*0.5);
+  var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="'+esc(c.title)+'">';
+  s+='<line x1="'+L+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+T+'" stroke="#2a2f3a" stroke-dasharray="4 4"/>';
+  s+='<text x="'+L+'" y="'+(T-9)+'" fill="#8A90A2" font-family="ui-monospace,monospace" font-size="12">100% — '+esc(c.refLabel||'total')+'</text>';
+  bars.forEach(function(b,i){var cx=L+slot*i+slot/2,bh=Math.max(2,plotH*(b.value/(c.ref||100))),y=T+plotH-bh;
+    s+='<rect x="'+(cx-bw/2)+'" y="'+y+'" width="'+bw+'" height="'+bh+'" rx="4" fill="#3FE0A0"/>';
+    s+='<text x="'+cx+'" y="'+(y-8)+'" text-anchor="middle" fill="#e9ecf2" font-family="ui-monospace,monospace" font-size="17" font-weight="700">'+b.value+(c.unit||'')+'</text>';
+    s+='<text x="'+cx+'" y="'+(T+plotH+24)+'" text-anchor="middle" fill="#aeb7c4" font-family="Inter,sans-serif" font-size="13" font-weight="600">'+esc(b.label)+'</text>';});
+  s+='</svg>';
+  return '<figure class="charthero"><div class="chartwrap">'+s+'</div><figcaption><b>'+esc(c.title)+'.</b>'+(c.note?(' '+esc(c.note)):'')+'</figcaption></figure>';
+}
 
 (async function(){
   var box=document.getElementById('art');
@@ -94,9 +115,9 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
     '<div><span class="cat" style="background:'+s.accent+'">'+esc(s.cat)+'</span><span class="dateline">'+esc(s.date)+' · '+esc(s.read||'')+' read</span></div>'+
     '<h1>'+esc(s.headline)+'</h1>'+
     '<p class="hook">'+esc(s.hook)+'</p>'+
-    '<div class="cover"><div class="mesh" style="'+mesh(s.accent)+'"></div><div class="glyph">'+esc(s.glyph||'◆')+'</div><div class="kin">'+kin+'</div></div>'+
+    (s.chart ? renderChart(s.chart) : ('<div class="cover"><div class="mesh" style="'+mesh(s.accent)+'"></div><div class="glyph">'+esc(s.glyph||'◆')+'</div><div class="kin">'+kin+'</div></div>'))+
     '<div class="byline">0n1x AI News · sourced, not asserted</div>'+
-    '<span class="sig">The signal</span><p class="b">'+esc(s.signal)+'</p>'+
+    '<div class="min60"><span class="l">⏱ The 60-second version</span><p>'+esc(s.signal)+'</p></div>'+
     '<span class="sig">Why it matters</span><div class="why"><p class="b" style="margin:0">'+esc(s.why)+'</p></div>'+
     '<div class="gate" id="gate">'+
       '<div class="locked">'+
