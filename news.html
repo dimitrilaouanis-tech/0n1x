@@ -392,7 +392,7 @@ footer a:hover{color:var(--pink)}
   <section aria-labelledby="lead-h">
     <div class="lead">
       <article>
-        <div class="cover hero c-protocol" role="img" aria-label="Cover: MCP kills the session model" style="cursor:pointer" onclick="location.href='/story.html?id=mcp-stateless'">
+        <div class="cover hero c-protocol" role="img" aria-label="Cover: MCP kills the session model" style="cursor:pointer;background-image:linear-gradient(180deg,rgba(10,11,18,.10),rgba(10,11,18,.74)),url('/img/mcp-stateless.png');background-size:cover;background-position:center" onclick="location.href='/story.html?id=mcp-stateless'">
           <span class="cat">Protocol</span>
           <span class="glyph" aria-hidden="true">⧉</span>
           <span class="scan" aria-hidden="true"></span>
@@ -501,7 +501,7 @@ footer a:hover{color:var(--pink)}
         <p class="src">Sources: <a href="https://arxiv.org/abs/2606.26028" target="_blank" rel="noopener">ERC-8004 audit (arXiv) ↗</a> · <a href="https://eips.ethereum.org/EIPS/eip-8004" target="_blank" rel="noopener">EIP-8004 ↗</a></p>
       </article>
       <article>
-        <div class="cover c-models" role="img" aria-label="Cover: GPT-5.6 ships three models">
+        <div class="cover c-models" role="img" aria-label="Cover: GPT-5.6 ships three models" style="background-image:linear-gradient(180deg,rgba(10,11,18,.10),rgba(10,11,18,.74)),url('/img/gpt56.png');background-size:cover;background-position:center">
           <span class="cat">Models</span>
           <span class="glyph" aria-hidden="true">◈</span>
           <span class="kin">Three minds,<br>one <em>API</em></span>
@@ -553,7 +553,7 @@ footer a:hover{color:var(--pink)}
         <p class="src">Sources: <a href="https://techcrunch.com/2026/06/30/anthropic-launches-claude-sonnet-5-as-a-cheaper-way-to-run-agents/" target="_blank" rel="noopener">TechCrunch</a> · <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic</a></p>
       </article>
       <article>
-        <div class="cover c-payments" role="img" aria-label="Cover: x402 goes live">
+        <div class="cover c-payments" role="img" aria-label="Cover: x402 goes live" style="background-image:linear-gradient(180deg,rgba(10,11,18,.10),rgba(10,11,18,.74)),url('/img/x402-foundation.png');background-size:cover;background-position:center">
           <span class="cat">Payments</span>
           <span class="glyph" aria-hidden="true">⏣</span>
           <span class="kin">Money over<br><em>HTTP</em></span>
@@ -618,7 +618,7 @@ footer a:hover{color:var(--pink)}
         <p class="src">Sources: <a href="https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production/" target="_blank" rel="noopener">NiteAgent</a> · <a href="https://agenticplug.ai/current-state-of-agentic-commerce" target="_blank" rel="noopener">AgenticPlug</a></p>
       </article>
       <article>
-        <div class="cover c-protocol" role="img" aria-label="Cover: the agent stack grows a fourth layer">
+        <div class="cover c-protocol" role="img" aria-label="Cover: the agent stack grows a fourth layer" style="background-image:linear-gradient(180deg,rgba(10,11,18,.10),rgba(10,11,18,.74)),url('/img/agui.png');background-size:cover;background-position:center">
           <span class="cat">Protocol</span><span class="glyph" aria-hidden="true">◫</span><span class="kin">The user<br>layer</span>
         </div>
         <div class="metaline"><span class="kick">Protocol</span><span class="stamp">AG-UI · <time datetime="2026-07">Jul 2026</time></span></div>
@@ -628,7 +628,7 @@ footer a:hover{color:var(--pink)}
         <p class="src">Sources: <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener">AG-UI GitHub</a> · <a href="https://www.copilotkit.ai/ag-ui" target="_blank" rel="noopener">CopilotKit</a></p>
       </article>
       <article>
-        <div class="cover c-payments" role="img" aria-label="Cover: Visa agentic checkout live">
+        <div class="cover c-payments" role="img" aria-label="Cover: Visa agentic checkout live" style="background-image:linear-gradient(180deg,rgba(10,11,18,.10),rgba(10,11,18,.74)),url('/img/visa-checkout.png');background-size:cover;background-position:center">
           <span class="cat">Payments</span><span class="glyph" aria-hidden="true">◉</span><span class="kin">Agents<br>check out</span>
         </div>
         <div class="metaline"><span class="kick">Payments</span><span class="stamp">Visa · <time datetime="2026-07">Jul 2026</time></span></div>
@@ -638,7 +638,7 @@ footer a:hover{color:var(--pink)}
         <p class="src">Source: <a href="https://www.visa.co.uk/about-visa/newsroom/press-releases.3457328.html" target="_blank" rel="noopener">Visa newsroom</a></p>
       </article>
       <article>
-        <div class="cover c-stack" role="img" aria-label="Cover: Web Bot Auth chartered at IETF">
+        <div class="cover c-stack" role="img" aria-label="Cover: Web Bot Auth chartered at IETF" style="background-image:linear-gradient(180deg,rgba(10,11,18,.10),rgba(10,11,18,.74)),url('/img/webbotauth.png');background-size:cover;background-position:center">
           <span class="cat">Identity</span><span class="glyph" aria-hidden="true">⚿</span><span class="kin">Sign the<br>request</span>
         </div>
         <div class="metaline"><span class="kick">Identity</span><span class="stamp">IETF · <time datetime="2026-07">Jul 2026</time></span></div>
@@ -867,7 +867,7 @@ console.log(verify(null,Buffer.from(C(f)),
   function wire(){
     if(!window.OnyxAuth){ return setTimeout(wire,150); }
     // already signed in (or just returned from OAuth) → reveal everything
-    window.OnyxAuth.onChange(function(s){ if(s && s.user){ try{localStorage.setItem('onx_sub', s.user.email||'1');}catch(e){} unlock(); var b=document.querySelector('.suband'); if(b){ b.style.background='linear-gradient(110deg,#0A140F,#0d2a1e)'; b.innerHTML='<div style="text-align:center;width:100%;color:#3FE0A0;font-weight:700;padding:12px;font-size:15px">✓ Signed in as '+(s.user.email||'you')+' — full AI News access unlocked.</div>'; } } });
+    window.OnyxAuth.onChange(function(s){ if(s && s.user){ try{localStorage.setItem('onx_sub', s.user.email||'1');}catch(e){} unlock(); var b=document.querySelector('.suband'); if(b){ b.style.background='linear-gradient(110deg,#0A140F,#0d2a1e)'; b.innerHTML='<div style="text-align:center;width:100%;color:#3FE0A0;font-weight:700;padding:12px;font-size:15px">✓ Signed in as '+(s.user.email||'you')+' — full AI News access unlocked. <a href="#" id="news-signout" style="color:#aeb7c4;text-decoration:underline;margin-left:8px">Sign out</a></div>'; var so=document.getElementById('news-signout'); if(so) so.onclick=function(ev){ ev.preventDefault(); try{localStorage.removeItem('onx_sub');}catch(e){} window.OnyxAuth.signOut().then(function(){ location.reload(); }); }; } } });
     document.querySelectorAll('.lock [data-oauth]').forEach(function(b){
       b.onclick=function(){ var p=b.getAttribute('data-oauth'); msg('Redirecting to '+p+'…'); window.OnyxAuth.signInOAuth(p); };
     });
