@@ -793,8 +793,14 @@ console.log(verify(null,Buffer.from(C(f)),
   function isUnlocked(){ try{ return !!localStorage.getItem(KEY); }catch(e){ return false; } }
   function store(email){ try{ localStorage.setItem(KEY, email||'1'); }catch(e){} }
 
-  // On load: if already subscribed, reveal everything immediately.
-  if(isUnlocked()) unlockAll();
+  // Access requires a VERIFIED Supabase session (unlocked by the OnyxAuth block below).
+  // localStorage alone must NEVER unlock — and we CLEAR any stale flag so a prior
+  // typed-email bypass can't persist across reloads. No session => stays locked.
+  (function(){
+    function check(s){ if(!(s && s.user)){ try{ localStorage.removeItem(KEY); }catch(e){} } }
+    function run(){ if(window.OnyxAuth){ window.OnyxAuth.getSession().then(check).catch(function(){}); } }
+    if(window.OnyxAuth) run(); else window.addEventListener('onyxauth:ready', run);
+  })();
 
   // Live sub count (best-effort; degrades silently).
   (function(){
