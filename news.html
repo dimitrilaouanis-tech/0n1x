@@ -142,7 +142,7 @@ article:has(.c-stack) .kick{background:var(--c-stack)}
 /* ---- social hook ---- */
 .hook{display:flex;gap:11px;align-items:baseline;margin:0 0 16px;padding:12px 0 0}
 .hook .hlab{flex:none;font:800 9.5px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--grad-hot);border-radius:999px;padding:4px 9px}
-.hook .htxt{font:600 1.02rem/1.42 var(--sans);color:var(--ink)}
+.hook .htxt{font:500 1.02rem/1.45 var(--sans);color:var(--body)}
 .grid .hook .htxt{font-size:.96rem}
 
 /* ---- COVER ART (pure CSS thumbnails) ---- */
@@ -400,7 +400,7 @@ footer a:hover{color:var(--pink)}
         </div>
         <div class="metaline"><span class="kick">Protocol</span><span class="stamp">MCP · <time datetime="2026-07">July 2026</time></span></div>
         <h2 id="lead-h" class="hl"><a href="/story.html?id=mcp-stateless">MCP just deleted the session model — and everything built on it breaks in <span class="mcp-cd">10</span> days</a></h2>
-        <div class="hook"><span class="hlab">The hook</span><span class="htxt">The spec that runs every AI agent's tools just rewrote itself. If your app used sessions, it breaks on the 28th. Here's why that's actually the good news.</span></div>
+        <div class="hook"><span class="htxt">The spec that runs every AI agent's tools just rewrote itself. If your app used sessions, it breaks on the 28th. Here's why that's actually the good news.</span></div>
         <span class="sig">The signal</span>
         <p class="dek">The release candidate dated <time datetime="2026-07-28">28 July 2026</time> removes the initialize handshake and the <code>Mcp-Session-Id</code> header outright. Protocol version and client info now ride in <code>_meta</code> on every request; a new <code>server/discover</code> replaces up-front capability exchange.</p>
         <p class="why"><b>Why it matters.</b> This is the change with the biggest operational impact in the spec's history. Anything built against the 2025-11-25 session model has hidden session dependencies that break — and the fix isn't cosmetic: requests must survive moving between server instances. Statelessness is what turns a metered endpoint from a demo into a rail.</p>
@@ -484,14 +484,14 @@ footer a:hover{color:var(--pink)}
     <h2 class="shead" id="latest-h">Latest</h2>
     <div class="grid">
       <article>
-        <div class="cover c-protocol" role="img" aria-label="Cover: ERC-8004 audit finds most agents are Sybil">
+        <div class="cover c-protocol" role="img" aria-label="Cover: ERC-8004 audit finds most agents are Sybil" style="background-image:linear-gradient(180deg,rgba(10,11,18,.10),rgba(10,11,18,.74)),url('/img/erc8004-sybil.png');background-size:cover;background-position:center">
           <span class="cat">Identity</span>
           <span class="glyph" aria-hidden="true">⬡</span>
           <span class="kin">Registered<br>≠ <em>real</em></span>
         </div>
         <div class="metaline"><span class="kick">Identity</span><span class="stamp">ERC-8004 · <time datetime="2026-07-08">Jul 2026</time></span></div>
         <h3 class="hl"><a href="/story.html?id=erc8004-sybil">The first ERC-8004 audit is in — and ~90% of "agents" on Base are Sybil</a></h3>
-        <div class="hook"><span class="hlab">The hook</span><span class="htxt">Everyone's racing to register on the agent-identity standard. The first audit says 9 in 10 are fake.</span></div>
+        <div class="hook"><span class="htxt">Everyone's racing to register on the agent-identity standard. The first audit says 9 in 10 are fake.</span></div>
         <p>The first empirical audit of every ERC-8004 agent across Ethereum, BSC and Base (revised 8 Jul) found only <b>3% / 4% / 15%</b> (ETH/BSC/Base) exposed a valid registration with a live endpoint — the rest is placeholder squatting. Coordinated fake-reviewer behavior hit <b>90.6% on Base</b>; reputation is "manipulable at minimal cost." The EIP itself is still formally Draft.</p>
         <div class="gate mini" data-gate data-locked="false">
           <div class="gated">
@@ -508,7 +508,7 @@ footer a:hover{color:var(--pink)}
         </div>
         <div class="metaline"><span class="kick">Models</span><span class="stamp">OpenAI · <time datetime="2026-07">Jul 2026</time></span></div>
         <h3 class="hl"><a href="/story.html?id=gpt56">OpenAI splits GPT-5.6 into three agents — and halves the price of frontier reasoning</a></h3>
-        <div class="hook"><span class="hlab">The hook</span><span class="htxt">OpenAI didn't ship one model. It shipped three — and the middle one is 5.5-smart at half the cost.</span></div>
+        <div class="hook"><span class="htxt">OpenAI didn't ship one model. It shipped three — and the middle one is 5.5-smart at half the cost.</span></div>
         <p>Sol (frontier), Terra (~5.5-level intelligence at half the cost) and Luna (small, fast), plus an Ultra mode with Max reasoning and heavier sub-agent use. New API surface: programmatic tool calling, multi-agent orchestration, prompt-cache breakpoints.</p>
         <div class="gate mini" data-gate data-locked="false">
           <div class="gated">
@@ -527,14 +527,14 @@ footer a:hover{color:var(--pink)}
         <p class="src">Sources: <a href="https://thursdai.news/releases/2026-07" target="_blank" rel="noopener">ThursdAI</a> · <a href="https://www.buildfastwithai.com/blogs/ai-news-today-july-7-2026" target="_blank" rel="noopener">BuildFastWithAI</a></p>
       </article>
       <article>
-        <div class="cover c-models" role="img" aria-label="Cover: Sonnet 5 makes agents cheap">
+        <div class="cover c-models" role="img" aria-label="Cover: Sonnet 5 makes agents cheap" style="background-image:linear-gradient(180deg,rgba(10,11,18,.10),rgba(10,11,18,.74)),url('/img/sonnet5.png');background-size:cover;background-position:center">
           <span class="cat">Models</span>
           <span class="glyph" aria-hidden="true">◇</span>
           <span class="kin">Agents get<br><em>cheap</em></span>
         </div>
         <div class="metaline"><span class="kick">Models</span><span class="stamp">Anthropic · <time datetime="2026-06-30">30 Jun 2026</time></span></div>
         <h3 class="hl"><a href="https://techcrunch.com/2026/06/30/anthropic-launches-claude-sonnet-5-as-a-cheaper-way-to-run-agents/" target="_blank" rel="noopener">Claude Sonnet 5 makes the always-on agent finally cheap enough to leave running</a></h3>
-        <div class="hook"><span class="hlab">The hook</span><span class="htxt">The thing stopping 24/7 AI agents was never smarts — it was the bill. Sonnet 5 just cut it.</span></div>
+        <div class="hook"><span class="htxt">The thing stopping 24/7 AI agents was never smarts — it was the bill. Sonnet 5 just cut it.</span></div>
         <p>Sonnet 5 launched as a lower-cost way to run agents, while Claude Cowork expanded to web and mobile — agents running multi-step tasks in the background across devices.</p>
         <div class="gate mini" data-gate data-locked="false">
           <div class="gated">
@@ -560,46 +560,46 @@ footer a:hover{color:var(--pink)}
         </div>
         <div class="metaline"><span class="kick">Payments</span><span class="stamp"><time datetime="2026-07-14">14 Jul 2026</time></span></div>
         <h3 class="hl"><a href="/story.html?id=x402-foundation">Visa, Stripe and Coinbase just put agent payments under one neutral foundation</a></h3>
-        <div class="hook"><span class="hlab">The hook</span><span class="htxt">40 members. Visa to Coinbase in one room. The rail agents pay each other on just became institutional.</span></div>
+        <div class="hook"><span class="htxt">40 members. Visa to Coinbase in one room. The rail agents pay each other on just became institutional.</span></div>
         <p>Forty members — Visa, Mastercard, Amex, Stripe, Google, AWS, Shopify, Cloudflare, Coinbase — with Anthropic, Circle and Vercel in core membership. Coinbase completed contributing the protocol, putting it under vendor-neutral governance.</p>
         <p class="why"><b>For 0n1x:</b> the rail we settle on is now institutionally safe to borrow. Both protocols we build on sit under Linux Foundation governance as of this week.</p>
         <p class="src">Sources: <a href="https://blog.cloudflare.com/x402/" target="_blank" rel="noopener">Cloudflare</a> · <a href="https://www.x402.org/writing/x402-v2-launch" target="_blank" rel="noopener">x402.org</a></p>
       </article>
       <article>
-        <div class="cover c-payments" role="img" aria-label="Cover: AP2 human-not-present">
+        <div class="cover c-payments" role="img" aria-label="Cover: AP2 human-not-present" style="background-image:linear-gradient(180deg,rgba(10,11,18,.10),rgba(10,11,18,.74)),url('/img/ap2.png');background-size:cover;background-position:center">
           <span class="cat">Payments</span>
           <span class="glyph" aria-hidden="true">⎉</span>
           <span class="kin">Pay without<br><em>asking</em></span>
         </div>
         <div class="metaline"><span class="kick">Payments</span><span class="stamp">AP2 · <time datetime="2026">2026</time></span></div>
         <h3 class="hl"><a href="https://ap2-protocol.org/" target="_blank" rel="noopener">AP2 v0.2 lets an agent spend your money while you're asleep — with three signed mandates</a></h3>
-        <div class="hook"><span class="hlab">The hook</span><span class="htxt">Your agent can now buy things with nobody watching. The safety catch is three cryptographic signatures — and one of them just failed open.</span></div>
+        <div class="hook"><span class="htxt">Your agent can now buy things with nobody watching. The safety catch is three cryptographic signatures — and one of them just failed open.</span></div>
         <p>AP2 moved to FIDO for community governance, mirroring A2A's move to the Linux Foundation. v0.2 ships Human-Not-Present support for autonomous, pre-authorized transactions, layering on top of A2A and MCP.</p>
         <p class="why"><b>For 0n1x:</b> AP2's three signed Mandates — Intent, Cart, Payment — are the shape of verify-before-you-pay. Our rail already separates the grader key from the payee: the property AP2 formalizes.</p>
         <p class="src">Sources: <a href="https://ap2-protocol.org/" target="_blank" rel="noopener">ap2-protocol.org</a> · <a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol" target="_blank" rel="noopener">Google Cloud</a></p>
       </article>
       <article>
-        <div class="cover c-protocol" role="img" aria-label="Cover: A2A crosses 150 orgs">
+        <div class="cover c-protocol" role="img" aria-label="Cover: A2A crosses 150 orgs" style="background-image:linear-gradient(180deg,rgba(10,11,18,.10),rgba(10,11,18,.74)),url('/img/a2a.png');background-size:cover;background-position:center">
           <span class="cat">Protocol</span>
           <span class="glyph" aria-hidden="true">⇄</span>
           <span class="kin">Agents talk<br><em>now</em></span>
         </div>
         <div class="metaline"><span class="kick">Protocol</span><span class="stamp">A2A · <time datetime="2026-04">Apr 2026</time></span></div>
         <h3 class="hl"><a href="https://stellagent.ai/insights/a2a-protocol-google-agent-to-agent" target="_blank" rel="noopener">Agent-to-agent hits 150 orgs and ships inside Azure and Bedrock — it's table stakes now</a></h3>
-        <div class="hook"><span class="hlab">The hook</span><span class="htxt">150 companies. 22k stars. Already inside Azure and AWS. The way agents talk to each other stopped being a bet.</span></div>
+        <div class="hook"><span class="htxt">150 companies. 22k stars. Already inside Azure and AWS. The way agents talk to each other stopped being a bet.</span></div>
         <p>150+ participating organizations, 22,000+ GitHub stars, with production deployments inside Azure AI Foundry and Amazon Bedrock AgentCore. Governance sits with the Linux Foundation.</p>
         <p class="why"><b>For 0n1x:</b> our agents speak A2A natively — signed Agent Cards, identity verified before action. The horizontal layer is table stakes now, not a bet.</p>
         <p class="src">Sources: <a href="https://stellagent.ai/insights/a2a-protocol-google-agent-to-agent" target="_blank" rel="noopener">Stellagent</a> · <a href="https://zuplo.com/blog/agent-protocol-stack-mcp-a2a-acp-2026" target="_blank" rel="noopener">Zuplo</a></p>
       </article>
       <article>
-        <div class="cover c-stack" role="img" aria-label="Cover: the stack has converged">
+        <div class="cover c-stack" role="img" aria-label="Cover: the stack has converged" style="background-image:linear-gradient(180deg,rgba(10,11,18,.10),rgba(10,11,18,.74)),url('/img/plumbing.png');background-size:cover;background-position:center">
           <span class="cat">The stack</span>
           <span class="glyph" aria-hidden="true">▤</span>
           <span class="kin">The stack<br>is <em>set</em></span>
         </div>
         <div class="metaline"><span class="kick">The stack</span><span class="stamp"><time datetime="2026">2026</time></span></div>
         <h3 class="hl"><a href="https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production/" target="_blank" rel="noopener">The plumbing debate is over: MCP + A2A + AP2 won — and left one question unanswered</a></h3>
-        <div class="hook"><span class="hlab">The hook</span><span class="htxt">Three layers, three foundations, debate closed. The one thing none of them answer? Whether the agent — or the fact — is real.</span></div>
+        <div class="hook"><span class="htxt">Three layers, three foundations, debate closed. The one thing none of them answer? Whether the agent — or the fact — is real.</span></div>
         <p>Three complementary layers — MCP for agent-to-tools, A2A for agent-to-agent, AP2 for payments — each under independent foundation governance. The plumbing debate is over.</p>
         <div class="gate mini" data-gate data-locked="false">
           <div class="gated">
@@ -623,7 +623,7 @@ footer a:hover{color:var(--pink)}
         </div>
         <div class="metaline"><span class="kick">Protocol</span><span class="stamp">AG-UI · <time datetime="2026-07">Jul 2026</time></span></div>
         <h3 class="hl"><a href="/story.html?id=agui">The agent stack just grew a fourth layer — the one users actually see</a></h3>
-        <div class="hook"><span class="hlab">The hook</span><span class="htxt">MCP wired agents to tools. A2A to each other. x402 to money. AG-UI just wired them to YOU.</span></div>
+        <div class="hook"><span class="htxt">MCP wired agents to tools. A2A to each other. x402 to money. AG-UI just wired them to YOU.</span></div>
         <p>CopilotKit's AG-UI standardizes agent→front-end streaming (SSE, typed events) — 9k+ GitHub stars, adopted by Google, AWS, Microsoft. The plumbing stack is now complete: tools, agents, money, and the user.</p>
         <p class="src">Sources: <a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener">AG-UI GitHub</a> · <a href="https://www.copilotkit.ai/ag-ui" target="_blank" rel="noopener">CopilotKit</a></p>
       </article>
@@ -633,7 +633,7 @@ footer a:hover{color:var(--pink)}
         </div>
         <div class="metaline"><span class="kick">Payments</span><span class="stamp">Visa · <time datetime="2026-07">Jul 2026</time></span></div>
         <h3 class="hl"><a href="/story.html?id=visa-checkout">Visa takes agentic checkout LIVE at real European merchants</a></h3>
-        <div class="hook"><span class="hlab">The hook</span><span class="htxt">Not a demo — agents completed real purchases at real shops, under real Strong Customer Authentication.</span></div>
+        <div class="hook"><span class="htxt">Not a demo — agents completed real purchases at real shops, under real Strong Customer Authentication.</span></div>
         <p>At the Visa Payments Forum (2 Jul), agents transacted at lastminute.com, Frasers and more across 30+ issuers on Visa's Trusted Agent Protocol — the first at-scale proof agentic commerce clears EU regulatory bars.</p>
         <p class="src">Source: <a href="https://www.visa.co.uk/about-visa/newsroom/press-releases.3457328.html" target="_blank" rel="noopener">Visa newsroom</a></p>
       </article>
@@ -643,7 +643,7 @@ footer a:hover{color:var(--pink)}
         </div>
         <div class="metaline"><span class="kick">Identity</span><span class="stamp">IETF · <time datetime="2026-07">Jul 2026</time></span></div>
         <h3 class="hl"><a href="/story.html?id=webbotauth">Web Bot Auth: "sign the request, kill the IP allowlist" gets chartered at the IETF</a></h3>
-        <div class="hook"><span class="hlab">The hook</span><span class="htxt">Soon a site will cryptographically know it's really Anthropic or OpenAI knocking — not something wearing their user-agent.</span></div>
+        <div class="hook"><span class="htxt">Soon a site will cryptographically know it's really Anthropic or OpenAI knocking — not something wearing their user-agent.</span></div>
         <p>Built on HTTP Message Signatures (RFC 9421), origins confirm a caller's identity via keys at a <code>.well-known</code>. It proves <em>who's</em> calling; the trust layer proves whether the output is true — the two compose.</p>
         <p class="src">Sources: <a href="https://blog.cloudflare.com/web-bot-auth/" target="_blank" rel="noopener">Cloudflare</a> · <a href="https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture" target="_blank" rel="noopener">IETF draft</a></p>
       </article>
