@@ -19,7 +19,8 @@
   .ox-nav .ox-links{display:flex;gap:6px 18px;flex-wrap:wrap}
   h1{font:700 clamp(1.7rem,4vw,2.3rem)/1.1 var(--head);letter-spacing:-.02em;margin:36px 0 6px}
   .lede{color:var(--muted);max-width:52ch}
-  .card{border:1px solid var(--line2);border-radius:16px;background:color-mix(in srgb,var(--panel) 60%,transparent);padding:22px;margin:18px 0}
+  /* premium dark: shadow-as-border + layered depth (border-color variation, not gray soup) */
+  .card{border:0;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 2px 4px rgba(0,0,0,.35),0 8px 24px -8px rgba(0,0,0,.5);border-radius:16px;background:color-mix(in srgb,var(--panel) 60%,transparent);padding:22px;margin:18px 0}
   .card h2{font:600 1.1rem var(--head);margin:0 0 4px}
   .card p{color:var(--muted);font-size:14.5px;margin:.3rem 0}
   .btn{display:inline-flex;align-items:center;gap:10px;border-radius:10px;padding:12px 18px;font:600 14px var(--sans);cursor:pointer;border:1px solid var(--line2);background:transparent;color:var(--ink);text-decoration:none;transition:.15s}
@@ -41,9 +42,15 @@
   .links a:hover{border-color:var(--jade);background:var(--jade-soft)}
   .links a span{color:var(--dim);font:500 12px var(--mono)}
   .msg{font-size:13px;color:var(--muted);margin-top:10px;min-height:1.2em}
-  .citizen{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid var(--line2);border-radius:12px;padding:12px 15px;margin-top:9px}
+  /* citizen = three-block dossier row: Identity ≠ Reputation ≠ Validation, each with provenance */
+  .citizen{border:0;box-shadow:0 0 0 1px rgba(255,255,255,.07);border-radius:12px;padding:13px 15px;margin-top:9px}
   .citizen .rk{font:700 13px var(--mono);color:var(--jade)}
   .citizen a{font:600 12px var(--mono);white-space:nowrap}
+  .cz-id{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .cz-rep{border-top:1px solid var(--line);margin-top:9px;padding-top:8px;font:500 12.5px var(--mono);color:var(--muted)}
+  .cz-band{font:700 10.5px var(--mono);letter-spacing:.08em;border-radius:99px;padding:2px 9px;border:1px solid var(--line2);color:var(--muted)}
+  .cz-band.ranked{color:var(--jade);border-color:var(--jade-line);background:var(--jade-soft)}
+  .cz-prov{font:500 10.5px var(--mono);color:var(--dim);margin-top:6px}
   .hide{display:none!important}
   footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 60px;color:var(--dim);font-size:13px}
   footer a{color:var(--jade);text-decoration:none}
@@ -142,13 +149,19 @@
       var feed={}; try{ feed=await (await fetch('/token_feed.json?cb='+Date.now())).json(); }catch(e){}
       var rank={}, total=feed.ranked_total||0;
       (feed.ranking||[]).forEach(function(r,i){ rank[String(r.address).toLowerCase()]={pos:i+1,tokens:r.tokens,score:r.score}; });
+      var asOf=feed.generated||feed.updated||'';
       box.innerHTML=agents.map(function(a){
         var r=rank[String(a.address).toLowerCase()];
-        var st=r ? ('<span class="rk">#'+r.pos+(total?(' / '+total):'')+'</span> · '+r.tokens+' TOKEN · score '+r.score)
-                 : '<span class="kv">in census · not top-120 yet</span>';
         var short=a.address.slice(0,6)+'…'+a.address.slice(-4);
-        return '<div class="citizen"><div><b>'+esc(a.callsign)+'</b> <span class="kv">'+short+'</span><br>'+st+'</div>'+
-               '<a target="_blank" rel="noopener" href="https://rhinogent.com/card/?n='+encodeURIComponent(a.callsign)+'&a='+a.address+'">ProofCard ↗</a></div>';
+        // Reputation: band + visible inputs, never a bare decimal presented as truth.
+        var band=r?'<span class="cz-band ranked">RANKED</span>':'<span class="cz-band">IN CENSUS</span>';
+        var rep=r ? ('<span class="rk">#'+r.pos+(total?(' / '+total):'')+'</span> · '+r.tokens+' TOKEN · score '+r.score)
+                  : 'no resolved work ranked yet — standing appears when work resolves, never before';
+        return '<div class="citizen">'+
+          '<div class="cz-id"><div><b>'+esc(a.callsign)+'</b> <span class="kv">'+short+'</span></div>'+band+'</div>'+
+          '<div class="cz-rep">'+rep+'</div>'+
+          '<div class="cz-prov">validation: <a target="_blank" rel="noopener" href="https://rhinogent.com/card/?n='+encodeURIComponent(a.callsign)+'&a='+a.address+'">countersigned ProofCard ↗</a>'+(asOf?(' · rank feed as of '+esc(asOf)):'')+' · source: signed census + token feed</div>'+
+        '</div>';
       }).join('');
     }catch(e){ box.innerHTML='<p class="kv">Couldn’t load citizens ('+esc(e&&e.message||'error')+'). <a href="https://rhinogent.com/dashboard" target="_blank" rel="noopener">Open dashboard →</a></p>'; }
   }
@@ -209,4 +222,5 @@
 })();
 </script>
 <script src="/analytics.js" defer></script>
+<script src="/nav.js" defer></script>
 </body></html>

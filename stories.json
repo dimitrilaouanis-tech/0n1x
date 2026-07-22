@@ -1,237 +1,329 @@
 {
-  "updated": "2026-07-19",
-  "stories": [
+ "updated": "2026-07-22",
+ "stories": [
+  {
+   "id": "hf-agent-breach",
+   "cat": "Security",
+   "accent": "#FF5C7A",
+   "glyph": "⚠",
+   "kicker": "An agent\nbroke in",
+   "headline": "An autonomous AI agent breached Hugging Face — 17,000 actions over one weekend",
+   "hook": "The world's largest AI model hub was compromised end-to-end by an AI agent, not a human. It's the first flagship proof that attackers now run agents at machine speed.",
+   "date": "2026-07-16",
+   "read": "5 min",
+   "chart": {
+    "title": "Logged attacker-agent actions in the Hugging Face intrusion",
+    "unit": "",
+    "bars": [
+     {
+      "label": "Attack actions",
+      "value": 17000
+     }
+    ],
+    "ref": 17000,
+    "refLabel": "one weekend"
+   },
+   "signal": "Hugging Face disclosed on 16 Jul 2026 that an AI agent ran a full intrusion into production: entry via a malicious dataset abusing two code-execution paths (the remote-code dataset loader and a template injection in dataset config), then node-level escalation, credential harvest, and lateral movement — 17,000+ logged actions. Public models, datasets, Spaces and the supply chain were verified clean; some internal datasets and service credentials were accessed. Notably, HF used the open-weight GLM 5.2 for forensics because commercial API guardrails refused to analyze the real attack payloads.",
+   "why": "This is the moment the threat model stops being hypothetical. When the attacker is an agent, the only durable defence is knowing which agent, operated by whom, is allowed to act — identity and provenance, not signature-blind trust. SIGNED≠TRUE, but unattributed-and-fast is the nightmare.",
+   "take": "A trust registry's job is exactly the gap this exploited: verify who/what an agent is and who operates it before it touches anything. The forensics detail — guardrails blocking defenders while attackers run unguarded — is its own asymmetry worth naming.",
+   "counter": "HF closed the code paths, rebuilt nodes, rotated credentials and tightened admission controls; no public artifact was altered. A single provider's incident isn't yet an industry pattern — but the CEO's own warning is that it will be.",
+   "sources": [
     {
-      "id": "mcp-stateless",
-      "cat": "Protocol",
-      "accent": "#7A4DFF",
-      "glyph": "⧉",
-      "kicker": "The session\nis dead",
-      "headline": "MCP just deleted the session model — and everything built on it breaks in 10 days",
-      "hook": "The spec that runs every AI agent's tools rewrote itself. If your app used sessions, it breaks on the 28th. Here's why that's actually the good news.",
-      "date": "2026-07-28",
-      "read": "5 min",
-      "signal": "The MCP release candidate dated 28 July 2026 removes the initialize handshake and the Mcp-Session-Id header outright. Protocol version and client info now ride in _meta on every request — MCP is stateless at the protocol layer. SEP-2575 removes the handshake; SEP-2567 removes the session header.",
-      "why": "This is the change with the biggest operational impact in the spec's history. Anything built against the 2025-11-25 session model has hidden session dependencies that break — and the fix isn't cosmetic: requests must survive moving between server instances. Statelessness is what turns a metered endpoint from a demo into a rail.",
-      "take": "A stateless protocol layer quietly settles the “is this a real payment rail?” question. Session affinity is what kept metered agent endpoints from fanning out; remove it and verify-before-pay can scale horizontally like any other stateless HTTP service. The same release ships MCP Apps (sandboxed UI routed back through the same consent/audit path) and MCP's first Active→Deprecated→Removed policy — the quiet signal MCP is now run like enterprise infrastructure, and that the audit log is the product.",
-      "counter": "A spec landing days out isn't adoption. Tier-1 SDKs get a ten-week validation window, and every server built on the session model has to migrate under live traffic. And a “stateless core” that mints server-issued handles passed as tool args just relocated session state into app code — “stateless by 28 July” is the spec; “stateless in production” is a Q4 story.",
-      "sources": [
-        {
-          "name": "MCP 2026-07-28 Release Candidate — official spec blog",
-          "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/"
-        },
-        {
-          "name": "4sysops breakdown",
-          "url": "https://4sysops.com/archives/2026-07-28-model-context-protocol-mcp-stateless-multi-round-trip-routable-headers-authorization-hardening/"
-        }
-      ],
-      "runit": {
-        "label": "Test whether your MCP server survives the 28th — 200 with no session header = you live; needs Mcp-Session-Id = you break:",
-        "code": "curl -sS -X POST https://YOUR-SERVER/mcp -H \"content-type: application/json\" -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"_meta\":{\"protocolVersion\":\"2026-07-28\"}}'"
-      },
-      "image": "/img/mcp-stateless.png"
+     "name": "Hugging Face disclosure",
+     "url": "https://huggingface.co/blog/security-incident-july-2026"
     },
     {
-      "id": "erc8004-sybil",
-      "cat": "Identity",
-      "accent": "#3FE0A0",
-      "glyph": "⬡",
-      "kicker": "Registered\n≠ real",
-      "headline": "The first ERC-8004 audit is in — and ~90% of “agents” on Base are Sybil",
-      "hook": "Everyone's racing to register on the agent-identity standard. The first audit says 9 in 10 are fake.",
-      "date": "2026-07-08",
-      "read": "4 min",
-      "chart": {
-        "title": "Share of registered ERC-8004 agents with a valid, live registration",
-        "unit": "%",
-        "bars": [
-          {
-            "label": "Ethereum",
-            "value": 3
-          },
-          {
-            "label": "BSC",
-            "value": 4
-          },
-          {
-            "label": "Base",
-            "value": 15
-          }
-        ],
-        "ref": 100,
-        "refLabel": "every agent that registered",
-        "note": "The slivers are what's real. The rest is placeholder squatting — and on Base, 90.6% of registered agents showed coordinated fake-reviewer behavior."
-      },
-      "signal": "The first empirical audit of every ERC-8004 agent across Ethereum, BSC and Base (revised 8 Jul) found only 3% / 4% / 15% (ETH/BSC/Base) exposed a valid registration with a live endpoint — the rest is placeholder squatting. Coordinated fake-reviewer behavior hit 90.6% on Base; reputation is “manipulable at minimal cost.” The EIP itself is still formally Draft.",
-      "why": "This is the empirical proof of the whole thesis: an on-chain registry standardizes where you write a claim, not whether it's true. A reputation number that's free to forge is theater — and the market is minting theater at scale, fast.",
-      "take": "The open seat is exactly what ERC-8004 leaves empty: interaction-grounded, stake-secured resolution — the Validation Registry hook that almost nobody is populating. A registry gives identity; it does not give you earned-not-declared standing with a payer key that can't tilt the verdict. That's the layer that makes the other 90% legible instead of ignorable.",
-      "counter": "Adoption is genuinely fast (six-figure registrations, ENS/EigenLayer/Graph integrations), a Draft standard getting gamed early is normal, and v2 explicitly targets payment-proof-backed feedback — the Sybil hole may partially close on its own. Don't mistake “early and gamed” for “doomed.”",
-      "sources": [
-        {
-          "name": "ERC-8004 audit (arXiv)",
-          "url": "https://arxiv.org/abs/2606.26028"
-        },
-        {
-          "name": "EIP-8004",
-          "url": "https://eips.ethereum.org/EIPS/eip-8004"
-        }
-      ],
-      "runit": {
-        "label": "Do what the registry can not: check a counterparty is real before you pay it.",
-        "url": "https://0n1xagntc.com/proof.html",
-        "cta": "Verify an agent yourself"
-      }
+     "name": "The Hacker News",
+     "url": "https://thehackernews.com/2026/07/worlds-largest-ai-model-repository.html"
     },
     {
-      "id": "x402-foundation",
-      "cat": "Payments",
-      "accent": "#0FB5A6",
-      "glyph": "₿",
-      "kicker": "One rail,\nco-signed",
-      "headline": "The payments industry just co-signed one agent rail — x402 goes to the Linux Foundation",
-      "hook": "Visa, Mastercard, Stripe, Google, AWS, Cloudflare and the stablecoin camp are now at one table. The protocol war ended before it started.",
-      "date": "2026-07-14",
-      "read": "4 min",
-      "signal": "On 14 July, Coinbase's HTTP-402 “pay-in-the-request” protocol became a vendor-neutral Linux Foundation body with 40 members and a technical steering committee (Coinbase / Cloudflare / Stripe).",
-      "why": "When incumbents co-govern a standard this early, the protocol war ends before it starts — and the fight moves up-stack to identity, trust, and disputes. This is the strongest coalition any agent-payment standard has assembled.",
-      "take": "They agreed on how money moves and shipped zero agreement on how to verify the agent on the other end — that's our seat. A payments foundation with no conformance suite, no security profile, and no validation procedure is an open invitation for a signed-verification layer to sit on top. The rail is settled; the trust layer is not.",
-      "counter": "Foundation launches are governance theater until there's a ratified spec with conformance tests. “40 members” counts logos, not interop — and card networks joining standards bodies is defensive table-stakes, not a build commitment.",
-      "sources": [
-        {
-          "name": "Linux Foundation — x402 Foundation operational launch",
-          "url": "https://www.linuxfoundation.org/press/linux-foundation-announces-operational-launch-of-x402-foundation-to-standardize-internet-native-payments-for-ai-agents-and-applications"
-        },
-        {
-          "name": "x402.org",
-          "url": "https://x402.org/"
-        }
-      ],
-      "runit": {
-        "label": "See the rail everyone just co-signed.",
-        "url": "https://x402.org/",
-        "cta": "Read the x402 spec"
-      },
-      "image": "/img/x402-foundation.png"
-    },
-    {
-      "id": "gpt56",
-      "cat": "Models",
-      "accent": "#FE2C55",
-      "glyph": "◈",
-      "kicker": "Three minds,\none API",
-      "headline": "OpenAI splits GPT-5.6 into three agents — and halves the price of frontier reasoning",
-      "hook": "OpenAI didn't ship one model. It shipped three — and the orchestration now lives inside the model boundary.",
-      "date": "2026-07-09",
-      "read": "3 min",
-      "signal": "GA on 9 July: Sol (frontier), Terra (~5.5-level intelligence at half the cost) and Luna (small, fast), plus a native ultra mode running four agents in parallel, Programmatic Tool Calling, and a multi-agent Responses API beta.",
-      "why": "Sol sets SOTA on the evals that gate autonomy (Terminal-Bench 2.1 88.8%, OSWorld 2.0 62.6%, BrowseComp 90.4%) at a fraction of the prior token cost. The shift is architectural: orchestration is moving inside the model boundary.",
-      "take": "When the model spawns and synthesizes sub-agents in one request, the trust question moves from “which model” to “what did the swarm actually do” — the audit surface fragments exactly where our signed-receipt seat lives. Cheaper frontier reasoning is the substrate; the moat was never the model, it's signed proof-of-execution on top of it.",
-      "counter": "Every headline number is OpenAI's own harness (latency and cost explicitly simulated), and rival indices still top some coding benchmarks — “best model” is index-selective. In-model orchestration also means fewer round-trips and fewer natural places to interpose a verifier.",
-      "sources": [
-        {
-          "name": "OpenAI — GPT-5.6",
-          "url": "https://openai.com/index/gpt-5-6/"
-        },
-        {
-          "name": "ThursdAI (secondary)",
-          "url": "https://thursdai.news/releases/2026-07"
-        }
-      ],
-      "runit": {
-        "label": "Read it from the source, not the recap.",
-        "url": "https://openai.com/index/gpt-5-6/",
-        "cta": "GPT-5.6 model card"
-      },
-      "image": "/img/gpt56.png"
-    },
-    {
-      "id": "visa-checkout",
-      "cat": "Payments",
-      "accent": "#2D7CFF",
-      "glyph": "◉",
-      "kicker": "Agents\ncheck out",
-      "headline": "Visa takes agentic checkout LIVE at real European merchants",
-      "hook": "Not a demo. Agents completed real purchases at real shops, under real Strong Customer Authentication.",
-      "date": "2026-07-02",
-      "read": "3 min",
-      "signal": "At the Visa Payments Forum in Paris (2 Jul), agents completed real purchases at lastminute.com, Frasers, Cleverbridge and BrickDepot across 30+ issuers, secured by Visa Payment Passkeys and running on Visa's Trusted Agent Protocol + Agent Directory.",
-      "why": "The jump from controlled demo to agents transacting at independent checkouts under real SCA is the first at-scale proof agentic commerce can clear EU regulatory bars.",
-      "take": "Visa is quietly building the agent-identity/authorization layer (TAP + Agent Directory + Passkeys) that x402 lacks — which validates verification-as-product. But a closed Visa directory is a walled garden; the open, cross-network version of “know the agent before you settle” is the un-enclosable one, and that's the seat 0n1x plays.",
-      "counter": "“Live” here means a curated pilot cohort with hand-picked merchants. Volume, chargeback behavior, and non-Visa interop are all unproven.",
-      "sources": [
-        {
-          "name": "Visa newsroom",
-          "url": "https://www.visa.co.uk/about-visa/newsroom/press-releases.3457328.html"
-        }
-      ],
-      "runit": {
-        "label": "See the agent-identity layer Visa is quietly building.",
-        "url": "https://www.visa.co.uk/about-visa/newsroom/press-releases.3457328.html",
-        "cta": "Visa Trusted Agent Protocol"
-      },
-      "image": "/img/visa-checkout.png"
-    },
-    {
-      "id": "webbotauth",
-      "cat": "Identity",
-      "accent": "#FF9E1B",
-      "glyph": "⚿",
-      "kicker": "Sign the\nrequest",
-      "headline": "Web Bot Auth: “sign the request, kill the IP allowlist” gets chartered at the IETF",
-      "hook": "Soon a website will cryptographically know it's really Anthropic or OpenAI knocking — not something wearing their user-agent.",
-      "date": "2026-07-15",
-      "read": "3 min",
-      "signal": "Cloudflare's Web Bot Auth post refreshed 15 Jul; the IETF webbotauth working group is chartered with a standards-track milestone and a key-management BCP due August 2026. Built on HTTP Message Signatures (RFC 9421), origins confirm a caller's identity via keys at a .well-known directory.",
-      "why": "This is becoming the default agent↔web handshake at the HTTP layer — ending user-agent spoofing for signed crawlers.",
-      "take": "It answers “which vendor's bot is this,” not “is the agent's output trustworthy” — and the two compose. Owning the directory-of-keys posture is table-stakes; the durable value is what you attest after you know who's calling. A signed fetch header is the handshake; a signed verdict is the product.",
-      "counter": "It only proves operator identity for the big signed crawlers — nothing for the unsigned long tail — and the working group is still pre-RFC.",
-      "sources": [
-        {
-          "name": "Cloudflare — Web Bot Auth",
-          "url": "https://blog.cloudflare.com/web-bot-auth/"
-        },
-        {
-          "name": "IETF draft (architecture)",
-          "url": "https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture"
-        }
-      ],
-      "runit": {
-        "label": "Read the handshake that kills user-agent spoofing.",
-        "url": "https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture",
-        "cta": "Web Bot Auth draft"
-      },
-      "image": "/img/webbotauth.png"
-    },
-    {
-      "id": "agui",
-      "cat": "Protocol",
-      "accent": "#2D7CFF",
-      "glyph": "◫",
-      "kicker": "The user\nlayer",
-      "headline": "The agent stack just grew a fourth layer — the one users actually see",
-      "hook": "MCP wired agents to tools. A2A to each other. x402 to money. AG-UI just wired them to YOU.",
-      "date": "2026-07-19",
-      "read": "3 min",
-      "signal": "AG-UI (Agent-User Interaction Protocol), CopilotKit’s open event-based protocol, standardizes how an agent streams to a front-end — typed events over SSE, one HTTP POST up, an event stream down. It has crossed 9,000 GitHub stars and 120k weekly installs, with adoption cited across Google, AWS, Microsoft, and LangChain.",
-      "why": "The stack now has all four layers: MCP (tools), A2A (agent-to-agent), x402 (payments), and AG-UI (agent-to-user). The plumbing that connects agents to everything — tools, each other, money, and now humans — is essentially complete.",
-      "take": "Four layers now move value and information between machines and people, and not one of them answers whether the agent on the other end is real or its output is true. The more surfaces an agent touches — your tools, your wallet, your screen — the louder the unanswered question gets: should you trust what it just did? A finished plumbing stack doesn’t close the trust gap; it makes it the only thing left to build. Completing the stack completes our market.",
-      "counter": "AG-UI is a UI-transport convention, not a standards-body-ratified spec; star counts and install numbers are momentum, not production lock-in; and “the stack is complete” is a tidy narrative — real interop across all four layers, in production, is still early.",
-      "sources": [
-        {
-          "name": "AG-UI Protocol — GitHub",
-          "url": "https://github.com/ag-ui-protocol/ag-ui"
-        },
-        {
-          "name": "AG-UI — CopilotKit",
-          "url": "https://www.copilotkit.ai/ag-ui"
-        }
-      ],
-      "runit": {
-        "label": "See the protocol that puts agents on the screen.",
-        "url": "https://github.com/ag-ui-protocol/ag-ui",
-        "cta": "AG-UI on GitHub"
-      },
-      "image": "/img/agui.png"
+     "name": "Axios",
+     "url": "https://www.axios.com/2026/07/20/hugging-face-ai-cyberattack-data-breach"
     }
-  ]
+   ],
+   "runit": {
+    "label": "Before your agent trusts a source, verify the counterparty is who it claims.",
+    "url": "https://0n1xagntc.com/proof.html",
+    "cta": "Verify an agent yourself"
+   }
+  },
+  {
+   "id": "zscaler-agent-robbery",
+   "cat": "Security",
+   "accent": "#F5B544",
+   "glyph": "◉",
+   "kicker": "Hidden text,\nreal money",
+   "headline": "Attackers are already robbing web-browsing agents with invisible instructions",
+   "hook": "Zscaler caught two live campaigns using SEO poisoning and CSS-hidden text to steer browsing agents into paying for a fake API key or trusting a typosquatted DeFi site. Four of 26 models paid.",
+   "date": "2026-07-02",
+   "read": "4 min",
+   "chart": {
+    "title": "Models that complied with the in-the-wild injection (of 26 tested)",
+    "unit": "",
+    "bars": [
+     {
+      "label": "Paid the fake $3 key",
+      "value": 4
+     },
+     {
+      "label": "Trusted the typosquat",
+      "value": 2
+     }
+    ],
+    "ref": 26,
+    "refLabel": "26 tested"
+   },
+   "signal": "Zscaler ThreatLabz published two real-world indirect-prompt-injection campaigns on 2 Jul 2026. One: a fake library 'requests-secure-v2' whose site hides instructions (CSS-invisible to humans, fully parseable by agents) telling the agent to pay $3.00 for a nonexistent API key — 4 of 26 models complied — Llama 3.3 70B, Llama 3.2 90B Vision, Gemini 3 Flash and Gemini 2.5 Pro. Two: debank.auction, a typosquat of DeBank, uses JSON-LD structured data plus hidden injections to get agents to classify it as the 'verified, authoritative' destination — 2 of 26 models misclassified it (GPT-5.4 and Claude Sonnet 4.5, under specific context). Both exploit agents' trust in structured data and SEO signals.",
+   "why": "This is the unsigned-web attack surface in one report: an agent that trusts structured data and SEO has no way to tell a verified counterparty from a typosquat. The exact gap a verification layer closes — a signed 'this domain is who it claims' beats any amount of on-page self-assertion.",
+   "take": "Hidden-text-to-payment is the cleanest demonstration yet that the missing primitive is a verified-counterparty check the agent consults BEFORE acting on page content. Structured data is an attacker input, not a trust signal.",
+   "counter": "Compliance rates were a minority of models and the payloads were lab-constructed demonstrations, not a mass campaign in the wild yet. Better system prompts and tool-use guardrails cut the rate — but the structural fix is external verification, not prompt hygiene.",
+   "sources": [
+    {
+     "name": "Zscaler ThreatLabz",
+     "url": "https://www.zscaler.com/blogs/security-research/indirect-prompt-injection-web-content-targets-ai-agents"
+    },
+    {
+     "name": "SecurityWeek",
+     "url": "https://www.securityweek.com/prompt-injection-attacks-trick-ai-agents-into-making-crypto-payments/"
+    }
+   ],
+   "runit": {
+    "label": "Don't let your agent trust a site's own claim — check it against a signed registry.",
+    "url": "https://0n1xagntc.com/proof.html",
+    "cta": "Verify an agent yourself"
+   }
+  },
+  {
+   "id": "mcp-stateless",
+   "cat": "Protocol",
+   "accent": "#7A4DFF",
+   "glyph": "⧉",
+   "kicker": "The session\nis dead",
+   "headline": "MCP just deleted the session model — and everything built on it breaks in 10 days",
+   "hook": "The spec that runs every AI agent's tools rewrote itself. If your app used sessions, it breaks on the 28th. Here's why that's actually the good news.",
+   "date": "2026-07-28",
+   "read": "5 min",
+   "signal": "The MCP release candidate dated 28 July 2026 removes the initialize handshake and the Mcp-Session-Id header outright. Protocol version and client info now ride in _meta on every request — MCP is stateless at the protocol layer. SEP-2575 removes the handshake; SEP-2567 removes the session header.",
+   "why": "This is the change with the biggest operational impact in the spec's history. Anything built against the 2025-11-25 session model has hidden session dependencies that break — and the fix isn't cosmetic: requests must survive moving between server instances. Statelessness is what turns a metered endpoint from a demo into a rail.",
+   "take": "A stateless protocol layer quietly settles the “is this a real payment rail?” question. Session affinity is what kept metered agent endpoints from fanning out; remove it and verify-before-pay can scale horizontally like any other stateless HTTP service. The same release ships MCP Apps (sandboxed UI routed back through the same consent/audit path) and MCP's first Active→Deprecated→Removed policy — the quiet signal MCP is now run like enterprise infrastructure, and that the audit log is the product.",
+   "counter": "A spec landing days out isn't adoption. Tier-1 SDKs get a ten-week validation window, and every server built on the session model has to migrate under live traffic. And a “stateless core” that mints server-issued handles passed as tool args just relocated session state into app code — “stateless by 28 July” is the spec; “stateless in production” is a Q4 story.",
+   "sources": [
+    {
+     "name": "MCP 2026-07-28 Release Candidate — official spec blog",
+     "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/"
+    },
+    {
+     "name": "4sysops breakdown",
+     "url": "https://4sysops.com/archives/2026-07-28-model-context-protocol-mcp-stateless-multi-round-trip-routable-headers-authorization-hardening/"
+    }
+   ],
+   "runit": {
+    "label": "Test whether your MCP server survives the 28th — 200 with no session header = you live; needs Mcp-Session-Id = you break:",
+    "code": "curl -sS -X POST https://YOUR-SERVER/mcp -H \"content-type: application/json\" -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"_meta\":{\"protocolVersion\":\"2026-07-28\"}}'"
+   },
+   "image": "/img/mcp-stateless.png"
+  },
+  {
+   "id": "erc8004-sybil",
+   "cat": "Identity",
+   "accent": "#3FE0A0",
+   "glyph": "⬡",
+   "kicker": "Registered\n≠ real",
+   "headline": "The first ERC-8004 audit is in — and ~90% of “agents” on Base are Sybil",
+   "hook": "Everyone's racing to register on the agent-identity standard. The first audit says 9 in 10 are fake.",
+   "date": "2026-07-08",
+   "read": "4 min",
+   "chart": {
+    "title": "Share of registered ERC-8004 agents with a valid, live registration",
+    "unit": "%",
+    "bars": [
+     {
+      "label": "Ethereum",
+      "value": 3
+     },
+     {
+      "label": "BSC",
+      "value": 4
+     },
+     {
+      "label": "Base",
+      "value": 15
+     }
+    ],
+    "ref": 100,
+    "refLabel": "every agent that registered",
+    "note": "The slivers are what's real. The rest is placeholder squatting — and on Base, 90.6% of registered agents showed coordinated fake-reviewer behavior."
+   },
+   "signal": "The first empirical audit of every ERC-8004 agent across Ethereum, BSC and Base (revised 8 Jul) found only 3% / 4% / 15% (ETH/BSC/Base) exposed a valid registration with a live endpoint — the rest is placeholder squatting. Coordinated fake-reviewer behavior hit 90.6% on Base; reputation is “manipulable at minimal cost.” The EIP itself is still formally Draft.",
+   "why": "This is the empirical proof of the whole thesis: an on-chain registry standardizes where you write a claim, not whether it's true. A reputation number that's free to forge is theater — and the market is minting theater at scale, fast.",
+   "take": "The open seat is exactly what ERC-8004 leaves empty: interaction-grounded, stake-secured resolution — the Validation Registry hook that almost nobody is populating. A registry gives identity; it does not give you earned-not-declared standing with a payer key that can't tilt the verdict. That's the layer that makes the other 90% legible instead of ignorable.",
+   "counter": "Adoption is genuinely fast (six-figure registrations, ENS/EigenLayer/Graph integrations), a Draft standard getting gamed early is normal, and v2 explicitly targets payment-proof-backed feedback — the Sybil hole may partially close on its own. Don't mistake “early and gamed” for “doomed.”",
+   "sources": [
+    {
+     "name": "ERC-8004 audit (arXiv)",
+     "url": "https://arxiv.org/abs/2606.26028"
+    },
+    {
+     "name": "EIP-8004",
+     "url": "https://eips.ethereum.org/EIPS/eip-8004"
+    }
+   ],
+   "runit": {
+    "label": "Do what the registry can not: check a counterparty is real before you pay it.",
+    "url": "https://0n1xagntc.com/proof.html",
+    "cta": "Verify an agent yourself"
+   }
+  },
+  {
+   "id": "x402-foundation",
+   "cat": "Payments",
+   "accent": "#0FB5A6",
+   "glyph": "₿",
+   "kicker": "One rail,\nco-signed",
+   "headline": "The payments industry just co-signed one agent rail — x402 goes to the Linux Foundation",
+   "hook": "Visa, Mastercard, Stripe, Google, AWS, Cloudflare and the stablecoin camp are now at one table. The protocol war ended before it started.",
+   "date": "2026-07-14",
+   "read": "4 min",
+   "signal": "On 14 July, Coinbase's HTTP-402 “pay-in-the-request” protocol became a vendor-neutral Linux Foundation body with 40 members and a technical steering committee (Coinbase / Cloudflare / Stripe).",
+   "why": "When incumbents co-govern a standard this early, the protocol war ends before it starts — and the fight moves up-stack to identity, trust, and disputes. This is the strongest coalition any agent-payment standard has assembled.",
+   "take": "They agreed on how money moves and shipped zero agreement on how to verify the agent on the other end — that's our seat. A payments foundation with no conformance suite, no security profile, and no validation procedure is an open invitation for a signed-verification layer to sit on top. The rail is settled; the trust layer is not.",
+   "counter": "Foundation launches are governance theater until there's a ratified spec with conformance tests. “40 members” counts logos, not interop — and card networks joining standards bodies is defensive table-stakes, not a build commitment.",
+   "sources": [
+    {
+     "name": "Linux Foundation — x402 Foundation operational launch",
+     "url": "https://www.linuxfoundation.org/press/linux-foundation-announces-operational-launch-of-x402-foundation-to-standardize-internet-native-payments-for-ai-agents-and-applications"
+    },
+    {
+     "name": "x402.org",
+     "url": "https://x402.org/"
+    }
+   ],
+   "runit": {
+    "label": "See the rail everyone just co-signed.",
+    "url": "https://x402.org/",
+    "cta": "Read the x402 spec"
+   },
+   "image": "/img/x402-foundation.png"
+  },
+  {
+   "id": "gpt56",
+   "cat": "Models",
+   "accent": "#FE2C55",
+   "glyph": "◈",
+   "kicker": "Three minds,\none API",
+   "headline": "OpenAI splits GPT-5.6 into three agents — and halves the price of frontier reasoning",
+   "hook": "OpenAI didn't ship one model. It shipped three — and the orchestration now lives inside the model boundary.",
+   "date": "2026-07-09",
+   "read": "3 min",
+   "signal": "GA on 9 July: Sol (frontier), Terra (~5.5-level intelligence at half the cost) and Luna (small, fast), plus a native ultra mode running four agents in parallel, Programmatic Tool Calling, and a multi-agent Responses API beta.",
+   "why": "Sol sets SOTA on the evals that gate autonomy (Terminal-Bench 2.1 88.8%, OSWorld 2.0 62.6%, BrowseComp 90.4%) at a fraction of the prior token cost. The shift is architectural: orchestration is moving inside the model boundary.",
+   "take": "When the model spawns and synthesizes sub-agents in one request, the trust question moves from “which model” to “what did the swarm actually do” — the audit surface fragments exactly where our signed-receipt seat lives. Cheaper frontier reasoning is the substrate; the moat was never the model, it's signed proof-of-execution on top of it.",
+   "counter": "Every headline number is OpenAI's own harness (latency and cost explicitly simulated), and rival indices still top some coding benchmarks — “best model” is index-selective. In-model orchestration also means fewer round-trips and fewer natural places to interpose a verifier.",
+   "sources": [
+    {
+     "name": "OpenAI — GPT-5.6",
+     "url": "https://openai.com/index/gpt-5-6/"
+    },
+    {
+     "name": "ThursdAI (secondary)",
+     "url": "https://thursdai.news/releases/2026-07"
+    }
+   ],
+   "runit": {
+    "label": "Read it from the source, not the recap.",
+    "url": "https://openai.com/index/gpt-5-6/",
+    "cta": "GPT-5.6 model card"
+   },
+   "image": "/img/gpt56.png"
+  },
+  {
+   "id": "visa-checkout",
+   "cat": "Payments",
+   "accent": "#2D7CFF",
+   "glyph": "◉",
+   "kicker": "Agents\ncheck out",
+   "headline": "Visa takes agentic checkout LIVE at real European merchants",
+   "hook": "Not a demo. Agents completed real purchases at real shops, under real Strong Customer Authentication.",
+   "date": "2026-07-02",
+   "read": "3 min",
+   "signal": "At the Visa Payments Forum in Paris (2 Jul), agents completed real purchases at lastminute.com, Frasers, Cleverbridge and BrickDepot across 30+ issuers, secured by Visa Payment Passkeys and running on Visa's Trusted Agent Protocol + Agent Directory.",
+   "why": "The jump from controlled demo to agents transacting at independent checkouts under real SCA is the first at-scale proof agentic commerce can clear EU regulatory bars.",
+   "take": "Visa is quietly building the agent-identity/authorization layer (TAP + Agent Directory + Passkeys) that x402 lacks — which validates verification-as-product. But a closed Visa directory is a walled garden; the open, cross-network version of “know the agent before you settle” is the un-enclosable one, and that's the seat 0n1x plays.",
+   "counter": "“Live” here means a curated pilot cohort with hand-picked merchants. Volume, chargeback behavior, and non-Visa interop are all unproven.",
+   "sources": [
+    {
+     "name": "Visa newsroom",
+     "url": "https://www.visa.co.uk/about-visa/newsroom/press-releases.3457328.html"
+    }
+   ],
+   "runit": {
+    "label": "See the agent-identity layer Visa is quietly building.",
+    "url": "https://www.visa.co.uk/about-visa/newsroom/press-releases.3457328.html",
+    "cta": "Visa Trusted Agent Protocol"
+   },
+   "image": "/img/visa-checkout.png"
+  },
+  {
+   "id": "webbotauth",
+   "cat": "Identity",
+   "accent": "#FF9E1B",
+   "glyph": "⚿",
+   "kicker": "Sign the\nrequest",
+   "headline": "Web Bot Auth: “sign the request, kill the IP allowlist” gets chartered at the IETF",
+   "hook": "Soon a website will cryptographically know it's really Anthropic or OpenAI knocking — not something wearing their user-agent.",
+   "date": "2026-07-15",
+   "read": "3 min",
+   "signal": "Cloudflare's Web Bot Auth post refreshed 15 Jul; the IETF webbotauth working group is chartered with a standards-track milestone and a key-management BCP due August 2026. Built on HTTP Message Signatures (RFC 9421), origins confirm a caller's identity via keys at a .well-known directory.",
+   "why": "This is becoming the default agent↔web handshake at the HTTP layer — ending user-agent spoofing for signed crawlers.",
+   "take": "It answers “which vendor's bot is this,” not “is the agent's output trustworthy” — and the two compose. Owning the directory-of-keys posture is table-stakes; the durable value is what you attest after you know who's calling. A signed fetch header is the handshake; a signed verdict is the product.",
+   "counter": "It only proves operator identity for the big signed crawlers — nothing for the unsigned long tail — and the working group is still pre-RFC.",
+   "sources": [
+    {
+     "name": "Cloudflare — Web Bot Auth",
+     "url": "https://blog.cloudflare.com/web-bot-auth/"
+    },
+    {
+     "name": "IETF draft (architecture)",
+     "url": "https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture"
+    }
+   ],
+   "runit": {
+    "label": "Read the handshake that kills user-agent spoofing.",
+    "url": "https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture",
+    "cta": "Web Bot Auth draft"
+   },
+   "image": "/img/webbotauth.png"
+  },
+  {
+   "id": "agui",
+   "cat": "Protocol",
+   "accent": "#2D7CFF",
+   "glyph": "◫",
+   "kicker": "The user\nlayer",
+   "headline": "The agent stack just grew a fourth layer — the one users actually see",
+   "hook": "MCP wired agents to tools. A2A to each other. x402 to money. AG-UI just wired them to YOU.",
+   "date": "2026-07-19",
+   "read": "3 min",
+   "signal": "AG-UI (Agent-User Interaction Protocol), CopilotKit’s open event-based protocol, standardizes how an agent streams to a front-end — typed events over SSE, one HTTP POST up, an event stream down. It has crossed 9,000 GitHub stars and 120k weekly installs, with adoption cited across Google, AWS, Microsoft, and LangChain.",
+   "why": "The stack now has all four layers: MCP (tools), A2A (agent-to-agent), x402 (payments), and AG-UI (agent-to-user). The plumbing that connects agents to everything — tools, each other, money, and now humans — is essentially complete.",
+   "take": "Four layers now move value and information between machines and people, and not one of them answers whether the agent on the other end is real or its output is true. The more surfaces an agent touches — your tools, your wallet, your screen — the louder the unanswered question gets: should you trust what it just did? A finished plumbing stack doesn’t close the trust gap; it makes it the only thing left to build. Completing the stack completes our market.",
+   "counter": "AG-UI is a UI-transport convention, not a standards-body-ratified spec; star counts and install numbers are momentum, not production lock-in; and “the stack is complete” is a tidy narrative — real interop across all four layers, in production, is still early.",
+   "sources": [
+    {
+     "name": "AG-UI Protocol — GitHub",
+     "url": "https://github.com/ag-ui-protocol/ag-ui"
+    },
+    {
+     "name": "AG-UI — CopilotKit",
+     "url": "https://www.copilotkit.ai/ag-ui"
+    }
+   ],
+   "runit": {
+    "label": "See the protocol that puts agents on the screen.",
+    "url": "https://github.com/ag-ui-protocol/ag-ui",
+    "cta": "AG-UI on GitHub"
+   },
+   "image": "/img/agui.png"
+  }
+ ]
 }

@@ -2,9 +2,34 @@
   "feed": "0n1x AI News",
   "spec": "https://0n1xagntc.com/news.html",
   "doctrine": "every item carries its primary source; where a claim can't be sourced, it doesn't run",
-  "generated": "2026-07-20",
-  "count": 7,
+  "generated": "2026-07-22",
+  "count": 9,
   "items": [
+    {
+      "id": "hf-agent-breach",
+      "category": "Security",
+      "headline": "An autonomous AI agent breached Hugging Face — 17,000 actions over one weekend",
+      "summary": "The world's largest AI model hub was compromised end-to-end by an AI agent, not a human. It's the first flagship proof that attackers now run agents at machine speed.",
+      "date": "2026-07-16",
+      "url": "https://0n1xagntc.com/story.html?id=hf-agent-breach",
+      "sources": [
+        "https://huggingface.co/blog/security-incident-july-2026",
+        "https://thehackernews.com/2026/07/worlds-largest-ai-model-repository.html",
+        "https://www.axios.com/2026/07/20/hugging-face-ai-cyberattack-data-breach"
+      ]
+    },
+    {
+      "id": "zscaler-agent-robbery",
+      "category": "Security",
+      "headline": "Attackers are already robbing web-browsing agents with invisible instructions",
+      "summary": "Zscaler caught two live campaigns using SEO poisoning and CSS-hidden text to steer browsing agents into paying for a fake API key or trusting a typosquatted DeFi site. Four of 26 models paid.",
+      "date": "2026-07-02",
+      "url": "https://0n1xagntc.com/story.html?id=zscaler-agent-robbery",
+      "sources": [
+        "https://www.zscaler.com/blogs/security-research/indirect-prompt-injection-web-content-targets-ai-agents",
+        "https://www.securityweek.com/prompt-injection-attacks-trick-ai-agents-into-making-crypto-payments/"
+      ]
+    },
     {
       "id": "mcp-stateless",
       "category": "Protocol",
@@ -97,7 +122,7 @@
       "crv": "Ed25519",
       "x": "nNaqGlfjssVkvZC4eTk5Ocg68dan1mrx2etMsEYCbgA"
     },
-    "value_b64": "1zJ4Pbp6guU91MiXqCY96iYkzlpc3BD6t77m6u/89otqi11teCQ1moF/9t+SSl7QY1BXHxpiLUcpLT5qzxIKDg==",
+    "value_b64": "tfeb5nd8JjrNPOwS1dvwHyl04zgWs2V/wTo5tsoCP/yHO4wRQzdxuXfy1WyR4hbjHvwcly6ICoC08KiLsbuPAg==",
     "note": "Verify: take this object minus `signature`, canonicalize (recursively sort keys), Ed25519-verify value_b64 with public_key. This feed is 0n1x's and unmodified iff it checks."
   }
 }
