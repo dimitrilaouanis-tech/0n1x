@@ -51,4 +51,6 @@ async function run(){
   }catch(err){out.innerHTML='<div class="chip silent">registry unreachable — try again.</div>';}
 }
 document.getElementById("go").onclick=run; q.addEventListener("keydown",e=>{if(e.key==="Enter")run();});
-</script></body></html>
+</script><script type="module" src="/auth.js"></script>
+<script src="/nav.js" defer></script>
+</body></html>
