@@ -80,12 +80,20 @@
           Continue with GitHub
         </button>
       </div>
-      <div class="ordiv"><span>or a magic link</span></div>
+      <div class="ordiv"><span>or with email</span></div>
       <div class="row">
         <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@domain.com">
-        <button class="btn primary" id="emailbtn">Email me a link</button>
       </div>
+      <div class="row">
+        <input id="password" type="password" autocomplete="current-password" placeholder="password (8+ characters)">
+      </div>
+      <div class="row">
+        <button class="btn primary" id="signupbtn">Create account</button>
+        <button class="btn" id="signinbtn">Sign in</button>
+      </div>
+      <p style="margin:.4rem 0 0"><a href="#" id="resendbtn" style="font:500 12px var(--mono);color:var(--dim)">Resend confirmation email</a></p>
       <p class="msg" id="msg"></p>
+      <p style="font:500 12px var(--mono);color:var(--dim);margin-top:8px">Email signup sends a <b style="color:var(--muted)">confirmation link</b> you must click before your first sign-in.</p>
     </div>
   </div>
 
@@ -210,11 +218,31 @@
     window.OnyxAuth.onChange(render);
     document.getElementById('google').onclick=function(){ msg.textContent='Redirecting to Google…'; window.OnyxAuth.signInGoogle(); };
     document.getElementById('github').onclick=function(){ msg.textContent='Redirecting to GitHub…'; window.OnyxAuth.signInGithub(); };
-    document.getElementById('emailbtn').onclick=function(){
-      var e=(document.getElementById('email').value||'').trim();
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){ msg.textContent='Enter a valid email.'; return; }
-      msg.textContent='Sending your magic link…';
-      window.OnyxAuth.signInEmail(e).then(function(r){ msg.textContent = r && r.error ? ('Could not send: '+r.error.message) : 'Check your inbox for the sign-in link.'; });
+    function creds(){ return { e:(document.getElementById('email').value||'').trim(), p:(document.getElementById('password').value||'') }; }
+    function okEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+    document.getElementById('signupbtn').onclick=function(){
+      var c=creds();
+      if(!okEmail(c.e)){ msg.textContent='Enter a valid email.'; return; }
+      if(c.p.length<8){ msg.textContent='Password must be at least 8 characters.'; return; }
+      msg.textContent='Creating your account…';
+      window.OnyxAuth.signUpEmail(c.e,c.p).then(function(r){
+        msg.textContent = r && r.error ? ('Could not sign up: '+r.error.message) : 'Account created — check your inbox and click the confirmation link, then sign in.';
+      });
+    };
+    document.getElementById('signinbtn').onclick=function(){
+      var c=creds();
+      if(!okEmail(c.e)||!c.p){ msg.textContent='Enter your email and password.'; return; }
+      msg.textContent='Signing in…';
+      window.OnyxAuth.signInPassword(c.e,c.p).then(function(r){
+        if(r&&r.error){ msg.textContent = /confirm/i.test(r.error.message) ? 'Confirm your email first — check your inbox (or resend below).' : ('Could not sign in: '+r.error.message); }
+      });
+    };
+    document.getElementById('resendbtn').onclick=function(ev){
+      ev.preventDefault();
+      var c=creds();
+      if(!okEmail(c.e)){ msg.textContent='Enter your email above first, then resend.'; return; }
+      msg.textContent='Resending confirmation…';
+      window.OnyxAuth.resendConfirmation(c.e).then(function(r){ msg.textContent = r && r.error ? ('Could not resend: '+r.error.message) : 'Confirmation email resent — check your inbox.'; });
     };
     document.getElementById('signout').onclick=function(){ window.OnyxAuth.signOut().then(function(){ render(null); }); };
   }

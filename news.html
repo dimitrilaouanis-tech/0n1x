@@ -323,8 +323,14 @@ footer a:hover{color:var(--pink)}
 .lock .authrow{display:flex;gap:10px;flex-wrap:wrap}
 .lock .mrow{display:flex;gap:10px;flex-wrap:wrap;max-width:34rem;width:100%}
 .lock .mrow input[type=email]{flex:1;min-width:170px;background:var(--surface);border:1px solid var(--rule-strong);border-radius:10px;padding:11px 14px;font:var(--step--1) var(--sans);color:var(--ink)}
-.lock .mrow [data-magic]{background:var(--ink);color:#fff;border:0;border-radius:10px;padding:11px 18px;font:700 var(--step--1) var(--sans);cursor:pointer;transition:.16s var(--ease)}
-.lock .mrow [data-magic]:hover{background:var(--violet)}
+.lock .emailform{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.lock .emailform input{background:var(--surface-2,#0d0f16);border:1px solid var(--rule,rgba(255,255,255,.12));border-radius:10px;padding:11px 13px;color:var(--ink,#e9ecf2);font:500 var(--step--1) var(--sans)}
+.lock .mrow{display:flex;gap:8px;flex-wrap:wrap}
+.lock .mrow button{background:var(--ink);color:#fff;border:0;border-radius:10px;padding:11px 18px;font:700 var(--step--1) var(--sans);cursor:pointer;transition:.16s var(--ease)}
+.lock .mrow button:hover{background:var(--violet)}
+.lock .mrow button.ghost{background:transparent;color:var(--ink,#e9ecf2);border:1px solid var(--rule,rgba(255,255,255,.18))}
+.lock .mrow button.ghost:hover{background:rgba(255,255,255,.06)}
+.lock .switchline{margin:2px 0 0}.lock .switchline a{font:500 12px var(--mono);color:var(--muted,#9aa3b2)}
 </style></head><body>
 <div class="progress" id="progress" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
@@ -774,14 +780,20 @@ footer a:hover{color:var(--pink)}
           Continue with GitHub
         </button>
       </div>
-      <div class="ordiv"><span>or a magic link</span></div>
-      <div class="mrow">
+      <div class="ordiv"><span>or with email</span></div>
+      <div class="emailform" data-emailform>
         <label class="skip" for="wall-email">Email address</label>
         <input id="wall-email" type="email" autocomplete="email" placeholder="you@domain.com">
-        <button type="button" data-magic>Email me a link</button>
+        <label class="skip" for="wall-pass">Password</label>
+        <input id="wall-pass" type="password" autocomplete="current-password" placeholder="password (8+ characters)">
+        <div class="mrow">
+          <button type="button" data-signup>Create account</button>
+          <button type="button" class="ghost" data-signin>Sign in</button>
+        </div>
+        <p class="switchline"><a href="#" data-resend>Resend confirmation email</a></p>
       </div>
       <p class="submsg" data-msg role="status" aria-live="polite"></p>
-      <p class="subnote">Real sign-in — one account across 0n1x &amp; Rhinogent. Free, no spam. Your agent keys never leave your browser.</p>
+      <p class="subnote">Create a free account — GitHub, Google, or email. Email signup sends a <b>confirmation link</b> you must click before your first sign-in. One account across 0n1x &amp; Rhinogent; your agent keys never leave your browser.</p>
     </div>
     </div><!-- /.gate -->
   </section>
@@ -865,7 +877,7 @@ console.log(verify(null,Buffer.from(C(f)),
 
       function win(persist){
         // Newsletter subscribe ONLY — does NOT unlock the gate. Full AI News access
-        // requires a VERIFIED sign-in (Supabase magic-link/OAuth), never a typed email.
+        // requires a VERIFIED sign-in (Supabase email+password or OAuth), never a typed email.
         setMsg(form,'Subscribed to the daily brief. To read full stories, sign in below (we email you a link).','ok');
         if(btn) btn.disabled=false;
       }
@@ -894,7 +906,7 @@ console.log(verify(null,Buffer.from(C(f)),
 <script type="module" src="/auth.js"></script>
 <script>
 /* News wall = REAL sign-in (shared 0n1x/Rhinogent Supabase account), not a local unlock.
-   A real session unlocks the full archive; Google / GitHub / magic-link all go through Supabase. */
+   A real session unlocks the full archive; Google / GitHub / email+password signup all go through Supabase. */
 (function(){
   function unlock(){ document.querySelectorAll('[data-gate]').forEach(function(g){ g.setAttribute('data-locked','false'); }); }
   function msg(t){ var m=document.querySelector('.lock [data-msg]'); if(m) m.textContent=t||''; }
@@ -905,12 +917,42 @@ console.log(verify(null,Buffer.from(C(f)),
     document.querySelectorAll('.lock [data-oauth]').forEach(function(b){
       b.onclick=function(){ var p=b.getAttribute('data-oauth'); msg('Redirecting to '+p+'…'); window.OnyxAuth.signInOAuth(p); };
     });
-    var mb=document.querySelector('.lock [data-magic]'), mi=document.getElementById('wall-email');
-    if(mb) mb.onclick=function(){
-      var e=(mi&&mi.value||'').trim();
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){ msg('Enter a valid email.'); return; }
-      msg('Sending your sign-in link…');
-      window.OnyxAuth.signInEmail(e).then(function(r){ msg(r&&r.error ? ('Could not send: '+r.error.message) : 'Check your inbox for the sign-in link.'); });
+    // Email + password account creation (with confirmation) and sign-in. No magic link.
+    var ei=document.getElementById('wall-email'), pi=document.getElementById('wall-pass');
+    function creds(){ return { e:(ei&&ei.value||'').trim(), p:(pi&&pi.value||'') }; }
+    function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+    var su=document.querySelector('.lock [data-signup]');
+    if(su) su.onclick=function(){
+      var c=creds();
+      if(!validEmail(c.e)){ msg('Enter a valid email.'); return; }
+      if(c.p.length<8){ msg('Password must be at least 8 characters.'); return; }
+      msg('Creating your account…');
+      window.OnyxAuth.signUpEmail(c.e,c.p).then(function(r){
+        if(r&&r.error){ msg('Could not sign up: '+r.error.message); return; }
+        // With email-confirmation ON, no session yet — user must click the link.
+        msg('Account created — check your inbox and click the confirmation link, then sign in.');
+      });
+    };
+    var si=document.querySelector('.lock [data-signin]');
+    if(si) si.onclick=function(){
+      var c=creds();
+      if(!validEmail(c.e)||!c.p){ msg('Enter your email and password.'); return; }
+      msg('Signing in…');
+      window.OnyxAuth.signInPassword(c.e,c.p).then(function(r){
+        if(r&&r.error){
+          msg(/confirm/i.test(r.error.message) ? 'Confirm your email first — check your inbox (or resend below).' : ('Could not sign in: '+r.error.message));
+          return;
+        }
+        // onChange handler unlocks on the new session.
+      });
+    };
+    var rs=document.querySelector('.lock [data-resend]');
+    if(rs) rs.onclick=function(ev){
+      ev.preventDefault();
+      var c=creds();
+      if(!validEmail(c.e)){ msg('Enter your email above first, then resend.'); return; }
+      msg('Resending confirmation…');
+      window.OnyxAuth.resendConfirmation(c.e).then(function(r){ msg(r&&r.error ? ('Could not resend: '+r.error.message) : 'Confirmation email resent — check your inbox.'); });
     };
   }
   window.addEventListener('onyxauth:ready', wire); wire();
