@@ -576,7 +576,9 @@
       if (particles.length > 140) particles.shift();
       flow += (x.amount || 0);
       liveTx += 1;
-      if (opts.onStats) opts.onStats({ flow, txsLive: baseTx + liveTx });
+      // honest txs: verified-tx count comes from census_history ONLY (baseTx). Do NOT inflate it
+      // by replaying the tape window — that drifted the Matrix past the homepage AND past truth.
+      if (opts.onStats) opts.onStats({ flow });
       if (opts.tapeEl) {
         const div = document.createElement("div");
         div.className = "row fresh";
