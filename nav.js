@@ -78,12 +78,19 @@
     st.textContent = css;
     document.head.appendChild(st);
 
-    // remove legacy per-page navs so there's exactly one header
-    var legacy = document.querySelectorAll("nav.ox-nav, nav.nav, header nav, body > nav");
-    legacy.forEach(function (n) { if (!n.closest(".onx-nav")) n.remove(); });
-    // also the bare learn.html <nav> (first nav that isn't ours)
-    var stray = document.querySelector("nav:not(.onx-nav)");
-    if (stray && !stray.closest(".onx-nav")) stray.remove();
+    // remove legacy per-page navs AND their wrapper bars so there's exactly one header.
+    // Pages ship different shells: <nav class="ox-nav">, <div class="topnav"><nav>…, bare <nav>.
+    // Removing only the <nav> leaves an orphaned wrapper bar (brand + its own sticky CSS) that
+    // collides with the injected menu — that's the "menu all over the place" on AI News / forum.
+    // So strip the WRAPPER (.topnav / .ox-nav / .nav-wrap) too, not just the <nav>.
+    var legacy = document.querySelectorAll(
+      "nav.ox-nav, nav.nav, header nav, body > nav, .topnav, div.ox-nav, .nav-wrap, [class*='topnav']"
+    );
+    legacy.forEach(function (n) { if (n.id !== "onx-nav-root" && !n.closest(".onx-nav")) n.remove(); });
+    // sweep any remaining stray <nav> that isn't ours (bare learn.html-style)
+    document.querySelectorAll("nav:not(.onx-nav)").forEach(function (n) {
+      if (!n.closest(".onx-nav")) n.remove();
+    });
 
     var nav = document.createElement("nav");
     nav.className = "onx-nav";
