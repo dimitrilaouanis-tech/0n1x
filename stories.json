@@ -1,6 +1,66 @@
 {
- "updated": "2026-07-22",
+ "updated": "2026-07-23",
  "stories": [
+  {
+   "id": "bespoke-40m",
+   "cat": "Funding",
+   "accent": "#3FE0A0",
+   "glyph": "◇",
+   "kicker": "VC bets on\nthe verifier",
+   "headline": "Bespoke Labs raises $40M to build the environments where agents are trained and tested",
+   "hook": "The money is moving from foundation models to the layer that verifies agents before they ship. A Series A for exactly the problem 0n1x exists to solve.",
+   "date": "2026-07-06",
+   "read": "3 min",
+   "signal": "Bespoke Labs closed a $40M Series A led by Wing VC (Mayfield, The House Fund + angels) to build platforms for training and evaluating autonomous AI systems pre-deployment — synthetic data generation + RL workflows, on the thesis that evaluating autonomous systems is much harder than training language models. The same July funding wave included LinqAlpha's $22M for agentic market intelligence and (per TechCrunch) Arcade's $60M on the premise that agent failures are infrastructure problems, not model problems.",
+   "why": "Capital flowing into pre-deployment eval environments validates the market for third-party, evidence-based claims about agent capability — which is precisely what a verification registry certifies. When the smart money funds the verifier, not the model, the neutral-referee seat gets more valuable, not less.",
+   "take": "0n1x's edge isn't building the eval environment — it's being the neutral party that publishes the recomputable result. A lab that grades its own agents can't be the referee.",
+   "counter": "SINGLE-SOURCE on the Bespoke round (Tech Startups roundup) — corroborate before quoting the figure as settled. The trend (capital → agent infra) is multi-sourced; the specific $40M is not.",
+   "sources": [
+    {
+     "name": "Tech Startups funding roundup",
+     "url": "https://techstartups.com/2026/07/06/venture-capital-startup-funding-roundup-july-6-2026/"
+    },
+    {
+     "name": "TechCrunch (Arcade $60M / infra thesis)",
+     "url": "https://techcrunch.com/2026/07/20/ais-most-important-protocol-is-getting-a-little-bit-easier-to-use/"
+    }
+   ],
+   "runit": {
+    "label": "Verify an agent's claim yourself, no lab required.",
+    "url": "https://0n1xagntc.com/proof.html",
+    "cta": "Verify an agent yourself"
+   }
+  },
+  {
+   "id": "x402-live-numbers",
+   "cat": "Payments",
+   "accent": "#0FB5A6",
+   "glyph": "▲",
+   "kicker": "Machine money,\nreal volume",
+   "headline": "x402 is live at scale — ~75M agent payments, $24M, and all three card networks at the table",
+   "hook": "The agent-payments rail everyone debated is now processing real money. 22,000 sellers are taking agent payments — and no standard way to know which are honest.",
+   "date": "2026-07-15",
+   "read": "3 min",
+   "signal": "The x402 Foundation is operationally live under the Linux Foundation with 40 members — premier members Visa, Mastercard and American Express, plus Stripe, Adyen, Shopify, Google, AWS, Cloudflare, Ripple, Circle and the Solana/Stellar foundations. Trailing 30 days: ~75M transactions, ~$24M, ~94,000 buyers, ~22,000 sellers — averaging ~$0.32/txn, a price point card rails can't serve. Chainalysis had already tracked 100M+ cumulative x402 payments on Base, with $1+ transactions rising from 49% to 95% of share.",
+   "why": "Card networks joining machine-native payments makes counterparty verification the binding constraint: 22,000 sellers accepting agent money and no standard way to know which ones are real. Payments scale faster than trust — the gap between them is the 0n1x product.",
+   "take": "Every agent that pays needs to know the payee is who it claims BEFORE it sends. That check is a signed registry lookup, not on-page self-assertion.",
+   "counter": "Volume figures are exchange/foundation-reported; ~48% of early x402 txns were self-cycling per prior audits, so treat raw counts as directional, not audited truth.",
+   "sources": [
+    {
+     "name": "CoinDesk",
+     "url": "https://www.coindesk.com/tech/2026/07/15/visa-mastercard-and-ripple-join-the-standard-letting-ai-agents-pay-in-stablecoins"
+    },
+    {
+     "name": "Chainalysis",
+     "url": "https://www.chainalysis.com/blog/x402-agentic-payments-adoption/"
+    }
+   ],
+   "runit": {
+    "label": "Check a counterparty is real before your agent pays it.",
+    "url": "https://0n1xagntc.com/proof.html",
+    "cta": "Verify an agent yourself"
+   }
+  },
   {
    "id": "hf-agent-breach",
    "cat": "Security",

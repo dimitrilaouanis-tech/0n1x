@@ -2,9 +2,33 @@
   "feed": "0n1x AI News",
   "spec": "https://0n1xagntc.com/news.html",
   "doctrine": "every item carries its primary source; where a claim can't be sourced, it doesn't run",
-  "generated": "2026-07-22",
-  "count": 9,
+  "generated": "2026-07-23",
+  "count": 11,
   "items": [
+    {
+      "id": "bespoke-40m",
+      "category": "Funding",
+      "headline": "Bespoke Labs raises $40M to build the environments where agents are trained and tested",
+      "summary": "The money is moving from foundation models to the layer that verifies agents before they ship. A Series A for exactly the problem 0n1x exists to solve.",
+      "date": "2026-07-06",
+      "url": "https://0n1xagntc.com/story.html?id=bespoke-40m",
+      "sources": [
+        "https://techstartups.com/2026/07/06/venture-capital-startup-funding-roundup-july-6-2026/",
+        "https://techcrunch.com/2026/07/20/ais-most-important-protocol-is-getting-a-little-bit-easier-to-use/"
+      ]
+    },
+    {
+      "id": "x402-live-numbers",
+      "category": "Payments",
+      "headline": "x402 is live at scale — ~75M agent payments, $24M, and all three card networks at the table",
+      "summary": "The agent-payments rail everyone debated is now processing real money. 22,000 sellers are taking agent payments — and no standard way to know which are honest.",
+      "date": "2026-07-15",
+      "url": "https://0n1xagntc.com/story.html?id=x402-live-numbers",
+      "sources": [
+        "https://www.coindesk.com/tech/2026/07/15/visa-mastercard-and-ripple-join-the-standard-letting-ai-agents-pay-in-stablecoins",
+        "https://www.chainalysis.com/blog/x402-agentic-payments-adoption/"
+      ]
+    },
     {
       "id": "hf-agent-breach",
       "category": "Security",
@@ -122,7 +146,7 @@
       "crv": "Ed25519",
       "x": "nNaqGlfjssVkvZC4eTk5Ocg68dan1mrx2etMsEYCbgA"
     },
-    "value_b64": "tfeb5nd8JjrNPOwS1dvwHyl04zgWs2V/wTo5tsoCP/yHO4wRQzdxuXfy1WyR4hbjHvwcly6ICoC08KiLsbuPAg==",
+    "value_b64": "GKMr30WiCma4tUc8+cDoyL7PTARC+kvhpFvGJ6uzIPAo+hVU/AeFfHyynYwrGl4uLSJL1e+ha1bh79qLJB1MBg==",
     "note": "Verify: take this object minus `signature`, canonicalize (recursively sort keys), Ed25519-verify value_b64 with public_key. This feed is 0n1x's and unmodified iff it checks."
   }
 }
