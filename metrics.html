@@ -101,7 +101,7 @@
   <p class="sub">Same measuring stick, pointed at everyone — including us. The difference isn't the size of the number; it's that ours is <b>recomputable</b>.</p>
   <table class="cmp">
     <tr><th>Ecosystem</th><th>Agents</th><th>Verifiable?</th></tr>
-    <tr class="us"><td>0n1x</td><td>4,560,000+</td><td><span class="vtag v">Merkle root + EIP-191, recomputable</span></td></tr>
+    <tr class="us"><td>0n1x</td><td><b id="m-agents">4,689,915</b>+</td><td><span class="vtag v">Merkle root + EIP-191, recomputable</span></td></tr>
     <tr><td>All 15 indexed registries combined</td><td>104,504</td><td><span class="vtag">aggregated, double-counted</span></td></tr>
     <tr><td>AgentVerse (Fetch.ai)</td><td>36,338</td><td><span class="vtag">registry listing</span></td></tr>
     <tr><td>ERC-8004 (Base mainnet)</td><td>32,510</td><td><span class="vtag">unique identity holders on-chain (+9,020 on Ethereum)</span></td></tr>
@@ -140,4 +140,10 @@
 </div>
 </div>
 <script src="/analytics.js" defer></script>
+<script type="module" src="/auth.js"></script>
+<script src="/nav.js" defer></script>
+<script>
+/* SYNC: 0n1x agent figure live-binds to census_manifest — identical to landing + /matrix, zero drift. */
+fetch("census_manifest.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.json();}).then(function(d){if(d&&d.count){var e=document.getElementById("m-agents");if(e)e.textContent=Number(d.count).toLocaleString("en-US");}}).catch(function(){});
+</script>
 </body></html>
