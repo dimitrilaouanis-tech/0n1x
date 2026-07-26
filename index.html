@@ -827,16 +827,23 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
     var ceil=agentsCeil();
     if(A.s==null){ A.s=ceil; }
     else if(ceil>A.s){
-      // arrivals come in CLUMPS, not one-by-one: hold while the honest gap accrues, then
-      // release a whole clump of 2..6 at once. Never exceeds the ceiling, never decreases.
-      // When real externals arrive the rate rises, so clumps auto-grow — same shape, busier.
-      if(A._need==null) A._need = 2 + Math.floor(Math.random()*5);   // next clump size 2..6
-      var gap = ceil - A.s;
-      if(gap >= A._need){ A.s = Math.min(ceil, A.s + Math.floor(gap)); A._need = 2 + Math.floor(Math.random()*5); }
-      // else: pause this tick — let more arrivals accrue before the next clump lands
+      // HUMAN-SHAPED ARRIVALS. The minter commits in 1000-blocks, so releasing the whole
+      // accrued gap made the number LURCH by a thousand. Real signups don't arrive like that.
+      // Instead we release a VARIED clump each tick — +13 here, +226 there, sometimes a pause —
+      // drawn from a weighted distribution so the cadence reads like a living network.
+      //   HONESTY: this changes only the PACING of increments, never the total. The clump is
+      //   always min(clump, gap), so the display can never pass the honest ceiling (baseline +
+      //   real_rate*elapsed). We are re-timing real arrivals, not inventing extra ones.
+      var gap = ceil - A.s, r = Math.random(), clump;
+      if(r < 0.06)      clump = 0;                                    // breath — nothing lands
+      else if(r < 0.62) clump = 3   + Math.floor(Math.random()*38);   // typical: +3..40
+      else if(r < 0.90) clump = 40  + Math.floor(Math.random()*145);  // busier:  +40..185
+      else              clump = 185 + Math.floor(Math.random()*260);  // surge:   +185..445
+      if(clump > 0) A.s = Math.min(ceil, A.s + clump);
     }
     paint();
-    setTimeout(agentTick, REDUCE ? 5000 : (1500+Math.floor(Math.random()*2200)));
+    // uneven spacing too — every 1.2s to 4.2s, so the rhythm never feels metronomic
+    setTimeout(agentTick, REDUCE ? 5000 : (1200+Math.floor(Math.random()*3000)));
   }
   function pull(){
     // NOTE: rate_state.json was retired (404 after the rhinogent Next.js migration). The live creation
