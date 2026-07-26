@@ -758,7 +758,12 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   // SOLID one-source bind 2026-07-10: seed AGENTS from the CANONICAL manifest count on load,
   // never a stale literal and not dependent on the rate_state relay. census_manifest.json = the source of truth.
   fetch("census_manifest.json?cb="+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
-    if(d&&d.count){ aBase=d.count; aBts=Date.now()/1000; var f=Number(d.count).toLocaleString('en-US');
+    // RAISE-ONLY. census_manifest is the last MERKLE-ANCHORED census (currently epoch 2026-07-10,
+    // count 4,959,064) while the mint has since passed 5.3M. Setting aBase unconditionally let the
+    // older anchored figure CLOBBER the newer live count whenever this fetch resolved last — the
+    // number visibly dropped by ~330K. Anchored and live are different facts; the anchored one is
+    // proof, not a ceiling. So we only ever raise, never lower.
+    if(d&&d.count&&d.count>aBase){ aBase=d.count; aBts=Date.now()/1000; var f=Number(d.count).toLocaleString('en-US');
       ["mh-agents","hud-eco","mCensus"].forEach(function(id){var e=document.getElementById(id); if(e){e.textContent=f;}});
     }
   }).catch(function(){});
