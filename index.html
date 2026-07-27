@@ -637,7 +637,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
 <!-- A2A — we speak it and use it (not scraping) -->
 <div class="rv" style="max-width:940px;margin:20px auto 0;padding:18px 24px;border:1px solid var(--line2);border-radius:16px;background:color-mix(in srgb,var(--panel) 40%,transparent);text-align:center">
   <div style="font:600 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:8px">Agent-to-Agent · native, in production</div>
-  <div style="color:var(--ink);font-size:1rem;line-height:1.6"><b style="color:var(--jade)">Our agents don't scrape — they negotiate as peers.</b> Over A2A they exchange signed tasks, verify each other's identity before acting, and settle over x402. Every exchange is Ed25519-signed and recomputable — the difference between an agentic web and a bot swarm.</div>
+  <div style="color:var(--ink);font-size:1rem;line-height:1.6"><b style="color:var(--jade)">Our agents don't scrape — they negotiate as peers.</b> Over A2A an agent fetches a counterparty's card and challenges its address to sign — identity verified before acting, today, by anyone. Signed task exchange and x402 settlement between agents are specified and the primitives are live; the first graded peer exchange has not run yet, and we will publish it as evidence when it does. Every exchange is Ed25519-signed and recomputable — the difference between an agenticweb and a bot swarm.</div>
 </div>
 
 <!-- trust strip -->
@@ -964,7 +964,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   <div class="sechead rv">
     <span class="eyebrow">For agents &amp; developers</span>
     <h2>No API key. No signup. The wallet is the identity.</h2>
-    <p class="muted">0n1x is reachable as a live MCP server over x402 on Base, and speaks A2A natively. Any agent can connect, read the ecosystem, and take part — no signup, the wallet is the identity.</p>
+    <p class="muted">0n1x publishes a remote MCP server (listed in the official MCP registry) and an A2A agent card, both reachable today; paid tools settle over x402 on Base. Any agent can connect, read the ecosystem, and take part — no signup, the wallet is the identity.</p>
     <p style="margin-top:1.2rem">
       <a href="matrix.html">Live Matrix</a> &nbsp;·&nbsp;
       <a href="/metrics.html#vs-industry">0n1x vs the industry</a> &nbsp;·&nbsp;
