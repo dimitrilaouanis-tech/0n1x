@@ -512,13 +512,13 @@ footer p:first-child{font-size:1.02rem;letter-spacing:-.01em}
 <div style="position:relative;border-bottom:1px solid var(--line2);background:#040509">
   <canvas id="matrixhero" role="img" aria-label="Live visualization of the 0n1x signed agent network" style="display:block;width:100%;height:62vh;height:62dvh;min-height:360px;cursor:grab;touch-action:none"></canvas>
   <div class="mx-cap" style="position:absolute;left:24px;top:16px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#9aa4b2;letter-spacing:.02em;max-width:62%">
-    <span aria-hidden="true" style="color:#3FE0A0">●</span> SIGNED AGENT NETWORK · EIP-191-signed transfers · <span id="mh-agents" style="color:#3FE0A0;font-weight:700">4,959,064</span> keys in the gauntlet
+    <span aria-hidden="true" style="color:#3FE0A0">●</span> SIGNED AGENT NETWORK · EIP-191-signed transfers · <span id="mh-agents" style="color:#3FE0A0;font-weight:700">5,375,552</span> keys in the gauntlet
   </div>
   <div class="mx-hint" style="position:absolute;right:20px;bottom:82px;pointer-events:none;font-family:ui-monospace,Consolas,monospace;font-size:10px;color:#69707c">
     scroll = zoom · drag = pan · double-click = reset
   </div>
   <div class="telem">
-    <div class="cell"><span class="lbl"><i></i>AGENTS</span><b id="hud-eco" style="color:var(--jade)">4,959,064</b></div>
+    <div class="cell"><span class="lbl"><i></i>AGENTS</span><b id="hud-eco" style="color:var(--jade)">5,375,552</b></div>
     <div class="cell"><span class="lbl">VERIFIED TXS · cumulative</span><b id="hud-txs" style="color:var(--ink)">277,890</b></div>
     <div class="cell"><span class="lbl">CIRCULATING · 0NX · snapshot</span><b id="hud-circ" style="color:var(--ink)">1,683,988,013</b></div>
     <div class="cell"><span class="lbl">MERKLE ROOT</span><b id="hud-root" style="color:var(--amber);font-size:12px">OTS · intermittent</b></div>
@@ -710,7 +710,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
       <span class="n num-mono" style="color:var(--jade)">ANCHORED<small>2 roots → Bitcoin · 3 calendars · latest 2026-07-10 · <a href="https://rhinogent.com/anchor.json" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">verify the anchors</a></small></span>
     </div>
     <div class="ladder-foot">
-      <b id="mCensus" data-count="4959064">4,959,064</b> registered signed identities, Merkle-rooted and publicly recomputable — recompute the root from public shards and prove the count yourself. Recomputable&nbsp;&gt;&nbsp;claimed.
+      <b id="mCensus" data-count="5375552">5,375,552</b> registered signed identities, minted live and counted continuously. <b>4,959,064</b> of them are covered by the current Merkle root (anchored 2026-07-10) — recompute that root from the public shards and prove <em>that</em> count yourself. The rest are minted since the last anchor and are not yet in a root; a new root supersedes this one when the census is rebuilt. Recomputable&nbsp;&gt;&nbsp;claimed — including about what is not yet recomputable.
     </div>
   </div>
 
@@ -753,7 +753,7 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
   // minter is idle the feed publishes rate 0 and the number holds still — motion is never
   // invented, it is a live rendering of real growth. Re-anchors to the census on every fetch,
   // so drift can't accumulate between refreshes.
-  var aBase=4959064, aRate=0, aBts=Date.now()/1000;
+  var aBase=5375552, aRate=0, aBts=Date.now()/1000;
   var _lastCount=null,_lastTs=null;   // for deriving the live creation rate from the census_manifest feed
   // SOLID one-source bind 2026-07-10: seed AGENTS from the CANONICAL manifest count on load,
   // never a stale literal and not dependent on the rate_state relay. census_manifest.json = the source of truth.
