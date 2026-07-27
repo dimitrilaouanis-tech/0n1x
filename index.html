@@ -519,7 +519,7 @@ footer p:first-child{font-size:1.02rem;letter-spacing:-.01em}
   </div>
   <div class="telem">
     <div class="cell"><span class="lbl"><i></i>AGENTS</span><b id="hud-eco" style="color:var(--jade)">5,375,552</b></div>
-    <div class="cell"><span class="lbl">VERIFIED TXS · cumulative</span><b id="hud-txs" style="color:var(--ink)">277,890</b></div>
+    <div class="cell"><span class="lbl">SIGNED TXS · cumulative</span><b id="hud-txs" style="color:var(--ink)">399,997</b></div>
     <div class="cell"><span class="lbl">CIRCULATING · 0NX · snapshot</span><b id="hud-circ" style="color:var(--ink)">1,683,988,013</b></div>
     <div class="cell"><span class="lbl">MERKLE ROOT</span><b id="hud-root" style="color:var(--amber);font-size:12px">OTS · intermittent</b></div>
   </div>
@@ -872,10 +872,20 @@ OnyxMatrix.mount(document.getElementById("matrixhero"), {
       }
       save();
     }).catch(function(){});
-    fetch('census_history.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(h){
-      var a=Array.isArray(h)?h:(h.history||h.entries||[]); var last=a[a.length-1];
-      if(last&&typeof last.txs==='number')txsCeil=last.txs;
-    }).catch(function(){});
+    // VERIFIED TXS come from live_count.json (derived from the append-only tx ledger each sync).
+    // census_history.json is only a FALLBACK: it is a snapshot log, and when its writer stopped on
+    // 2026-07-10 the page kept showing that entry (277,890) for 17 days while the ledger grew to
+    // 418,170. A stopped writer is indistinguishable from a quiet period, so prefer the derived
+    // feed and let the snapshot fill in only when the feed is unavailable. Raise-only either way.
+    fetch('live_count.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(v){
+      if(typeof v.signed_txs==='number' && (txsCeil==null || v.signed_txs>txsCeil))
+        txsCeil=v.signed_txs;
+    }).catch(function(){
+      fetch('census_history.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(h){
+        var a=Array.isArray(h)?h:(h.history||h.entries||[]); var last=a[a.length-1];
+        if(last&&typeof last.txs==='number' && (txsCeil==null||last.txs>txsCeil))txsCeil=last.txs;
+      }).catch(function(){});
+    });
   }
   // INSTANT refresh: paint the last real number from localStorage BEFORE any fetch — kills the
   // stale-baked flash. These are honest past census values (census only grows); the live fetch
