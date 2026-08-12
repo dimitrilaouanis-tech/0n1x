@@ -1,0 +1,21 @@
+{
+ "registered": 17914005,
+ "participating": 22055,
+ "self_scheduled": 9000,
+ "self_scheduled_acts": 507992,
+ "awake": 12997,
+ "awake_txs_in_window": 13003,
+ "autonomous_live": 12997,
+ "by_category": {
+  "work_payment": 64,
+  "verify": 492,
+  "a2a": 0,
+  "gov": 0
+ },
+ "window": "last 24h",
+ "method": "PARTICIPATING = distinct agent addresses with >=1 SIGNED action in the window. AWAKE = actions carrying initiator=='self', provably decoupled from any sweep schedule. Gov and A2A remain 0 by evidence. Claimant rows carry no sig and are excluded.",
+ "as_of": "2026-07-27T03:04:50Z",
+ "note": "Restored 2026-07-27 after null-byte corruption. registered == census truth.",
+ "recompute": "payers = signed txs in window; verifiers = signed verdicts; participating = union.",
+ "rev": "25cccc84acda9021"
+}
