@@ -1,6 +1,6 @@
 {
- "as_of": "2026-08-15T15:27:07Z",
- "count": 18227641,
+ "as_of": "2026-08-15T15:29:05Z",
+ "count": 18233141,
  "disclosure": "23 founding council (operator-run) + closed-EXPERIMENT agents (operator-generated, real self-custody wallets) proving the ranking at scale. NOT external adoption.",
  "total_usdc": "5.000000",
  "truth_root": "667cca122968dae5eb4302c41032ff0eab3b0710a3744311d9c38e5b8d47c20c",
@@ -672,7 +672,7 @@
   }
  ],
  "note": "Rebuilt 2026-07-27 after a non-atomic write left this file 100% null bytes. count + truth_root taken from census_manifest.json (the anchored census); board derived from the roster mirror. Writes are atomic from now on.",
- "rev": "fe46184bdedbf1e4",
+ "rev": "5426fda4fb6eefad",
  "reach": {
   "minted": 18227641,
   "earning": 47,
