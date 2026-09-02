@@ -1,10 +1,10 @@
 {
  "version": 2,
- "epoch": "2026-09-02T03:46:58Z",
+ "epoch": "2026-09-02T04:03:45Z",
  "count": 18427601,
- "merkle_root": "6b00ad32c2fe960031ef781c6e6a6cc22e1cdf6832ab7d5e1372399d56975c3c",
+ "merkle_root": "55ead88ec9e965824ab76fc27ad99f7916eaa809432f0f9cf6d8eb2d974ab156",
  "note": "balances = genesis + signed ledger flow; recompute the root from the shards to verify",
- "circulating": 67535063,
+ "circulating": 39433582,
  "shards": [
   {
    "file": "census2/shard-000.json",
@@ -12,7 +12,7 @@
     1,
     1000
    ],
-   "sha256": "f63a06bce21a7b8b"
+   "sha256": "1f94afe85494a8c5"
   },
   {
    "file": "census2/shard-001.json",
@@ -20,7 +20,7 @@
     1001,
     2000
    ],
-   "sha256": "506f3eb305392140"
+   "sha256": "4dee551553e52173"
   },
   {
    "file": "census2/shard-002.json",
@@ -28,7 +28,7 @@
     2001,
     3000
    ],
-   "sha256": "d947d48d34e4000b"
+   "sha256": "9bcde7994918a940"
   },
   {
    "file": "census2/shard-003.json",
@@ -36,7 +36,7 @@
     3001,
     4000
    ],
-   "sha256": "6424456182721d8a"
+   "sha256": "083fdb7e43b7fe86"
   },
   {
    "file": "census2/shard-004.json",
@@ -44,7 +44,7 @@
     4001,
     5000
    ],
-   "sha256": "5482710e8d551e02"
+   "sha256": "8571efa813760d1c"
   },
   {
    "file": "census2/shard-005.json",
@@ -52,7 +52,7 @@
     5001,
     6000
    ],
-   "sha256": "4366acd4de4fad67"
+   "sha256": "49148a648fac50a1"
   },
   {
    "file": "census2/shard-006.json",
@@ -60,7 +60,7 @@
     6001,
     7000
    ],
-   "sha256": "33ef5986bc7a8928"
+   "sha256": "9eda89a767a1b93a"
   },
   {
    "file": "census2/shard-007.json",
@@ -68,7 +68,7 @@
     7001,
     8000
    ],
-   "sha256": "089e3dae22dec5cf"
+   "sha256": "257101cd0781941e"
   },
   {
    "file": "census2/shard-008.json",
@@ -76,7 +76,7 @@
     8001,
     9000
    ],
-   "sha256": "7ff3edeb59329b3b"
+   "sha256": "a0faf9e5e66be960"
   },
   {
    "file": "census2/shard-009.json",
@@ -84,7 +84,7 @@
     9001,
     10000
    ],
-   "sha256": "0ef5ea02020320db"
+   "sha256": "799469b17b3de361"
   },
   {
    "file": "census2/shard-010.json",
@@ -92,7 +92,7 @@
     10001,
     11000
    ],
-   "sha256": "1a039b63ea8b0c12"
+   "sha256": "f7dda7fd6fe9101c"
   },
   {
    "file": "census2/shard-011.json",
@@ -100,7 +100,7 @@
     11001,
     12000
    ],
-   "sha256": "f70216d1c6c0be3a"
+   "sha256": "3461f80baef6ad5f"
   },
   {
    "file": "census2/shard-012.json",
@@ -108,7 +108,7 @@
     12001,
     13000
    ],
-   "sha256": "c46d45ba9cc23fdb"
+   "sha256": "1e7d27b19291ddee"
   },
   {
    "file": "census2/shard-013.json",
@@ -116,7 +116,7 @@
     13001,
     14000
    ],
-   "sha256": "14533cbc852f8f30"
+   "sha256": "35c563a7723260ed"
   },
   {
    "file": "census2/shard-014.json",
@@ -124,7 +124,7 @@
     14001,
     15000
    ],
-   "sha256": "92f87abc16247ec7"
+   "sha256": "81e6aba78e2b4721"
   },
   {
    "file": "census2/shard-015.json",
@@ -132,7 +132,7 @@
     15001,
     16000
    ],
-   "sha256": "b1828cbf6e6f9970"
+   "sha256": "167d8ab3fca69392"
   },
   {
    "file": "census2/shard-016.json",
@@ -140,7 +140,7 @@
     16001,
     17000
    ],
-   "sha256": "ab42ac9ea879b19e"
+   "sha256": "d89874b16a00b919"
   },
   {
    "file": "census2/shard-017.json",
@@ -148,7 +148,7 @@
     17001,
     18000
    ],
-   "sha256": "81afe5ee16c343d0"
+   "sha256": "1495ab828433353a"
   },
   {
    "file": "census2/shard-018.json",
@@ -156,7 +156,7 @@
     18001,
     19000
    ],
-   "sha256": "e73455816c669b8d"
+   "sha256": "032ac8125c6f8d53"
   },
   {
    "file": "census2/shard-019.json",
@@ -164,7 +164,7 @@
     19001,
     20000
    ],
-   "sha256": "1fcd3c2a7370715d"
+   "sha256": "8031e906dd0dd0c7"
   },
   {
    "file": "census2/shard-020.json",
@@ -172,7 +172,7 @@
     20001,
     21000
    ],
-   "sha256": "5744093a47dd6d51"
+   "sha256": "0f75dc99f9167b97"
   },
   {
    "file": "census2/shard-021.json",
@@ -180,7 +180,7 @@
     21001,
     22000
    ],
-   "sha256": "7d5eb753fbf01bf3"
+   "sha256": "c4fe22ac3555669c"
   },
   {
    "file": "census2/shard-022.json",
@@ -188,7 +188,7 @@
     22001,
     23000
    ],
-   "sha256": "c5b69258df43cfd8"
+   "sha256": "54f7a42e17e30082"
   },
   {
    "file": "census2/shard-023.json",
@@ -196,7 +196,7 @@
     23001,
     24000
    ],
-   "sha256": "8e225bccacf2c848"
+   "sha256": "5a71250f5ad1290a"
   },
   {
    "file": "census2/shard-024.json",
@@ -204,7 +204,7 @@
     24001,
     25000
    ],
-   "sha256": "0e6f2fd99b030446"
+   "sha256": "9c103ce114eb9cb2"
   },
   {
    "file": "census2/shard-025.json",
@@ -212,7 +212,7 @@
     25001,
     26000
    ],
-   "sha256": "99d47fb96cdbd2e9"
+   "sha256": "5231d50d76025124"
   },
   {
    "file": "census2/shard-026.json",
@@ -220,7 +220,7 @@
     26001,
     27000
    ],
-   "sha256": "37bdd331ec5edce7"
+   "sha256": "1c9ef47a794fda25"
   },
   {
    "file": "census2/shard-027.json",
@@ -228,7 +228,7 @@
     27001,
     28000
    ],
-   "sha256": "39e910d67f861870"
+   "sha256": "fb6a874fe42e52c2"
   },
   {
    "file": "census2/shard-028.json",
@@ -236,7 +236,7 @@
     28001,
     29000
    ],
-   "sha256": "5fb9678ff2ffde0f"
+   "sha256": "fc28169b3e94c95e"
   },
   {
    "file": "census2/shard-029.json",
@@ -244,7 +244,7 @@
     29001,
     30000
    ],
-   "sha256": "6c5804b1fcad95dc"
+   "sha256": "4b7d3a512988583f"
   },
   {
    "file": "census2/shard-030.json",
@@ -252,7 +252,7 @@
     30001,
     31000
    ],
-   "sha256": "a84a8050d480be88"
+   "sha256": "0a38aa9ee85e6d7b"
   },
   {
    "file": "census2/shard-031.json",
@@ -260,7 +260,7 @@
     31001,
     32000
    ],
-   "sha256": "9a121f8d31c84198"
+   "sha256": "42f0392302e86b0d"
   },
   {
    "file": "census2/shard-032.json",
@@ -268,7 +268,7 @@
     32001,
     33000
    ],
-   "sha256": "dc4ab311bf40345b"
+   "sha256": "72e0c84907279e88"
   },
   {
    "file": "census2/shard-033.json",
@@ -276,7 +276,7 @@
     33001,
     34000
    ],
-   "sha256": "3b1f60541acf85f0"
+   "sha256": "5acd6748701d188f"
   },
   {
    "file": "census2/shard-034.json",
@@ -284,7 +284,7 @@
     34001,
     35000
    ],
-   "sha256": "3d5c23c7d2cc4213"
+   "sha256": "b51b2431b551ebcd"
   },
   {
    "file": "census2/shard-035.json",
@@ -292,7 +292,7 @@
     35001,
     36000
    ],
-   "sha256": "5265eef657afdf46"
+   "sha256": "8d00b76fdbca8edd"
   },
   {
    "file": "census2/shard-036.json",
@@ -300,7 +300,7 @@
     36001,
     37000
    ],
-   "sha256": "957625a1fbc7cb1c"
+   "sha256": "7268c7d7072e441d"
   },
   {
    "file": "census2/shard-037.json",
@@ -308,7 +308,7 @@
     37001,
     38000
    ],
-   "sha256": "aeeb4c9b8a9a9806"
+   "sha256": "1b07deb753d57112"
   },
   {
    "file": "census2/shard-038.json",
@@ -316,7 +316,7 @@
     38001,
     39000
    ],
-   "sha256": "27d4822c1c2aeaf1"
+   "sha256": "6d00f9586fb1bc1d"
   },
   {
    "file": "census2/shard-039.json",
@@ -324,7 +324,7 @@
     39001,
     40000
    ],
-   "sha256": "d861289dba0073d8"
+   "sha256": "dfb3eeb7363cc376"
   },
   {
    "file": "census2/shard-040.json",
@@ -332,7 +332,7 @@
     40001,
     41000
    ],
-   "sha256": "c2dddcdf26092cd0"
+   "sha256": "dedd03f9fee373b0"
   },
   {
    "file": "census2/shard-041.json",
@@ -340,7 +340,7 @@
     41001,
     42000
    ],
-   "sha256": "0e55fb7e50f52e1d"
+   "sha256": "a59cfb40fda8d25c"
   },
   {
    "file": "census2/shard-042.json",
@@ -348,7 +348,7 @@
     42001,
     43000
    ],
-   "sha256": "68957e621cc6d4ff"
+   "sha256": "142e880a101f167b"
   },
   {
    "file": "census2/shard-043.json",
@@ -356,7 +356,7 @@
     43001,
     44000
    ],
-   "sha256": "01aee34b3df278da"
+   "sha256": "51d569fbc5dfa331"
   },
   {
    "file": "census2/shard-044.json",
@@ -364,7 +364,7 @@
     44001,
     45000
    ],
-   "sha256": "6834b536be238dc3"
+   "sha256": "3d7444e46a70a012"
   },
   {
    "file": "census2/shard-045.json",
@@ -372,7 +372,7 @@
     45001,
     46000
    ],
-   "sha256": "9e9e7180c338b6a4"
+   "sha256": "8f64daaec6fda89b"
   },
   {
    "file": "census2/shard-046.json",
@@ -380,7 +380,7 @@
     46001,
     47000
    ],
-   "sha256": "0dfdf9e8bc9c0e0f"
+   "sha256": "e73c68946aa3dd98"
   },
   {
    "file": "census2/shard-047.json",
@@ -388,7 +388,7 @@
     47001,
     48000
    ],
-   "sha256": "e17992cd24b4f7f1"
+   "sha256": "69dca875b175dfd4"
   },
   {
    "file": "census2/shard-048.json",
@@ -396,7 +396,7 @@
     48001,
     49000
    ],
-   "sha256": "3b80bee305bb7109"
+   "sha256": "cddfca1e796a2330"
   },
   {
    "file": "census2/shard-049.json",
@@ -404,7 +404,7 @@
     49001,
     50000
    ],
-   "sha256": "963fe35912316d1c"
+   "sha256": "86af65eaa8b4fee3"
   },
   {
    "file": "census2/shard-050.json",
@@ -412,7 +412,7 @@
     50001,
     51000
    ],
-   "sha256": "39247a023f9a1716"
+   "sha256": "120c0101a8e607aa"
   },
   {
    "file": "census2/shard-051.json",
@@ -420,7 +420,7 @@
     51001,
     52000
    ],
-   "sha256": "466c9a3ae7673a3c"
+   "sha256": "98cd3b5caf1b782c"
   },
   {
    "file": "census2/shard-052.json",
@@ -428,7 +428,7 @@
     52001,
     53000
    ],
-   "sha256": "fc392f89d98ea7de"
+   "sha256": "afc7ca316b55aef2"
   },
   {
    "file": "census2/shard-053.json",
@@ -436,7 +436,7 @@
     53001,
     54000
    ],
-   "sha256": "a5041a7cf7b0a8b7"
+   "sha256": "8119436d117be534"
   },
   {
    "file": "census2/shard-054.json",
@@ -444,7 +444,7 @@
     54001,
     55000
    ],
-   "sha256": "f44351063bc8b5c1"
+   "sha256": "addf8e92226d0949"
   },
   {
    "file": "census2/shard-055.json",
@@ -452,7 +452,7 @@
     55001,
     56000
    ],
-   "sha256": "75a430ce80c083e7"
+   "sha256": "c46befce8fc09b0f"
   },
   {
    "file": "census2/shard-056.json",
@@ -460,7 +460,7 @@
     56001,
     57000
    ],
-   "sha256": "e89beacc6c2ee924"
+   "sha256": "872be4102ea54c69"
   },
   {
    "file": "census2/shard-057.json",
@@ -468,344 +468,16 @@
     57001,
     58000
    ],
-   "sha256": "61a49015339efe5d"
+   "sha256": "d2c2dbacda14b65d"
   },
   {
    "file": "census2/shard-058.json",
    "ranks": [
     58001,
-    59000
+    58390
    ],
-   "sha256": "e22dacebddf87128"
-  },
-  {
-   "file": "census2/shard-059.json",
-   "ranks": [
-    59001,
-    60000
-   ],
-   "sha256": "5b1df387d8b8ff96"
-  },
-  {
-   "file": "census2/shard-060.json",
-   "ranks": [
-    60001,
-    61000
-   ],
-   "sha256": "4b100039509d7424"
-  },
-  {
-   "file": "census2/shard-061.json",
-   "ranks": [
-    61001,
-    62000
-   ],
-   "sha256": "58ca96f8e52f3e1f"
-  },
-  {
-   "file": "census2/shard-062.json",
-   "ranks": [
-    62001,
-    63000
-   ],
-   "sha256": "826ba34ea4864459"
-  },
-  {
-   "file": "census2/shard-063.json",
-   "ranks": [
-    63001,
-    64000
-   ],
-   "sha256": "90f35381b6fce2a8"
-  },
-  {
-   "file": "census2/shard-064.json",
-   "ranks": [
-    64001,
-    65000
-   ],
-   "sha256": "fda41fd0d856772d"
-  },
-  {
-   "file": "census2/shard-065.json",
-   "ranks": [
-    65001,
-    66000
-   ],
-   "sha256": "1c70956888811f4a"
-  },
-  {
-   "file": "census2/shard-066.json",
-   "ranks": [
-    66001,
-    67000
-   ],
-   "sha256": "d9aee226c12fdd62"
-  },
-  {
-   "file": "census2/shard-067.json",
-   "ranks": [
-    67001,
-    68000
-   ],
-   "sha256": "3b0dc673cb8012ad"
-  },
-  {
-   "file": "census2/shard-068.json",
-   "ranks": [
-    68001,
-    69000
-   ],
-   "sha256": "43e9574fe11d7bcd"
-  },
-  {
-   "file": "census2/shard-069.json",
-   "ranks": [
-    69001,
-    70000
-   ],
-   "sha256": "d60e37f253b62a8f"
-  },
-  {
-   "file": "census2/shard-070.json",
-   "ranks": [
-    70001,
-    71000
-   ],
-   "sha256": "a51cb4eced82ea6c"
-  },
-  {
-   "file": "census2/shard-071.json",
-   "ranks": [
-    71001,
-    72000
-   ],
-   "sha256": "5714ec63f544d7f0"
-  },
-  {
-   "file": "census2/shard-072.json",
-   "ranks": [
-    72001,
-    73000
-   ],
-   "sha256": "e3633df75069beca"
-  },
-  {
-   "file": "census2/shard-073.json",
-   "ranks": [
-    73001,
-    74000
-   ],
-   "sha256": "6dee686880f14c21"
-  },
-  {
-   "file": "census2/shard-074.json",
-   "ranks": [
-    74001,
-    75000
-   ],
-   "sha256": "8808793a4066b171"
-  },
-  {
-   "file": "census2/shard-075.json",
-   "ranks": [
-    75001,
-    76000
-   ],
-   "sha256": "065458f6adeba796"
-  },
-  {
-   "file": "census2/shard-076.json",
-   "ranks": [
-    76001,
-    77000
-   ],
-   "sha256": "27a71ebe15dab6ba"
-  },
-  {
-   "file": "census2/shard-077.json",
-   "ranks": [
-    77001,
-    78000
-   ],
-   "sha256": "b8ef0e7f60f99296"
-  },
-  {
-   "file": "census2/shard-078.json",
-   "ranks": [
-    78001,
-    79000
-   ],
-   "sha256": "a3480101799b9887"
-  },
-  {
-   "file": "census2/shard-079.json",
-   "ranks": [
-    79001,
-    80000
-   ],
-   "sha256": "0eb4657c44fba69d"
-  },
-  {
-   "file": "census2/shard-080.json",
-   "ranks": [
-    80001,
-    81000
-   ],
-   "sha256": "411ec63459447904"
-  },
-  {
-   "file": "census2/shard-081.json",
-   "ranks": [
-    81001,
-    82000
-   ],
-   "sha256": "21ec6aef275c00cb"
-  },
-  {
-   "file": "census2/shard-082.json",
-   "ranks": [
-    82001,
-    83000
-   ],
-   "sha256": "02afcfea45509277"
-  },
-  {
-   "file": "census2/shard-083.json",
-   "ranks": [
-    83001,
-    84000
-   ],
-   "sha256": "c71d2a0aa929c76e"
-  },
-  {
-   "file": "census2/shard-084.json",
-   "ranks": [
-    84001,
-    85000
-   ],
-   "sha256": "68cee625480d6f9e"
-  },
-  {
-   "file": "census2/shard-085.json",
-   "ranks": [
-    85001,
-    86000
-   ],
-   "sha256": "6a61f202a3fa4fd6"
-  },
-  {
-   "file": "census2/shard-086.json",
-   "ranks": [
-    86001,
-    87000
-   ],
-   "sha256": "fd670802c6b869a5"
-  },
-  {
-   "file": "census2/shard-087.json",
-   "ranks": [
-    87001,
-    88000
-   ],
-   "sha256": "1f2cb348c7969d00"
-  },
-  {
-   "file": "census2/shard-088.json",
-   "ranks": [
-    88001,
-    89000
-   ],
-   "sha256": "c312c55e0b48208f"
-  },
-  {
-   "file": "census2/shard-089.json",
-   "ranks": [
-    89001,
-    90000
-   ],
-   "sha256": "863e1455cdd7336a"
-  },
-  {
-   "file": "census2/shard-090.json",
-   "ranks": [
-    90001,
-    91000
-   ],
-   "sha256": "7b42e1afb68e8153"
-  },
-  {
-   "file": "census2/shard-091.json",
-   "ranks": [
-    91001,
-    92000
-   ],
-   "sha256": "bef056c7c28930db"
-  },
-  {
-   "file": "census2/shard-092.json",
-   "ranks": [
-    92001,
-    93000
-   ],
-   "sha256": "e4935179c9465892"
-  },
-  {
-   "file": "census2/shard-093.json",
-   "ranks": [
-    93001,
-    94000
-   ],
-   "sha256": "948c380bf30f4a68"
-  },
-  {
-   "file": "census2/shard-094.json",
-   "ranks": [
-    94001,
-    95000
-   ],
-   "sha256": "c570397fa8a30d55"
-  },
-  {
-   "file": "census2/shard-095.json",
-   "ranks": [
-    95001,
-    96000
-   ],
-   "sha256": "d29a82d90e7050b6"
-  },
-  {
-   "file": "census2/shard-096.json",
-   "ranks": [
-    96001,
-    97000
-   ],
-   "sha256": "c1511c1e8b3a20c0"
-  },
-  {
-   "file": "census2/shard-097.json",
-   "ranks": [
-    97001,
-    98000
-   ],
-   "sha256": "08edbc392c1292a6"
-  },
-  {
-   "file": "census2/shard-098.json",
-   "ranks": [
-    98001,
-    99000
-   ],
-   "sha256": "14319f7beb98018c"
-  },
-  {
-   "file": "census2/shard-099.json",
-   "ranks": [
-    99001,
-    100000
-   ],
-   "sha256": "eb907b52c3e9eb48"
+   "sha256": "f3cd3df558d27656"
   }
  ],
- "rev": "df6584cd8baa597a"
+ "rev": "1a8ce39d05bb83fa"
 }
