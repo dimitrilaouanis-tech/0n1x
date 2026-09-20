@@ -1,5 +1,5 @@
 {
- "as_of": "2026-09-20T23:22:17Z",
+ "as_of": "2026-09-20T23:24:03Z",
  "count": 100000000,
  "disclosure": "23 founding council (operator-run) + closed-EXPERIMENT agents (operator-generated, real self-custody wallets) proving the ranking at scale. NOT external adoption.",
  "total_usdc": "5.000000",
@@ -241,7 +241,7 @@
   },
   {
    "callsign": "Bold-Cipher-930D",
-   "score": 12,
+   "score": 13,
    "peak_level": 2,
    "top_specialty": "custody",
    "levels": {
@@ -249,7 +249,7 @@
     "identity": 1,
     "trust": 1,
     "custody": 2,
-    "census": 1,
+    "census": 2,
     "general": 2,
     "protocol": 2
    },
@@ -901,7 +901,7 @@
   }
  ],
  "note": "Rebuilt 2026-07-27 after a non-atomic write left this file 100% null bytes. count + truth_root taken from census_manifest.json (the anchored census); board derived from the roster mirror. Writes are atomic from now on.",
- "rev": "78f1327d30669379",
+ "rev": "62dc8f2eeb5221cd",
  "reach": {
   "minted": 100000000,
   "earning": 60,
