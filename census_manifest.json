@@ -1,7 +1,7 @@
 {
  "version": 2,
  "epoch": "2026-11-24T21:28:52Z",
- "count": 100000,
+ "count": 100000000,
  "merkle_root": "d09c345bd6081b1dacb0ee4d8a2ccaa476467116011958dfdb52c854dbd23ddb",
  "note": "balances = genesis + signed ledger flow; recompute the root from the shards to verify",
  "circulating": 67540513,
@@ -806,5 +806,6 @@
    ],
    "sha256": "53db5b2308e1e104"
   }
- ]
+ ],
+ "rev": "58cc41897f6e944f"
 }
